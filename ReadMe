@@ -1,5 +1,84 @@
-Testi readme
-Alexin testi readme2
-Kallen testi readme3
-Jemilan testi 
-Jemilan testi2
+Tuotteen keskeiset tavoitteet
+Projektin tavoitteena on luoda musiikkiaineistolle tietopankki, josta käyttäjän on helppo etsiä
+ja tarkastella eri genrejen alta artisteja, albumeita ja kappaleita. Käyttäjällä on myös
+mahdollisuus vaikuttaa olemassa olevaan tietoon ja tuottaa uutta tietoa lähettämällä lisäystai muokkauspyyntöjä ylläpitäjälle. Artisteilta käyttäjä voi tarkastella lyhyttä biografiaa ja
+levyistä julkaisuvuotta. Käyttäjä pystyy luomaan omia levykokoelmia ja arvostelemaan levyjä
+antaen arvosanan 1-5 ja kirjoittaen vaihtoehtoisesti jonkin arvostelun.
+
+Asiakas
+Pääasiassa asiakkaana tuotteella ovat tavalliset tietokoneen käyttäjät, joita kiinnostaa
+musiikkiin liittyvän aineiston tutkiminen ja aineistoon vaikuttaminen.
+
+Tarve
+Musiikkikirjasto kokoaa tiedon helposti hallittavaan ja käytettävään pakettiin, jolloin vältetään
+tiedon hajanaisuus ja etsimisen hitaus.
+
+Kilpailevat tuotteet
+Vastaavanlaisia tuotteita löytyy, esimerkiksi nettisivut Rate Your Music, jossa käyttäjät
+arvostelevat levyjä, sekä Discogs, jossa käyttäjä voi siirtää levykokoelmansa nettiin sekä
+myydä ja ostaa levyjä.
+
+Erona kilpailijoihin
+Kilpailijat ovat toteuttaneet nämä web-sovelluksina. Tuotteemme on
+standalone-pöytäkonesovellus joka toimii käyttäjien päätelaitteella. Tämän avulla, jos
+palvelin on kaatunut, käyttäjä voi silti katsella lokaalisti tallennettuja listoja.
+
+Toiminnot ja roolit
+
+Käyttäjä:
+Tiedon etsiminen
+Käyttäjä voi etsiä tietoa avainsanoilla ja kategorioilla artisteista, albumeista ja kappaleista.
+
+Biografian tarkastelu
+Käyttäjä voi halutessaan tarkastella lisätietoja artisteista.
+
+Albumin julkaisuvuosien tarkastelu
+Käyttäjä voi halutessaan tarkastella julkaisuvuosia albumeista.
+
+Genrejen, artistien, albumeiden ja kappaleiden lisäys
+Käyttäjä voi halutessaan lähettää lomakkeella pyyntöjä ylläpidolle uusien artistien, albumien
+ja kappaleiden lisäämistä varten.
+
+Artistien, albumien ja kappaleiden muokkaaminen/poistaminen
+Käyttäjä voi tarvittaessa lähettää muokkaus- tai poistopyynnön ylläpidolle artisteista,
+albumeista tai kappaleista, mikäli käyttäjän etsimä artisti/albumi/kappale ei löydy
+sovelluksesta.
+
+Albumien arvostelu
+Käyttäjä voi arvostella albumeja, joko numeroarvioinnin 1-5, tai vapaavalintaisen
+tekstikentän kautta.
+
+Käyttäjien oma levykokoelma
+Käyttäjät pystyvät luomaan halutessaan omia levykokoelmia listamuotoisesti. Erilliset
+kokoelmat ovat, joko käyttäjällä omistaa kyseisen levyn tai he haluavat levyn. Käyttäjä
+pystyy tarkastelemaan omaa levykokoelmaansa ja toivekokoelmaansa.
+
+Ylläpitäjä:
+Tiedon etsiminen
+Ylläpitäjä voi etsiä tietoa avainsanoilla ja kategorioilla artisteista, albumeista ja kappaleista.
+
+Biografian tarkastelu
+Ylläpitäjä voi tarkastella lisätietoja artisteista oikean tiedon varmistamiseksi.
+
+Albumin julkaisuvuosien tarkastelu
+Ylläpitäjä voi tarkastella julkaisuvuosia albumeista oikean tiedon varmistamiseksi.
+
+Genrejen, artistien, albumeiden ja kappaleiden lisäys
+Ylläpitäjä hyväksyy ja tarkastaa uusia lisäyspyyntöjä, jolla vältetään väärän tiedon
+lisääminen ja kirjoitusvirheitä.
+
+Artistien, albumien ja kappaleiden muokkaaminen
+Ylläpitäjä voi muokata olemassa olevien artistien, albumeiden ja kappaleiden tietoja.
+
+Artistien, albumien ja kappaleiden poistaminen
+Ylläpitäjä voi poistaa halutessaan artisteja, albumeja ja kappaleita tai hyväksyä käyttäjien
+muokkaus- ja poistotoimenpiteitä. Tämä toiminnalisuus antaa ylläpidolle mahdollisuuden
+korjata mahdollisia virheitä, jotka ovat saattaneet tapahtua genren/artistin/albumin
+lisäysvaiheessa (typot tai väärä tieto).
+
+Avoimet kysymykset ohjelmistotuotteessa:
+Miten käyttäjien/ylläpidon validointi hoidetaan sovelluksessa?
+-> Käytetäänkö kahta erillistä sovellusta? (Tietoturvariski)
+-> Palvelimen kautta validointi. -> Miten otetaan huomioon mahdolliset unohtuneet
+käyttäjätunnukset, salasanat, käyttäjän halu poistaa käyttäjätunnuksensa, etc
+
