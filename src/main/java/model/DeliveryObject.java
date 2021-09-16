@@ -2,30 +2,31 @@ package model;
 import java.util.*;
 
 /**
- * 
+ * Still a bit messy. Still needs the logic to add only single artists, genres, etc.
  */
 public class DeliveryObject {
 
-    private ArrayList<String> genreName;
-    private ArrayList<String> artistName;
-    private String artistBio;
-    private String albumName;
-    private Integer albumYear;
-    private ArrayList<String> songArray;
-    private ArrayList<Integer> songDuration;
-    private String inputType;
-
-
+    private String genreName = null;
+    private ArrayList<String> artistName = new ArrayList<>();
+    private String artistBio = null;
+    private String albumName = null;
+    private ArrayList<String> albumArtists = new ArrayList<>();
+    private ArrayList<String> albumGenres = new ArrayList<>();
+    private Integer albumYear = null;
+    private ArrayList<String> songArray = new ArrayList<>();
+    private ArrayList<Integer> songDuration = new ArrayList<>();
+    private String inputType = null;   
+    
     public DeliveryObject() {}
 
 
-    public ArrayList<String> getGenreName() {
+    public String getGenreName() {
         return genreName;
     }
 
-    public void setGenreName(ArrayList<String> genreName) {
+    public void setGenreName(String genreName) {
         this.genreName = genreName;
-        System.out.println("Nyt lisättiin" + genreName);
+        System.out.println("Nyt lisättiin: " + this.genreName);
     }
     
     public ArrayList<String> getArtistName() {
@@ -35,6 +36,7 @@ public class DeliveryObject {
     
     public void setArtistName(ArrayList<String> artistName) {
     	this.artistName = artistName;
+    	System.out.println("Nyt lisättiin: " + this.artistName);
     }
 
     public String getArtistBio() {
@@ -43,6 +45,7 @@ public class DeliveryObject {
 
     public void setArtistBio(String artistBio) {
         this.artistBio = artistBio;
+        System.out.println("Nyt lisättiin: " + this.artistBio);
     }
 
     public String getAlbumName() {
@@ -51,6 +54,7 @@ public class DeliveryObject {
 
     public void setAlbumName(String albumName) {
         this.albumName = albumName;
+        System.out.println("Nyt lisättiin: " + this.albumName);
     }
 
     public int getAlbumYear() {
@@ -59,7 +63,29 @@ public class DeliveryObject {
 
     public void setAlbumYear(int albumYear) {
         this.albumYear = albumYear;
+        System.out.println("Nyt lisättiin: " + this.albumYear);
     }
+    
+    public ArrayList<String> getAlbumArtists() {
+		return albumArtists;
+	}
+
+
+	public void setAlbumArtists(ArrayList<String> albumArtists) {
+		this.albumArtists = albumArtists;
+	}
+
+
+	public ArrayList<String> getAlbumGenres() {
+		return albumGenres;
+	}
+
+
+	public void setAlbumGenres(ArrayList<String> albumGenres) {
+		this.albumGenres = albumGenres;
+		System.out.println("Nyt lisättiin: " + this.albumGenres);
+	}
+
 
     public ArrayList<String> getSongArray() {
         return songArray;
@@ -67,6 +93,7 @@ public class DeliveryObject {
 
     public void setSongArray(ArrayList<String> songArray) {
         this.songArray = songArray;
+        System.out.println("Nyt lisättiin: " + this.songArray);
     }
     
     public ArrayList<Integer> getSongDuration() {
@@ -75,6 +102,7 @@ public class DeliveryObject {
     
     public void setSongDuration(ArrayList<Integer> songDuration) {
     	this.songDuration = songDuration;
+    	System.out.println("Nyt lisättiin: " + this.songDuration);
     }
 
     public String getInputType() {
@@ -83,10 +111,11 @@ public class DeliveryObject {
 
     public void setInputType(String inputType) {
         this.inputType = inputType;
+        System.out.println("Nyt lisättiin: " + this.inputType);
     }
 
     /**
-     * @return
+     * Method used to clear deliveryObject. Might be obsolete if a .clear() exists higher in the hierarchy
      */
     public void clearDelivery() {
         this.genreName = null;
@@ -98,4 +127,6 @@ public class DeliveryObject {
         this.inputType = null;
     }
 
+
+	
 }
