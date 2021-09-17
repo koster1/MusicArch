@@ -29,12 +29,13 @@ public class JDBCMain {
 	 * @return a boolean, whether the sending worked or not
 	 */
 	
-	public boolean sendToDatabase(String sqlQuery) {	
+	public boolean sendToDatabase(String sqlQuery) {		
 		try(PreparedStatement sqlConn = conn
 				.prepareStatement(sqlQuery)){
 			sqlConn.executeUpdate();
 			return true;
 		}catch(SQLException e) {System.out.println("Something went wrong in creating an entry: "+e.getMessage());}
+		
 		return false;		
 	}
 	
@@ -85,10 +86,8 @@ public class JDBCMain {
 			rs = stmt.executeQuery(sqlQuery);
 			while(rs.next()) {
 				Integer foundID = rs.getInt("genreID");
-				String foundName = rs.getString("genreNimi");
-				System.out.println("Search results were as follows. Found a genre named:  "+ foundName +" And then the actual ID of this genre was: "+foundID);
+				System.out.println("Search results were as follows.  And then the actual ID of this genre was: "+foundID);
 			}
-			conn.close();
 		}catch(Exception e) {
 			System.err.println("Something went wrong: "+e.getMessage());
 		}
@@ -106,30 +105,29 @@ public class JDBCMain {
 				result = rs.getString(0);
 				System.out.println("Found this name with the ID search -> "+ result);
 			}
-			conn.close();
 		}catch(Exception e) {
 			System.err.println("Something went wrong: "+e.getMessage());
 		}
 		return result;
 	}
 	
-	public Integer searchID(String sqlQuery) {
-		Integer resultID = null;
+	public ArrayList<Integer> searchID(String sqlQuery) {
+		ArrayList<Integer> resultIDs = new ArrayList<>();
+		System.out.println("This is the sql Query in searchID -> "+sqlQuery);
 		
 		try {
 			ResultSet rs;
 			Statement stmt = conn.createStatement();
 			rs = stmt.executeQuery(sqlQuery);
-			
 			while(rs.next()) {
-				resultID = rs.getInt(0);
-				System.out.println("Found this ID -> " +resultID);
+				resultIDs.add(rs.getInt("genreID"));
+				System.out.println("Found this ID -> " +rs.getInt("genreID"));		
 			}
-			conn.close();
+			return resultIDs;
 		}catch(Exception e) {
 			System.err.println("Something went wrong: "+e.getMessage());
 		}
-		return resultID;
+		return resultIDs;
 	}
 	
 	
@@ -138,13 +136,21 @@ public class JDBCMain {
 	 * Maybe convert initial query into lower case, pull info from database and convert those into lower case as well, then compare the pairs? 
 	 * -> Would at least allow the database to have genres like "Black Metal" where some letters are capitalized, instead of just forcing everything in as either upper or lower case.
 	 */
-	private boolean existsInDatabase() {
-		
-		return false;
+	public boolean existsInDatabase(String lookingFor) {
+		try {
+			ResultSet rs;
+			Statement stmt = conn.createStatement();
+			rs = stmt.executeQuery(lookingFor);
+			System.out.println("Checking rs was null thingy -> ");
+			if(rs.next() == false) {return false;}
+		}catch(Exception e) {
+			System.err.println("Something went wrong: "+e.getMessage());
+		}
+		return true;	
 	}
 	
 	/*
-	 * Needs logic to check if we are allowed to delete a given entry.
+	 * Needs logic to check if we are allowed to delete a given entry. If album only has one genre, this should return false
 	 */
 	private boolean canDelete() {
 		

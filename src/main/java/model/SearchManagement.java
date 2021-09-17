@@ -11,32 +11,34 @@ public class SearchManagement {
 	
 	//This is a test list. Do not take seriously. Hopefully a better way for this can be found.
 	ArrayList<DeliveryObject> resultObjects = new ArrayList<DeliveryObject>();
+	String genreSearchTest = null;
 	char singleQuotesChar ='"';
 	
 	public SearchManagement() {}
 	
-	public ArrayList<DeliveryObject> searchAll(String searchQuery){
-		searchGenres(searchQuery);
-		searchArtists(searchQuery);
-		searchAlbums(searchQuery);
-		searchSongs(searchQuery);
+	public Integer searchAll(String searchQuery){
+		//searchGenres(searchQuery);
+		//searchArtists(searchQuery);
+		//searchAlbums(searchQuery);
+		//searchSongs(searchQuery);
+		int resultINT = searchGenreID(searchQuery);
 		
-		return resultObjects;
+		return resultINT;
 	}
 	
 	//The idea with these ones is that it's the "search everything" kind of method. So the user searches all genres for things that are "like" whatever they put in. 
 	//We should likely put the user's searches into lower-caps in case SQL is case-sensitive, maybe... How about special characters, will they be a problem?
-	private ArrayList<DeliveryObject> searchGenres(String searchQuery){
+	private String searchGenres(String searchQuery){
 		
 		System.out.println("Did we get into the genre search?");
 		String updateString =
         		"SELECT * FROM genre WHERE genreNimi LIKE "+singleQuotesChar+"%"+searchQuery+"%"+singleQuotesChar+";";
 		System.out.println("Sent this query -> "+updateString);
 		
-		resultObjects = dao.searchDatabase(updateString);
+		genreSearchTest = dao.searchName(searchQuery);
 		
-		System.out.println("This is what we got from the query -> "+resultObjects);
-		return resultObjects;	
+		System.out.println("This is what we got from the query -> "+genreSearchTest);
+		return genreSearchTest;	
 	}
 	
 	private ArrayList<DeliveryObject> searchArtists(String searchQuery){
@@ -71,22 +73,24 @@ public class SearchManagement {
 	public Integer searchGenreID(String genreName) {
 		String updateString =
 				"SELECT genreID FROM genre WHERE genreNimi LIKE "+singleQuotesChar+"%"+genreName+"%"+singleQuotesChar+";";
-		return dao.searchID(updateString);
+		System.out.println("This is now in searchGenreID and got this result -> "+dao.searchID(updateString));
+		
+		return dao.searchID(updateString).get(0);
 	}
 	public Integer searchArtistID(String artistName) {
 		String updateString =
 				"SELECT artistiID FROM artist WHERE artistiNimi LIKE "+singleQuotesChar+"%"+artistName+"%"+singleQuotesChar+";";
-		return dao.searchID(updateString);
+		return dao.searchID(updateString).get(0);
 	}
 	public Integer searchAlbumID(String albumName) {
 		String updateString =
 				"SELECT albumiID FROM albumi WHERE albumiNimi LIKE "+singleQuotesChar+"%"+albumName+"%"+singleQuotesChar+";";
-		return dao.searchID(updateString);
+		return dao.searchID(updateString).get(0);
 	}
 	public Integer searchSongID(String songName) {
 		String updateString =
 				"SELECT kappaleID FROM kappale WHERE kappaleNimi LIKE "+singleQuotesChar+"%"+songName+"%"+singleQuotesChar+";";
-		return dao.searchID(updateString);
+		return dao.searchID(updateString).get(0);
 	}
 	
 	//These ones collectively search the name of any given ID
