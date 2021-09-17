@@ -1,1 +1,14 @@
 /target/
+/.classpath/
+/.settings/
+/bin/
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.7z
+*.zip
+*.log
+*.sql
+*.sqlite
