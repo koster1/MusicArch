@@ -1,6 +1,6 @@
 package model;
 
-/*
+/*//HIGH PRIORITY!! -> CHANGE TO HIBERNATE -> Much better for controlling many-to-many; many-to-one, etc! This is placeholder code to get the functionality tested
  * Class is meant to manage the different deletion requests from admin-user. This is pretty boilerplate, and shouldn't come into effect all too much. All methods currently handle removal requests by their respective IDs, NOT names. 
  * Might be worth adding some extra logic to this later on.
  */
