@@ -65,10 +65,8 @@ public class GenreTest {
 		deliveryObject.setInputType(genreInputType);
 		deliveryObject.setGenreName(givenGenre);
 		
-		inputManagement.checkType(deliveryObject);
-		
-		NullPointerException e = assertThrows(NullPointerException.class, new Executable() {
-			public void execute() throws Throwable {
+		Exception e = assertThrows(Exception.class, new Executable() {
+			public void execute() throws Throwable {				
 				inputManagement.checkType(deliveryObject);
 			}
 		});
