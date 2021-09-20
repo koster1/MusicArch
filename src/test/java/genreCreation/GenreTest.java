@@ -60,6 +60,7 @@ public class GenreTest {
 	}
 	
 	@Test
+	@Order(5)
 	@DisplayName("Adding the same genre twice")
 	public void createMultGenre() throws Exception {
 		deliveryObject.setInputType(genreInputType);
@@ -77,7 +78,6 @@ public class GenreTest {
 	@Order(4)
 	@DisplayName("Delete genre from database")
 	public void deleteGenre() {
-		System.out.println("DELETE TEST!!!!");
 		int foundID = searchManager.searchGenreID(givenGenre);	
 		deletionManagement.removeGenre(foundID);
 		assertEquals(null, searchManager.searchGenre(foundID), "Expected to not find Black Metal!");
