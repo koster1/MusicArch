@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Kappale")
-public class Kappale {
+public class Song {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
