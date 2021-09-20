@@ -21,7 +21,7 @@ public class Main extends Application {
 
         initRootLayout();
 
-        showPersonOverview();
+        ShowForm();
     }
     
     /**
@@ -44,17 +44,17 @@ public class Main extends Application {
     }
 
     /**
-     * Shows the person overview inside the root layout.
+     * Shows the form inside the root layout.
      */
-    public void showPersonOverview() {
+    public void ShowForm() {
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("view/TestiLomake.fxml"));
-            AnchorPane personOverview = (AnchorPane) loader.load();
+            AnchorPane form = (AnchorPane) loader.load();
             
-            // Set person overview into the center of root layout.
-            rootLayout.setCenter(personOverview);
+            // Set form into the center of root layout.
+            rootLayout.setCenter(form);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -68,13 +68,14 @@ public class Main extends Application {
 		return primaryStage;
 	}
 	public static void main(String args[]) {
-		launch(args);
+	//	launch(args);
 
 		//These are for testing purposes! The given values should be given to the Controller by the UI, not main! Main only exists to start the program and set the GUI!		
 		Controller controller = new Controller();
 		controller.setInputManagement();
 	
 		System.out.println("End of program!");
+		
 
 		
 		//System.out.println(controller + " aaa");

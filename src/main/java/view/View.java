@@ -14,7 +14,7 @@ public class View extends Application{
 	public void start(Stage stage) throws Exception {
 		// TODO Auto-generated method stub
 		// Create the FXMLLoader 
-        FXMLLoader loader = new FXMLLoader();
+  /*      FXMLLoader loader = new FXMLLoader();
         // Path to the FXML File
         String fxmlDocPath = "./TestiLomake.fxml";
         FileInputStream fxmlStream = new FileInputStream(fxmlDocPath);
@@ -30,7 +30,7 @@ public class View extends Application{
         stage.setTitle("A FXML Example with a Controller");
         // Display the Stage
         stage.show();
-		
+	*/	
 	}
 	
 }

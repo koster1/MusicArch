@@ -28,7 +28,9 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-media</artifactId>
+                <type>pom</type>         
             <version>11</version>
+            
         </dependency>
 	<dependency>
     <groupId>org.mariadb.jdbc</groupId>

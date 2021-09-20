@@ -17,8 +17,7 @@ public class GUIController {
     String Genretxt;
 
     @FXML void SendGenreClicked(ActionEvent event) {    	
-    	Genretxt = GenreAddTxtField.getText();
-}
+    	Genretxt = GenreAddTxtField.getText(); }
 
 
 
