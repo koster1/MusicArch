@@ -11,18 +11,17 @@ public class DAO {
 	static Session session;
 	static SessionFactory sessionFactory;
 	
-	private static SessionFactory buildSessionFactory() {
-		Configuration config = new Configuration();
-		config.configure("hibernate.cfg.xml");
-		
-		ServiceRegistry serviceReg = new StandardServiceRegistryBuilder().applySettings(config.getProperties()).build();
-		
-		sessionFactory = config.buildSessionFactory(serviceReg);
-		return sessionFactory;
-	}
+//	private static SessionFactory buildSessionFactory() {
+//		Configuration config = new Configuration();
+//		config.configure("hibernate.cfg.xml");
+//		
+//		ServiceRegistry serviceReg = new StandardServiceRegistryBuilder().applySettings(config.getProperties()).build();
+//		
+//		sessionFactory = config.buildSessionFactory(serviceReg);
+//		return sessionFactory;
+//	}
 	
-	public DAO(){
-		
+	public DAO(){	
 		try {
 			sessionFactory = new Configuration().configure().buildSessionFactory();
 			}catch(Exception e){		
@@ -34,17 +33,23 @@ public class DAO {
 //		SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
 	}
 	
-	public void finalize() {
-		try {
-			if(sessionFactory != null)
-				sessionFactory.close();
-		}catch(Exception e) {
-			System.err.println("Session factory couldn't be closed: "+e.getMessage());
-		}
-	}
 	
+	/*
+	 * Method used to create a new genre in the database. Will first iterate through all found genreNames, to ensure that it will not allow the creation of a genre that already exists.
+	 * TESTED - Works
+	 */
 	public boolean createGenre(Genre genre) {
-		System.out.println("We got this - >"+genre.getGenreID());
+		Genre[] genreSearch;
+		genreSearch = readGenres();
+		
+		//First loop to check whether a given genre is already found within the database
+		for(int i = 0; i < genreSearch.length; i++) {			
+			if(genreSearch[i].getGenreName().equals(genre.getGenreName())) {
+				System.out.println("This one already exists! Can't add it!");
+				return false;
+			}
+		}
+		
 		
 		Transaction transAct = null;
 		
@@ -79,7 +84,7 @@ public class DAO {
 
 	}
 	
-	public Genre[] readGenret() {
+	public Genre[] readGenres() {
 		
 		Transaction transAct = null;
 		try (Session session = sessionFactory.openSession()) {
@@ -95,6 +100,16 @@ public class DAO {
 			if (transAct != null)
 				transAct.rollback();
 			throw e;
+		}
+	}
+	
+	
+	public void finalize() {
+		try {
+			if(sessionFactory != null)
+				sessionFactory.close();
+		}catch(Exception e) {
+			System.err.println("Session factory couldn't be closed: "+e.getMessage());
 		}
 	}
 	

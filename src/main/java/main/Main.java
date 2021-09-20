@@ -22,18 +22,17 @@ public class Main {
 		
 		Genre[] testList;
 		
-		testList = dao.readGenret();
+		testList = dao.readGenres();
 		
 		for(int i = 0; i<testList.length; i++) {
 			System.out.println("Genren: "+testList[i].getGenreName()+" ID on: "+testList[i].getGenreID());
 		}
 		
 		
-//		Genre genre1 = new Genre();
-//		
-//		genre1.setGenreName("WowzersGenre");
-//		System.out.println(dao.createGenre(genre1));
-		//dao.createGenre(genre1);
+		Genre genre1 = new Genre();
+		
+		genre1.setGenreName("UmpteenthGenre");
+		dao.createGenre(genre1);
 		
 //		Genre genreTest = new Genre();
 //		genreTest.setGenreName("TubularGenre2");
