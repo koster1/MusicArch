@@ -68,7 +68,7 @@ public class Main extends Application {
 		return primaryStage;
 	}
 	public static void main(String args[]) {
-	//	launch(args);
+		launch(args);
 
 		//These are for testing purposes! The given values should be given to the Controller by the UI, not main! Main only exists to start the program and set the GUI!		
 		Controller controller = new Controller();
