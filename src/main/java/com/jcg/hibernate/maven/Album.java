@@ -40,5 +40,4 @@ public class Album {
 	public void setAlbumYear(int albumYear) {
 		this.albumYear = albumYear;
 	}
-	
 }

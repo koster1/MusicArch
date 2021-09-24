@@ -34,6 +34,10 @@ public class Main {
 			System.out.println("Genren: "+testList[i].getGenreName()+" ID on: "+testList[i].getGenreID());
 		}
 		
+		Genre testSearch = new Genre();
+		testSearch = dao.searchGenre("TubularGenre");
+		System.out.println("Found this -> "+testSearch.getGenreName());
+		
 		
 //		Genre genre1 = new Genre();
 //		
