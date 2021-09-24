@@ -31,7 +31,7 @@ public class Artist {
 	public String getArtistName() {
 		return artistName;
 	}
-	public void setArtisteName(String artistName) {
+	public void setArtistName(String artistName) {
 		this.artistName = artistName;
 	}
 	public String getArtistBio() {

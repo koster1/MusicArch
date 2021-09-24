@@ -14,19 +14,8 @@ import model.*;
  */
 public class Controller {
 
-    
-    
-    //These are for testing purposes!! Controller gets this info from View!
-    private String givenGenre = "Black Metal";
-    private String givenArtist = "Johnny Cash";
-    private String givenAlbumName = "Black Sabbath";
-    private String givenAlbumGenre = "Heavy Metal";
-    
     private RemoteDAO remoteDAO = new RemoteDAO();
     
-    private ArrayList<String> givenSongList = new ArrayList<String>();
-    private ArrayList<Integer> givenSongDurations = new ArrayList<Integer>();    
-    //These are for testing purposes!! Controller gets this info from View!  
 
 
     /**
@@ -35,17 +24,79 @@ public class Controller {
     public Controller() {
     	
     }
+    
+    //Luominen tietokantaan
     public void createGenre(String genreName) {
     	Genre newGenre = new Genre();
+    	newGenre.setGenreName(genreName);
+    	remoteDAO.createGenre(newGenre);
+    	
     }
-    public void createArtist(String artistName) {
-    	Artist newArtisti = new Artist();
+    public void createArtist(String artistName, String artistBio) {
+    	Artist newArtist = new Artist();
+    	newArtist.setArtistName(artistName);
+    	newArtist.setArtistBio(artistBio);
+    	remoteDAO.createArtist(newArtist);
     }
-    public void createAlbum(String albumName) {
+    public void createAlbum(String albumName, Song[] songListGiven, int albumYear, Genre[] genreListGiven, Artist[] artistListGiven ) {
     	Album newAlbum = new Album();
-    	Song newSong = new Song();
+    	Song[] songList = new Song[songListGiven.length];
+    	newAlbum.setAlbumName(albumName);
+    	newAlbum.setAlbumYear(albumYear);
+    	remoteDAO.createAlbum(newAlbum, songList);
     }
     
+    //Tallennus paikalliseen tietokantaan.
+    
+    //LocalDAO puuttuu, joten metodit jäävät kesken.
+    
+    public void saveGenre(String genreID) {
+    	Genre saveGenre = new Genre();
+    	saveGenre = remoteDAO.readGenre(genreID);
+    }
+    public void saveArtist(String artistID) {
+    	Artist saveArtist = new Artist();
+    	saveArtist = remoteDAO.readArtist(artistID);
+    }
+    public void saveAlbum(String albumID) {
+    	Album saveAlbum = new Album();
+    	saveAlbum = remoteDAO.readAlbum(albumID);
+    }
+    //Tietokannan muokkaus
+    
+    public void editGenre(String genreID, String genreName) {
+    	Genre editGenre = new Genre();
+    	int editID = Integer.parseInt(genreID);
+    	editGenre.setGenreName(genreName);
+    	remoteDAO.editGenre(editGenre, editID);
+    }
+    public void editArtist(String artistID, String artistName, String artistBio) {
+    	Artist editArtist = new Artist();
+    	int editID = Integer.parseInt(artistID);
+    	editArtist.setArtistName(artistName);
+    	editArtist.setArtistBio(artistBio);
+    	remoteDAO.editArtist(editArtist, editID);
+    }
+    public void editAlbum(String albumID, String albumName, Song[] songListGiven, int albumYear) {
+    	Album editAlbum = new Album();
+    	int editID = Integer.parseInt(albumID);
+    	editAlbum.setAlbumName(albumName);
+    	editAlbum.setAlbumYear(albumYear);
+    	remoteDAO.editAlbum(editAlbum, null, editID);
+    }
+    //Poistaminen Tietokannasta
+    public void removeGenre(String genreID) {
+    	int removeID = Integer.parseInt(genreID);
+    	remoteDAO.removeGenre(removeID);
+    }
+    public void removeArtist(String artistID) {
+    	int removeID = Integer.parseInt(artistID);
+    	remoteDAO.removeArtist(removeID);
+    }
+    public void removeAlbum(String albumID) {
+    	int removeID = Integer.parseInt(albumID);
+    	remoteDAO.removeAlbum(removeID);
+    }
     
 
 }
