@@ -2,6 +2,8 @@ package model;
 
 import java.util.ArrayList;
 
+//HIGH PRIORITY!! -> CHANGE TO HIBERNATE -> Much better for controlling many-to-many; many-to-one, etc! This is placeholder code to get the functionality tested
+
 //Purpose of this class is to manage search inputs. Unsure what exactly each method should return. Considering the fact that if they return a list of our delivery objects, it should technically work? There must be a better way. JSON?
 //-> At least if they all come out as deliveryObjects, assigning them and referring to them should be easy, but this feels wrong, somehow. There must be a better way to get the results.
 
@@ -29,7 +31,6 @@ public class SearchManagement {
 	//The idea with these ones is that it's the "search everything" kind of method. So the user searches all genres for things that are "like" whatever they put in. 
 	//We should likely put the user's searches into lower-caps in case SQL is case-sensitive, maybe... How about special characters, will they be a problem?
 	private String searchGenres(String searchQuery){
-		
 		System.out.println("Did we get into the genre search?");
 		String updateString =
         		"SELECT * FROM genre WHERE genreNimi LIKE "+singleQuotesChar+"%"+searchQuery+"%"+singleQuotesChar+";";
@@ -72,7 +73,7 @@ public class SearchManagement {
 	//Should also all be lists, in case we have someone searching like... "Metal" -> Can return "Black Metal," "Heavy Metal," "Death Metal," etc...
 	public Integer searchGenreID(String genreName) {
 		String updateString =
-				"SELECT genreID FROM genre WHERE genreNimi LIKE "+singleQuotesChar+"%"+genreName+"%"+singleQuotesChar+";";
+				"SELECT genreID FROM genre WHERE genreNimi like "+singleQuotesChar+"%"+genreName+"%"+singleQuotesChar+";";
 		System.out.println("This is now in searchGenreID and got this result -> "+dao.searchID(updateString));
 		
 		return dao.searchID(updateString).get(0);

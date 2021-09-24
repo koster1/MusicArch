@@ -2,35 +2,38 @@ package view;
 
 import java.io.FileInputStream;
 
+import controller.GUIController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class View extends Application{
+public class View extends Application {
+
+    private Stage primaryStage;
+    private BorderPane rootLayout;
+	
+	public static void main(String[] args) {
+		launch(args);
+	}
+
+	/*
+	 * public void init() { GUIController guiController = new GUIController(this); }
+	 */
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		// TODO Auto-generated method stub
-		// Create the FXMLLoader 
-  /*      FXMLLoader loader = new FXMLLoader();
-        // Path to the FXML File
-        String fxmlDocPath = "./TestiLomake.fxml";
-        FileInputStream fxmlStream = new FileInputStream(fxmlDocPath);
- 
-        // Create the Pane and all Details
-        VBox root = (VBox) loader.load(fxmlStream);
- 
-        // Create the Scene
-        Scene scene = new Scene(root);
-        // Set the Scene to the Stage
-        stage.setScene(scene);
-        // Set the Title to the Stage
-        stage.setTitle("A FXML Example with a Controller");
-        // Display the Stage
-        stage.show();
-	*/	
+
+		System.out.println("Näkymää ladataan..");
+		AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/fxmlFiles/genrelisays.fxml"));
+		stage.setTitle("MusicArch");
+		stage.setScene(new Scene(root));
+		stage.show();
+
 	}
-	
+
 }

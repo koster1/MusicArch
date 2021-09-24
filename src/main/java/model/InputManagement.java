@@ -1,7 +1,7 @@
 package model;
 import java.util.*;
 
-/**
+/**HIGH PRIORITY!! -> CHANGE TO HIBERNATE -> Much better for controlling many-to-many; many-to-one, etc! This is placeholder code to get the functionality tested
  * 
  */
 public class InputManagement {
@@ -21,8 +21,9 @@ public class InputManagement {
      * Each addition-method will get the deliveryObject, and then parse the information into a prepared statement before sending it to the database connector
      * @param inputType
      * @return
+     * @throws Exception 
      */
-    public void checkType(DeliveryObject deliveryObject) {    	
+    public void checkType(DeliveryObject deliveryObject) throws Exception {    	
     	switch(deliveryObject.getInputType()) {
     	case "GENRE":
     		addGenre(deliveryObject);
@@ -44,14 +45,16 @@ public class InputManagement {
     /**
      * @param genre
      * @return
+     * @throws Exception 
      */
-    public void addGenre(DeliveryObject deliveryObject) {
+    public void addGenre(DeliveryObject deliveryObject) throws Exception {
     	String testString = 
 				"SELECT * FROM genre WHERE genreNimi = "+singleQuotesChar+deliveryObject.getGenreName().toString().toLowerCase()+singleQuotesChar;
     			
-    	if(dao.existsInDatabase(testString)) {
-    		System.out.println("This one already exists! Can't add it.");
-    		}
+    	if(dao.existsInDatabase(testString)) throw new Exception("This one already exists! Can't add it!");
+    		//{
+    		//System.out.println("This one already exists! Can't add it.");
+    		//}
     	else {
         String updateString =
         		"INSERT INTO genre (genreNimi) VALUES ("+singleQuotesChar+deliveryObject.getGenreName()+singleQuotesChar+");";

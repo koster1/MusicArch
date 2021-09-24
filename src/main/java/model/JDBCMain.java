@@ -2,7 +2,7 @@ package model;
 import java.sql.*;
 import java.util.ArrayList;
 
-/*
+/*//HIGH PRIORITY!! -> CHANGE TO HIBERNATE -> Much better for controlling many-to-many; many-to-one, etc! This is placeholder code to get the functionality tested
  * Class used to create a connection between the program and the database.
  */
 
@@ -77,8 +77,7 @@ public class JDBCMain {
 	 * Problem here now is that we are allowing the addition of multiple things with the exact same values. 
 	 * Contains lots of test code.
 	 */
-	public ArrayList<DeliveryObject> searchDatabase(String sqlQuery) {
-		//String results = "The result of the query. Possibly formatted as a JSON?"; 
+	public ArrayList<DeliveryObject> searchDatabase(String sqlQuery) { 
 		ArrayList<DeliveryObject> test = new ArrayList<DeliveryObject>();
 		
 		try{
@@ -96,14 +95,13 @@ public class JDBCMain {
 	}
 	
 	public String searchName(String sqlQuery) {
-		String result = null;
-		
+		String result = null;		
 		try {
 			ResultSet rs;
 			Statement stmt = conn.createStatement();
 			rs = stmt.executeQuery(sqlQuery);
 			while(rs.next()) {
-				result = rs.getString(0);
+				result = rs.getString(1); //Pray tell why the response-array starts counting its indices at ONE instead of zero :c
 				System.out.println("Found this name with the ID search -> "+ result);
 			}
 		}catch(Exception e) {
@@ -142,8 +140,7 @@ public class JDBCMain {
 			ResultSet rs;
 			Statement stmt = conn.createStatement();
 			rs = stmt.executeQuery(lookingFor);
-			System.out.println("Checking rs was null thingy -> ");
-			if(rs.next() == false) {return false;}
+			if(rs.next() == false) {return false;} //This is the check whether the response was an "empty string" or not
 		}catch(Exception e) {
 			System.err.println("Something went wrong: "+e.getMessage());
 		}

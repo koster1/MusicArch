@@ -41,7 +41,7 @@ public class Controller {
     //deliveryObject.setArtistName(GUI.getArtistName)?
     //Which means, at least for simulating it here, we can just assume the information comes from the GUI, where the controller fetches it, essentially?
     //Note, this is going to get messy and likely become a very bloated method. Maybe do a switch case? Checks which type we are adding, then make an "inputGenre/Artist/Album" type methods?
-    public void setInputManagement() {
+    public void setInputManagement() throws Exception {
     	
     	System.out.println("Testing?");
     	deliveryObject.setInputType("GENRE");
