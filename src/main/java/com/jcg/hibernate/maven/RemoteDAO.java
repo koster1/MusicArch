@@ -167,9 +167,9 @@ public class RemoteDAO {
 	}
 	
 	//To be coded
-		public boolean editArtist(Artist artistEdit, int id) {
-			return true;
-		}
+	public boolean editArtist(Artist artistEdit, int id) {
+		return true;
+		}		
 	
 	//To be coded
 	public boolean removeArtist(int id) {
