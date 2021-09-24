@@ -3,9 +3,9 @@ import java.util.*;
 
 import com.jcg.hibernate.maven.Album;
 import com.jcg.hibernate.maven.Artist;
-import com.jcg.hibernate.maven.DAO;
 import com.jcg.hibernate.maven.Genre;
 import com.jcg.hibernate.maven.RemoteDAO;
+import com.jcg.hibernate.maven.Song;
 
 import model.*;
 
@@ -43,8 +43,9 @@ public class Controller {
     }
     public void createAlbum(String albumName) {
     	Album newAlbum = new Album();
+    	Song newSong = new Song();
     }
-    public void createSong(St)
+    
     
 
 }
