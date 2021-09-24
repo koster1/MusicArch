@@ -6,7 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import com.jcg.hibernate.maven.DAO;
+import com.jcg.hibernate.maven.RemoteDAO;
 import com.jcg.hibernate.maven.Genre;
 
 import controller.Controller;
@@ -18,7 +18,13 @@ import model.SearchManagement;
 public class Main {
 	
 	public static void main(String args[]) {
-		DAO dao = new DAO();
+		RemoteDAO dao = new RemoteDAO();
+		
+//		Genre anotherTest;
+//		
+//		anotherTest = dao.readGenre("WowzersGenre");
+//		System.out.println("A weird test"+anotherTest);
+//		
 		
 		Genre[] testList;
 		
@@ -29,10 +35,11 @@ public class Main {
 		}
 		
 		
-		Genre genre1 = new Genre();
-		
-		genre1.setGenreName("UmpteenthGenre");
-		dao.createGenre(genre1);
+//		Genre genre1 = new Genre();
+//		
+//		genre1.setGenreName("UmpteenthGenre");
+//		dao.createGenre(genre1);
+//		
 		
 //		Genre genreTest = new Genre();
 //		genreTest.setGenreName("TubularGenre2");
