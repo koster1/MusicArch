@@ -48,7 +48,8 @@ public class Controller {
     
     //Tallennus paikalliseen tietokantaan.
     
-    //LocalDAO puuttuu, joten metodit jäävät kesken.
+    //LocalDAO puuttuu vielä
+   
     
     public void saveGenre(String genreID) {
     	Genre saveGenre = new Genre();
