@@ -1,4 +1,4 @@
-package model;
+0package model;
 import java.util.*;
 
 /**HIGH PRIORITY!! -> CHANGE TO HIBERNATE -> Much better for controlling many-to-many; many-to-one, etc! This is placeholder code to get the functionality tested
