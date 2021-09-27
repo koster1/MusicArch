@@ -43,7 +43,7 @@ public class Controller {
     	Song[] songList = new Song[songListGiven.length];
     	newAlbum.setAlbumName(albumName);
     	newAlbum.setAlbumYear(albumYear);
-    	remoteDAO.createAlbum(newAlbum, songList);
+//    	remoteDAO.createAlbum(newAlbum, songList);
     }
     
     //Tallennus paikalliseen tietokantaan.
