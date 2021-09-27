@@ -55,6 +55,10 @@ public class Main {
 //		}
 		
 		
+		Genre testSearch = new Genre();
+		testSearch = dao.searchGenre("SecondGenre");
+		System.out.println("Found this -> "+testSearch.getGenreName()+" with the ID of -> "+testSearch.getGenreID());
+		
 		
 //		Genre genre1 = new Genre();
 //		

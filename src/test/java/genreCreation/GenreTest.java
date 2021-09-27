@@ -6,6 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.function.Executable;
 
+import com.jcg.hibernate.maven.Genre;
+import com.jcg.hibernate.maven.RemoteDAO;
+
 import model.DeletionManagement;
 import model.DeliveryObject;
 import model.InputManagement;
@@ -17,6 +20,7 @@ public class GenreTest {
 	private SearchManagement searchManager = new SearchManagement();
 	private InputManagement inputManagement = new InputManagement();
 	private DeletionManagement deletionManagement = new DeletionManagement();
+	private RemoteDAO rDAO = new RemoteDAO();
 	
 	//Test parameters
 	private String givenGenre = "Black Metal";
@@ -32,30 +36,15 @@ public class GenreTest {
 		deliveryObject.clearDelivery();
 	}
 	
+	
 	@Test
 	@Order(1)
-	@DisplayName("Input type addition")
-	public void createType() {
-		deliveryObject.setInputType("GENRE");
-		assertEquals(genreInputType, deliveryObject.getInputType());
-	}
-	
-	@Test
-	@Order(2)
-	@DisplayName("Input genre name test")
-	public void createGenreName() {
-		deliveryObject.setGenreName(givenGenre);
-		assertEquals("Black Metal", deliveryObject.getGenreName());
-	}
-	
-	@Test
-	@Order(3)
 	@DisplayName("Add Genre into database")
 	public void createGenre() throws Exception {
-		deliveryObject.setInputType(genreInputType);
-		deliveryObject.setGenreName(givenGenre);
-		
-		inputManagement.checkType(deliveryObject);
+		Genre testGenre = new Genre();
+		testGenre.setGenreName("TestGenre");
+		rDAO.createGenre(testGenre);
+
 		assertEquals(givenGenre, searchManager.searchGenre(searchManager.searchGenreID(givenGenre)), "Expected to find Black Metal");
 	}
 	
