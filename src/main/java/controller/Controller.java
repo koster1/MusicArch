@@ -51,15 +51,15 @@ public class Controller {
     //LocalDAO puuttuu vielä
    
     
-    public void saveGenre(String genreID) {
+    public void saveGenre(int genreID) {
     	Genre saveGenre = new Genre();
     	saveGenre = remoteDAO.readGenre(genreID);
     }
-    public void saveArtist(String artistID) {
+    public void saveArtist(int artistID) {
     	Artist saveArtist = new Artist();
     	saveArtist = remoteDAO.readArtist(artistID);
     }
-    public void saveAlbum(String albumID) {
+    public void saveAlbum(int albumID) {
     	Album saveAlbum = new Album();
     	saveAlbum = remoteDAO.readAlbum(albumID);
     }

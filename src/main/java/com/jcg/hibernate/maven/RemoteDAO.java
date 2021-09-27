@@ -245,10 +245,10 @@ public class RemoteDAO {
 		return true;
 	}
 	
-	public Album readAlbum(String tunnus) {
+	public Album readAlbum(int id) {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
-		Album album = (Album)session.get(Album.class, tunnus);
+		Album album = (Album)session.get(Album.class, id);
 		System.out.println("Found this thing -> "+album.getAlbumName());
 		session.getTransaction().commit();
 		session.close();
