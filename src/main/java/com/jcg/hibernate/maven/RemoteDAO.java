@@ -2,6 +2,8 @@ package com.jcg.hibernate.maven;
 
 import java.util.List;
 
+import javax.persistence.criteria.CriteriaQuery;
+
 import org.hibernate.*;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -67,24 +69,10 @@ public class RemoteDAO {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();			
 		Genre genre = (Genre)session.get(Genre.class, id);
-		System.out.println("Found this thing -> "+genre.getGenreName());
+		System.out.println("Found this thing -> \""+genre.getGenreName()+"\"");
 		session.getTransaction().commit();
 		session.close();
 		return genre;		
-	}
-	
-	public Genre searchGenre(String genreSearch) {
-		Transaction transAct = null;
-		try(Session session = sessionFactory.openSession()){
-			transAct = session.beginTransaction();
-			
-			@SuppressWarnings("unchecked")
-			Genre result = (Genre) session.createQuery("select Genre where genreNimi = "+genreSearch);
-			transAct.commit();
-			session.getTransaction().commit();
-			session.close();
-			return result;			
-		}
 	}
 	
 	public Genre[] readGenres() {
@@ -102,6 +90,20 @@ public class RemoteDAO {
 			if (transAct != null)
 				transAct.rollback();
 			throw e;
+		}
+	}
+	
+	//TESTED! Works
+	public Genre searchGenre(String genreSearch) {
+		Transaction transAct = null;
+		try(Session session = sessionFactory.openSession()){
+			transAct = session.beginTransaction();	
+			Query query = session.createQuery("From Genre where genreNimi like:name");
+			List<Genre> genreList = query.setParameter("name", genreSearch).list();
+
+			transAct.commit();
+			session.close();
+			return genreList.get(0);			
 		}
 	}
 	
@@ -191,6 +193,19 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
+	
+	public Artist searchArtist(String artistSearch) {
+		Transaction transAct = null;
+		try(Session session = sessionFactory.openSession()){
+			transAct = session.beginTransaction();	
+			Query query = session.createQuery("From Artisti where artistiNimi like:name");
+			List<Artist> artistList = query.setParameter("name", artistSearch).list();
+
+			transAct.commit();
+			session.close();
+			return artistList.get(0);			
+		}
+	}	
 	
 	//To be tested!
 	public boolean editArtist(Artist artistEdit, int id) {
