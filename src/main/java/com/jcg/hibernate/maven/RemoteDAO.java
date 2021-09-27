@@ -94,12 +94,12 @@ public class RemoteDAO {
 	}
 	
 	//TESTED! Works
-	public Genre searchGenre(String genreSearch) {
+	public Genre searchGenre(String searchID) {
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();	
 			Query query = session.createQuery("From Genre where genreNimi like:name");
-			List<Genre> genreList = query.setParameter("name", genreSearch).list();
+			List<Genre> genreList = query.setParameter("name", searchID).list();
 
 			transAct.commit();
 			session.close();

@@ -98,6 +98,22 @@ public class Controller {
     	int removeID = Integer.parseInt(albumID);
     	remoteDAO.removeAlbum(removeID);
     }
+    //Hakutoiminnot
+    
+    /*public void searchAll(int genreID, int artistID, int albumID) {
+    	
+    }
+     */
+    
+    public void searchGenre(String genreName) {
+    	remoteDAO.searchGenre(genreName);
+    }
+    /*public void searchArtist(String artistID) {
+    	int searchID = Integer.parseInt(artistID);
+    	remoteDAO.searchArtist(searchID);
+    } */
+    
+    
     
 
 }
