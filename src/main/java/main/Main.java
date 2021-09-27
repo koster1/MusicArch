@@ -18,6 +18,8 @@ import model.SearchManagement;
 public class Main {
 	
 	public static void main(String args[]) {
+		
+		
 		RemoteDAO dao = new RemoteDAO();
 		
 //		Genre anotherTest;
