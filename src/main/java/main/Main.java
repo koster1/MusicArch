@@ -25,20 +25,27 @@ public class Main {
 		
 		LocalDAO localDAO = new LocalDAO();
 		
-		dao.readArtist("2");
+//		dao.readArtist(2);
+//		System.out.println("testi");
 		
 		
-//		Artist artist = localDAO.readArist(2);
-//		
-//		System.out.println("Returned artist = " + artist.getArtistName());
 		
+		
+		Artist[] artistList = dao.readArtists();
+		System.out.println(artistList[0].getArtistName());
+		
+		
+		
+		System.out.println(localDAO.readArtists()[0].getArtistName());
 		Artist artist2 = new Artist();
 		
 		artist2.setArtistBio("test");
-		artist2.setArtistID(1);
-		artist2.setArtistName("Black Sabbath");
+		artist2.setArtistID(34);
+		artist2.setArtistName("Black Sabbathoni");
 		System.out.println(artist2.getArtistBio() + " " + artist2.getArtistID() + artist2.getArtistName());
-		dao.createArtist(artist2);
+		localDAO.createArtist(artist2);
+		
+		
 //		localDAO.createArtist(artist2);
 //		Genre anotherTest;
 //		
@@ -55,11 +62,11 @@ public class Main {
 //		}
 		
 		
-		Genre testSearch = new Genre();
-		testSearch = dao.searchGenre("SecondGenre");
-		System.out.println("Found this -> "+testSearch.getGenreName()+" with the ID of -> "+testSearch.getGenreID());
-		
-		
+//		Genre testSearch = new Genre();
+//		testSearch = dao.searchGenre("SecondGenre");
+//		System.out.println("Found this -> "+testSearch.getGenreName()+" with the ID of -> "+testSearch.getGenreID());
+//		
+//		
 //		Genre genre1 = new Genre();
 //		
 //		genre1.setGenreName("UmpteenthGenre");
