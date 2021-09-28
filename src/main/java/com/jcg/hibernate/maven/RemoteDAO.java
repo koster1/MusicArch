@@ -239,8 +239,8 @@ public class RemoteDAO {
 			if(transAct != null)
 				transAct.rollback();
 			throw e;
-			}
-		}		
+		}
+	}		
 	
 	//To be tested!
 	public boolean removeArtist(int id) {

@@ -82,7 +82,7 @@ public class GenreTest {
 		Genre testGenre = new Genre();
 		testGenre.setGenreName("TestGenre");
 		rDAO.createGenre(testGenre);
-
+		
 		assertEquals(givenGenre, rDAO.searchGenre(givenGenre).getGenreName(), "Expected to find TestGenre!");
 		rDAO.removeGenre(rDAO.searchGenre(givenGenre).getGenreID());
 	}
