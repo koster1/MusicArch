@@ -25,7 +25,7 @@ public class RemoteDAO {
 	
 	public RemoteDAO(){	
 		try {
-			sessionFactory = new Configuration().configure().buildSessionFactory();
+			sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
 			}catch(Exception e){		
 				System.err.println("Istuntotehtaan luonti ei onnistunut: " + e.getMessage());
 				System.exit(-1);
@@ -173,6 +173,7 @@ public class RemoteDAO {
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();
 			session.saveOrUpdate(artist);			
+			session.save(artist);
 			transAct.commit();
 			return true;
 		}catch(Exception e) {
@@ -197,10 +198,12 @@ public class RemoteDAO {
 		Transaction transAct = null;
 		try (Session session = sessionFactory.openSession()) {
 			transAct = session.beginTransaction();
+			System.out.println("readArtists 1");
+			
 			
 			@SuppressWarnings("unchecked")
 			List<Artist> result = (List<Artist>) session.createQuery("from Artist").list();
-			
+			System.out.println("readArtists 2");
 			transAct.commit();
 			Artist[] array = new Artist[result.size()];
 			session.close();
