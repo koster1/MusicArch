@@ -66,11 +66,11 @@ public class RemoteDAO {
 		}
 	}
 	
-	public Genre readGenre(String id) {
+	public Genre readGenre(int genreID) {
 		
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();			
-		Genre genre = (Genre)session.get(Genre.class, id);
+		Genre genre = (Genre)session.get(Genre.class, genreID);
 		
 		System.out.println("Found this thing -> "+genre.getGenreName());
 		session.getTransaction().commit();
@@ -135,10 +135,10 @@ public class RemoteDAO {
 		}
 	}
 	
-	public Artist readArtist(String id) {		
+	public Artist readArtist(int artistID) {		
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();			
-		Artist artist = (Artist)session.get(Artist.class, id);
+		Artist artist = (Artist)session.get(Artist.class, artistID);
 		
 		System.out.println("Found this thing -> "+artist.getArtistName());
 		session.getTransaction().commit();
@@ -180,10 +180,10 @@ public class RemoteDAO {
 		return true;
 	}
 	
-	public Album readAlbum(String tunnus) {
+	public Album readAlbum(int albumID) {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
-		Album album = (Album)session.get(Album.class, tunnus);
+		Album album = (Album)session.get(Album.class, albumID);
 		System.out.println("Found this thing -> "+album.getAlbumName());
 		session.getTransaction().commit();
 		session.close();
@@ -230,5 +230,6 @@ public class RemoteDAO {
 			System.err.println("Session factory couldn't be closed: "+e.getMessage());
 		}
 	}
+
 	
 }
