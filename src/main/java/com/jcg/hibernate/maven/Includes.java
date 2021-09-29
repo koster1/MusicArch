@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 @Table(name = "Sisältyy")
 public class Includes implements Serializable {
-	
+	// @ManyToOne()
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "Järjestysnumero", updatable = false, nullable = false)

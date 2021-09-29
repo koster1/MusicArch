@@ -55,7 +55,7 @@ public class RemoteDAO {
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();
 			session.saveOrUpdate(genre);
-			
+			System.out.println("Got a creation request!");
 			transAct.commit();
 			return true;
 		}catch(Exception e) {
@@ -84,7 +84,9 @@ public class RemoteDAO {
 			List<Genre> result = (List<Genre>) session.createQuery("from Genre").list();
 			
 			transAct.commit();
+			
 			Genre[] array = new Genre[result.size()];
+			session.close();
 			return (Genre[]) result.toArray(array);
 		} catch (Exception e) {
 			if (transAct != null)
@@ -93,8 +95,11 @@ public class RemoteDAO {
 		}
 	}
 	
+	
 	//TESTED! Works
 	public Genre searchGenre(String searchID) {
+		Genre returnable = new Genre();
+		
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();	
@@ -103,8 +108,21 @@ public class RemoteDAO {
 
 			transAct.commit();
 			session.close();
-			return genreList.get(0);			
+			
+			if(!genreList.isEmpty()) {
+				System.out.println("The genre list is NOT empty!");
+				returnable = genreList.get(0);
+				System.out.println("The returnable name is -> "+returnable.getGenreName());
+				return returnable;
+				}	
+		}catch(Exception e){
+			if(transAct != null)
+				System.out.println("Did we get an EXCEPTION in the catch block?");
+				transAct.rollback();
+			throw e;
 		}
+		System.out.println("Nothing found, returning default value");
+		return returnable;
 	}
 	
 	//To be tested
@@ -142,8 +160,7 @@ public class RemoteDAO {
 	}
 	
 	public boolean createArtist(Artist artist) {
-		Artist[] artistSearch = readArtists();
-		
+		Artist[] artistSearch = readArtists();		
 		//First loop to check whether a given genre is already found within the database
 		for(int i = 0; i < artistSearch.length; i++) {			
 			if(artistSearch[i].getArtistName().equals(artist.getArtistName())) {
@@ -155,8 +172,8 @@ public class RemoteDAO {
 		Transaction transAct = null;	
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();
+			session.saveOrUpdate(artist);			
 			session.save(artist);
-			
 			transAct.commit();
 			return true;
 		}catch(Exception e) {
@@ -166,6 +183,7 @@ public class RemoteDAO {
 		}
 	}
 	
+	//TESTED! Works
 	public Artist readArtist(int id) {		
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();			
@@ -175,7 +193,7 @@ public class RemoteDAO {
 		session.close();
 		return artist;
 	}
-	
+	//Tested! Works
 	public Artist[] readArtists() {
 		Transaction transAct = null;
 		try (Session session = sessionFactory.openSession()) {
@@ -188,6 +206,7 @@ public class RemoteDAO {
 			System.out.println("readArtists 2");
 			transAct.commit();
 			Artist[] array = new Artist[result.size()];
+			session.close();
 			return (Artist[]) result.toArray(array);
 		} catch (Exception e) {
 			if (transAct != null)
@@ -205,7 +224,7 @@ public class RemoteDAO {
 
 			transAct.commit();
 			session.close();
-			return artistList.get(0);			
+			return artistList.get(0);
 		}
 	}	
 	
@@ -223,8 +242,8 @@ public class RemoteDAO {
 			if(transAct != null)
 				transAct.rollback();
 			throw e;
-			}
-		}		
+		}
+	}		
 	
 	//To be tested!
 	public boolean removeArtist(int id) {
@@ -242,8 +261,9 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
-	//Still not sure how to handle the song list here :/
-	public boolean createAlbum(Album album, Song[] songs) {
+	//Still not sure how to handle the song list here :/ Implement searches by name to get a list of GenreIDs and ArtistIDs
+	public boolean createAlbum(Album album, Song[] songs, Includes[] includes, String[] albumGenres, String[] albumArtists) {
+		
 		return true;
 	}
 	
@@ -263,7 +283,7 @@ public class RemoteDAO {
 			transAct = session.beginTransaction();
 			
 			@SuppressWarnings("unchecked")
-			List<Album> result = (List<Album>) session.createQuery("from Albumi").list();
+			List<Album> result = (List<Album>) session.createQuery("from Album").list();
 			
 			transAct.commit();
 			Album[] array = new Album[result.size()];

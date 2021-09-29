@@ -4,6 +4,7 @@ import java.util.*;
 import com.jcg.hibernate.maven.Album;
 import com.jcg.hibernate.maven.Artist;
 import com.jcg.hibernate.maven.Genre;
+import com.jcg.hibernate.maven.LocalDAO;
 import com.jcg.hibernate.maven.RemoteDAO;
 import com.jcg.hibernate.maven.Song;
 
@@ -15,6 +16,7 @@ import model.*;
 public class Controller {
 
     private RemoteDAO remoteDAO = new RemoteDAO();
+    private LocalDAO localDAO = new LocalDAO();
     
 
 
@@ -25,7 +27,7 @@ public class Controller {
     	
     }
     
-    //Luominen tietokantaan
+    //Luominen etätietokantaan
     public void createGenre(String genreName) {
     	Genre newGenre = new Genre();
     	newGenre.setGenreName(genreName);
@@ -43,13 +45,29 @@ public class Controller {
     	Song[] songList = new Song[songListGiven.length];
     	newAlbum.setAlbumName(albumName);
     	newAlbum.setAlbumYear(albumYear);
-    	remoteDAO.createAlbum(newAlbum, songList);
+    	remoteDAO.createAlbum(newAlbum, songList, null, null, null);
+    }
+    //Paikalliseen tietokantaan luominen
+    public void createLocalGenre(String genreName) {
+    	Genre newGenre = new Genre();
+    	newGenre.setGenreName(genreName);
+    	localDAO.createGenre(newGenre);
+    }
+    public void createLocalArtist(String artistName, String artistBio) {
+    	Artist newArtist = new Artist();
+    	newArtist.setArtistName(artistName);
+    	newArtist.setArtistBio(artistBio);
+    	localDAO.createArtist(newArtist);
+    }
+    public void createLocalAlbum(String albumName, Song[] songListGiven, int albumYear, Genre[] genreListGiven, Artist[] artistListGiven ) {
+    	Album newAlbum = new Album();
+    	Song[] songList = new Song[songListGiven.length];
+    	newAlbum.setAlbumName(albumName);
+    	newAlbum.setAlbumYear(albumYear);
+    	localDAO.createAlbum(newAlbum, songList);
     }
     
-    //Tallennus paikalliseen tietokantaan.
-    
-    //LocalDAO puuttuu vielä
-   
+    //Tallennus etätietokantaan.
     
     public void saveGenre(int genreID) {
     	Genre saveGenre = new Genre();
@@ -63,7 +81,21 @@ public class Controller {
     	Album saveAlbum = new Album();
     	saveAlbum = remoteDAO.readAlbum(albumID);
     }
-    //Tietokannan muokkaus
+    //Tallennus paikalliseen tietokantaan
+    public void saveLocalGenre(int genreID) {
+    	Genre saveLocalGenre = new Genre();
+    	saveLocalGenre = localDAO.readGenre(genreID);
+    }
+    public void saveLocalArtist(int artistID) {
+    	Artist saveLocalArtist = new Artist();
+    	saveLocalArtist = localDAO.readArtist(artistID);
+    }
+    public void saveLocalAlbum(int albumID) {
+    	Album saveLocalAlbum = new Album();
+    	saveLocalAlbum = localDAO.readAlbum(albumID);
+    }
+    
+    //Etätietokannan muokkaus
     
     public void editGenre(String genreID, String genreName) {
     	Genre editGenre = new Genre();
@@ -85,7 +117,29 @@ public class Controller {
     	editAlbum.setAlbumYear(albumYear);
     	remoteDAO.editAlbum(editAlbum, null, editID);
     }
-    //Poistaminen Tietokannasta
+    //Paikallisen tietokannan muokkaus
+    public void editLocalGenre(String genreID, String genreName) {
+    	Genre editLocalGenre = new Genre();
+    	int editID = Integer.parseInt(genreID);
+    	editLocalGenre.setGenreName(genreName);
+    	localDAO.editGenre(editLocalGenre, editID);
+    }
+    public void editLocalArtist(String artistID, String artistName, String artistBio) {
+    	Artist editLocalArtist = new Artist();
+    	int editID = Integer.parseInt(artistID);
+    	editLocalArtist.setArtistName(artistName);
+    	editLocalArtist.setArtistBio(artistBio);
+    	localDAO.editArtist(editLocalArtist, editID);
+    }
+    public void editLocalAlbum(String albumID, String albumName, Song[] songListGiven, int albumYear) {
+    	Album editLocalAlbum = new Album();
+    	int editID = Integer.parseInt(albumID);
+    	editLocalAlbum.setAlbumName(albumName);
+    	editLocalAlbum.setAlbumYear(albumYear);
+    	localDAO.editAlbum(editLocalAlbum, null, editID);
+    }
+    
+    //Poistaminen etätietokannasta
     public void removeGenre(String genreID) {
     	int removeID = Integer.parseInt(genreID);
     	remoteDAO.removeGenre(removeID);
@@ -98,6 +152,20 @@ public class Controller {
     	int removeID = Integer.parseInt(albumID);
     	remoteDAO.removeAlbum(removeID);
     }
+    //Poistaminen paikallisesta tietokannasta
+    public void removeLocaGenre(String genreID) {
+    	int removeID = Integer.parseInt(genreID);
+    	remoteDAO.removeGenre(removeID);
+    }
+    public void removeLocaArtist(String artistID) {
+    	int removeID = Integer.parseInt(artistID);
+    	remoteDAO.removeArtist(removeID);
+    }
+    public void removeLocaAlbum(String albumID) {
+    	int removeID = Integer.parseInt(albumID);
+    	remoteDAO.removeAlbum(removeID);
+    }
+    
     //Hakutoiminnot
     
     /*public void searchAll(int genreID, int artistID, int albumID) {
@@ -108,9 +176,11 @@ public class Controller {
     public void searchGenre(String genreName) {
     	remoteDAO.searchGenre(genreName);
     }
-    /*public void searchArtist(String artistID) {
-    	int searchID = Integer.parseInt(artistID);
-    	remoteDAO.searchArtist(searchID);
+    public void searchArtist(String artistName) {
+    	remoteDAO.searchArtist(artistName);
+    }
+    /* public void searchAlbum (String albumName) {
+    	remoteDAO.searchAlbum()
     } */
     
     

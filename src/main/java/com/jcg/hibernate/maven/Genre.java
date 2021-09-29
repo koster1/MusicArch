@@ -1,15 +1,24 @@
 package com.jcg.hibernate.maven;
+import java.io.Serializable;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import org.hibernate.mapping.Collection;
 
 @Entity
 @Table(name = "Genre")
-public class Genre {
-	
+public class Genre implements Serializable {
+	// @MappedBy("Album")
+	// @ManyToMany("")
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "GenreID", updatable = false, nullable = false)
@@ -30,4 +39,21 @@ public class Genre {
 	public void setGenreName(String genreName) {
 		this.genreName = genreName;
 	}
+	
+	
+	//Everything from down here is highly experimental
+	@ManyToMany(
+			targetEntity=com.jcg.hibernate.maven.Album.class,
+			cascade= {CascadeType.PERSIST, CascadeType.MERGE}
+			)
+	@JoinTable(
+			name="koostuu",
+			joinColumns={@JoinColumn(name="GenreID")},
+			inverseJoinColumns= {@JoinColumn(name="AlbumiID")}
+			)
+	public Collection getAlbums() {
+		return albums;
+	}
+	
+	
 }
