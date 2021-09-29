@@ -30,5 +30,4 @@ public class Genre {
 	public void setGenreName(String genreName) {
 		this.genreName = genreName;
 	}
-	
 }
