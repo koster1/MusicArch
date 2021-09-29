@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUIController">
+   <top>
+      <ButtonBar fx:id="Buttonbar" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0" styleClass="Buttonbar" BorderPane.alignment="CENTER">
+        <buttons>
+          <Button id="Buttonbarbuttons" fx:id="Help" mnemonicParsing="false" onAction="#GoHelpPage" text="Ohje" />
+            <Button id="Buttonbarbuttons" fx:id="Requests" mnemonicParsing="false" onAction="#ShowRequests" text="Lisäyspyynnöt" />
+            <Button id="Buttonbarbuttons" fx:id="FrontPage" mnemonicParsing="false" onAction="#goFrontPage" text="Etusivu" />
+        </buttons>
+         <BorderPane.margin>
+            <Insets left="10.0" />
+         </BorderPane.margin>
+      </ButtonBar>
+   </top>
+   <center>
+      <AnchorPane id="Buttonbarbuttons" fx:id="Keskikohta" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>
