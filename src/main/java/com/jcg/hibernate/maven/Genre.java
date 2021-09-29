@@ -17,7 +17,8 @@ import org.hibernate.mapping.Collection;
 @Entity
 @Table(name = "Genre")
 public class Genre implements Serializable {
-	
+	// @MappedBy("Album")
+	// @ManyToMany("")
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "GenreID", updatable = false, nullable = false)
