@@ -80,7 +80,7 @@ public class View extends Application {
 
 	// -------------------Lisayspohjan OMA stage---------------------------------
 	//Lisäysnäkymän (sisältää lisäyspyynnöt ja lisäyspohjat) oma stage, 
-	//jossa vaihdetaan keskikohdan lomake-fxml:ää
+	//jossa vaihdetaan keskiosan lomake-fxml:ää
 	//
 	public static void showRequestsWindow() throws IOException {
 		System.out.print(" !!!    täällä ollaan    !!!");
@@ -117,6 +117,17 @@ public class View extends Application {
 		anotherRoot.setCenter(artist);
 	}
 
+	public static void Error() throws IOException {
+		FXMLLoader fxmlLoader = new FXMLLoader();
+		fxmlLoader.setLocation(View.class.getResource("/view/fxmlFiles/Error.fxml"));
+		test = (AnchorPane) fxmlLoader.load();
+		Scene error = new Scene(test);
+		error.getStylesheets().add("/view/style.css");
+		Stage stage = new Stage();
+		stage.setTitle("Error Window");
+		stage.setScene(error);
+		stage.show();
+	}
 	public Stage getPrimaryStage() {
 		return primaryStage;
 	}
@@ -126,15 +137,6 @@ public class View extends Application {
 
 	}
 
-	// Oikein aukeava genrelomake (startin sisälle)
 
-	/*
-	 * System.out.println("Näkymää ladataan.."); AnchorPane root = (AnchorPane)
-	 * FXMLLoader.load(getClass().getResource("/view/fxmlFiles/genrelisays.fxml"));
-	 * //Scene scene = new Scene(root); String css =
-	 * getClass().getResource("/view/style.css").toExternalForm();
-	 * root.getStylesheets().add(css); stage.setTitle("MusicArch");
-	 * stage.setScene(new Scene(root)); stage.show();
-	 */
 
 }

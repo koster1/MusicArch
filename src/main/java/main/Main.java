@@ -41,13 +41,7 @@ public class Main {
 
 	
 		
-		Artist[] testList2;
-		
-		testList2 = dao.readArtists();
-		
-		for(int i = 0; i<testList2.length; i++) {
-			System.out.println("Genren: "+testList2[i].getArtistName()+" ID on: "+testList2[i].getArtistID());
-		}
+
 		
 //		Genre genre1 = new Genre();
 //		

@@ -32,7 +32,6 @@ public class Controller {
     	remoteDAO.createGenre(newGenre);
     	
     }
-    //
     public void createArtist(String artistName, String artistBio) {
     	Artist newArtist = new Artist();
     	newArtist.setArtistName(artistName);
@@ -44,7 +43,7 @@ public class Controller {
     	Song[] songList = new Song[songListGiven.length];
     	newAlbum.setAlbumName(albumName);
     	newAlbum.setAlbumYear(albumYear);
-    	remoteDAO.createAlbum(newAlbum, songList);
+//    	remoteDAO.createAlbum(newAlbum, songList);
     }
     
     //Tallennus paikalliseen tietokantaan.
@@ -98,6 +97,11 @@ public class Controller {
     public void removeAlbum(String albumID) {
     	int removeID = Integer.parseInt(albumID);
     	remoteDAO.removeAlbum(removeID);
+    }
+    public void genreExist() {
+    	boolean gN;
+    
+    	//remoteDAO.GenreExist();
     }
     
 
