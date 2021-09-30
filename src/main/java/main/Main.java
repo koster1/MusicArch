@@ -16,56 +16,62 @@ import controller.Controller;
 import model.DeletionManagement;
 import model.DeliveryObject;
 import model.InputManagement;
+import model.LocalArtist;
 import model.SearchManagement;
 
 public class Main {
 	
 	public static void main(String args[]) {
 //		RemoteDAO dao = new RemoteDAO();
-//		
-//		LocalDAO localDAO = new LocalDAO();
+////		
+		LocalDAO localDAO = new LocalDAO();
+		LocalArtist artist = new LocalArtist();
+		artist.setArtistBio("A band again, wow!");
+		artist.setArtistName("Metallica");
+		artist.setArtistID(39);
+		localDAO.createArtist(artist);
 		
 //		dao.readArtist(2);
 //		System.out.println("testi");
 		
-		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
-		
-		Session session = factory.getCurrentSession();
-		
-		try {
-			session.beginTransaction();
-			Genre tempGenre = new Genre();
-			tempGenre.setGenreName("ChadGenre");
-			
-			System.out.println("Saving the Genre!");
-			session.save(tempGenre);
-			System.out.println("Genre Saved!");
-			
-			Album tempAlbum = new Album();
-			tempAlbum.setAlbumName("Chad's album");
-			tempAlbum.setAlbumYear(2007);
-			
-			Album tempAlbum2 = new Album();
-			tempAlbum2.setAlbumName("Chad's return");
-			tempAlbum2.setAlbumYear(1998);
-
-			
-
-			tempGenre.addAlbum(tempAlbum);
-			tempGenre.addAlbum(tempAlbum2);
-			
-			System.out.println("Saving albums!");
-			session.save(tempAlbum);
-			session.save(tempAlbum2);
-			System.out.println("Albums saved!");
-			
-			session.getTransaction().commit();			
-			
-			System.out.println("Done!");
-		}
-		finally {
-			System.out.println("Wooow");
-		}
+//		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+//		
+//		Session session = factory.getCurrentSession();
+//		
+//		try {
+//			session.beginTransaction();
+//			Genre tempGenre = new Genre();
+//			tempGenre.setGenreName("ChadGenre");
+//			
+//			System.out.println("Saving the Genre!");
+//			session.save(tempGenre);
+//			System.out.println("Genre Saved!");
+//			
+//			Album tempAlbum = new Album();
+//			tempAlbum.setAlbumName("Chad's album");
+//			tempAlbum.setAlbumYear(2007);
+//			
+//			Album tempAlbum2 = new Album();
+//			tempAlbum2.setAlbumName("Chad's return");
+//			tempAlbum2.setAlbumYear(1998);
+//
+//			
+//
+//			tempGenre.addAlbum(tempAlbum);
+//			tempGenre.addAlbum(tempAlbum2);
+//			
+//			System.out.println("Saving albums!");
+//			session.saveOrUpdate(tempAlbum);
+//			session.saveOrUpdate(tempAlbum2);
+//			System.out.println("Albums saved!");
+//			
+//			session.getTransaction().commit();			
+//			
+//			System.out.println("Done!");
+//		}
+//		finally {
+//			System.out.println("Wooow");
+//		}
 		
 		
 //		Artist[] artistList = dao.readArtists();

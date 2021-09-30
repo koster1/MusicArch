@@ -8,6 +8,11 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
+import model.LocalArtist;
+import model.LocalGenre;
+import model.LocalAlbum;
+import model.LocalSong;
+
 public class LocalDAO {
 	
 //	static Session session;
@@ -26,8 +31,8 @@ public class LocalDAO {
 	
 	
 	
-	public boolean createGenre(Genre genre) {
-		Genre[] genreSearch;
+	public boolean createGenre(LocalGenre genre) {
+		LocalGenre[] genreSearch;
 		genreSearch = readGenres();
 		
 		//First loop to check whether a given genre is already found within the database
@@ -53,17 +58,17 @@ public class LocalDAO {
 		}
 	}
 	//These are missing a simple text search!
-	public Genre readGenre(int id) {	
+	public LocalGenre readGenre(int id) {	
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();			
-		Genre genre = (Genre)session.get(Genre.class, id);
+		LocalGenre genre = (LocalGenre)session.get(LocalGenre.class, id);
 		System.out.println("Found this thing -> \""+genre.getGenreName()+"\"");
 		session.getTransaction().commit();
 		session.close();
 		return genre;		
 	}
 	
-	public Genre[] readGenres() {
+	public LocalGenre[] readGenres() {
 		Transaction transAct = null;
 		try (Session session = sessionFactory.openSession()) {
 			transAct = session.beginTransaction();
@@ -72,8 +77,8 @@ public class LocalDAO {
 			List<Genre> result = (List<Genre>) session.createQuery("from Genre").list();
 			
 			transAct.commit();
-			Genre[] array = new Genre[result.size()];
-			return (Genre[]) result.toArray(array);
+			LocalGenre[] array = new LocalGenre[result.size()];
+			return (LocalGenre[]) result.toArray(array);
 		} catch (Exception e) {
 			if (transAct != null)
 				transAct.rollback();
@@ -82,12 +87,12 @@ public class LocalDAO {
 	}
 	
 	//TESTED! Works
-	public Genre searchGenre(String genreSearch) {
+	public LocalGenre searchGenre(String genreSearch) {
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();	
 			Query query = session.createQuery("From Genre where genreNimi like:name");
-			List<Genre> genreList = query.setParameter("name", genreSearch).list();
+			List<LocalGenre> genreList = query.setParameter("name", genreSearch).list();
 
 			transAct.commit();
 			session.close();
@@ -129,8 +134,8 @@ public class LocalDAO {
 		}
 	}
 	
-	public boolean createArtist(Artist artist) {
-		Artist[] artistSearch = readArtists();
+	public boolean createArtist(LocalArtist artist) {
+		LocalArtist[] artistSearch = readArtists();
 		
 		//First loop to check whether a given artist is already found within the database
 		for(int i = 0; i < artistSearch.length; i++) {			
@@ -143,8 +148,8 @@ public class LocalDAO {
 		Transaction transAct = null;	
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();
-			session.save(artist);
-			
+			session.saveOrUpdate(artist);
+			session.save(artist);			
 			transAct.commit();
 			return true;
 		}catch(Exception e) {
@@ -154,17 +159,17 @@ public class LocalDAO {
 		}
 	}
 	
-	public Artist readArtist(int id) {		
+	public LocalArtist readArtist(int id) {		
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();			
-		Artist artist = (Artist)session.get(Artist.class, id);	
+		LocalArtist artist = (LocalArtist)session.get(LocalArtist.class, id);	
 		System.out.println("Found this thing -> "+artist.getArtistName());
 		session.getTransaction().commit();
 		session.close();
 		return artist;
 	}
 	
-	public Artist[] readArtists() {
+	public LocalArtist[] readArtists() {
 		Transaction transAct = null;
 		try (Session session = sessionFactory.openSession()) {
 			transAct = session.beginTransaction();
@@ -172,11 +177,11 @@ public class LocalDAO {
 			
 			
 			@SuppressWarnings("unchecked")
-			List<Artist> result = (List<Artist>) session.createQuery("from Artist").list();
+			List<LocalArtist> result = (List<LocalArtist>) session.createQuery("from LocalArtist").list();
 			System.out.println("readArtists 2");
 			transAct.commit();
-			Artist[] array = new Artist[result.size()];
-			return (Artist[]) result.toArray(array);
+			LocalArtist[] array = new LocalArtist[result.size()];
+			return (LocalArtist[]) result.toArray(array);
 		} catch (Exception e) {
 			if (transAct != null)
 				transAct.rollback();
@@ -231,31 +236,31 @@ public class LocalDAO {
 		}
 	}
 	//Still not sure how to handle the song list here :/
-	public boolean createAlbum(Album album, Song[] songs) {
+	public boolean createAlbum(Album album, LocalSong[] songs) {
 		return true;
 	}
 	
-	public Album readAlbum(int id) {
+	public LocalAlbum readAlbum(int id) {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
-		Album album = (Album)session.get(Album.class, id);
+		LocalAlbum album = (LocalAlbum)session.get(LocalAlbum.class, id);
 		System.out.println("Found this thing -> "+album.getAlbumName());
 		session.getTransaction().commit();
 		session.close();
 		return album;	
 	}
 	
-	public Album[] readAlbums() {
+	public LocalAlbum[] readAlbums() {
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();
 			
 			@SuppressWarnings("unchecked")
-			List<Album> result = (List<Album>) session.createQuery("from Albumi").list();
+			List<LocalAlbum> result = (List<LocalAlbum>) session.createQuery("from LocalAlbumi").list();
 			
 			transAct.commit();
-			Album[] array = new Album[result.size()];
-			return (Album[]) result.toArray(array);
+			LocalAlbum[] array = new LocalAlbum[result.size()];
+			return (LocalAlbum[]) result.toArray(array);
 		}catch (Exception e) {
 			if (transAct != null)
 				transAct.rollback();
@@ -264,7 +269,7 @@ public class LocalDAO {
 	}
 	
 	//To be tested! Still not sure how to handle the song list here :/
-	public boolean editAlbum(Album albumEdit, Song[] songEdit, int id) {
+	public boolean editAlbum(LocalAlbum albumEdit, LocalSong[] songEdit, int id) {
 		Transaction transAct = null;		
 		try(Session session = sessionFactory.openSession()){
 		transAct = session.beginTransaction();		
@@ -285,7 +290,7 @@ public class LocalDAO {
 		Transaction transAct = null;		
 		try(Session session = sessionFactory.openSession()){
 		transAct = session.beginTransaction();		
-		Album removeAlbum = (Album)session.load(Album.class, id);		
+		LocalAlbum removeAlbum = (LocalAlbum)session.load(LocalAlbum.class, id);		
 		session.delete(removeAlbum);
 		transAct.commit();
 		return true;
@@ -301,7 +306,7 @@ public class LocalDAO {
 		Transaction transAct = null;		
 		try(Session session = sessionFactory.openSession()){
 		transAct = session.beginTransaction();		
-		Song editSong = (Song)session.load(Song.class, id);		
+		LocalSong editSong = (LocalSong)session.load(LocalSong.class, id);		
 		session.saveOrUpdate(editSong);
 		transAct.commit();
 		return true;
