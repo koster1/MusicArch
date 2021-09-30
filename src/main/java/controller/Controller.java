@@ -153,15 +153,15 @@ public class Controller {
     	remoteDAO.removeAlbum(removeID);
     }
     //Poistaminen paikallisesta tietokannasta
-    public void removeLocaGenre(String genreID) {
+    public void removeLocalGenre(String genreID) {
     	int removeID = Integer.parseInt(genreID);
     	remoteDAO.removeGenre(removeID);
     }
-    public void removeLocaArtist(String artistID) {
+    public void removeLocalArtist(String artistID) {
     	int removeID = Integer.parseInt(artistID);
     	remoteDAO.removeArtist(removeID);
     }
-    public void removeLocaAlbum(String albumID) {
+    public void removeLocalAlbum(String albumID) {
     	int removeID = Integer.parseInt(albumID);
     	remoteDAO.removeAlbum(removeID);
     }

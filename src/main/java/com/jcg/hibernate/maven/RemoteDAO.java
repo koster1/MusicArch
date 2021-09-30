@@ -329,6 +329,10 @@ public class RemoteDAO {
 		}
 	}
 	
+//	public getRelated(albumID) {
+//		
+//	}
+	
 	public boolean editSong(int id) {
 		Transaction transAct = null;		
 		try(Session session = sessionFactory.openSession()){

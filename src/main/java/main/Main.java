@@ -21,29 +21,66 @@ import model.SearchManagement;
 public class Main {
 	
 	public static void main(String args[]) {
-		RemoteDAO dao = new RemoteDAO();
-		
-		LocalDAO localDAO = new LocalDAO();
+//		RemoteDAO dao = new RemoteDAO();
+//		
+//		LocalDAO localDAO = new LocalDAO();
 		
 //		dao.readArtist(2);
 //		System.out.println("testi");
 		
+		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+		
+		Session session = factory.getCurrentSession();
+		
+		try {
+			session.beginTransaction();
+			Genre tempGenre = new Genre();
+			tempGenre.setGenreName("ChadGenre");
+			
+			System.out.println("Saving the Genre!");
+			session.save(tempGenre);
+			System.out.println("Genre Saved!");
+			
+			Album tempAlbum = new Album();
+			tempAlbum.setAlbumName("Chad's album");
+			tempAlbum.setAlbumYear(2007);
+			
+			Album tempAlbum2 = new Album();
+			tempAlbum2.setAlbumName("Chad's return");
+			tempAlbum2.setAlbumYear(1998);
+
+			
+
+			tempGenre.addAlbum(tempAlbum);
+			tempGenre.addAlbum(tempAlbum2);
+			
+			System.out.println("Saving albums!");
+			session.save(tempAlbum);
+			session.save(tempAlbum2);
+			System.out.println("Albums saved!");
+			
+			session.getTransaction().commit();			
+			
+			System.out.println("Done!");
+		}
+		finally {
+			System.out.println("Wooow");
+		}
 		
 		
-		
-		Artist[] artistList = dao.readArtists();
-		System.out.println(artistList[0].getArtistName());
-		
-		
-		
-		System.out.println(localDAO.readArtists()[0].getArtistName());
-		Artist artist2 = new Artist();
-		
-		artist2.setArtistBio("test");
-		artist2.setArtistID(34);
-		artist2.setArtistName("Black Sabbathoni");
-		System.out.println(artist2.getArtistBio() + " " + artist2.getArtistID() + artist2.getArtistName());
-		localDAO.createArtist(artist2);
+//		Artist[] artistList = dao.readArtists();
+//		System.out.println(artistList[0].getArtistName());
+//		
+//		
+//		
+//		System.out.println(localDAO.readArtists()[0].getArtistName());
+//		Artist artist2 = new Artist();
+//		
+//		artist2.setArtistBio("test");
+//		artist2.setArtistID(34);
+//		artist2.setArtistName("Black Sabbathoni");
+//		System.out.println(artist2.getArtistBio() + " " + artist2.getArtistID() + artist2.getArtistName());
+//		localDAO.createArtist(artist2);
 		
 		
 //		localDAO.createArtist(artist2);
@@ -52,11 +89,11 @@ public class Main {
 //		anotherTest = dao.readGenre("WowzersGenre");
 //		System.out.println("A weird test"+anotherTest);
 
-		
-		Genre searchTest;
-		searchTest = dao.searchGenre("TestGenre");
-		
-		System.out.println("Found this -> "+searchTest.getGenreName()+" with the ID of -> "+searchTest.getGenreID());
+//		
+//		Genre searchTest;
+//		searchTest = dao.searchGenre("TestGenre");
+//		
+//		System.out.println("Found this -> "+searchTest.getGenreName()+" with the ID of -> "+searchTest.getGenreID());
 		
 //		Genre[] testList;
 //		
