@@ -349,6 +349,23 @@ public class RemoteDAO {
 		}
 	}
 	
+	public List<String> getSearchable(){
+		Transaction transAct = null;
+		try(Session session = sessionFactory.openSession()){
+			transAct = session.beginTransaction();
+			String sql = "select artistinimi from artisti union select albuminimi from albumi union select genrenimi from genre";
+			SQLQuery query = session.createSQLQuery(sql);
+			List<String> results = query.list();
+			transAct.commit();
+			return results;
+		}catch(Exception e) {
+			if(transAct != null)
+				transAct.rollback();
+			throw e;
+		}
+			
+	}
+	
 	public void finalize() {
 		try {
 			if(sessionFactory != null)

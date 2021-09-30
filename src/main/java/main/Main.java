@@ -22,23 +22,41 @@ import model.SearchManagement;
 public class Main {
 	
 	public static void main(String args[]) {
+
 //		RemoteDAO dao = new RemoteDAO();
 ////		
-		LocalDAO localDAO = new LocalDAO();
-		LocalArtist artist = new LocalArtist();
-		artist.setArtistBio("A band again, wow!");
-		artist.setArtistName("Metallica");
-		artist.setArtistID(39);
-		localDAO.createArtist(artist);
+//		LocalDAO localDAO = new LocalDAO();
+//		LocalArtist artist = new LocalArtist();
+//		artist.setArtistBio("A band again, wow!");
+//		artist.setArtistName("Metallica");
+//		artist.setArtistID(39);
+//		localDAO.createArtist(artist);
+		RemoteDAO dao = new RemoteDAO();
+//		
+//		LocalDAO localDAO = new LocalDAO();
 		
 //		dao.readArtist(2);
 //		System.out.println("testi");
+
+	
+		List<String> searchableStrings = dao.getSearchable();
+		for(int i = 0; i < searchableStrings.size(); i++) {
+			System.out.println("Iterating through all the names in the database : "+searchableStrings.get(i));
+		}
 		
 //		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
 //		
 //		Session session = factory.getCurrentSession();
 //		
 //		try {
+//			session.beginTransaction();
+//			Album tempAlbum = new Album();
+//			tempAlbum.setAlbumName("Album for the artists!");
+//			tempAlbum.setAlbumYear(666);
+//			
+//			Genre tempGenre = new Genre();
+//			tempGenre.
+			
 //			session.beginTransaction();
 //			Genre tempGenre = new Genre();
 //			tempGenre.setGenreName("ChadGenre");
@@ -55,14 +73,13 @@ public class Main {
 //			tempAlbum2.setAlbumName("Chad's return");
 //			tempAlbum2.setAlbumYear(1998);
 //
-//			
-//
 //			tempGenre.addAlbum(tempAlbum);
 //			tempGenre.addAlbum(tempAlbum2);
 //			
 //			System.out.println("Saving albums!");
-//			session.saveOrUpdate(tempAlbum);
-//			session.saveOrUpdate(tempAlbum2);
+//			session.save(tempAlbum);
+//			session.save(tempAlbum2);
+		
 //			System.out.println("Albums saved!");
 //			
 //			session.getTransaction().commit();			

@@ -21,11 +21,10 @@ import org.hibernate.mapping.Collection;
 
 @Entity
 @Table(name = "Genre")
-public class Genre implements Serializable {
-	// @MappedBy("Album")
-	// @ManyToMany("")
+public class Genre  {
+	
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "GenreID", updatable = false, nullable = false)
 	private int genreID;
 	
@@ -45,10 +44,8 @@ public class Genre implements Serializable {
 		this.genreName = genreName;
 	}
 	
-	
-	//Everything from down here is highly experimental
 	@ManyToMany(fetch=FetchType.LAZY,
-			cascade = {CascadeType.ALL})
+			cascade={CascadeType.ALL})
 	@JoinTable(
 			name="koostuu",
 			joinColumns={@JoinColumn(name="GenreID")},
@@ -59,7 +56,6 @@ public class Genre implements Serializable {
 	public List<Album> getGenreAlbums(){
 		return genreAlbums;
 	}
-	
 	public void setGenreAlbums(List<Album> genreAlbums) {
 		this.genreAlbums = genreAlbums;
 	}
@@ -71,6 +67,4 @@ public class Genre implements Serializable {
 	}
 	
 	public Genre() {}
-	
-	
 }
