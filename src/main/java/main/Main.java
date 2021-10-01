@@ -17,6 +17,7 @@ import model.DeletionManagement;
 import model.DeliveryObject;
 import model.InputManagement;
 import model.LocalArtist;
+import model.LocalGenre;
 import model.SearchManagement;
 
 public class Main {
@@ -25,13 +26,12 @@ public class Main {
 
 //		RemoteDAO dao = new RemoteDAO();
 ////		
-//		LocalDAO localDAO = new LocalDAO();
-//		LocalArtist artist = new LocalArtist();
-//		artist.setArtistBio("A band again, wow!");
-//		artist.setArtistName("Metallica");
-//		artist.setArtistID(39);
-//		localDAO.createArtist(artist);
-		RemoteDAO dao = new RemoteDAO();
+		LocalDAO localDAO = new LocalDAO();
+		LocalGenre genre = new LocalGenre();
+		genre.setGenreID(2);
+		genre.setGenreName("Rock");
+		localDAO.createGenre(genre);
+//		RemoteDAO dao = new RemoteDAO();
 //		
 //		LocalDAO localDAO = new LocalDAO();
 		
@@ -39,7 +39,7 @@ public class Main {
 //		System.out.println("testi");
 
 	
-		List<String> searchableStrings = dao.getSearchable();
+		List<String> searchableStrings = localDAO.getSearchable();
 		for(int i = 0; i < searchableStrings.size(); i++) {
 			System.out.println("Iterating through all the names in the database : "+searchableStrings.get(i));
 		}

@@ -3,6 +3,7 @@ package com.jcg.hibernate.maven;
 import java.util.List;
 
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -52,6 +53,7 @@ public class LocalDAO {
 			transAct.commit();
 			return true;
 		}catch(Exception e) {
+			System.out.println("exception rollback");
 			if(transAct != null) 
 				transAct.rollback();
 			throw e;			
@@ -74,7 +76,7 @@ public class LocalDAO {
 			transAct = session.beginTransaction();
 			
 			@SuppressWarnings("unchecked")
-			List<Genre> result = (List<Genre>) session.createQuery("from Genre").list();
+			List<LocalGenre> result = (List<LocalGenre>) session.createQuery("from LocalGenre").list();
 			
 			transAct.commit();
 			LocalGenre[] array = new LocalGenre[result.size()];
@@ -314,6 +316,22 @@ public class LocalDAO {
 		}catch(Exception e) {
 			if(transAct != null)
 				transAct.rollback();
+			throw e;
+		}
+	}
+	
+	public List<String> getSearchable() {
+		Transaction transaction = null;
+		try(Session session = sessionFactory.openSession()) {
+			transaction = session.beginTransaction();
+			String sql = "select artistinimi from artisti union select albuminimi from albumi union select genrenimi from genre union select kappalenimi from kappale";
+			SQLQuery query = session.createSQLQuery(sql);
+			List<String> results = query.list();
+			transaction.commit();
+			return results;
+		} catch(Exception e) {
+			if(transaction != null)
+				transaction.rollback();
 			throw e;
 		}
 	}
