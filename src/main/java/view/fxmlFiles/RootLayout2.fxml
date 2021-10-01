@@ -3,23 +3,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
-<<<<<<< HEAD
-<?import javafx.scene.layout.BorderPane?>
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller=".GUIController">
-   <top>
-      <ButtonBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-        <buttons>
-          <Button mnemonicParsing="false" text="Ohje" />
-            <Button mnemonicParsing="false" text="Lisäyspyynnöt" />
-            <Button mnemonicParsing="false" text="Käyttäjä" />
-        </buttons>
-         <BorderPane.margin>
-            <Insets left="10.0" />
-         </BorderPane.margin>
-      </ButtonBar>
-   </top>
-=======
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
@@ -39,5 +22,4 @@
    <center>
       <AnchorPane id="Buttonbarbuttons" fx:id="Keskikohta" BorderPane.alignment="CENTER" />
    </center>
->>>>>>> refs/remotes/origin/jemilam_branch
 </BorderPane>
