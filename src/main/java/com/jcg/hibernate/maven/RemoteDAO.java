@@ -97,14 +97,14 @@ public class RemoteDAO {
 	
 	
 	//TESTED! Works
-	public Genre searchGenre(String searchID) {
+	public Genre searchGenre(String genreSearch) {
 		Genre returnable = new Genre();
 		
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();	
 			Query query = session.createQuery("From Genre where genreNimi like:name");
-			List<Genre> genreList = query.setParameter("name", searchID).list();
+			List<Genre> genreList = query.setParameter("name", genreSearch).list();
 
 			transAct.commit();
 			session.close();
@@ -198,12 +198,9 @@ public class RemoteDAO {
 		Transaction transAct = null;
 		try (Session session = sessionFactory.openSession()) {
 			transAct = session.beginTransaction();
-			System.out.println("readArtists 1");
-			
 			
 			@SuppressWarnings("unchecked")
 			List<Artist> result = (List<Artist>) session.createQuery("from Artist").list();
-			System.out.println("readArtists 2");
 			transAct.commit();
 			Artist[] array = new Artist[result.size()];
 			session.close();
@@ -219,7 +216,7 @@ public class RemoteDAO {
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();	
-			Query query = session.createQuery("From Artisti where artistiNimi like:name");
+			Query query = session.createQuery("From Artist where artistiNimi like:name");
 			List<Artist> artistList = query.setParameter("name", artistSearch).list();
 
 			transAct.commit();
@@ -261,10 +258,29 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
-	//Still not sure how to handle the song list here :/ Implement searches by name to get a list of GenreIDs and ArtistIDs
-	public boolean createAlbum(Album album, Song[] songs, Includes[] includes, String[] albumGenres, String[] albumArtists) {
-		
-		return true;
+
+	public boolean createAlbum(Album album) {
+		Album[] albumSearch = readAlbums();		
+		//First loop to check whether a given genre is already found within the database
+		for(int i = 0; i < albumSearch.length; i++) {			
+			if(albumSearch[i].getAlbumName().equals(album.getAlbumName())) {
+				System.out.println("This one already exists! Can't add it!");
+				return false;
+			}
+		}
+
+		Transaction transAct = null;	
+		try(Session session = sessionFactory.openSession()){
+			transAct = session.beginTransaction();
+			session.saveOrUpdate(album);			
+			session.save(album);
+			transAct.commit();
+			return true;
+		}catch(Exception e) {
+			if(transAct != null) 
+				transAct.rollback();
+			throw e;			
+		}
 	}
 	
 	public Album readAlbum(int id) {
@@ -347,6 +363,22 @@ public class RemoteDAO {
 				transAct.rollback();
 			throw e;
 		}
+	}
+	
+	public List<String> getSearchable(){
+		Transaction transAct = null;
+		try(Session session = sessionFactory.openSession()){
+			transAct = session.beginTransaction();
+			String sql = "select artistinimi from artisti union select albuminimi from albumi union select genrenimi from genre union select kappalenimi from kappale";
+			SQLQuery query = session.createSQLQuery(sql);
+			List<String> results = query.list();
+			transAct.commit();
+			return results;
+		}catch(Exception e) {
+			if(transAct != null)
+				transAct.rollback();
+			throw e;
+		}		
 	}
 	
 	public void finalize() {
