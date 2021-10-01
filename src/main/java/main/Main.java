@@ -21,7 +21,7 @@ import model.SearchManagement;
 public class Main {
 	
 	public static void main(String args[]) {
-//		RemoteDAO dao = new RemoteDAO();
+		RemoteDAO dao = new RemoteDAO();
 //		
 //		LocalDAO localDAO = new LocalDAO();
 		
@@ -29,43 +29,84 @@ public class Main {
 //		System.out.println("testi");
 		
 		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
-		
 		Session session = factory.getCurrentSession();
 		
 		try {
 			session.beginTransaction();
-			Genre tempGenre = new Genre();
-			tempGenre.setGenreName("ChadGenre");
-			
-			System.out.println("Saving the Genre!");
-			session.save(tempGenre);
-			System.out.println("Genre Saved!");
-			
-			Album tempAlbum = new Album();
-			tempAlbum.setAlbumName("Chad's album");
-			tempAlbum.setAlbumYear(2007);
-			
-			Album tempAlbum2 = new Album();
-			tempAlbum2.setAlbumName("Chad's return");
-			tempAlbum2.setAlbumYear(1998);
 
+			Artist testArtist = new Artist();
+			Album testAlbum = new Album();
+			Genre testGenre = new Genre();
+			testArtist.setArtistName("Jefferson Airplane");
+			testArtist.setArtistBio("The one with the white rabbit song");
+			session.save(testArtist);
 			
-
-			tempGenre.addAlbum(tempAlbum);
-			tempGenre.addAlbum(tempAlbum2);
+			testAlbum.setAlbumName("White Rabbit");
+			testAlbum.setAlbumYear(2007);
+			testAlbum.addArtist(testArtist);
+			session.save(testAlbum);
+			testAlbum.addGenre(testGenre);
+			testGenre.setGenreName("A chill song");
+			session.save(testGenre);
 			
-			System.out.println("Saving albums!");
-			session.save(tempAlbum);
-			session.save(tempAlbum2);
-			System.out.println("Albums saved!");
-			
-			session.getTransaction().commit();			
-			
-			System.out.println("Done!");
+			session.getTransaction().commit();
+		}finally {
+			System.out.println("Woow!");
 		}
-		finally {
-			System.out.println("Wooow");
+		
+		
+		
+	
+		List<String> searchableStrings = dao.getSearchable();
+		System.out.println("Now creating a list of every name found in the database!");
+		for(int i = 0; i < searchableStrings.size(); i++) {
+			System.out.println("Iterating through all the names in the database : "+searchableStrings.get(i));
 		}
+		
+//		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+//		
+//		Session session = factory.getCurrentSession();
+//		
+//		try {
+//			session.beginTransaction();
+//			Album tempAlbum = new Album();
+//			tempAlbum.setAlbumName("Album for the artists!");
+//			tempAlbum.setAlbumYear(666);
+//			
+//			Genre tempGenre = new Genre();
+//			tempGenre.
+			
+//			session.beginTransaction();
+//			Genre tempGenre = new Genre();
+//			tempGenre.setGenreName("ChadGenre");
+//			
+//			System.out.println("Saving the Genre!");
+//			session.save(tempGenre);
+//			System.out.println("Genre Saved!");
+//			
+//			Album tempAlbum = new Album();
+//			tempAlbum.setAlbumName("Chad's album");
+//			tempAlbum.setAlbumYear(2007);
+//			
+//			Album tempAlbum2 = new Album();
+//			tempAlbum2.setAlbumName("Chad's return");
+//			tempAlbum2.setAlbumYear(1998);
+//
+//			tempGenre.addAlbum(tempAlbum);
+//			tempGenre.addAlbum(tempAlbum2);
+//			
+//			System.out.println("Saving albums!");
+//			session.save(tempAlbum);
+//			session.save(tempAlbum2);
+//			System.out.println("Albums saved!");
+//			
+//			session.getTransaction().commit();			
+//			
+//			System.out.println("Done!");
+//		}
+//		finally {
+//			System.out.println("Wooow");
+//		}
 		
 		
 //		Artist[] artistList = dao.readArtists();
