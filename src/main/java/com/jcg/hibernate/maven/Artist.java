@@ -1,10 +1,18 @@
 package com.jcg.hibernate.maven;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -12,7 +20,7 @@ import javax.persistence.Table;
 public class Artist {
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ArtistiID", updatable = false, nullable = false)
 	private int artistID;
 	
@@ -22,6 +30,27 @@ public class Artist {
 	@Column(name = "Biografia")
 	private String artistBio;
 	
+	@ManyToMany(fetch=FetchType.LAZY,
+			cascade={CascadeType.ALL})
+	@JoinTable(
+			name="tekee",
+			joinColumns={@JoinColumn(name="ArtistiID")},
+			inverseJoinColumns={@JoinColumn(name="AlbumiID")}
+			)
+	private List<Album> artistAlbums;
+	
+	public List<Album> getArtistAlbums(){
+		return this.artistAlbums;
+	}
+	public void setArtistAlbums(List<Album> artistAlbums) {
+		this.artistAlbums = artistAlbums;
+	}
+	public void addAlbum(Album album) {
+		if(artistAlbums == null) {
+			artistAlbums = new ArrayList<>();
+		}
+		artistAlbums.add(album);
+	}
 	public int getArtistID() {
 		return artistID;
 	}
