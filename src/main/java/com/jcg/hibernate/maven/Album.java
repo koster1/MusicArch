@@ -77,20 +77,5 @@ public class Album {
 	}
 	public void setAlbumYear(int albumYear) {
 		this.albumYear = albumYear;
-<<<<<<< HEAD
 	}
-	
-		@ManyToMany(
-			cascade= {CascadeType.PERSIST, CascadeType.MERGE},
-			mappedBy="albums",
-			targetEntity=Genre.class
-			)
-	public Collection getGenres() {
-		return genres;
-	}
-	
-	
-=======
-	}	
->>>>>>> branch 'master' of https://gitlab.metropolia.fi/janiap/MusicArch.git
 }

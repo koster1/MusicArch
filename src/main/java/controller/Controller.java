@@ -32,7 +32,6 @@ public class Controller {
     	Genre newGenre = new Genre();
     	newGenre.setGenreName(genreName);
     	remoteDAO.createGenre(newGenre);
-    	
     }
     public void createArtist(String artistName, String artistBio) {
     	Artist newArtist = new Artist();
