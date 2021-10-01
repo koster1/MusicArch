@@ -3,6 +3,10 @@ package controller;
 import controller.*;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
+import com.jcg.hibernate.maven.Song;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -51,7 +55,7 @@ public class GUIController {
 
 	// ---------------------- Albumin lisäys--------------------
 
-	//Selvitä mikä tää send on?
+	// Selvitä mikä tää send on?
 	@FXML
 	private Button Send;
 	@FXML
@@ -91,7 +95,6 @@ public class GUIController {
 		}
 	}
 
-	// TÄSSÄ KOHTAA JOKU VIRHE
 	// SendArtistButton lähettää Artist-lomakkeen tiedot controlleriin.
 	// Virhe-ikkuna ponnautetaan jos kentät ovat tyhjiä
 	// Täytyy lisätä muitakin ehtoja
@@ -111,22 +114,17 @@ public class GUIController {
 			ArtistsName.clear();
 			Biografia.clear();
 		} else {
-			controller.genreExist();
 			// Pitää hakea booleani että minkä perustella katsotaan onko artisti kannassa
-			/*
-			 * if (true) { controller.createArtist(artistName, artistBio); } else {
-			 * view.Error(); }
-			 */
+			controller.createArtist(artistName, artistBio);
+			Dialog<String> dialog = new Dialog<String>();
+			dialog.setTitle("Pyyntö lähetetty");
+			dialog.setHeaderText("Artistipyyntö lähetetty!");
+			dialog.setContentText("Lähetit pyynnön lisätä genren: " + artistName);
 
-			/*
-			 * Dialog<String> dialog = new Dialog<String>();
-			 * dialog.setTitle("Pyyntö lähetetty");
-			 * dialog.setHeaderText("Artistipyyntö lähetetty!");
-			 * dialog.setContentText("Lähetit pyynnön lisätä genren: " + artistName);
-			 * 
-			 * ButtonType type = new ButtonType("OK", ButtonData.OK_DONE);
-			 * dialog.getDialogPane().getButtonTypes().add(type); dialog.showAndWait();
-			 */
+			ButtonType type = new ButtonType("OK", ButtonData.OK_DONE);
+			dialog.getDialogPane().getButtonTypes().add(type);
+			dialog.showAndWait();
+
 			// Tässä on joku probleema!
 			ArtistsName.clear();
 			Biografia.clear();
@@ -135,53 +133,58 @@ public class GUIController {
 	};
 
 	// Lähetetään album-lomakkeen tiedot controllerille
-	//ALbum jutut
+	// ALbum jutut
 
-    @FXML
-    private TextField Released;
+	@FXML
+	private TextField Released;
 
-    @FXML
-    private Label Year;
+	@FXML
+	private Label Year;
 
-    @FXML
-    private Label AlbumTitle;
+	@FXML
+	private Label AlbumTitle;
 
-    @FXML
-    private TextField AlbumName;
+	@FXML
+	private TextField AlbumName;
 
-    @FXML
-    private TextField ArtistName;
+	@FXML
+	private TextField ArtistName;
 
-    @FXML
-    private TextField Songs;
+	@FXML
+	private TextField Songs;
+	/*
+	 * @FXML private TextField Songs1;
+	 * 
+	 * @FXML private TextField Songs2;
+	 */
 
-    @FXML
-    private TextField GenreName;
+	@FXML
+	private TextField GenreName;
 
-    @FXML
-    void NewArtist(ActionEvent event) {
-
-    }
-
-    @FXML
-    void NewGenre(ActionEvent event) {
-
-    }
-
-    @FXML
-    void NewSong(ActionEvent event) {
-
-    }
-
-	
 	@FXML
 	void SendAlbumButton(ActionEvent event) {
+		String albumName = AlbumName.getText();
+
+		int julkaisuvuosi = Integer.parseInt(Released.getText());
+		ArrayList<String> genre = new ArrayList<String>();
+		genre.add(GenreName.getText());
+
+		ArrayList<String> artist = new ArrayList<String>();
+		artist.add(ArtistName.getText());
+
+		System.out.print("Albuminimi: " + albumName + " Lista biiseistä " + "  julkaisuvuosi: " + julkaisuvuosi
+				+ "   Genret :  " + genre + "   " + "Artistit: " + artist);
+
+		// controller.createAlbum(albumName, null, julkaisuvuosi, null, null);
 
 	}
 
 	// ------------AlbumiFormin toiminnallisuus--------------------
+	// Pitää lisätä uusia tekstikenttiä moniarvoisille tiedoille
 	@FXML
 	void NewArtist(ActionEvent event) {
+		// kesken
+		// TextField txt = new TextField();
 	}
 
 	@FXML

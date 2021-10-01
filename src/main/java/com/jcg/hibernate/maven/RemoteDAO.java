@@ -34,6 +34,8 @@ public class RemoteDAO {
 //		SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
 	}
 
+	
+	
 	// -------------JEMILAN TESTIT-----------------------
 	public boolean GenreExist(String genreName) {
 		Genre[] genreSearch = readGenres();
