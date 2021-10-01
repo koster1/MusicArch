@@ -97,14 +97,14 @@ public class RemoteDAO {
 	
 	
 	//TESTED! Works
-	public Genre searchGenre(String searchID) {
+	public Genre searchGenre(String genreSearch) {
 		Genre returnable = new Genre();
 		
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();	
 			Query query = session.createQuery("From Genre where genreNimi like:name");
-			List<Genre> genreList = query.setParameter("name", searchID).list();
+			List<Genre> genreList = query.setParameter("name", genreSearch).list();
 
 			transAct.commit();
 			session.close();
@@ -198,12 +198,9 @@ public class RemoteDAO {
 		Transaction transAct = null;
 		try (Session session = sessionFactory.openSession()) {
 			transAct = session.beginTransaction();
-			System.out.println("readArtists 1");
-			
 			
 			@SuppressWarnings("unchecked")
 			List<Artist> result = (List<Artist>) session.createQuery("from Artist").list();
-			System.out.println("readArtists 2");
 			transAct.commit();
 			Artist[] array = new Artist[result.size()];
 			session.close();
@@ -219,7 +216,7 @@ public class RemoteDAO {
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();	
-			Query query = session.createQuery("From Artisti where artistiNimi like:name");
+			Query query = session.createQuery("From Artist where artistiNimi like:name");
 			List<Artist> artistList = query.setParameter("name", artistSearch).list();
 
 			transAct.commit();

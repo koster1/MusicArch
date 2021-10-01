@@ -16,16 +16,12 @@ import model.*;
 public class Controller {
 
     private RemoteDAO remoteDAO = new RemoteDAO();
-    private LocalDAO localDAO = new LocalDAO();
-    
-
+//    private LocalDAO localDAO = new LocalDAO();
 
     /**
      * Default constructor
      */
-    public Controller() {
-    	
-    }
+    public Controller() {}
     
     //Luominen etätietokantaan
     public void createGenre(String genreName) {
@@ -39,17 +35,37 @@ public class Controller {
     	newArtist.setArtistBio(artistBio);
     	remoteDAO.createArtist(newArtist);
     }
-    public void createAlbum(String albumName, Song[] songListGiven, int albumYear, Genre[] genreListGiven, Artist[] artistListGiven ) {
+    //SongListGiven removed for testing purposes!
+    public void createAlbum(String albumName, int albumYear, String[] genreListGiven, String[] artistListGiven) {
+    	
+    	//So first we create an album with the given name and year
     	Album newAlbum = new Album();
-    	Song[] songList = new Song[songListGiven.length];
     	newAlbum.setAlbumName(albumName);
     	newAlbum.setAlbumYear(albumYear);
-    	remoteDAO.createAlbum(newAlbum, songList, null, null, null);
+    	
+    	Genre[] albumGenres = new Genre[genreListGiven.length];
+    	Artist[] albumArtists = new Artist[artistListGiven.length];
+    	
+    	if(genreListGiven.length != 0 || artistListGiven.length != 0) {
+    		for(int i = 0; i<albumGenres.length; i++) {
+    			Genre linkGenre = remoteDAO.searchGenre(genreListGiven[i]);
+        		newAlbum.addGenre(linkGenre);
+        	}
+    		for(int i = 0; i<albumArtists.length; i++) {
+    			Artist linkArtist = remoteDAO.searchArtist(artistListGiven[i]);
+    			newAlbum.addArtist(linkArtist);
+    		}
+    		
+    		remoteDAO.createAlbum(newAlbum);
+    	}
+    	else {
+    		System.out.println("Can't create album without artists or genres!");
+    	}
+    	
     }
     //Paikalliseen tietokantaan luominen
     public void createLocalGenre(String genreName) {
-    	Genre newGenre = new Genre();
-    	newGenre.setGenreName(genreName);
+    	remoteDAO.searchGenre(genreName);
     	localDAO.createGenre(newGenre);
     }
     public void createLocalArtist(String artistName, String artistBio) {
@@ -181,13 +197,6 @@ public class Controller {
     /* public void searchAlbum (String albumName) {
     	remoteDAO.searchAlbum()
     } */
-    public void searchLocalGenre(String genreName) {
-    	localDAO.searchGenre(genreName);
-    }
-    public void searchLocalArtist(String artistName) {
-    	localDAO.searchArtist(artistName);
-    }
-    
     
     
     

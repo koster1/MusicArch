@@ -21,7 +21,8 @@ import org.hibernate.mapping.Collection;
 
 @Entity
 @Table(name = "Genre")
-public class Genre  {
+
+public class Genre implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
