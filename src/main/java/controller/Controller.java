@@ -165,7 +165,7 @@ public class Controller {
     	remoteDAO.removeAlbum(removeID);
     }
     
-    //Hakutoiminnot
+    //Hakeminen etätietokannasta
     
     /*public void searchAll(int genreID, int artistID, int albumID) {
     	
@@ -181,6 +181,14 @@ public class Controller {
     /* public void searchAlbum (String albumName) {
     	remoteDAO.searchAlbum()
     } */
+    public void searchLocalGenre(String genreName) {
+    	localDAO.searchGenre(genreName);
+    }
+    public void searchLocalArtist(String artistName) {
+    	localDAO.searchArtist(artistName);
+    }
+    
+    
     
     
     
