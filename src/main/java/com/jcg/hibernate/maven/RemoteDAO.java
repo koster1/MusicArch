@@ -261,10 +261,29 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
-	//Still not sure how to handle the song list here :/ Implement searches by name to get a list of GenreIDs and ArtistIDs
-	public boolean createAlbum(Album album, Song[] songs, Includes[] includes, String[] albumGenres, String[] albumArtists) {
-		
-		return true;
+
+	public boolean createAlbum(Album album) {
+		Album[] albumSearch = readAlbums();		
+		//First loop to check whether a given genre is already found within the database
+		for(int i = 0; i < albumSearch.length; i++) {			
+			if(albumSearch[i].getAlbumName().equals(album.getAlbumName())) {
+				System.out.println("This one already exists! Can't add it!");
+				return false;
+			}
+		}
+
+		Transaction transAct = null;	
+		try(Session session = sessionFactory.openSession()){
+			transAct = session.beginTransaction();
+			session.saveOrUpdate(album);			
+			session.save(album);
+			transAct.commit();
+			return true;
+		}catch(Exception e) {
+			if(transAct != null) 
+				transAct.rollback();
+			throw e;			
+		}
 	}
 	
 	public Album readAlbum(int id) {
@@ -353,7 +372,7 @@ public class RemoteDAO {
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();
-			String sql = "select artistinimi from artisti union select albuminimi from albumi union select genrenimi from genre";
+			String sql = "select artistinimi from artisti union select albuminimi from albumi union select genrenimi from genre union select kappalenimi from kappale";
 			SQLQuery query = session.createSQLQuery(sql);
 			List<String> results = query.list();
 			transAct.commit();
@@ -362,8 +381,7 @@ public class RemoteDAO {
 			if(transAct != null)
 				transAct.rollback();
 			throw e;
-		}
-			
+		}		
 	}
 	
 	public void finalize() {

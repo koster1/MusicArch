@@ -32,7 +32,7 @@ public class Artist {
 	
 	
 	@ManyToMany(fetch=FetchType.LAZY,
-			cascade= {CascadeType.ALL})
+			cascade={CascadeType.ALL})
 	@JoinTable(
 			name="tekee",
 			joinColumns={@JoinColumn(name="ArtistiID")},

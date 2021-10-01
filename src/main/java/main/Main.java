@@ -27,8 +27,38 @@ public class Main {
 		
 //		dao.readArtist(2);
 //		System.out.println("testi");
+		
+		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+		Session session = factory.getCurrentSession();
+		
+		try {
+			session.beginTransaction();
+
+			Artist testArtist = new Artist();
+			Album testAlbum = new Album();
+			Genre testGenre = new Genre();
+			testArtist.setArtistName("Jefferson Airplane");
+			testArtist.setArtistBio("The one with the white rabbit song");
+			session.save(testArtist);
+			
+			testAlbum.setAlbumName("White Rabbit");
+			testAlbum.setAlbumYear(2007);
+			testAlbum.addArtist(testArtist);
+			session.save(testAlbum);
+			testAlbum.addGenre(testGenre);
+			testGenre.setGenreName("A chill song");
+			session.save(testGenre);
+			
+			session.getTransaction().commit();
+		}finally {
+			System.out.println("Woow!");
+		}
+		
+		
+		
 	
 		List<String> searchableStrings = dao.getSearchable();
+		System.out.println("Now creating a list of every name found in the database!");
 		for(int i = 0; i < searchableStrings.size(); i++) {
 			System.out.println("Iterating through all the names in the database : "+searchableStrings.get(i));
 		}
