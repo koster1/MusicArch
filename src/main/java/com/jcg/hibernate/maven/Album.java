@@ -19,11 +19,11 @@ import javax.persistence.Table;
 
 import org.hibernate.mapping.Collection;
 
+
 @Entity
 @Table(name = "Albumi")
 public class Album {
-	// @OneToMany()
-	// @MappedBy("Song") or @MappedBy("Album") if in Song class
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "AlbumiID", updatable = false, nullable = false)
@@ -34,31 +34,6 @@ public class Album {
 	
 	@Column(name = "Julkaisuvuosi")
 	private int albumYear;
-	
-	@ManyToMany(fetch=FetchType.LAZY,
-			cascade={CascadeType.ALL})
-	@JoinTable(
-			name="koostuu",
-			joinColumns={@JoinColumn(name="AlbumiID")},
-			inverseJoinColumns={@JoinColumn(name="GenreID")}
-			)
-	private List<Genre> albumGenres;
-	
-	public List<Genre> getAlbumGenres(){
-		return albumGenres;
-	}
-	
-	public void setAlbumGenres(List<Genre> albumGenres) {
-		this.albumGenres = albumGenres;
-	}
-	public void addGenre(Genre genre) {
-		if(albumGenres == null) {
-			albumGenres = new ArrayList<>();
-		}
-		albumGenres.add(genre);
-	}
-	
-	public Album() {}
 	
 	public int getAlbumID() {
 		return albumID;
@@ -78,4 +53,5 @@ public class Album {
 	public void setAlbumYear(int albumYear) {
 		this.albumYear = albumYear;
 	}
+	
 }
