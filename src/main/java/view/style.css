@@ -1,0 +1,27 @@
+
+/*Elementeistä on tehty ryhmiä, joita voidaan muokata täällä. */
+/*Uudet elementtiryhmät voidaan luoda SB:ssä */
+/*Osalla eri Stagejen elementtiryhmistä voi olla sama ID sillä 
+ * niitä voi paremmin ohjata yhdessä näin
+ */
+ 
+ 
+/*Päänäkymän elementtejä */
+.root {
+-fx-background-color: #d3d3d3;
+
+}
+#Buttonbarbuttons {
+  
+}
+
+/*Lisäyssivusta löytyviä elementtejä */
+#RequestDrops {
+
+}
+#TxtFields {
+-fx-font-size: 13.0px;
+}
+#PlusButtons {
+	
+}

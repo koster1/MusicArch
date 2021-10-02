@@ -1,10 +1,12 @@
 package controller;
+
 import java.util.*;
 
 import com.jcg.hibernate.maven.Album;
 import com.jcg.hibernate.maven.Artist;
 import com.jcg.hibernate.maven.Genre;
 import com.jcg.hibernate.maven.LocalDAO;
+
 import com.jcg.hibernate.maven.RemoteDAO;
 import com.jcg.hibernate.maven.Song;
 
@@ -15,8 +17,12 @@ import model.*;
  */
 public class Controller {
 
-    private RemoteDAO remoteDAO = new RemoteDAO();
-//    private LocalDAO localDAO = new LocalDAO();
+	private RemoteDAO remoteDAO = new RemoteDAO();
+	private LocalDAO localDAO = new LocalDAO();
+
+	/**
+	 * Default constructor
+	 */
 
     /**
      * Default constructor
@@ -201,5 +207,6 @@ public class Controller {
     
     
     
+
 
 }

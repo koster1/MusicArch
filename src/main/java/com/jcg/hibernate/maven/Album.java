@@ -18,11 +18,11 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import org.hibernate.mapping.Collection;
 
+
 @Entity
 @Table(name = "Albumi")
 public class Album {
-	// @OneToMany()
-	// @MappedBy("Song") or @MappedBy("Album") if in Song class
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "AlbumiID", updatable = false, nullable = false)
@@ -33,7 +33,7 @@ public class Album {
 	
 	@Column(name = "Julkaisuvuosi")
 	private int albumYear;
-	
+
 	@ManyToMany(fetch=FetchType.LAZY,
 			cascade={CascadeType.ALL})
 	@JoinTable(
@@ -96,4 +96,5 @@ public class Album {
 	public void setAlbumYear(int albumYear) {
 		this.albumYear = albumYear;
 	}
+	
 }
