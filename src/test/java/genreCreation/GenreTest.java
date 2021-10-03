@@ -80,7 +80,7 @@ public class GenreTest {
 	public void createGenre() {
 		System.out.println("NOW DOING THE CREATION TEST");
 		Genre testGenre = new Genre();
-		testGenre.setGenreName("TestGenre");
+		testGenre.setGenreName(givenGenre);
 		rDAO.createGenre(testGenre);
 		
 		assertEquals(givenGenre, rDAO.searchGenre(givenGenre).getGenreName(), "Expected to find TestGenre!");

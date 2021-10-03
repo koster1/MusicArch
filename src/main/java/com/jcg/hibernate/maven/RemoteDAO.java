@@ -216,17 +216,28 @@ public class RemoteDAO {
 	}
 	
 	public Artist searchArtist(String artistSearch) {
+		Artist returnable = new Artist();
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();	
-			Query query = session.createQuery("From Artisti where artistiNimi like:name");
+			Query query = session.createQuery("From Artist where artistiNimi like:name");
 			List<Artist> artistList = query.setParameter("name", artistSearch).list();
 
-			transAct.commit();
-			session.close();
-			return artistList.get(0);
+			if(!artistList.isEmpty()) {
+				System.out.println("The genre list is NOT empty!");
+				returnable = artistList.get(0);
+				System.out.println("The returnable name is -> "+returnable.getArtistName());
+				return returnable;
+				}	
+		}catch(Exception e){
+			if(transAct != null)
+				transAct.rollback();
+			throw e;
 		}
-	}	
+		System.out.println("Nothing found, returning default value");
+		return returnable;
+	}
+		
 	
 	//To be tested!
 	public boolean editArtist(Artist artistEdit, int id) {
@@ -254,7 +265,6 @@ public class RemoteDAO {
 		session.delete(removeArtist);
 		transAct.commit();
 		return true;
-		
 		}catch(Exception e) {
 			if(transAct != null)
 				transAct.rollback();
