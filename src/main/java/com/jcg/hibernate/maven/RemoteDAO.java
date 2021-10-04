@@ -523,7 +523,7 @@ public class RemoteDAO {
 			transAct = session.beginTransaction();
 			
 			@SuppressWarnings("unchecked")
-			List<Genre> result = (List<Genre>) session.createQuery("from Genre order by genreName").list();		
+			List<Genre> result = (List<Genre>) session.createQuery("from Genre order by genreName").list();
 			List<Album> array = result.get(0).getGenreAlbums();
 			transAct.commit();
 			return array;
