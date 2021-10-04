@@ -34,7 +34,7 @@ public class Album {
 	@Column(name = "Julkaisuvuosi")
 	private int albumYear;
 
-	@ManyToMany(fetch=FetchType.LAZY,
+	@ManyToMany(fetch=FetchType.EAGER,
 			cascade={CascadeType.ALL})
 	@JoinTable(
 			name="koostuu",
@@ -44,7 +44,7 @@ public class Album {
 	private List<Genre> albumGenres;
 	
 	@ManyToMany(fetch=FetchType.LAZY,
-			cascade= {CascadeType.ALL})
+			cascade={CascadeType.ALL})
 	@JoinTable(
 			name="tekee",
 			joinColumns={@JoinColumn(name="AlbumiID")},
