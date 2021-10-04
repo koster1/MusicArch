@@ -71,18 +71,15 @@ public class Controller {
     }
     //Paikalliseen tietokantaan luominen
     public void createLocalGenre(String genreName) {
-    	//LocalGenre localGenre = (LocalGenre) remoteDAO.searchGenre(genreName);
-    	
-    	
-    	
-    	//localDAO.createGenre()
-    	
-    	
+    	Genre newGenre = new Genre();
+    	newGenre.setGenreName(genreName);
+    	localDAO.createGenre(newGenre);
     }
-    public void createLocalArtist(String artistName, String artistBio, Artist artist) {
-    	remoteDAO.searchArtist(artistName);
-    	remoteDAO.searchArtist(artistBio);
-    	localDAO.createArtist(artist);
+    public void createLocalArtist(String artistName, String artistBio) {
+    	Artist newArtist = new Artist();
+    	newArtist.setArtistName(artistName);
+    	newArtist.setArtistBio(artistBio);
+    	localDAO.createArtist(newArtist);
     }
     public void createLocalAlbum(String albumName, Song[] songListGiven, int albumYear, Genre[] genreListGiven, Artist[] artistListGiven ) {
     	Album newAlbum = new Album();
@@ -191,7 +188,7 @@ public class Controller {
     	remoteDAO.removeAlbum(removeID);
     }
     
-    //Hakeminen etätietokannasta
+    //Hakutoiminnot
     
     /*public void searchAll(int genreID, int artistID, int albumID) {
     	
@@ -207,7 +204,6 @@ public class Controller {
     /* public void searchAlbum (String albumName) {
     	remoteDAO.searchAlbum()
     } */
-    
     
     
     
