@@ -2,6 +2,10 @@ package view;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+
+import com.sun.glass.ui.Window;
+import com.sun.xml.bind.v2.runtime.unmarshaller.Loader;
 
 import controller.GUIController;
 import javafx.application.Application;
@@ -23,6 +27,7 @@ public class View extends Application {
 	private Stage primaryStage;
 	private static BorderPane rootLayout;
 	private static BorderPane anotherRoot;
+	private static BorderPane userRoot;
 	private static SplitPane splitPane;
 	private static AnchorPane test;
 	private static BorderPane g;
@@ -61,7 +66,7 @@ public class View extends Application {
 
 	}
 	//BorderPanen keskelle asetettu etusivunäkymä (sisältää tulevaisuudessa listauksia genreistä tms)
-	public void showFrontPage(ArrayList<String> stringList) throws IOException {
+	public static void showFrontPage(ArrayList<String> stringList) throws IOException {
 
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(View.class.getResource("/view/fxmlFiles/FrontPage.fxml"));
@@ -69,7 +74,6 @@ public class View extends Application {
 		rootLayout.setCenter(Frontpage);
 		GridPane gridPane = (GridPane)Frontpage.getChildren().get(1);
 		System.out.println(stringList.toString());
-		gridPane.add(new Text(stringList.get(0)), 0, 0);
 		int counter = 0;
 		for(int i = 0; i < gridPane.getColumnCount(); i++) {
 			for(int j = 0; j < gridPane.getRowCount(); j++) {
@@ -97,13 +101,32 @@ public class View extends Application {
 		System.out.println("User collection!!!");
 		FXMLLoader fxmlLoader = new FXMLLoader();
 		fxmlLoader.setLocation(View.class.getResource("/view/fxmlFiles/OmaKokoelma.fxml"));
-		anotherRoot = (BorderPane) fxmlLoader.load();
-		Scene scene = new Scene(anotherRoot);
-		scene.getStylesheets().add("/view/style.css");
-		Stage stage = new Stage();
-		stage.setTitle("New Window");
-		stage.setScene(scene);
-		stage.show();
+		userRoot = (BorderPane) fxmlLoader.load();
+		List<Window> windows = Window.getWindows();
+		System.out.println(windows);
+		boolean test = true;
+		try {
+			for(int i = 0; i < windows.size(); i++) {
+				System.out.println(windows.get(i).getTitle());
+				if(windows.get(i).getTitle().contains("User")) {
+					System.out.println("Truee");
+					test = false;
+					break;
+				}
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		if(test) {
+			Scene scene = new Scene(userRoot);
+			scene.getWindow();
+			scene.getStylesheets().add("/view/style.css");
+			Stage stage2 = new Stage();
+			stage2.setTitle("User");
+			stage2.setScene(scene);
+			stage2.show();
+			userRoot.requestFocus();
+		}
 	}
 
 	// -------------------Lisayspohjan OMA stage---------------------------------

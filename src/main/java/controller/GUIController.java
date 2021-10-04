@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.input.MouseEvent;
@@ -215,9 +216,14 @@ public class GUIController {
 	// Menunappulat
 	@FXML
 	public void goFrontPage(ActionEvent event) throws IOException {
-		//showFrontPage parameter as observableList? 
-		
-//		view.showFrontPage();
+		Artist[] artistList = controller.getArtists();
+		ArrayList<String> stringList = new ArrayList<>();
+		for (Artist artist : artistList) {
+			System.out.println(artist.getArtistName());
+			stringList.add(artist.getArtistName());
+		}
+		System.out.println(stringList);
+		View.showFrontPage(stringList);
 	}
 	
 	public void goFrontPage() throws IOException {
@@ -228,7 +234,7 @@ public class GUIController {
 			stringList.add(artist.getArtistName());
 		}
 		
-			view.showFrontPage(stringList);
+			View.showFrontPage(stringList);
 		
 	}
 
