@@ -6,6 +6,7 @@ import com.jcg.hibernate.maven.Album;
 import com.jcg.hibernate.maven.RemoteDAO;
 import com.jcg.hibernate.maven.Genre;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -41,20 +42,30 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import view.*;
 
 public class GUIController {
 	private Controller controller = new Controller();
 	private View view;
 	private BorderPane borderpane;
-
+	
+	@FXML
+	private Button SearchButton;
+	
 	// Etusivun hakukenttä
 	@FXML
 	private TextField SearchBox;
 
 	@FXML
 	void SearchTxt(ActionEvent event) {
-
+		SearchButton.setStyle("-fx-border-color: #ffff33");
+		PauseTransition pause = new PauseTransition(Duration.seconds(0.7));
+		
+		pause.setOnFinished(event1 -> {
+			SearchButton.setStyle(null);
+		});
+		pause.play();
 	}
 
 	//
@@ -283,6 +294,13 @@ public class GUIController {
 	// Menunappulat
 	@FXML
 	public void goFrontPage(ActionEvent event) throws IOException {
+		FrontPage.setStyle("-fx-border-color: #ffff33");
+		PauseTransition pause = new PauseTransition(Duration.seconds(0.7));
+		
+		pause.setOnFinished(event1 -> {
+			FrontPage.setStyle(null);
+		});
+		pause.play();
 		Artist[] artistList = controller.getArtists();
 		ArrayList<String> stringList = new ArrayList<>();
 		for (Artist artist : artistList) {
@@ -307,17 +325,39 @@ public class GUIController {
 
 	@FXML
 	void ShowRequests(ActionEvent event) throws IOException {
+		
+		Requests.setStyle("-fx-border-color: #ffff33");
+		PauseTransition pause = new PauseTransition(Duration.seconds(0.7));
+		
+		pause.setOnFinished(event1 -> {
+			Requests.setStyle(null);
+		});
+		pause.play();
 		view.showRequestsWindow();
 	}
 
 	@FXML
 	void GoHelpPage(ActionEvent event) throws IOException {
+		Help.setStyle("-fx-border-color: #ffff33");
+		PauseTransition pause = new PauseTransition(Duration.seconds(0.7));
+		
+		pause.setOnFinished(event1 -> {
+			Help.setStyle(null);
+		});
+		pause.play();
 		view.showHelpPage();
 
 	}
 	
 	@FXML
 	void goUserCollection(ActionEvent event) throws IOException {
+		UserCollection.setStyle("-fx-border-color: #ffff33");
+		PauseTransition pause = new PauseTransition(Duration.seconds(0.7));
+		
+		pause.setOnFinished(event1 -> {
+			UserCollection.setStyle(null);
+		});
+		pause.play();
 		view.showUserCollectionPage();
 	}
 	

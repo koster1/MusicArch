@@ -15,6 +15,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
@@ -23,7 +24,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.stage.Window;
+//import javafx.stage.Window;
 
 public class View extends Application {
 
@@ -79,7 +80,8 @@ public class View extends Application {
 		loader.setLocation(View.class.getResource("/view/fxmlFiles/FrontPage.fxml"));
 		AnchorPane Frontpage = (AnchorPane) loader.load();
 		rootLayout.setCenter(Frontpage);
-		GridPane gridPane = (GridPane)Frontpage.getChildren().get(1);
+		GridPane gridPane = (GridPane)Frontpage.getChildren().get(0);
+		gridPane.setAlignment(Pos.CENTER);
 		System.out.println(stringList.toString());
 		int counter = 0;
 		for(int i = 0; i < gridPane.getColumnCount(); i++) {
@@ -146,26 +148,38 @@ public class View extends Application {
 		 * try { System.out.print("   " + anotherRoot); }catch (Exception e){
 		 * System.out.print(e.getMessage()); }
 		 */
-		anotherRoot = null;
+		
 
-		if (anotherRoot == null) {
+		
 			FXMLLoader fxmlLoader = new FXMLLoader();
 			fxmlLoader.setLocation(View.class.getResource("/view/fxmlFiles/LisaysPyynnot2.fxml"));
 			anotherRoot = (BorderPane) fxmlLoader.load();
-			Scene scene = new Scene(anotherRoot);
-			scene.getStylesheets().add("/view/style.css");
+			List<Window> windows = Window.getWindows();
+			System.out.println(windows);
+			boolean test = true;
+			try {
+				for(int i = 0; i < windows.size(); i++) {
+					System.out.println(windows.get(i).getTitle());
+					if(windows.get(i).getTitle().contains("Request")) {
+						System.out.println("Truee");
+						test = false;
+						break;
+					}
+				}
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+			if(test) {
 
-			Stage stage = new Stage();
-			stage.setTitle("New Window");
-			stage.setScene(scene);
-			stage.show();
+				Scene scene = new Scene(anotherRoot);
+				scene.getStylesheets().add("/view/style.css");
+				
+				Stage stage = new Stage();
+				stage.setTitle("Request");
+				stage.setScene(scene);
+				stage.show();
+			}
 
-		} else if (anotherRoot != null) {
-			((Stage) anotherRoot.getScene().getWindow()).close();
-
-//			anotherRoot.toFront();
-
-		}
 	}
 
 	public static void showGenreForm() throws IOException {
