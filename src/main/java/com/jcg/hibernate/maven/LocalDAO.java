@@ -103,7 +103,7 @@ public class LocalDAO {
 	}
 	
 	//To be tested
-	public boolean editGenre(Genre genreEdit, int id) {
+	public boolean editGenre(LocalGenre genreEdit, int id) {
 		Transaction transAct = null;		
 		try(Session session = sessionFactory.openSession()){
 		transAct = session.beginTransaction();		
@@ -205,7 +205,7 @@ public class LocalDAO {
 	}	
 	
 	//To be tested!
-	public boolean editArtist(Artist artistEdit, int id) {
+	public boolean editArtist(LocalArtist artistEdit, int id) {
 		Transaction transAct = null;		
 		try(Session session = sessionFactory.openSession()){
 		transAct = session.beginTransaction();		
@@ -238,7 +238,7 @@ public class LocalDAO {
 		}
 	}
 	//Still not sure how to handle the song list here :/
-	public boolean createAlbum(Album album, LocalSong[] songs) {
+	public boolean createAlbum(LocalAlbum album, LocalSong[] songs) {
 		return true;
 	}
 	

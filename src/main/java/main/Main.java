@@ -29,11 +29,11 @@ public class Main {
 		View.main(args);
 //		RemoteDAO dao = new RemoteDAO();
 ////		
-		LocalDAO localDAO = new LocalDAO();
-		LocalGenre genre = new LocalGenre();
-		genre.setGenreID(2);
-		genre.setGenreName("Rock");
-		localDAO.createGenre(genre);
+//		LocalDAO localDAO = new LocalDAO();
+//		LocalGenre genre = new LocalGenre();
+//		genre.setGenreID(2);
+//		genre.setGenreName("Rock");
+//		localDAO.createGenre(genre);
 
 		
 //		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
@@ -66,10 +66,10 @@ public class Main {
 		
 
 	
-		List<String> searchableStrings = localDAO.getSearchable();
-		for(int i = 0; i < searchableStrings.size(); i++) {
-			System.out.println("Iterating through all the names in the database : "+searchableStrings.get(i));
-		}
+//		List<String> searchableStrings = localDAO.getSearchable();
+//		for(int i = 0; i < searchableStrings.size(); i++) {
+//			System.out.println("Iterating through all the names in the database : "+searchableStrings.get(i));
+//		}
 
 //		List<String> searchableStrings = dao.getSearchable();
 //		System.out.println("Now creating a list of every name found in the database!");
