@@ -517,16 +517,32 @@ public class RemoteDAO {
 	}
 	*/
 	//STILL INCOMPLETE, not working properly. "Lazy loading not initialized"?
-	public Album genreAlbums(int genreID){
+	public List<Album> genreAlbums(int genreID){
 		Transaction transAct = null;
 		try (Session session = sessionFactory.openSession()) {
 			transAct = session.beginTransaction();
 			
 			@SuppressWarnings("unchecked")
-			List<Genre> result = (List<Genre>) session.createQuery("from Genre order by genreName").list();
+			List<Genre> result = (List<Genre>) session.createQuery("from Genre order by genreName").list();		
 			List<Album> array = result.get(0).getGenreAlbums();
 			transAct.commit();
-			return array.get(0);
+			return array;
+		} catch (Exception e) {
+			if (transAct != null)
+				transAct.rollback();
+			throw e;
+		}
+	}
+	public List<Album> artistAlbums(int artistID){
+		Transaction transAct = null;
+		try (Session session = sessionFactory.openSession()) {
+			transAct = session.beginTransaction();
+			
+			@SuppressWarnings("unchecked")
+			List<Artist> result = (List<Artist>) session.createQuery("from Artist order by artistName").list();		
+			List<Album> array = result.get(0).getArtistAlbums();
+			transAct.commit();
+			return array;
 		} catch (Exception e) {
 			if (transAct != null)
 				transAct.rollback();

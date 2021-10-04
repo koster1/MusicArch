@@ -18,7 +18,7 @@ import model.*;
 public class Controller {
 
 	private RemoteDAO remoteDAO = new RemoteDAO();
-	//private LocalDAO localDAO = new LocalDAO();
+	private LocalDAO localDAO = new LocalDAO();
 
 	/**
 	 * Default constructor
