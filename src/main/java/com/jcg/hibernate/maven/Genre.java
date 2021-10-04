@@ -1,4 +1,5 @@
 package com.jcg.hibernate.maven;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -21,50 +22,52 @@ import org.hibernate.mapping.Collection;
 
 @Entity
 @Table(name = "Genre")
-public class Genre  {
-	
+public class Genre {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "GenreID", updatable = false, nullable = false)
+	@Column(name = "GenreID", updatable = false, nullable = false)
 	private int genreID;
-	
+
 	@Column(name = "GenreNimi")
 	private String genreName;
-	
+
 	public int getGenreID() {
 		return genreID;
 	}
+
 	public void setGenreID(int genreID) {
 		this.genreID = genreID;
 	}
+
 	public String getGenreName() {
 		return genreName;
 	}
+
 	public void setGenreName(String genreName) {
 		this.genreName = genreName;
 	}
-	
-	@ManyToMany(fetch=FetchType.LAZY,
-			cascade={CascadeType.ALL})
-	@JoinTable(
-			name="koostuu",
-			joinColumns={@JoinColumn(name="GenreID")},
-			inverseJoinColumns={@JoinColumn(name="AlbumiID")}
-			)
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
+	@JoinTable(name = "koostuu", joinColumns = { @JoinColumn(name = "GenreID") }, inverseJoinColumns = {
+			@JoinColumn(name = "AlbumiID") })
 	private List<Album> genreAlbums;
-	
-	public List<Album> getGenreAlbums(){
+
+	public List<Album> getGenreAlbums() {
 		return genreAlbums;
 	}
+
 	public void setGenreAlbums(List<Album> genreAlbums) {
 		this.genreAlbums = genreAlbums;
 	}
+
 	public void addAlbum(Album album) {
-		if(genreAlbums == null) {
+		if (genreAlbums == null) {
 			genreAlbums = new ArrayList<>();
 		}
 		genreAlbums.add(album);
 	}
-	
-	public Genre() {}
+
+	public Genre() {
+	}
 }

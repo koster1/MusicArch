@@ -18,6 +18,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import org.hibernate.mapping.Collection;
 
+
 @Entity
 @Table(name = "Albumi")
 public class Album {
@@ -32,7 +33,7 @@ public class Album {
 	
 	@Column(name = "Julkaisuvuosi")
 	private int albumYear;
-	
+
 	@ManyToMany(fetch=FetchType.LAZY,
 			cascade={CascadeType.ALL})
 	@JoinTable(
@@ -94,5 +95,6 @@ public class Album {
 	}
 	public void setAlbumYear(int albumYear) {
 		this.albumYear = albumYear;
-	}	
+	}
+	
 }
