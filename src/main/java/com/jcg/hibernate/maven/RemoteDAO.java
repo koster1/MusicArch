@@ -417,6 +417,29 @@ public class RemoteDAO {
 		}		
 	}
 	
+	public List<Artist> genreArtists(int genreID) {
+		Transaction transAct = null;
+		try(Session session = sessionFactory.openSession()){
+			
+		}catch(Exception e) {
+			if(transAct != null)
+				transAct.rollback();
+			throw e;
+		}
+	}
+	
+	public List<Album> artistAlbums(int artistID){
+		Transaction transAct = null;
+		try(Session session = sessionFactory.openSession()){
+			
+		}catch(Exception e) {
+			if(transAct != null)
+				transAct.rollback();
+			throw e;
+		}
+	}
+	
+	//public List<Song> albumSongs(int albumID){}
 	public void finalize() {
 		try {
 			if (sessionFactory != null)
