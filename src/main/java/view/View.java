@@ -3,14 +3,21 @@ package view;
 import java.io.IOException;
 import java.util.List;
 
+import java.util.ArrayList;
+
+import controller.GUIController;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
@@ -23,10 +30,12 @@ public class View extends Application {
 	private static AnchorPane test;
 	private static BorderPane g;
 	private Pane view;
+	private static GUIController guiController;
 
-	/*
-	 * public void init() { GUIController guiController = new GUIController(this); }
-	 */
+	public void init() {
+		guiController = new GUIController(this); 
+	}
+
 	/* public void init() {Controller controller = new Controller();} */
 
 	@Override
@@ -35,7 +44,9 @@ public class View extends Application {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("MusicArch");
 		showHome();
-		showFrontPage();
+		guiController.goFrontPage();
+//		showFrontPage();
+
 	}
 
 	// Näyttää etusivun Pohjan (BorderPane), johon on asetettu menuvalikko
@@ -56,12 +67,27 @@ public class View extends Application {
 
 	// BorderPanen keskelle asetettu etusivunäkymä (sisältää tulevaisuudessa
 	// listauksia genreistä tms)
-	public static void showFrontPage() throws IOException {
+	//BorderPanen keskelle asetettu etusivunäkymä (sisältää tulevaisuudessa listauksia genreistä tms)
+	public void showFrontPage(ArrayList<String> stringList) throws IOException {
 
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(View.class.getResource("/view/fxmlFiles/FrontPage.fxml"));
 		AnchorPane Frontpage = (AnchorPane) loader.load();
 		rootLayout.setCenter(Frontpage);
+		GridPane gridPane = (GridPane)Frontpage.getChildren().get(1);
+		System.out.println(stringList.toString());
+		gridPane.add(new Text(stringList.get(0)), 0, 0);
+		int counter = 0;
+		for(int i = 0; i < gridPane.getColumnCount(); i++) {
+			for(int j = 0; j < gridPane.getRowCount(); j++) {
+				if(counter < stringList.size()) {
+					Text text = new Text();
+					text.setText(stringList.get(counter));
+					gridPane.add(text, i, j);
+					counter++;
+				}
+			}
+		}
 
 	}
 
@@ -72,6 +98,19 @@ public class View extends Application {
 		AnchorPane Frontpage = (AnchorPane) loader.load();
 		rootLayout.setCenter(Frontpage);
 
+	}
+	//
+	public static void showUserCollectionPage() throws IOException {
+		System.out.println("User collection!!!");
+		FXMLLoader fxmlLoader = new FXMLLoader();
+		fxmlLoader.setLocation(View.class.getResource("/view/fxmlFiles/OmaKokoelma.fxml"));
+		anotherRoot = (BorderPane) fxmlLoader.load();
+		Scene scene = new Scene(anotherRoot);
+		scene.getStylesheets().add("/view/style.css");
+		Stage stage = new Stage();
+		stage.setTitle("New Window");
+		stage.setScene(scene);
+		stage.show();
 	}
 
 	// -------------------Lisayspohjan OMA stage---------------------------------

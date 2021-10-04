@@ -1,15 +1,104 @@
 package main;
 
 
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import com.jcg.hibernate.maven.RemoteDAO;
+import com.jcg.hibernate.maven.Album;
+import com.jcg.hibernate.maven.Artist;
+import com.jcg.hibernate.maven.Genre;
+import com.jcg.hibernate.maven.LocalDAO;
+
+import controller.Controller;
+import com.jcg.hibernate.maven.Album;
+import com.jcg.hibernate.maven.Artist;
+import com.jcg.hibernate.maven.RemoteDAO;
+
 import view.*;
 
-public class Main {
-	
-	public static void main(String args[]) {
-		System.out.println("HELLO :)");
-		View.main(args);
 
-	/*	
+public class Main {
+	public static void main(String args[]) {
+		RemoteDAO dao = new RemoteDAO();
+		View.main(args);
+		List<Album> testList = dao.genreAlbums(2);
+		for(int i = 0; i < testList.size(); i++) {
+			System.out.println("WOOOW" + testList.get(i).getAlbumYear());
+		}
+		List<Album> artistList = dao.artistAlbums(1);
+		for(int i = 0; i<artistList.size(); i++) {
+			System.out.println("Artistsss"+artistList.get(i).getAlbumName());
+		}
+
+//		List<String> allSearchable = dao.getSearchable();
+//		List<String> allGenres = dao.existingGenres();
+//		List<String> allArtists = dao.existingArtists();
+//		List<String> allAlbums = dao.existingAlbums();
+//		
+//		System.out.println("Now iterating every item in the database!");
+//		for(int i = 0; i<allSearchable.size(); i++) {
+//			System.out.println("Item: "+i+" : "+allSearchable.get(i));
+//		}
+//		System.out.println("All things done, now doing GENRES");
+//		for(int i = 0; i<allGenres.size(); i++) {
+//			System.out.println("Item: "+i+" : "+allGenres.get(i));
+//		}
+//		System.out.println("GENRES done, now doing ARTISTS");
+//		for(int i = 0; i<allArtists.size(); i++) {
+//			System.out.println("Item: "+i+" : "+allArtists.get(i));
+//		}
+//		System.out.println("ARTISTS done, now doing ALBUMS");
+//		for(int i = 0; i<allAlbums.size(); i++) {
+//			System.out.println("Item: "+i+" : "+allAlbums.get(i));
+//		}
+//		System.out.println("All done!");
+		
+//		System.out.println("Testing whether we can get all the searchable/existing items in each table");
+//		System.out.println("All existing genres ->");
+//		List<String> genreTest = dao.existingGenres();
+//		for(int i = 0; i < genreTest.size(); i++) {
+//			System.out.println(i+"st: "+genreTest.get(i));
+//		}	
+//		List<String> artistTest = dao.existingArtists();
+//		for(int i = 0; i < artistTest.size(); i++) {
+//			System.out.println(i+"st: "+artistTest.get(i));
+//		}
+//		List<String> albumTest = dao.existingAlbums();
+//		for(int i = 0; i<albumTest.size(); i++) {
+//			System.out.println(i+"st: "+albumTest.get(i));
+//		}
+		
+//		Album wowAlbum = new Album();
+//		wowAlbum.setAlbumName("BBB");
+//		wowAlbum.setAlbumYear(333);
+//		dao.createAlbum(wowAlbum);
+//		
+//		Album testAlbum = new Album();
+//		testAlbum.setAlbumName("AAA");
+//		testAlbum.setAlbumYear(555);
+//		dao.createAlbum(testAlbum);
+//		
+//		
+//		Album[] testAlbumList = dao.readAlbums();
+//		System.out.println("Are these in alphabetical order now: ");
+//		for(int i = 0; i<testAlbumList.length; i++) {
+//			System.out.println(i+"st: "+testAlbumList[i].getAlbumName());
+//		}
+		
+		
+		
+//		List<String> searchableStrings = dao.getSearchable();
+//		System.out.println("Now creating a list of every name found in the database!");
+//		for(int i = 0; i < searchableStrings.size(); i++) {
+//			System.out.println("Iterating through all the names in the database : "+searchableStrings.get(i));
+//		}
+		/*	View.main(args);
+		
+		
 		String[] genreList = new String[2];
 		genreList[0] = "RockGenre";
 		genreList[1] = "PopGenre";
@@ -61,15 +150,12 @@ public class Main {
 //		}finally {
 //			System.out.println("Woow!");
 //		}
+//		
+//		
 		
-		
-		
+
 	
-//		List<String> searchableStrings = dao.getSearchable();
-//		System.out.println("Now creating a list of every name found in the database!");
-//		for(int i = 0; i < searchableStrings.size(); i++) {
-//			System.out.println("Iterating through all the names in the database : "+searchableStrings.get(i));
-//		}
+//		
 		
 //		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
 //		
@@ -138,67 +224,6 @@ public class Main {
 //		anotherTest = dao.readGenre("WowzersGenre");
 //		System.out.println("A weird test"+anotherTest);
 
-//		
-//		Genre searchTest;
-//		searchTest = dao.searchGenre("TestGenre");
-//		
-//		System.out.println("Found this -> "+searchTest.getGenreName()+" with the ID of -> "+searchTest.getGenreID());
-		
-//		Genre[] testList;
-//		
-//		testList = dao.readGenres();
-//		
-//		for(int i = 0; i<testList.length; i++) {
-//			System.out.println("Genren: "+testList[i].getGenreName()+" ID on: "+testList[i].getGenreID());
-//		}
-//		
-//		Genre testSearch = new Genre();
-//		testSearch = dao.searchGenre("SecondGenres");
-//		System.out.println("Found this -> "+testSearch.getGenreName()+" with the ID of -> "+testSearch.getGenreID());
-//		
-//		Genre[] anotherTest;
-//		anotherTest = dao.readGenres();
-//		
-//		for(int i = 0; i < anotherTest.length; i++) {
-//			System.out.println("Wow");
-//		}
-		
-//		Genre[] testList;
-//		
-//		testList = dao.readGenres();
-//		
-//		for(int i = 0; i<testList.length; i++) {
-//			System.out.println("Genren: "+testList[i].getGenreName()+" ID on: "+testList[i].getGenreID());
-//		}
-		
-		
-//		Genre testSearch = new Genre();
-//		testSearch = dao.searchGenre("SecondGenre");
-//		System.out.println("Found this -> "+testSearch.getGenreName()+" with the ID of -> "+testSearch.getGenreID());
-//		
-//		
-//		Genre genre1 = new Genre();
-//		
-//		genre1.setGenreName("UmpteenthGenre");
-//		dao.createGenre(genre1);
-//		
-		
-//		Genre genreTest = new Genre();
-//		genreTest.setGenreName("TubularGenre2");
-//		
-//		SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();   
-//	    Session session = sessionFactory.openSession();
-//	    session.beginTransaction();
-//	    
-//	    session.save(genreTest);
-//	    
-//	    session.getTransaction().commit();
-//	    session.close();
-//	    
-//	    sessionFactory.close();
-	    
-	   
 
-	}
-
+}
 }

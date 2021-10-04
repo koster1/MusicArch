@@ -30,7 +30,7 @@ public class Artist {
 	@Column(name = "Biografia")
 	private String artistBio;
 	
-	@ManyToMany(fetch=FetchType.LAZY,
+	@ManyToMany(fetch=FetchType.EAGER,
 			cascade={CascadeType.ALL})
 	@JoinTable(
 			name="tekee",

@@ -30,3 +30,4 @@
       <AnchorPane id="Buttonbarbuttons" fx:id="Keskikohta" prefHeight="524.0" prefWidth="1200.0" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>
+

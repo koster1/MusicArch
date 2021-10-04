@@ -22,7 +22,7 @@ import org.hibernate.mapping.Collection;
 
 @Entity
 @Table(name = "Genre")
-public class Genre {
+public class Genre  {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,7 +48,7 @@ public class Genre {
 		this.genreName = genreName;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
+	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
 	@JoinTable(name = "koostuu", joinColumns = { @JoinColumn(name = "GenreID") }, inverseJoinColumns = {
 			@JoinColumn(name = "AlbumiID") })
 	private List<Album> genreAlbums;

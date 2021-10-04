@@ -1,6 +1,7 @@
 package controller;
 
 import controller.*;
+import com.jcg.hibernate.maven.Artist;
 import com.jcg.hibernate.maven.Album;
 import com.jcg.hibernate.maven.RemoteDAO;
 import com.jcg.hibernate.maven.Genre;
@@ -16,6 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.input.MouseEvent;
 import view.View;
+
 
 import java.io.IOException;
 import java.lang.reflect.Array;
@@ -38,10 +40,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
+import javafx.scene.text.Text;
 import view.*;
 
 public class GUIController {
-	Controller controller = new Controller();
+	private Controller controller = new Controller();
 	private View view;
 	private BorderPane borderpane;
 
@@ -54,6 +57,11 @@ public class GUIController {
 
 	}
 
+	//
+	@FXML
+	private GridPane gridView;
+	@FXML 
+	private Button gridButton;
 	// Rootlayoutin keskikohta
 	@FXML
 	private AnchorPane Keskikohta;
@@ -65,6 +73,8 @@ public class GUIController {
 	private Button Help;
 	@FXML
 	private Button FrontPage;
+	@FXML
+	private Button UserCollection;
 
 	// ----------------------Genren lisäyslomake---------------------
 	@FXML
@@ -79,12 +89,18 @@ public class GUIController {
 	// ---------------------- Albumin lisäys--------------------
 
 	// Selvitä mikä tää send on?
-	@FXML
-	private Button Send;
+//	@FXML
+//	private Button Send;
 	@FXML
 	private TextField ArtistsName;
 	@FXML
 	private TextArea Biografia;
+	
+	public GUIController() {}
+	
+	public GUIController(View view) {
+		this.view = view;
+	}
 
 	// SendGenreButton lähettää Genre-lomakkeen tiedot controlleriin.
 	// Ponnauttaa Virhe-ikkunan, jos tekstikenttä on tyhjä
@@ -266,8 +282,22 @@ public class GUIController {
 	// ----------------SIVUJEN VAIHDOT JA PÄIVITYKSET-----------------------
 	// Menunappulat
 	@FXML
-	void goFrontPage(ActionEvent event) throws IOException {
-		view.showFrontPage();
+	public void goFrontPage(ActionEvent event) throws IOException {
+		//showFrontPage parameter as observableList? 
+		
+//		view.showFrontPage();
+	}
+	
+	public void goFrontPage() throws IOException {
+		Artist[] artistList = controller.getArtists();
+		ArrayList<String> stringList = new ArrayList<>();
+		for (Artist artist : artistList) {
+			System.out.println(artist.getArtistName());
+			stringList.add(artist.getArtistName());
+		}
+		
+			view.showFrontPage(stringList);
+		
 	}
 
 	@FXML
@@ -280,6 +310,12 @@ public class GUIController {
 		view.showHelpPage();
 
 	}
+	
+	@FXML
+	void goUserCollection(ActionEvent event) throws IOException {
+		view.showUserCollectionPage();
+	}
+	
 
 	// --------------- Lisäyspyynnöt- sivun dropit-------------------
 
@@ -291,6 +327,8 @@ public class GUIController {
 	private TitledPane ArtistDrop;
 	@FXML
 	private AnchorPane RequestForms;
+	
+
 
 //-------------Dropit-----------------------
 	@FXML
@@ -320,5 +358,32 @@ public class GUIController {
 	void ArtistFormButton(ActionEvent event) throws IOException {
 		view.showArtistForm();
 	}
+	
+// -------------------Receive content from remote database-------------
+	
+	//
+	@FXML
+	void getArtists(ActionEvent event) throws IOException {
+		Artist[] artistList = controller.getArtists();
+		System.out.println(artistList[0].getArtistName() + " and " + artistList[0].getArtistID());
+		ArrayList<String> stringList = new ArrayList<>();
+		for (Artist artist : artistList) {
+			System.out.println(artist.getArtistName());
+			stringList.add(artist.getArtistName());
+		}
+		int counter = 0;
+		for(int i = 0; i < gridView.getColumnCount(); i++) {
+			for(int j = 0; j < gridView.getRowCount(); j++) {
+				if(counter < stringList.size()) {
+					Text text = new Text();
+					text.setText(artistList[counter].getArtistName());
+					gridView.add(text, i, j);
+					counter++;
+				}
+			}
+		}
+		
+	}
+	
 
 }
