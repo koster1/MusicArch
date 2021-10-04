@@ -8,12 +8,14 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUIController">
    <top>
-      <ButtonBar fx:id="Buttonbar" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="300.0" styleClass="Buttonbar" stylesheets="@../style.css" BorderPane.alignment="CENTER">
+      <ButtonBar fx:id="Buttonbar" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="300.0" styleClass="Buttonbar" stylesheets="@../style.css" BorderPane.alignment="CENTER">
         <buttons>
           <Button id="Buttonbarbuttons" fx:id="Help" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#GoHelpPage" text="Ohje" />
             <Button id="Buttonbarbuttons" fx:id="Requests" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#ShowRequests" text="Lisäyspyynnöt" />
             <Button id="Buttonbarbuttons" fx:id="FrontPage" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#goFrontPage" text="Etusivu" />
+            <Button id="Buttonbarbuttons" fx:id="UserCollection" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#goUserCollection" text="Kokoelma" />
         </buttons>
+        
          <BorderPane.margin>
             <Insets left="10.0" />
          </BorderPane.margin>
