@@ -59,9 +59,17 @@ public class GenreTest {
 	@Test
 	@Order(3)
 	@DisplayName("Add Genre into database")
+<<<<<<< HEAD
+	public void createGenre() {
+		System.out.println("NOW DOING THE CREATION TEST");
+		Genre testGenre = new Genre();
+		testGenre.setGenreName(givenGenre);
+		rDAO.createGenre(testGenre);
+=======
 	public void createGenre() throws Exception {
 		deliveryObject.setInputType(genreInputType);
 		deliveryObject.setGenreName(givenGenre);
+>>>>>>> refs/heads/master
 		
 		inputManagement.checkType(deliveryObject);
 		assertEquals(givenGenre, searchManager.searchGenre(searchManager.searchGenreID(givenGenre)), "Expected to find Black Metal");

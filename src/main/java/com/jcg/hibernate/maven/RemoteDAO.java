@@ -7,6 +7,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import org.hibernate.*;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.service.ServiceRegistry;
 
 public class RemoteDAO {
@@ -115,7 +116,7 @@ public class RemoteDAO {
 			transAct = session.beginTransaction();
 
 			@SuppressWarnings("unchecked")
-			List<Genre> result = (List<Genre>) session.createQuery("from Genre").list();
+			List<Genre> result = (List<Genre>) session.createQuery("from Genre order by genreName").list();
 
 			transAct.commit();
 
@@ -234,7 +235,7 @@ public class RemoteDAO {
 			transAct = session.beginTransaction();
 
 			@SuppressWarnings("unchecked")
-			List<Artist> result = (List<Artist>) session.createQuery("from Artist").list();
+			List<Artist> result = (List<Artist>) session.createQuery("from Artist order by artistName").list();
 			transAct.commit();
 			Artist[] array = new Artist[result.size()];
 			session.close();
@@ -247,19 +248,28 @@ public class RemoteDAO {
 	}
 
 	public Artist searchArtist(String artistSearch) {
+		Artist returnable = new Artist();
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();	
-			Query query = session.createQuery("From Artist where artistiNimi like:name");
+			Query query = session.createQuery("From Artist where artistName like:name");
 			List<Artist> artistList = query.setParameter("name", artistSearch).list();
 
-			transAct.commit();
-			session.close();
-			return artistList.get(0);
+			if(!artistList.isEmpty()) {
+				System.out.println("The genre list is NOT empty!");
+				returnable = artistList.get(0);
+				System.out.println("The returnable name is -> "+returnable.getArtistName());
+				return returnable;
+				}	
+		}catch(Exception e){
+			if(transAct != null)
+				transAct.rollback();
+			throw e;
 		}
+		System.out.println("Nothing found, returning default value");
+		return returnable;
 	}
-
-	// To be tested!
+		
 	public boolean editArtist(Artist artistEdit, int id) {
 
 		Transaction transAct = null;		
@@ -286,7 +296,6 @@ public class RemoteDAO {
 		session.delete(removeArtist);
 		transAct.commit();
 		return true;
-		
 		}catch(Exception e) {
 			if(transAct != null)
 				transAct.rollback();
@@ -335,7 +344,7 @@ public class RemoteDAO {
 			transAct = session.beginTransaction();
 
 			@SuppressWarnings("unchecked")
-			List<Album> result = (List<Album>) session.createQuery("from Album").list();
+			List<Album> result = (List<Album>) session.createQuery("from Album order by albumName").list();
 
 			transAct.commit();
 			Album[] array = new Album[result.size()];
@@ -415,8 +424,133 @@ public class RemoteDAO {
 				transAct.rollback();
 			throw e;
 		}		
+	}	
+	public List<String> existingGenres(){
+		Transaction transAct = null;
+		try(Session session = sessionFactory.openSession()){
+			transAct = session.beginTransaction();
+			String sql = "select genrenimi from genre";
+			SQLQuery query = session.createSQLQuery(sql);
+			List<String> results = query.list();
+			transAct.commit();
+			return results;
+		}catch(Exception e) {
+			if(transAct != null)
+				transAct.rollback();
+			throw e;
+		}
+	}
+	public List<String> existingArtists(){
+		Transaction transAct = null;
+		try(Session session = sessionFactory.openSession()){
+			transAct = session.beginTransaction();
+			String sql = "select artistinimi from artisti";
+			SQLQuery query = session.createSQLQuery(sql);
+			List<String> results = query.list();
+			transAct.commit();
+			return results;
+		}catch(Exception e) {
+			if(transAct != null)
+				transAct.rollback();
+			throw e;
+		}
+	}
+	public List<String> existingAlbums(){
+		Transaction transAct = null;
+		try(Session session = sessionFactory.openSession()){
+			transAct = session.beginTransaction();
+			String sql = "select albuminimi from albumi";
+			SQLQuery query = session.createSQLQuery(sql);
+			List<String> results = query.list();
+			transAct.commit();
+			return results;
+		}catch(Exception e) {
+			if(transAct != null)
+				transAct.rollback();
+			throw e;
+		}
+	}
+	public List<String> existingSongs(){
+		Transaction transAct = null;
+		try(Session session = sessionFactory.openSession()){
+			transAct = session.beginTransaction();
+			String sql = "select kappalenimi from kappale";
+			SQLQuery query = session.createSQLQuery(sql);
+			List<String> results = query.list();
+			transAct.commit();
+			return results;
+		}catch(Exception e) {
+			if(transAct != null)
+				transAct.rollback();
+			throw e;
+		}
 	}
 	
+	
+	/*
+	public Artist[] genreArtists(int genreID) {
+		Transaction transAct = null;
+		try(Session session = sessionFactory.openSession()){
+			transAct = session.beginTransaction();
+			
+		}catch(Exception e) {
+			if(transAct != null)
+				transAct.rollback();
+			throw e;
+		}
+	}
+	
+	public List<Album> artistAlbums(int artistID){
+		Transaction transAct = null;
+		try(Session session = sessionFactory.openSession()){
+			transAct = session.beginTransaction();
+			@SuppressWarnings("unchecked")
+			List<Album> testing = session.createCriteria(Album.class).setFetchMode("Genre", FetchMode.JOIN).add(Restrictions.eqOrIsNull("genreID", 1)).list();
+			System.out.println(testing.get(0));
+			transAct.commit();
+			return testing;
+		}catch(Exception e) {
+			if(transAct != null)
+				transAct.rollback();
+			throw e;
+		}
+	}
+	*/
+	//STILL INCOMPLETE, not working properly. "Lazy loading not initialized"?
+	public List<Album> genreAlbums(int genreID){
+		Transaction transAct = null;
+		try (Session session = sessionFactory.openSession()) {
+			transAct = session.beginTransaction();
+			
+			@SuppressWarnings("unchecked")
+			List<Genre> result = (List<Genre>) session.createQuery("from Genre order by genreName").list();
+			List<Album> array = result.get(0).getGenreAlbums();
+			transAct.commit();
+			return array;
+		} catch (Exception e) {
+			if (transAct != null)
+				transAct.rollback();
+			throw e;
+		}
+	}
+	public List<Album> artistAlbums(int artistID){
+		Transaction transAct = null;
+		try (Session session = sessionFactory.openSession()) {
+			transAct = session.beginTransaction();
+			
+			@SuppressWarnings("unchecked")
+			List<Artist> result = (List<Artist>) session.createQuery("from Artist order by artistName").list();		
+			List<Album> array = result.get(0).getArtistAlbums();
+			transAct.commit();
+			return array;
+		} catch (Exception e) {
+			if (transAct != null)
+				transAct.rollback();
+			throw e;
+		}
+	}
+	
+	//public List<Song> albumSongs(int albumID){}
 	public void finalize() {
 		try {
 			if (sessionFactory != null)
