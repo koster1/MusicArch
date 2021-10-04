@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.input.MouseEvent;
@@ -175,12 +176,15 @@ public class GUIController {
 
 	// ------------AlbumiFormin toiminnallisuus--------------------
 	// Pitää lisätä uusia tekstikenttiä moniarvoisille tiedoille
+    @FXML
+    private ScrollPane artistScroll;
 	@FXML
 	void NewArtist(ActionEvent event) {
 		// kesken
-		// TextField txt = new TextField();
+	/*	TextField txtfield = new TextField();
+		artistScroll.setContent(txtfield);*/
+		
 	}
-
 	@FXML
 	void NewGenre(ActionEvent event) {
 	}
