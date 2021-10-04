@@ -9,16 +9,17 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUIController">
    <top>
-      <ButtonBar fx:id="Buttonbar" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="300.0" styleClass="Buttonbar" stylesheets="@../style.css" BorderPane.alignment="CENTER">
+      <ButtonBar fx:id="Buttonbar" nodeOrientation="RIGHT_TO_LEFT" prefHeight="51.0" prefWidth="1190.0" styleClass="Buttonbar" stylesheets="@../style.css" BorderPane.alignment="CENTER">
         <buttons>
-            <AnchorPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="732.0">
+            <AnchorPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="51.0" prefWidth="1214.0">
                <children>
-                  <TextField layoutX="440.0" layoutY="7.0" prefHeight="26.0" prefWidth="268.0" />
+                  <TextField id="TxtFields" fx:id="SearchBox" layoutX="788.0" layoutY="12.0" prefHeight="26.0" prefWidth="268.0" />
+                <Button id="Buttonbarbuttons" fx:id="Help" layoutX="283.0" layoutY="12.0" maxWidth="150.0" minHeight="-Infinity" minWidth="100.0" mnemonicParsing="false" onAction="#GoHelpPage" text="Ohje" />
+                  <Button id="Buttonbarbuttons" fx:id="Requests" layoutX="155.0" layoutY="12.0" maxWidth="150.0" minHeight="-Infinity" minWidth="100.0" mnemonicParsing="false" onAction="#ShowRequests" text="Lisäyspyynnöt" />
+                  <Button id="Buttonbarbuttons" fx:id="FrontPage" layoutX="27.0" layoutY="13.0" maxWidth="150.0" minHeight="-Infinity" minWidth="100.0" mnemonicParsing="false" onAction="#goFrontPage" text="Etusivu" />
+                  <Button layoutX="1088.0" layoutY="13.0" mnemonicParsing="false" onAction="#SearchTxt" text="Hae" />
                </children>
             </AnchorPane>
-          <Button id="Buttonbarbuttons" fx:id="Help" maxWidth="150.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#GoHelpPage" text="Ohje" />
-            <Button id="Buttonbarbuttons" fx:id="Requests" maxWidth="150.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#ShowRequests" text="Lisäyspyynnöt" />
-            <Button id="Buttonbarbuttons" fx:id="FrontPage" maxWidth="150.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#goFrontPage" text="Etusivu" />
         </buttons>
          <BorderPane.margin>
             <Insets left="10.0" />
@@ -26,6 +27,6 @@
       </ButtonBar>
    </top>
    <center>
-      <AnchorPane id="Buttonbarbuttons" fx:id="Keskikohta" BorderPane.alignment="CENTER" />
+      <AnchorPane id="Buttonbarbuttons" fx:id="Keskikohta" prefHeight="524.0" prefWidth="1200.0" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>

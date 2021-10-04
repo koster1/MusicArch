@@ -1,6 +1,8 @@
 package view;
 
 import java.io.IOException;
+import java.util.List;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -10,6 +12,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 public class View extends Application {
 
@@ -28,14 +31,14 @@ public class View extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws IOException {
+
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("MusicArch");
 		showHome();
 		showFrontPage();
-
 	}
-	
-	//Näyttää etusivun Pohjan (BorderPane), johon on asetettu menuvalikko
+
+	// Näyttää etusivun Pohjan (BorderPane), johon on asetettu menuvalikko
 	public void showHome() throws IOException {
 		// Load root layout from fxml file.
 		FXMLLoader loader = new FXMLLoader();
@@ -50,7 +53,9 @@ public class View extends Application {
 		primaryStage.show();
 
 	}
-	//BorderPanen keskelle asetettu etusivunäkymä (sisältää tulevaisuudessa listauksia genreistä tms)
+
+	// BorderPanen keskelle asetettu etusivunäkymä (sisältää tulevaisuudessa
+	// listauksia genreistä tms)
 	public static void showFrontPage() throws IOException {
 
 		FXMLLoader loader = new FXMLLoader();
@@ -70,24 +75,39 @@ public class View extends Application {
 	}
 
 	// -------------------Lisayspohjan OMA stage---------------------------------
-	//Lisäysnäkymän (sisältää lisäyspyynnöt ja lisäyspohjat) oma stage, 
-	//jossa vaihdetaan keskiosan lomake-fxml:ää
+	// Lisäysnäkymän (sisältää lisäyspyynnöt ja lisäyspohjat) oma stage,
+	// jossa vaihdetaan keskiosan lomake-fxml:ää
 	//
 	public static void showRequestsWindow() throws IOException {
 		System.out.print(" !!!    täällä ollaan    !!!");
-		FXMLLoader fxmlLoader = new FXMLLoader();
-		fxmlLoader.setLocation(View.class.getResource("/view/fxmlFiles/LisaysPyynnot2.fxml"));
-		anotherRoot = (BorderPane) fxmlLoader.load();
-		Scene scene = new Scene(anotherRoot);
-		scene.getStylesheets().add("/view/style.css");
-		Stage stage = new Stage();
-		stage.setTitle("New Window");
-		stage.setScene(scene);
-		stage.show();
+		/*
+		 * try { System.out.print("   " + anotherRoot); }catch (Exception e){
+		 * System.out.print(e.getMessage()); }
+		 */
+		anotherRoot = null;
+
+		if (anotherRoot == null) {
+			FXMLLoader fxmlLoader = new FXMLLoader();
+			fxmlLoader.setLocation(View.class.getResource("/view/fxmlFiles/LisaysPyynnot2.fxml"));
+			anotherRoot = (BorderPane) fxmlLoader.load();
+			Scene scene = new Scene(anotherRoot);
+			scene.getStylesheets().add("/view/style.css");
+
+			Stage stage = new Stage();
+			stage.setTitle("New Window");
+			stage.setScene(scene);
+			stage.show();
+
+		} else if (anotherRoot != null) {
+			((Stage) anotherRoot.getScene().getWindow()).close();
+
+//			anotherRoot.toFront();
+
+		}
 	}
 
 	public static void showGenreForm() throws IOException {
-		
+
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(View.class.getResource("/view/fxmlFiles/genrelisays.fxml"));
 		AnchorPane genre = (AnchorPane) loader.load();
@@ -119,6 +139,7 @@ public class View extends Application {
 		stage.setScene(error);
 		stage.show();
 	}
+
 	public Stage getPrimaryStage() {
 		return primaryStage;
 	}
