@@ -49,6 +49,7 @@ public class GUIController {
 	private Controller controller = new Controller();
 	private View view;
 	private BorderPane borderpane;
+	private double pauseDuration = 0.2;
 	
 	@FXML
 	private Button SearchButton;
@@ -60,7 +61,7 @@ public class GUIController {
 	@FXML
 	void SearchTxt(ActionEvent event) {
 		SearchButton.setStyle("-fx-border-color: #ffff33");
-		PauseTransition pause = new PauseTransition(Duration.seconds(0.7));
+		PauseTransition pause = new PauseTransition(Duration.seconds(pauseDuration));
 		
 		pause.setOnFinished(event1 -> {
 			SearchButton.setStyle(null);
@@ -294,21 +295,29 @@ public class GUIController {
 	// Menunappulat
 	@FXML
 	public void goFrontPage(ActionEvent event) throws IOException {
+		System.out.println("Test11");
 		FrontPage.setStyle("-fx-border-color: #ffff33");
-		PauseTransition pause = new PauseTransition(Duration.seconds(0.7));
-		
+		PauseTransition pause = new PauseTransition(Duration.seconds(pauseDuration));
+		System.out.println("Test12");
 		pause.setOnFinished(event1 -> {
 			FrontPage.setStyle(null);
 		});
 		pause.play();
-		Artist[] artistList = controller.getArtists();
-		ArrayList<String> stringList = new ArrayList<>();
-		for (Artist artist : artistList) {
-			System.out.println(artist.getArtistName());
-			stringList.add(artist.getArtistName());
+		System.out.println("Test13");
+		try {
+			Artist[] artistList = controller.getArtists();
+			ArrayList<String> stringList = new ArrayList<>();
+			for (Artist artist : artistList) {
+				System.out.println(artist.getArtistName());
+				stringList.add(artist.getArtistName());
+			}
+			System.out.println(stringList);
+			View.showFrontPage(stringList);
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
 		}
-		System.out.println(stringList);
-		View.showFrontPage(stringList);
+
 	}
 	
 	public void goFrontPage() throws IOException {
@@ -327,7 +336,7 @@ public class GUIController {
 	void ShowRequests(ActionEvent event) throws IOException {
 		
 		Requests.setStyle("-fx-border-color: #ffff33");
-		PauseTransition pause = new PauseTransition(Duration.seconds(0.7));
+		PauseTransition pause = new PauseTransition(Duration.seconds(pauseDuration));
 		
 		pause.setOnFinished(event1 -> {
 			Requests.setStyle(null);
@@ -339,7 +348,7 @@ public class GUIController {
 	@FXML
 	void GoHelpPage(ActionEvent event) throws IOException {
 		Help.setStyle("-fx-border-color: #ffff33");
-		PauseTransition pause = new PauseTransition(Duration.seconds(0.7));
+		PauseTransition pause = new PauseTransition(Duration.seconds(pauseDuration));
 		
 		pause.setOnFinished(event1 -> {
 			Help.setStyle(null);
@@ -352,7 +361,7 @@ public class GUIController {
 	@FXML
 	void goUserCollection(ActionEvent event) throws IOException {
 		UserCollection.setStyle("-fx-border-color: #ffff33");
-		PauseTransition pause = new PauseTransition(Duration.seconds(0.7));
+		PauseTransition pause = new PauseTransition(Duration.seconds(pauseDuration));
 		
 		pause.setOnFinished(event1 -> {
 			UserCollection.setStyle(null);

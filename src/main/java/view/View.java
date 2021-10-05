@@ -78,10 +78,20 @@ public class View extends Application {
 
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(View.class.getResource("/view/fxmlFiles/FrontPage.fxml"));
+		try {
+			System.out.println("lataaja " + loader);
+		} catch (Exception e) {
+			System.out.println("päädyit tänne " + e.getMessage());
+		}
+		System.out.println("Test1");
 		AnchorPane Frontpage = (AnchorPane) loader.load();
+		System.out.println("Test2");
 		rootLayout.setCenter(Frontpage);
+		System.out.println("Test3");
 		GridPane gridPane = (GridPane)Frontpage.getChildren().get(0);
+		System.out.println("Test4");
 		gridPane.setAlignment(Pos.CENTER);
+		System.out.println("Test5");
 		System.out.println(stringList.toString());
 		int counter = 0;
 		for(int i = 0; i < gridPane.getColumnCount(); i++) {
@@ -94,6 +104,7 @@ public class View extends Application {
 				}
 			}
 		}
+		System.out.println("Test6");
 
 	}
 
@@ -108,9 +119,6 @@ public class View extends Application {
 	//
 	public static void showUserCollectionPage() throws IOException {
 		System.out.println("User collection!!!");
-		FXMLLoader fxmlLoader = new FXMLLoader();
-		fxmlLoader.setLocation(View.class.getResource("/view/fxmlFiles/OmaKokoelma.fxml"));
-		userRoot = (BorderPane) fxmlLoader.load();
 		List<Window> windows = Window.getWindows();
 		System.out.println(windows);
 		boolean test = true;
@@ -127,6 +135,9 @@ public class View extends Application {
 			System.out.println(e.getMessage());
 		}
 		if(test) {
+			FXMLLoader fxmlLoader = new FXMLLoader();
+			fxmlLoader.setLocation(View.class.getResource("/view/fxmlFiles/OmaKokoelma.fxml"));
+			userRoot = (BorderPane) fxmlLoader.load();
 			Scene scene = new Scene(userRoot);
 			scene.getWindow();
 			scene.getStylesheets().add("/view/style.css");
@@ -151,9 +162,6 @@ public class View extends Application {
 		
 
 		
-			FXMLLoader fxmlLoader = new FXMLLoader();
-			fxmlLoader.setLocation(View.class.getResource("/view/fxmlFiles/LisaysPyynnot2.fxml"));
-			anotherRoot = (BorderPane) fxmlLoader.load();
 			List<Window> windows = Window.getWindows();
 			System.out.println(windows);
 			boolean test = true;
@@ -170,6 +178,9 @@ public class View extends Application {
 				System.out.println(e.getMessage());
 			}
 			if(test) {
+				FXMLLoader fxmlLoader = new FXMLLoader();
+				fxmlLoader.setLocation(View.class.getResource("/view/fxmlFiles/LisaysPyynnot2.fxml"));
+				anotherRoot = (BorderPane) fxmlLoader.load();
 
 				Scene scene = new Scene(anotherRoot);
 				scene.getStylesheets().add("/view/style.css");

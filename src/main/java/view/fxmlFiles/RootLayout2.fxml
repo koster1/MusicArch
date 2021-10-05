@@ -13,12 +13,12 @@
         <buttons>
             <AnchorPane id="root" nodeOrientation="LEFT_TO_RIGHT" prefHeight="68.0" prefWidth="1190.0">
                <children>
-                  <TextField id="TxtFields" fx:id="SearchBox" layoutX="789.0" layoutY="7.0" prefHeight="26.0" prefWidth="268.0" />
+                  <TextField id="TxtFields" fx:id="SearchBox" layoutX="789.0" layoutY="11.0" prefHeight="26.0" prefWidth="268.0" />
                 <Button id="root" fx:id="Help" layoutX="290.0" layoutY="11.0" maxWidth="150.0" minHeight="-Infinity" minWidth="100.0" mnemonicParsing="false" onAction="#GoHelpPage" text="Ohje" />
                   <Button id="root" fx:id="Requests" layoutX="158.0" layoutY="11.0" maxWidth="150.0" minHeight="-Infinity" minWidth="100.0" mnemonicParsing="false" onAction="#ShowRequests" text="Lisäyspyynnöt" />
                   <Button id="root" fx:id="FrontPage" layoutX="43.0" layoutY="11.0" maxWidth="150.0" minHeight="-Infinity" minWidth="100.0" mnemonicParsing="false" onAction="#goFrontPage" text="Etusivu" />
                   <Button id="root" fx:id="UserCollection" layoutX="390.0" layoutY="11.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#goUserCollection" text="Kokoelma" />
-                  <Button id="root" fx:id="SearchButton" layoutX="1088.0" layoutY="7.0" mnemonicParsing="false" onAction="#SearchTxt" text="Hae" />
+                  <Button id="root" fx:id="SearchButton" layoutX="1083.0" layoutY="11.0" mnemonicParsing="false" onAction="#SearchTxt" text="Hae" />
                </children>
             </AnchorPane>
         </buttons>
