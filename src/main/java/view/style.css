@@ -22,6 +22,15 @@
 #TxtFields {
 -fx-font-size: 13.0px;
 }
+/*Albumilomakkeen txtfieldien lisäysnapit */
 #PlusButtons {
+	
+}
+/* Kaikki tekstikentät */
+#TxtFields {
+	
+}
+/* Kaikki lähetysnapit */
+#Send {
 	
 }

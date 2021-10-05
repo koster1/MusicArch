@@ -21,6 +21,7 @@ public class Controller {
 
 	private RemoteDAO remoteDAO = new RemoteDAO();
 	private LocalDAO localDAO = new LocalDAO();
+	
 	private ObservableList<String> list = FXCollections.observableArrayList();
 	/**
 	 * Default constructor
@@ -74,10 +75,10 @@ public class Controller {
     //Paikalliseen tietokantaan luominen.
     public void createLocalGenre(String genreName) {
     	//LocalGenre localGenre = (LocalGenre) remoteDAO.searchGenre(genreName);
-    	LocalGenre localGenre = (LocalGenre) remoteDAO.searchGenre(genreName);
+    	//LocalGenre localGenre = (LocalGenre) remoteDAO.searchGenre(genreName);
     	
     	
-    	localDAO.createGenre(localGenre);
+    	//localDAO.createGenre(localGenre);
 
     }
     public void createLocalArtist(String artistName, String artistBio) {

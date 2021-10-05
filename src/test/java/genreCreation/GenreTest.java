@@ -14,17 +14,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.function.Executable;
 
-import model.DeletionManagement;
-import model.DeliveryObject;
-import model.InputManagement;
-import model.SearchManagement;
+
 
 public class GenreTest {
-	
-	private DeliveryObject deliveryObject = new DeliveryObject();
-	private SearchManagement searchManager = new SearchManagement();
-	private InputManagement inputManagement = new InputManagement();
-	private DeletionManagement deletionManagement = new DeletionManagement();
+
 	
 	//Test parameters
 	private String givenGenre = "Black Metal";
@@ -59,9 +52,17 @@ public class GenreTest {
 	@Test
 	@Order(3)
 	@DisplayName("Add Genre into database")
+
+	public void createGenre() {
+		System.out.println("NOW DOING THE CREATION TEST");
+		Genre testGenre = new Genre();
+		testGenre.setGenreName(givenGenre);
+		rDAO.createGenre(testGenre);
+
 	public void createGenre() throws Exception {
 		deliveryObject.setInputType(genreInputType);
 		deliveryObject.setGenreName(givenGenre);
+
 		
 		inputManagement.checkType(deliveryObject);
 		assertEquals(givenGenre, searchManager.searchGenre(searchManager.searchGenreID(givenGenre)), "Expected to find Black Metal");
