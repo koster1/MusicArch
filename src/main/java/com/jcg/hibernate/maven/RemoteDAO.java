@@ -516,7 +516,10 @@ public class RemoteDAO {
 		}
 	}
 	*/
-	//STILL INCOMPLETE, not working properly. "Lazy loading not initialized"?
+	/*
+	 * Method takes in a given genre's ID, and then opens a session with it. During the session, an album-list can be created based on the instance
+	 * After loading the list, the session is closed and the method returns a list of Albums based on the genre
+	 */
 	public List<Album> genreAlbums(int genreID){
 		Transaction transAct = null;
 		try (Session session = sessionFactory.openSession()) {
@@ -533,6 +536,10 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
+	/*
+	 * Method takes in a given artist's ID, and then opens a session with it. During the session, an album-list can be created based on the instance
+	 * After loading the list, the session is closed and the method returns a list of Albums based on the artist
+	 */
 	public List<Album> artistAlbums(int artistID){
 		Transaction transAct = null;
 		try (Session session = sessionFactory.openSession()) {
