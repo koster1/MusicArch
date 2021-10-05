@@ -516,16 +516,19 @@ public class RemoteDAO {
 		}
 	}
 	*/
-	//STILL INCOMPLETE, not working properly. "Lazy loading not initialized"?
+	/*
+	 * Method takes in a given genre's ID, and then opens a session with it. During the session, an album-list can be created based on the instance
+	 * After loading the list, the session is closed and the method returns a list of Albums based on the genre
+	 */
 	public List<Album> genreAlbums(int genreID){
 		Transaction transAct = null;
 		try (Session session = sessionFactory.openSession()) {
 			transAct = session.beginTransaction();
 			
-			@SuppressWarnings("unchecked")
-			List<Genre> result = (List<Genre>) session.createQuery("from Genre order by genreName").list();
-			List<Album> array = result.get(0).getGenreAlbums();
+			Genre genre = (Genre) session.load(Genre.class, genreID);
+			List<Album> array = genre.getGenreAlbums();
 			transAct.commit();
+			session.close();
 			return array;
 		} catch (Exception e) {
 			if (transAct != null)
@@ -533,15 +536,19 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
+	/*
+	 * Method takes in a given artist's ID, and then opens a session with it. During the session, an album-list can be created based on the instance
+	 * After loading the list, the session is closed and the method returns a list of Albums based on the artist
+	 */
 	public List<Album> artistAlbums(int artistID){
 		Transaction transAct = null;
 		try (Session session = sessionFactory.openSession()) {
 			transAct = session.beginTransaction();
-			
-			@SuppressWarnings("unchecked")
-			List<Artist> result = (List<Artist>) session.createQuery("from Artist order by artistName").list();		
-			List<Album> array = result.get(0).getArtistAlbums();
+
+			Artist artist = (Artist) session.load(Artist.class, artistID);
+			List<Album> array = artist.getArtistAlbums();
 			transAct.commit();
+			session.close();
 			return array;
 		} catch (Exception e) {
 			if (transAct != null)

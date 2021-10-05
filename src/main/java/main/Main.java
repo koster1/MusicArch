@@ -24,7 +24,7 @@ import view.*;
 public class Main {
 	public static void main(String args[]) {
 		RemoteDAO dao = new RemoteDAO();
-		View.main(args);
+//		View.main(args);
 		List<Album> testList = dao.genreAlbums(2);
 		for(int i = 0; i < testList.size(); i++) {
 			System.out.println("WOOOW" + testList.get(i).getAlbumYear());
