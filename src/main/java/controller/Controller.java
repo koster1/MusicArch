@@ -31,7 +31,7 @@ public class Controller {
      */
     public Controller() {}
     
-    //Luominen etätietokantaan
+    //Luominen etätietokantaan.
     public void createGenre(String genreName) {
     	Genre newGenre = new Genre();
     	newGenre.setGenreName(genreName);
@@ -71,11 +71,14 @@ public class Controller {
     	}
     	
     }
-    //Paikalliseen tietokantaan luominen
+    //Paikalliseen tietokantaan luominen.
     public void createLocalGenre(String genreName) {
-    	LocalGenre newGenre = new LocalGenre();
-    	newGenre.setGenreName(genreName);
-    	localDAO.createGenre(newGenre);
+    	//LocalGenre localGenre = (LocalGenre) remoteDAO.searchGenre(genreName);
+    	LocalGenre localGenre = (LocalGenre) remoteDAO.searchGenre(genreName);
+    	
+    	
+    	localDAO.createGenre(localGenre);
+
     }
     public void createLocalArtist(String artistName, String artistBio) {
     	LocalArtist newArtist = new LocalArtist();
