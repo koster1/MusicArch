@@ -1,13 +1,19 @@
 package controller;
+
 import controller.*;
 import com.jcg.hibernate.maven.Artist;
 import com.jcg.hibernate.maven.Album;
 import com.jcg.hibernate.maven.RemoteDAO;
 import com.jcg.hibernate.maven.Genre;
+
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.input.MouseEvent;
@@ -20,6 +26,7 @@ import java.util.ArrayList;
 
 import com.jcg.hibernate.maven.Song;
 
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
@@ -31,13 +38,36 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import view.*;
 
 public class GUIController {
 	private Controller controller = new Controller();
 	private View view;
 	private BorderPane borderpane;
+	
+	@FXML
+	private Button SearchButton;
+	
+	// Etusivun hakukenttä
+	@FXML
+	private TextField SearchBox;
+
+	@FXML
+	void SearchTxt(ActionEvent event) {
+		SearchButton.setStyle("-fx-border-color: #ffff33");
+		PauseTransition pause = new PauseTransition(Duration.seconds(0.7));
+		
+		pause.setOnFinished(event1 -> {
+			SearchButton.setStyle(null);
+		});
+		pause.play();
+	}
+
 	//
 	@FXML
 	private GridPane gridView;
@@ -191,13 +221,62 @@ public class GUIController {
 	// ------------AlbumiFormin toiminnallisuus--------------------
 	// Pitää lisätä uusia tekstikenttiä moniarvoisille tiedoille
 	@FXML
+	private ScrollPane artistScroll;
+
+	@FXML
+	private GridPane root;
+
+	@FXML
+	private Pane pane;
+	int i = 1;
+
+	@FXML
 	void NewArtist(ActionEvent event) {
+
+		TextField textField[] = new TextField[15];
+		textField[i] = new TextField();
+		root.add(textField[i], 0, i);
+		i = i + 1;
+
+		
+		
+		
+		
 		// kesken
-		// TextField txt = new TextField();
+		/*
+		 * TextField txtfield = new TextField(); artistScroll.setContent(txtfield);
+		 */
+		/*
+		 * final HBox parent = new HBox(5.0); // 5.0 is the distance between the field
+		 * and the button; hbox is the parent // of both
+		 * 
+		 * TextField field = new TextField(); Button button = new Button("-"); // the
+		 * button to "close" the textfield button.setOnAction((e) ->
+		 * pane.getChildren().remove(parent)); // button click removes the hbox
+		 * button.setPrefSize(100, 27); // only if you're using a custom font / styling
+		 * HBox.setHgrow(field, Priority.ALWAYS); // field should always grow
+		 * HBox.setHgrow(button, Priority.NEVER); // button should never grow
+		 * parent.getChildren().setAll(field, button); // add the textfield and the
+		 * button to the hbox pane.getChildren().add(parent); // add the hbox to your
+		 * main grid
+		 */
+
+		// Lisää textfieldin mutta pitää tehdä scrollpane
+		// root.setHgap(10);
+		// root.setVgap(10);
+		/*
+		 * TextField textField[] = new TextField[15]; Button btn = new
+		 * Button("Add TextField"); root.add(btn, 0, 0); btn.setOnAction(e -> {
+		 * textField[i] = new TextField(); root.add(textField[i], 5, i); i = i + 1;
+		 * 
+		 * });
+		 */
+
 	}
 
 	@FXML
 	void NewGenre(ActionEvent event) {
+
 	}
 
 	@FXML
@@ -215,9 +294,21 @@ public class GUIController {
 	// Menunappulat
 	@FXML
 	public void goFrontPage(ActionEvent event) throws IOException {
-		//showFrontPage parameter as observableList? 
+		FrontPage.setStyle("-fx-border-color: #ffff33");
+		PauseTransition pause = new PauseTransition(Duration.seconds(0.7));
 		
-//		view.showFrontPage();
+		pause.setOnFinished(event1 -> {
+			FrontPage.setStyle(null);
+		});
+		pause.play();
+		Artist[] artistList = controller.getArtists();
+		ArrayList<String> stringList = new ArrayList<>();
+		for (Artist artist : artistList) {
+			System.out.println(artist.getArtistName());
+			stringList.add(artist.getArtistName());
+		}
+		System.out.println(stringList);
+		View.showFrontPage(stringList);
 	}
 	
 	public void goFrontPage() throws IOException {
@@ -228,23 +319,45 @@ public class GUIController {
 			stringList.add(artist.getArtistName());
 		}
 		
-			view.showFrontPage(stringList);
+			View.showFrontPage(stringList);
 		
 	}
 
 	@FXML
 	void ShowRequests(ActionEvent event) throws IOException {
+		
+		Requests.setStyle("-fx-border-color: #ffff33");
+		PauseTransition pause = new PauseTransition(Duration.seconds(0.7));
+		
+		pause.setOnFinished(event1 -> {
+			Requests.setStyle(null);
+		});
+		pause.play();
 		view.showRequestsWindow();
 	}
 
 	@FXML
 	void GoHelpPage(ActionEvent event) throws IOException {
+		Help.setStyle("-fx-border-color: #ffff33");
+		PauseTransition pause = new PauseTransition(Duration.seconds(0.7));
+		
+		pause.setOnFinished(event1 -> {
+			Help.setStyle(null);
+		});
+		pause.play();
 		view.showHelpPage();
 
 	}
 	
 	@FXML
 	void goUserCollection(ActionEvent event) throws IOException {
+		UserCollection.setStyle("-fx-border-color: #ffff33");
+		PauseTransition pause = new PauseTransition(Duration.seconds(0.7));
+		
+		pause.setOnFinished(event1 -> {
+			UserCollection.setStyle(null);
+		});
+		pause.play();
 		view.showUserCollectionPage();
 	}
 	
