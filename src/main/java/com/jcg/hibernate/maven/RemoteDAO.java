@@ -522,10 +522,10 @@ public class RemoteDAO {
 		try (Session session = sessionFactory.openSession()) {
 			transAct = session.beginTransaction();
 			
-			@SuppressWarnings("unchecked")
-			List<Genre> result = (List<Genre>) session.createQuery("from Genre order by genreName").list();
-			List<Album> array = result.get(0).getGenreAlbums();
+			Genre genre = (Genre) session.load(Genre.class, genreID);
+			List<Album> array = genre.getGenreAlbums();
 			transAct.commit();
+			session.close();
 			return array;
 		} catch (Exception e) {
 			if (transAct != null)
@@ -537,11 +537,11 @@ public class RemoteDAO {
 		Transaction transAct = null;
 		try (Session session = sessionFactory.openSession()) {
 			transAct = session.beginTransaction();
-			
-			@SuppressWarnings("unchecked")
-			List<Artist> result = (List<Artist>) session.createQuery("from Artist order by artistName").list();		
-			List<Album> array = result.get(0).getArtistAlbums();
+
+			Artist artist = (Artist) session.load(Artist.class, artistID);
+			List<Album> array = artist.getArtistAlbums();
 			transAct.commit();
+			session.close();
 			return array;
 		} catch (Exception e) {
 			if (transAct != null)

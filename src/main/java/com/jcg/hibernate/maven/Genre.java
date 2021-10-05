@@ -49,7 +49,8 @@ public class Genre  {
 	}
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
-	@JoinTable(name = "koostuu", joinColumns = { @JoinColumn(name = "GenreID") }, inverseJoinColumns = {
+	@JoinTable(name = "koostuu", joinColumns = { 
+			@JoinColumn(name = "GenreID") }, inverseJoinColumns = {
 			@JoinColumn(name = "AlbumiID") })
 	private List<Album> genreAlbums;
 
