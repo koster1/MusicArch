@@ -1,7 +1,13 @@
 package view;
 
 import java.io.IOException;
+import java.util.List;
+
 import java.util.ArrayList;
+import java.util.List;
+
+import com.sun.glass.ui.Window;
+import com.sun.xml.bind.v2.runtime.unmarshaller.Loader;
 
 import controller.GUIController;
 import javafx.application.Application;
@@ -9,6 +15,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
@@ -17,12 +24,14 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+//import javafx.stage.Window;
 
 public class View extends Application {
 
 	private Stage primaryStage;
 	private static BorderPane rootLayout;
 	private static BorderPane anotherRoot;
+	private static BorderPane userRoot;
 	private static SplitPane splitPane;
 	private static AnchorPane test;
 	private static BorderPane g;
@@ -37,6 +46,7 @@ public class View extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws IOException {
+
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("MusicArch");
 		showHome();
@@ -44,8 +54,8 @@ public class View extends Application {
 //		showFrontPage();
 
 	}
-	
-	//Näyttää etusivun Pohjan (BorderPane), johon on asetettu menuvalikko
+
+	// Näyttää etusivun Pohjan (BorderPane), johon on asetettu menuvalikko
 	public void showHome() throws IOException {
 		// Load root layout from fxml file.
 		FXMLLoader loader = new FXMLLoader();
@@ -60,16 +70,19 @@ public class View extends Application {
 		primaryStage.show();
 
 	}
+
+	// BorderPanen keskelle asetettu etusivunäkymä (sisältää tulevaisuudessa
+	// listauksia genreistä tms)
 	//BorderPanen keskelle asetettu etusivunäkymä (sisältää tulevaisuudessa listauksia genreistä tms)
-	public void showFrontPage(ArrayList<String> stringList) throws IOException {
+	public static void showFrontPage(ArrayList<String> stringList) throws IOException {
 
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(View.class.getResource("/view/fxmlFiles/FrontPage.fxml"));
 		AnchorPane Frontpage = (AnchorPane) loader.load();
 		rootLayout.setCenter(Frontpage);
-		GridPane gridPane = (GridPane)Frontpage.getChildren().get(1);
+		GridPane gridPane = (GridPane)Frontpage.getChildren().get(0);
+		gridPane.setAlignment(Pos.CENTER);
 		System.out.println(stringList.toString());
-		gridPane.add(new Text(stringList.get(0)), 0, 0);
 		int counter = 0;
 		for(int i = 0; i < gridPane.getColumnCount(); i++) {
 			for(int j = 0; j < gridPane.getRowCount(); j++) {
@@ -97,34 +110,80 @@ public class View extends Application {
 		System.out.println("User collection!!!");
 		FXMLLoader fxmlLoader = new FXMLLoader();
 		fxmlLoader.setLocation(View.class.getResource("/view/fxmlFiles/OmaKokoelma.fxml"));
-		anotherRoot = (BorderPane) fxmlLoader.load();
-		Scene scene = new Scene(anotherRoot);
-		scene.getStylesheets().add("/view/style.css");
-		Stage stage = new Stage();
-		stage.setTitle("New Window");
-		stage.setScene(scene);
-		stage.show();
+		userRoot = (BorderPane) fxmlLoader.load();
+		List<Window> windows = Window.getWindows();
+		System.out.println(windows);
+		boolean test = true;
+		try {
+			for(int i = 0; i < windows.size(); i++) {
+				System.out.println(windows.get(i).getTitle());
+				if(windows.get(i).getTitle().contains("User")) {
+					System.out.println("Truee");
+					test = false;
+					break;
+				}
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		if(test) {
+			Scene scene = new Scene(userRoot);
+			scene.getWindow();
+			scene.getStylesheets().add("/view/style.css");
+			Stage stage2 = new Stage();
+			stage2.setTitle("User");
+			stage2.setScene(scene);
+			stage2.show();
+			userRoot.requestFocus();
+		}
 	}
 
 	// -------------------Lisayspohjan OMA stage---------------------------------
-	//Lisäysnäkymän (sisältää lisäyspyynnöt ja lisäyspohjat) oma stage, 
-	//jossa vaihdetaan keskiosan lomake-fxml:ää
+	// Lisäysnäkymän (sisältää lisäyspyynnöt ja lisäyspohjat) oma stage,
+	// jossa vaihdetaan keskiosan lomake-fxml:ää
 	//
 	public static void showRequestsWindow() throws IOException {
 		System.out.print(" !!!    täällä ollaan    !!!");
-		FXMLLoader fxmlLoader = new FXMLLoader();
-		fxmlLoader.setLocation(View.class.getResource("/view/fxmlFiles/LisaysPyynnot2.fxml"));
-		anotherRoot = (BorderPane) fxmlLoader.load();
-		Scene scene = new Scene(anotherRoot);
-		scene.getStylesheets().add("/view/style.css");
-		Stage stage = new Stage();
-		stage.setTitle("New Window");
-		stage.setScene(scene);
-		stage.show();
+		/*
+		 * try { System.out.print("   " + anotherRoot); }catch (Exception e){
+		 * System.out.print(e.getMessage()); }
+		 */
+		
+
+		
+			FXMLLoader fxmlLoader = new FXMLLoader();
+			fxmlLoader.setLocation(View.class.getResource("/view/fxmlFiles/LisaysPyynnot2.fxml"));
+			anotherRoot = (BorderPane) fxmlLoader.load();
+			List<Window> windows = Window.getWindows();
+			System.out.println(windows);
+			boolean test = true;
+			try {
+				for(int i = 0; i < windows.size(); i++) {
+					System.out.println(windows.get(i).getTitle());
+					if(windows.get(i).getTitle().contains("Request")) {
+						System.out.println("Truee");
+						test = false;
+						break;
+					}
+				}
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+			if(test) {
+
+				Scene scene = new Scene(anotherRoot);
+				scene.getStylesheets().add("/view/style.css");
+				
+				Stage stage = new Stage();
+				stage.setTitle("Request");
+				stage.setScene(scene);
+				stage.show();
+			}
+
 	}
 
 	public static void showGenreForm() throws IOException {
-		
+
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(View.class.getResource("/view/fxmlFiles/genrelisays.fxml"));
 		AnchorPane genre = (AnchorPane) loader.load();
@@ -156,6 +215,7 @@ public class View extends Application {
 		stage.setScene(error);
 		stage.show();
 	}
+
 	public Stage getPrimaryStage() {
 		return primaryStage;
 	}

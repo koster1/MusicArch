@@ -19,7 +19,6 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.input.MouseEvent;
 import view.View;
 
-
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
