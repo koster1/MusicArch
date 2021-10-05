@@ -12,7 +12,7 @@ import com.jcg.hibernate.maven.RemoteDAO;
 
 
 public class GenreTest {
-	
+
 	private RemoteDAO rDAO = new RemoteDAO();
 	private String givenGenre = "TestGenre";
 	
@@ -52,5 +52,5 @@ public class GenreTest {
 		assertEquals(givenGenre, rDAO.searchGenre(givenGenre).getGenreName(), "Expected to find TestGenre!");
 		rDAO.removeGenre(rDAO.searchGenre(givenGenre).getGenreID());
 	}
-
+	
 }

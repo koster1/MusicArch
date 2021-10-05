@@ -7,20 +7,22 @@
  
  
 /*Päänäkymän elementtejä */
-.root {
--fx-background-color: magenta;
+#root {
+-fx-background-color: #404040;
+-fx-font-size: 17.5px;
+-fx-text-fill: #ffff33;
+-fx-accent: red;
 
 }
 #Buttonbarbuttons {
-  
+-fx-text-fill: orange;
 }
 
 /*Lisäyssivusta löytyviä elementtejä */
 #RequestDrops {
-
-}
-#TxtFields {
--fx-font-size: 13.0px;
+-fx-body-color: #404040;
+-fx-font-size: 17.5px;
+-fx-text-fill: #ffff33;
 }
 /*Albumilomakkeen txtfieldien lisäysnapit */
 #PlusButtons {
@@ -28,9 +30,24 @@
 }
 /* Kaikki tekstikentät */
 #TxtFields {
-	
+-fx-font-size: 17.5px;
 }
+
 /* Kaikki lähetysnapit */
 #Send {
 	
+}
+
+#root2 {
+-fx-font-size: 17.5px;
+-fx-text-fill: #ffff33;
+}
+
+Text {
+-fx-font-size: 17.5px;
+-fx-text-fill: orange;
+}
+
+#labels {
+-fx-font-size: 14px;
 }
