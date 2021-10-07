@@ -33,7 +33,6 @@ public class Main {
 //		testGenre.setGenreName("Wooowzers");
 //		lDAO.createGenre(testGenre);
 		
-		
 //		List<Album> testList = dao.genreAlbums(2);
 //		for(int i = 0; i < testList.size(); i++) {
 //			System.out.println("WOOOW" + testList.get(i).getAlbumYear());
@@ -234,5 +233,5 @@ public class Main {
 //		System.out.println("A weird test"+anotherTest);
 
 
-}
+	}
 }

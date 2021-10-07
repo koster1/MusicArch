@@ -19,8 +19,7 @@ public class RemoteDAO {
 //		sessionFactory = config.buildSessionFactory(serviceReg);
 //		return sessionFactory;
 //	}
-
-
+	
 //	private static SessionFactory buildSessionFactory() {
 //		Configuration config = new Configuration();
 //		config.configure("hibernate.cfg.xml");
@@ -545,7 +544,7 @@ public class RemoteDAO {
 	public void finalize() {
 		try {
 			if (sessionFactory != null)
-				System.out.println("Finalize thingy");
+				System.out.println("Sessiotehdas suljettu");
 				sessionFactory.close();
 		} catch (Exception e) {
 			System.err.println("Session factory couldn't be closed: " + e.getMessage());
