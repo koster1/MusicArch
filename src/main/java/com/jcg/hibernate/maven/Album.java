@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.mapping.Collection;
 
@@ -51,6 +52,17 @@ public class Album {
 			inverseJoinColumns={@JoinColumn(name="ArtistiID")})
 	private List<Artist> albumArtists;
 	
+	@ManyToMany(fetch=FetchType.LAZY,
+			cascade= {CascadeType.ALL})
+	@JoinTable(
+			name="sisältyy",
+			joinColumns= {@JoinColumn(name="AlbumiID")},
+			inverseJoinColumns= {@JoinColumn(name="KappaleID")})
+	private List<Song> albumSongs;
+	
+//	@OneToMany(mappedBy="Albumi")
+//	private List<Includes> includes;
+	
 	public List<Artist> getAlbumArtists(){
 		return albumArtists;
 	}
@@ -75,12 +87,18 @@ public class Album {
 		}
 		albumGenres.add(genre);
 	}
-	
-	public List<Song> getAlbumSongs() {
-		// THIS ONE NOW NEEDS THE PROPER ANNOTATIONS
-		return null;
+	public void setAlbumSongs(List<Song> albumSongs) {
+		this.albumSongs = albumSongs;
 	}
-	
+	public void addSong(Song song) {
+		if(albumSongs == null) {
+			albumSongs = new ArrayList<>();
+		}
+		albumSongs.add(song);
+	}
+	public List<Song> getAlbumSongs() {
+		return albumSongs;
+	}
 	public Album() {}
 	
 	public int getAlbumID() {
