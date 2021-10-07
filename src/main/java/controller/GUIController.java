@@ -310,13 +310,14 @@ public class GUIController {
 		System.out.println("Test13");
 		try {
 			Artist[] artistList = controller.getArtists();
-			ArrayList<String> stringList = new ArrayList<>();
+			Genre[] genreList = controller.getGenres();
+			
 			for (Artist artist : artistList) {
-				System.out.println(artist.getArtistName());
-				stringList.add(artist.getArtistName());
+				System.out.println("test" + artist.getArtistName());
+//				stringList.add(artist.getArtistName());
 			}
-			System.out.println(stringList);
-			View.showFrontPage(stringList);
+//			System.out.println(stringList);
+			View.showFrontPage(artistList, genreList);
 			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -326,13 +327,14 @@ public class GUIController {
 	
 	public void goFrontPage() throws IOException {
 		Artist[] artistList = controller.getArtists();
+		Genre[] genreList = controller.getGenres();
 		ArrayList<String> stringList = new ArrayList<>();
 		for (Artist artist : artistList) {
 			System.out.println(artist.getArtistName());
 			stringList.add(artist.getArtistName());
 		}
 		
-			View.showFrontPage(stringList);
+			View.showFrontPage(artistList, genreList);
 		
 	}
 

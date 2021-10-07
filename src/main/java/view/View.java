@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.jcg.hibernate.maven.Artist;
+import com.jcg.hibernate.maven.Genre;
 import com.sun.glass.ui.Window;
 import com.sun.xml.bind.v2.runtime.unmarshaller.Loader;
 
@@ -19,6 +21,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -80,7 +84,7 @@ public class View extends Application {
 	// BorderPanen keskelle asetettu etusivunäkymä (sisältää tulevaisuudessa
 	// listauksia genreistä tms)
 	//BorderPanen keskelle asetettu etusivunäkymä (sisältää tulevaisuudessa listauksia genreistä tms)
-	public static void showFrontPage(ArrayList<String> stringList) throws IOException {
+	public static void showFrontPage(Artist[] artistList, Genre[] genreList) throws IOException {
 
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(View.class.getResource("/view/fxmlFiles/FrontPage.fxml"));
@@ -89,28 +93,43 @@ public class View extends Application {
 		} catch (Exception e) {
 			System.out.println("päädyit tänne " + e.getMessage());
 		}
-		System.out.println("Test1");
+		
+		
+		
 		AnchorPane Frontpage = (AnchorPane) loader.load();
-		System.out.println("Test2");
 		rootLayout.setCenter(Frontpage);
-		System.out.println("Test3");
-		GridPane gridPane = (GridPane)Frontpage.getChildren().get(0);
-		System.out.println("Test4");
-		gridPane.setAlignment(Pos.CENTER);
-		System.out.println("Test5");
-		System.out.println(stringList.toString());
-		int counter = 0;
-		for(int i = 0; i < gridPane.getColumnCount(); i++) {
-			for(int j = 0; j < gridPane.getRowCount(); j++) {
-				if(counter < stringList.size()) {
-					Text text = new Text();
-					text.setText(stringList.get(counter));
-					gridPane.add(text, i, j);
-					counter++;
-				}
+//
+//			System.out.println("fronttt " + Frontpage.getChildren());
+			TabPane tabPane = (TabPane) Frontpage.getChildren().get(0);
+			int counter1 = 0;
+			for (Artist artist : artistList) {
+				Tab tab = tabPane.getTabs().get(0);
+				Text text = new Text(artist.getArtistName());
+				
+				AnchorPane anchorpane = (AnchorPane)tab.getContent();
+				System.out.println();
+//				tab.setContent(text);
 			}
-		}
-		System.out.println("Test6");
+//			GridPane gridPane = (GridPane)tabPane.getTabs().get(0).getContent();
+//			Text text = new Text(genreList[0].getGenreName());
+//			text.setId("1");
+//			System.out.println("Tabpane näy ");
+//			gridPane.add(text, 0, 0);
+//		GridPane gridPane = (GridPane)Frontpage.getChildren().get();
+//		gridPane.setAlignment(Pos.CENTER);
+		
+		int counter = 0;
+//		for(int i = 0; i < gridPane.getColumnCount(); i++) {
+//			for(int j = 0; j < gridPane.getRowCount(); j++) {
+//				if(counter < stringList.size()) {
+//					Text text = new Text();
+//					text.setText(stringList.get(counter));
+//					gridPane.add(text, i, j);
+//					
+//					counter++;
+//				}
+//			}
+//		}
 
 	}
 
