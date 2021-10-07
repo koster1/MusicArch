@@ -14,6 +14,8 @@ import com.jcg.hibernate.maven.Genre;
 import com.jcg.hibernate.maven.LocalDAO;
 
 import controller.Controller;
+import model.LocalGenre;
+
 import com.jcg.hibernate.maven.Album;
 import com.jcg.hibernate.maven.Artist;
 import com.jcg.hibernate.maven.RemoteDAO;
@@ -23,16 +25,23 @@ import view.*;
 
 public class Main {
 	public static void main(String args[]) {
-		RemoteDAO dao = new RemoteDAO();
-//		View.main(args);
-		List<Album> testList = dao.genreAlbums(2);
-		for(int i = 0; i < testList.size(); i++) {
-			System.out.println("WOOOW" + testList.get(i).getAlbumYear());
-		}
-		List<Album> artistList = dao.artistAlbums(1);
-		for(int i = 0; i<artistList.size(); i++) {
-			System.out.println("Artistsss"+artistList.get(i).getAlbumName());
-		}
+//		RemoteDAO dao = new RemoteDAO();
+//		LocalDAO lDAO = new LocalDAO();
+		View.main(args);
+		
+//		LocalGenre testGenre = new LocalGenre();
+//		testGenre.setGenreName("Wooowzers");
+//		lDAO.createGenre(testGenre);
+		
+		
+//		List<Album> testList = dao.genreAlbums(2);
+//		for(int i = 0; i < testList.size(); i++) {
+//			System.out.println("WOOOW" + testList.get(i).getAlbumYear());
+//		}
+//		List<Album> artistList = dao.artistAlbums(1);
+//		for(int i = 0; i<artistList.size(); i++) {
+//			System.out.println("Artistsss"+artistList.get(i).getAlbumName());
+//		}
 
 //		List<String> allSearchable = dao.getSearchable();
 //		List<String> allGenres = dao.existingGenres();

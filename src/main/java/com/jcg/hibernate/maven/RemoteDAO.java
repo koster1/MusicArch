@@ -2,13 +2,9 @@ package com.jcg.hibernate.maven;
 
 import java.util.List;
 
-import javax.persistence.criteria.CriteriaQuery;
 
 import org.hibernate.*;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.criterion.Restrictions;
-import org.hibernate.service.ServiceRegistry;
 
 public class RemoteDAO {
 	static Session session;
@@ -486,36 +482,6 @@ public class RemoteDAO {
 		}
 	}
 	
-	
-	/*
-	public Artist[] genreArtists(int genreID) {
-		Transaction transAct = null;
-		try(Session session = sessionFactory.openSession()){
-			transAct = session.beginTransaction();
-			
-		}catch(Exception e) {
-			if(transAct != null)
-				transAct.rollback();
-			throw e;
-		}
-	}
-	
-	public List<Album> artistAlbums(int artistID){
-		Transaction transAct = null;
-		try(Session session = sessionFactory.openSession()){
-			transAct = session.beginTransaction();
-			@SuppressWarnings("unchecked")
-			List<Album> testing = session.createCriteria(Album.class).setFetchMode("Genre", FetchMode.JOIN).add(Restrictions.eqOrIsNull("genreID", 1)).list();
-			System.out.println(testing.get(0));
-			transAct.commit();
-			return testing;
-		}catch(Exception e) {
-			if(transAct != null)
-				transAct.rollback();
-			throw e;
-		}
-	}
-	*/
 	/*
 	 * Method takes in a given genre's ID, and then opens a session with it. During the session, an album-list can be created based on the instance
 	 * After loading the list, the session is closed and the method returns a list of Albums based on the genre
@@ -556,11 +522,30 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
+	/*
+	 * Method takes in an album's ID and then opens a session with it. During the session, a song-list can be created based on the instance
+	 * After loading the list, the session is closed and the method returns a list of Songs based on the album.
+	 */
+	public List<Song> albumSongs(int albumID){
+		Transaction transAct = null;
+		try(Session session = sessionFactory.openSession()){
+			transAct = session.beginTransaction();
+			Album album = (Album) session.load(Album.class, albumID);
+			List<Song> array = album.getAlbumSongs();
+			transAct.commit();
+			session.close();
+			return array;
+		}catch(Exception e) {
+			if(transAct != null)
+				transAct.rollback();
+			throw e;
+		}
+	}
 	
-	//public List<Song> albumSongs(int albumID){}
 	public void finalize() {
 		try {
 			if (sessionFactory != null)
+				System.out.println("Finalize thingy");
 				sessionFactory.close();
 		} catch (Exception e) {
 			System.err.println("Session factory couldn't be closed: " + e.getMessage());

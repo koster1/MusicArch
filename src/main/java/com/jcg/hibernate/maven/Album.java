@@ -76,6 +76,11 @@ public class Album {
 		albumGenres.add(genre);
 	}
 	
+	public List<Song> getAlbumSongs() {
+		// THIS ONE NOW NEEDS THE PROPER ANNOTATIONS
+		return null;
+	}
+	
 	public Album() {}
 	
 	public int getAlbumID() {
@@ -96,5 +101,6 @@ public class Album {
 	public void setAlbumYear(int albumYear) {
 		this.albumYear = albumYear;
 	}
+	
 	
 }
