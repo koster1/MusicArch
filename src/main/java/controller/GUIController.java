@@ -320,7 +320,7 @@ public class GUIController {
 			View.showFrontPage(artistList, genreList);
 			
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			System.out.println(e.getMessage()+" EnTItY MaNAgEr iS CloSEd");
 		}
 
 	}

@@ -8,12 +8,15 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import com.jcg.hibernate.maven.RemoteDAO;
+import com.jcg.hibernate.maven.Song;
 import com.jcg.hibernate.maven.Album;
 import com.jcg.hibernate.maven.Artist;
 import com.jcg.hibernate.maven.Genre;
 import com.jcg.hibernate.maven.LocalDAO;
 
 import controller.Controller;
+import model.LocalGenre;
+
 import com.jcg.hibernate.maven.Album;
 import com.jcg.hibernate.maven.Artist;
 import com.jcg.hibernate.maven.RemoteDAO;
@@ -23,8 +26,49 @@ import view.*;
 
 public class Main {
 	public static void main(String args[]) {
-//		RemoteDAO dao = new RemoteDAO();
-		View.main(args);
+		RemoteDAO dao = new RemoteDAO();
+//		LocalDAO lDAO = new LocalDAO();
+//		View.main(args);
+		
+		List<String> testStrings = dao.getSearchable();
+		
+		for(int i = 0; i < testStrings.size(); i++) {
+			System.out.println("Searchable strings! Check it out ::: "+ testStrings.get(i));
+		}
+		
+		
+/*
+		Genre testGenre = new Genre();
+		testGenre.setGenreName("A testful genre!");
+		
+		Artist testArtist = new Artist();
+		testArtist.setArtistName("A testing artist!");
+		testArtist.setArtistBio("Don't mess with him >:c");
+		
+		Album testAlbum = new Album();
+		testAlbum.setAlbumName("testAlbum!");
+		Song song1 = new Song();
+		song1.setSongName("The first song!");
+		song1.setSongDuration(3);
+		Song song2 = new Song();
+		song2.setSongName("The second song! Ooooohhhh");
+		song2.setSongDuration(6);
+		
+		testAlbum.addSong(song1);
+		testAlbum.addSong(song2);
+		testAlbum.addGenre(testGenre);
+		testAlbum.addArtist(testArtist);
+		
+		try {
+			dao.createAlbum(testAlbum);
+		} catch (Exception e) {
+			System.out.println("Exception "+e.getMessage());
+		}
+		*/
+//		LocalGenre testGenre = new LocalGenre();
+//		testGenre.setGenreName("Wooowzers");
+//		lDAO.createGenre(testGenre);
+		
 //		List<Album> testList = dao.genreAlbums(2);
 //		for(int i = 0; i < testList.size(); i++) {
 //			System.out.println("WOOOW" + testList.get(i).getAlbumYear());
@@ -225,5 +269,5 @@ public class Main {
 //		System.out.println("A weird test"+anotherTest);
 
 
-}
+	}
 }
