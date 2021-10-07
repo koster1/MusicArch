@@ -25,10 +25,16 @@ import view.*;
 
 public class Main {
 	public static void main(String args[]) {
-//		RemoteDAO dao = new RemoteDAO();
+		RemoteDAO dao = new RemoteDAO();
 //		LocalDAO lDAO = new LocalDAO();
-		View.main(args);
-		
+//		View.main(args);
+		Genre testGenre = new Genre();
+		testGenre.setGenreName("RockGenre");
+		try {
+			dao.createGenre(testGenre);
+		} catch (Exception e) {
+			System.out.println("Exception "+e.getMessage());
+		}
 //		LocalGenre testGenre = new LocalGenre();
 //		testGenre.setGenreName("Wooowzers");
 //		lDAO.createGenre(testGenre);

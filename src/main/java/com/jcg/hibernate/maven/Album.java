@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.mapping.Collection;
 
@@ -50,6 +51,9 @@ public class Album {
 			joinColumns={@JoinColumn(name="AlbumiID")},
 			inverseJoinColumns={@JoinColumn(name="ArtistiID")})
 	private List<Artist> albumArtists;
+	
+//	@OneToMany(mappedBy="Albumi")
+//	private List<Includes> includes;
 	
 	public List<Artist> getAlbumArtists(){
 		return albumArtists;
