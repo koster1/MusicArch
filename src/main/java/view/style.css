@@ -7,20 +7,20 @@
  
  
 /*Päänäkymän elementtejä */
-.root {
--fx-background-color: #d3d3d3;
+#root {
+-fx-background-color: #404040;
+-fx-text-fill: #ffff33;
+-fx-accent: red;
 
 }
 #Buttonbarbuttons {
-  
+-fx-text-fill: orange;
 }
 
 /*Lisäyssivusta löytyviä elementtejä */
 #RequestDrops {
-
-}
-#TxtFields {
--fx-font-size: 13.0px;
+-fx-body-color: #404040;
+-fx-text-fill: #ffff33;
 }
 /*Albumilomakkeen txtfieldien lisäysnapit */
 #PlusButtons {
@@ -28,9 +28,21 @@
 }
 /* Kaikki tekstikentät */
 #TxtFields {
-	
 }
+
 /* Kaikki lähetysnapit */
 #Send {
 	
+}
+
+/* */
+#root2 {
+-fx-text-fill: #ffff33;
+}
+
+Text {
+-fx-text-fill: orange;
+}
+
+#labels {
 }

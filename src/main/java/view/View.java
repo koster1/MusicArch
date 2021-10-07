@@ -3,30 +3,46 @@ package view;
 import java.io.IOException;
 import java.util.List;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.sun.glass.ui.Window;
+import com.sun.xml.bind.v2.runtime.unmarshaller.Loader;
+
+import controller.GUIController;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.stage.Window;
+//import javafx.stage.Window;
 
 public class View extends Application {
 
 	private Stage primaryStage;
 	private static BorderPane rootLayout;
 	private static BorderPane anotherRoot;
+	private static BorderPane userRoot;
 	private static SplitPane splitPane;
 	private static AnchorPane test;
 	private static BorderPane g;
 	private Pane view;
+	private static GUIController guiController;
 
-	/*
-	 * public void init() { GUIController guiController = new GUIController(this); }
-	 */
+	public void init() {
+		guiController = new GUIController(this); 
+	}
+
 	/* public void init() {Controller controller = new Controller();} */
 
 	@Override
@@ -35,7 +51,9 @@ public class View extends Application {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("MusicArch");
 		showHome();
-		showFrontPage();
+		guiController.goFrontPage();
+//		showFrontPage();
+
 	}
 
 	// Näyttää etusivun Pohjan (BorderPane), johon on asetettu menuvalikko
@@ -56,12 +74,38 @@ public class View extends Application {
 
 	// BorderPanen keskelle asetettu etusivunäkymä (sisältää tulevaisuudessa
 	// listauksia genreistä tms)
-	public static void showFrontPage() throws IOException {
+	//BorderPanen keskelle asetettu etusivunäkymä (sisältää tulevaisuudessa listauksia genreistä tms)
+	public static void showFrontPage(ArrayList<String> stringList) throws IOException {
 
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(View.class.getResource("/view/fxmlFiles/FrontPage.fxml"));
+		try {
+			System.out.println("lataaja " + loader);
+		} catch (Exception e) {
+			System.out.println("päädyit tänne " + e.getMessage());
+		}
+		System.out.println("Test1");
 		AnchorPane Frontpage = (AnchorPane) loader.load();
+		System.out.println("Test2");
 		rootLayout.setCenter(Frontpage);
+		System.out.println("Test3");
+		GridPane gridPane = (GridPane)Frontpage.getChildren().get(0);
+		System.out.println("Test4");
+		gridPane.setAlignment(Pos.CENTER);
+		System.out.println("Test5");
+		System.out.println(stringList.toString());
+		int counter = 0;
+		for(int i = 0; i < gridPane.getColumnCount(); i++) {
+			for(int j = 0; j < gridPane.getRowCount(); j++) {
+				if(counter < stringList.size()) {
+					Text text = new Text();
+					text.setText(stringList.get(counter));
+					gridPane.add(text, i, j);
+					counter++;
+				}
+			}
+		}
+		System.out.println("Test6");
 
 	}
 
@@ -72,6 +116,38 @@ public class View extends Application {
 		AnchorPane Frontpage = (AnchorPane) loader.load();
 		rootLayout.setCenter(Frontpage);
 
+	}
+	//
+	public static void showUserCollectionPage() throws IOException {
+		System.out.println("User collection!!!");
+		List<Window> windows = Window.getWindows();
+		System.out.println(windows);
+		boolean test = true;
+		try {
+			for(int i = 0; i < windows.size(); i++) {
+				System.out.println(windows.get(i).getTitle());
+				if(windows.get(i).getTitle().contains("User")) {
+					System.out.println("Truee");
+					test = false;
+					break;
+				}
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		if(test) {
+			FXMLLoader fxmlLoader = new FXMLLoader();
+			fxmlLoader.setLocation(View.class.getResource("/view/fxmlFiles/OmaKokoelma.fxml"));
+			userRoot = (BorderPane) fxmlLoader.load();
+			Scene scene = new Scene(userRoot);
+			scene.getWindow();
+			scene.getStylesheets().add("/view/style.css");
+			Stage stage2 = new Stage();
+			stage2.setTitle("User");
+			stage2.setScene(scene);
+			stage2.show();
+			userRoot.requestFocus();
+		}
 	}
 
 	// -------------------Lisayspohjan OMA stage---------------------------------
@@ -84,26 +160,38 @@ public class View extends Application {
 		 * try { System.out.print("   " + anotherRoot); }catch (Exception e){
 		 * System.out.print(e.getMessage()); }
 		 */
-		anotherRoot = null;
+		
 
-		if (anotherRoot == null) {
-			FXMLLoader fxmlLoader = new FXMLLoader();
-			fxmlLoader.setLocation(View.class.getResource("/view/fxmlFiles/LisaysPyynnot2.fxml"));
-			anotherRoot = (BorderPane) fxmlLoader.load();
-			Scene scene = new Scene(anotherRoot);
-			scene.getStylesheets().add("/view/style.css");
+		
+			List<Window> windows = Window.getWindows();
+			System.out.println(windows);
+			boolean test = true;
+			try {
+				for(int i = 0; i < windows.size(); i++) {
+					System.out.println(windows.get(i).getTitle());
+					if(windows.get(i).getTitle().contains("Request")) {
+						System.out.println("Truee");
+						test = false;
+						break;
+					}
+				}
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+			if(test) {
+				FXMLLoader fxmlLoader = new FXMLLoader();
+				fxmlLoader.setLocation(View.class.getResource("/view/fxmlFiles/LisaysPyynnot2.fxml"));
+				anotherRoot = (BorderPane) fxmlLoader.load();
 
-			Stage stage = new Stage();
-			stage.setTitle("New Window");
-			stage.setScene(scene);
-			stage.show();
+				Scene scene = new Scene(anotherRoot);
+				scene.getStylesheets().add("/view/style.css");
+				
+				Stage stage = new Stage();
+				stage.setTitle("Request");
+				stage.setScene(scene);
+				stage.show();
+			}
 
-		} else if (anotherRoot != null) {
-			((Stage) anotherRoot.getScene().getWindow()).close();
-
-//			anotherRoot.toFront();
-
-		}
 	}
 
 	public static void showGenreForm() throws IOException {
@@ -116,7 +204,7 @@ public class View extends Application {
 
 	public static void showAlbumForm() throws IOException {
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(View.class.getResource("/view/fxmlFiles/albumilisays.fxml"));
+		loader.setLocation(View.class.getResource("/view/fxmlFiles/albumilisays2.fxml"));
 		AnchorPane album = (AnchorPane) loader.load();
 		anotherRoot.setCenter(album);
 	}

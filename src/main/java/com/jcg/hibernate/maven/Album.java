@@ -16,7 +16,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-
 import org.hibernate.mapping.Collection;
 
 
@@ -34,6 +33,50 @@ public class Album {
 	
 	@Column(name = "Julkaisuvuosi")
 	private int albumYear;
+
+	@ManyToMany(fetch=FetchType.EAGER,
+			cascade={CascadeType.ALL})
+	@JoinTable(
+			name="koostuu",
+			joinColumns={@JoinColumn(name="AlbumiID")},
+			inverseJoinColumns={@JoinColumn(name="GenreID")}
+			)
+	private List<Genre> albumGenres;
+	
+	@ManyToMany(fetch=FetchType.LAZY,
+			cascade={CascadeType.ALL})
+	@JoinTable(
+			name="tekee",
+			joinColumns={@JoinColumn(name="AlbumiID")},
+			inverseJoinColumns={@JoinColumn(name="ArtistiID")})
+	private List<Artist> albumArtists;
+	
+	public List<Artist> getAlbumArtists(){
+		return albumArtists;
+	}
+	public void setAlbumArtists(List<Artist> albumArtists) {
+		this.albumArtists = albumArtists;
+	}
+	public void addArtist(Artist artist) {
+		if(albumArtists == null) {
+			albumArtists = new ArrayList<>();
+		}
+		albumArtists.add(artist);
+	}	
+	public List<Genre> getAlbumGenres(){
+		return albumGenres;
+	}
+	public void setAlbumGenres(List<Genre> albumGenres) {
+		this.albumGenres = albumGenres;
+	}
+	public void addGenre(Genre genre) {
+		if(albumGenres == null) {
+			albumGenres = new ArrayList<>();
+		}
+		albumGenres.add(genre);
+	}
+	
+	public Album() {}
 	
 	public int getAlbumID() {
 		return albumID;

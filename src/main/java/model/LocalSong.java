@@ -1,4 +1,4 @@
-package com.jcg.hibernate.maven;
+package model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,10 +9,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Kappale")
-public class Song {
-	
+public class LocalSong {
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "KappaleID", updatable = false, nullable = false)
 	private int songID;
 	
@@ -40,5 +39,4 @@ public class Song {
 	public void setSongDuration(int songDuration) {
 		this.songDuration = songDuration;
 	}
-
 }

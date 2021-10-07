@@ -19,9 +19,9 @@
         <property name="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</property>
  
         <!-- Mapping With Model Class Containing Annotations -->
-        <mapping class="com.jcg.hibernate.maven.Genre" />
-        <mapping class="com.jcg.hibernate.maven.Artist" />
-        <mapping class="com.jcg.hibernate.maven.Album" />
-        <mapping class="com.jcg.hibernate.maven.Song" />
+        <mapping class="model.LocalGenre" />
+        <mapping class="model.LocalArtist" />
+        <mapping class="model.LocalAlbum" />
+        <mapping class="model.LocalSong" />
     </session-factory>
 </hibernate-configuration>
