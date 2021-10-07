@@ -70,8 +70,7 @@ public class RemoteDAO {
 		Genre[] genreSearch;
 		genreSearch = readGenres();
 
-		// First loop to check whether a given genre is already found within the
-		// database
+		// First loop to check whether a given genre is already found within the database
 		for (int i = 0; i < genreSearch.length; i++) {
 			if (genreSearch[i].getGenreName().equals(genre.getGenreName())) {
 				throw new Exception("This Genre already exists!");
@@ -432,7 +431,6 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
-	
 	public List<String> getSearchable(){
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
