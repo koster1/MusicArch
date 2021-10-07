@@ -212,6 +212,9 @@ public class Controller {
     public Artist[] getArtists() {
     	return remoteDAO.readArtists();
     }
-    
+    public Genre[] getGenres() {
+    	return remoteDAO.readGenres();
+    }
+     
 
 }

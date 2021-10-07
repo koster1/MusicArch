@@ -561,6 +561,7 @@ public class RemoteDAO {
 	public void finalize() {
 		try {
 			if (sessionFactory != null)
+				System.out.println("Sessiotehdas suljettu");
 				sessionFactory.close();
 		} catch (Exception e) {
 			System.err.println("Session factory couldn't be closed: " + e.getMessage());

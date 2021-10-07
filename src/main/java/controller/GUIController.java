@@ -46,10 +46,13 @@ import javafx.util.Duration;
 import view.*;
 
 public class GUIController {
-	private Controller controller = new Controller();
+	private static Controller controller;
 	private View view;
 	private BorderPane borderpane;
 	private double pauseDuration = 0.2;
+	
+	@FXML
+	private BorderPane mainPane;
 	
 	@FXML
 	private Button SearchButton;
@@ -110,8 +113,9 @@ public class GUIController {
 	
 	public GUIController() {}
 	
-	public GUIController(View view) {
+	public GUIController(View view, Controller controller) {
 		this.view = view;
+		this.controller = controller;
 	}
 
 	// SendGenreButton lähettää Genre-lomakkeen tiedot controlleriin.
