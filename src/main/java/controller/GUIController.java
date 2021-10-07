@@ -55,7 +55,7 @@ public class GUIController {
 	private Button SearchButton;
 	
 	// Etusivun hakukenttä
-	@FXML
+	@FXML 
 	private TextField SearchBox;
 
 	@FXML
@@ -170,7 +170,7 @@ public class GUIController {
 			Dialog<String> dialog = new Dialog<String>();
 			dialog.setTitle("Pyyntö lähetetty");
 			dialog.setHeaderText("Artistipyyntö lähetetty!");
-			dialog.setContentText("Lähetit pyynnön lisätä genren: " + artistName);
+			dialog.setContentText("Lähetit pyynnön lisätä artistin: " + artistName);
 
 			ButtonType type = new ButtonType("OK", ButtonData.OK_DONE);
 			dialog.getDialogPane().getButtonTypes().add(type);

@@ -20,7 +20,7 @@ import model.*;
 public class Controller {
 
 	private RemoteDAO remoteDAO = new RemoteDAO();
-	//private LocalDAO localDAO = new LocalDAO();
+	private LocalDAO localDAO = new LocalDAO();
 	
 	private ObservableList<String> list = FXCollections.observableArrayList();
 	/**
@@ -73,19 +73,23 @@ public class Controller {
     	
     }
     //Paikalliseen tietokantaan luominen.
-    public void createLocalGenre(String genreName) {
-    	//LocalGenre localGenre = (LocalGenre) remoteDAO.searchGenre(genreName);
-    	//LocalGenre localGenre = (LocalGenre) remoteDAO.searchGenre(genreName);
+    public void createLocalGenre (int GenreID, String genreName) {
+    	LocalGenre localGenre = new LocalGenre();
+    	Genre genre = remoteDAO.searchGenre(genreName);
+    	localGenre.setGenreID(GenreID);
+    	localGenre.setGenreName(genreName);
     	
-    	
-    	//localDAO.createGenre(localGenre);
-
+    	localDAO.createGenre(localGenre);
     }
-    public void createLocalArtist(String artistName, String artistBio) {
-    	LocalArtist newArtist = new LocalArtist();
-    	newArtist.setArtistName(artistName);
-    	newArtist.setArtistBio(artistBio);
-    	localDAO.createArtist(newArtist);
+    public void createLocalArtist(int ArtistID, String artistName, String artistBio) {
+    	LocalArtist localArtist = new LocalArtist();
+    	Artist remoteartist = remoteDAO.searchArtist(artistName);
+    	
+    	localArtist.setArtistID(ArtistID);
+    	localArtist.setArtistName(artistName);
+    	localArtist.setArtistBio(artistBio);
+
+    	localDAO.createArtist(localArtist);
     }
     public void createLocalAlbum(String albumName, Song[] songListGiven, int albumYear, Genre[] genreListGiven, Artist[] artistListGiven ) {
     	LocalAlbum newAlbum = new LocalAlbum();
@@ -112,6 +116,7 @@ public class Controller {
     //Tallennus paikalliseen tietokantaan
     public void saveLocalGenre(int genreID) {
     	LocalGenre saveLocalGenre = new LocalGenre();
+    	
     	saveLocalGenre = localDAO.readGenre(genreID);
     }
     public void saveLocalArtist(int artistID) {
@@ -214,6 +219,9 @@ public class Controller {
     public Artist[] getArtists() {
     	return remoteDAO.readArtists();
     }
-    
+    public Genre[] getGenres() {
+    	return remoteDAO.readGenres();
+    }
+     
 
 }
