@@ -25,6 +25,7 @@ public class Main {
 	public static void main(String args[]) {
 
 		//RemoteDAO dao = new RemoteDAO();
+		LocalDAO localDAO = new LocalDAO();
 		View.main(args);
 		/*List<Album> testList = dao.genreAlbums(2);
 		for(int i = 0; i < testList.size(); i++) {
