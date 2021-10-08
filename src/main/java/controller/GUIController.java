@@ -36,6 +36,7 @@ import com.jcg.hibernate.maven.Genre;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.jcg.hibernate.maven.Song;
 
@@ -46,15 +47,16 @@ public class GUIController {
 	private View view;
 	private BorderPane borderpane;
 	private double pauseDuration = 0.2;
-	
-	@FXML
-	private BorderPane mainPane;
+	private List<Genre> genreResults;
+	private List<Artist> artistResults;
+	private List<Album> albumResults;
+	private List<Song> songResults;
 	
 	@FXML
 	private Button SearchButton;
 	
 	// Etusivun hakukenttä
-	@FXML
+	@FXML 
 	private TextField SearchBox;
 
 	@FXML
@@ -114,6 +116,7 @@ public class GUIController {
 		this.controller = controller;
 	}
 
+
 	// SendGenreButton lähettää Genre-lomakkeen tiedot controlleriin.
 	// Ponnauttaa Virhe-ikkunan, jos tekstikenttä on tyhjä
 	// Täytyy lisätä muitakin ehtoja
@@ -170,7 +173,7 @@ public class GUIController {
 			Dialog<String> dialog = new Dialog<String>();
 			dialog.setTitle("Pyyntö lähetetty");
 			dialog.setHeaderText("Artistipyyntö lähetetty!");
-			dialog.setContentText("Lähetit pyynnön lisätä genren: " + artistName);
+			dialog.setContentText("Lähetit pyynnön lisätä artistin: " + artistName);
 
 			ButtonType type = new ButtonType("OK", ButtonData.OK_DONE);
 			dialog.getDialogPane().getButtonTypes().add(type);
@@ -444,5 +447,31 @@ public class GUIController {
 		
 	}
 	
+	//-------------Search results from controller------
+	
+	public void setGenreResults(List<Genre> genreResults) {
+		this.genreResults = genreResults;
+	}
+	public List<Genre> getGenreResults() {
+		return genreResults;
+	}
+	public void setArtistResults(List<Artist> artistResults) {
+		this.artistResults = artistResults;
+	}
+	public List<Artist> getArtistResults(){
+		return artistResults;
+	}
+	public void setAlbumResults(List<Album> albumResults) {
+		this.albumResults = albumResults;
+	}
+	public List<Album> getAlbumResults(){
+		return albumResults;
+	}
+	public void setSongResults(List<Song> songResults) {
+		this.songResults = songResults;
+	}
+	public List<Song> getSongResults(){
+		return songResults;
+	}
 
 }

@@ -29,7 +29,7 @@ public class Main {
 	public static void main(String args[]) {
 //		RemoteDAO dao = new RemoteDAO();
 //		LocalDAO lDAO = new LocalDAO();
-		View.main(args);
+//		View.main(args);
 		
 //		List<String> testStrings = dao.getSearchable();
 //		

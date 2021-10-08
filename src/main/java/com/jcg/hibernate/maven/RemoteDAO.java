@@ -394,7 +394,80 @@ public class RemoteDAO {
 		}
 	}
 
-	public boolean editSong(int id) {
+	public boolean createSong(Song song) throws Exception {
+		Song[] songSearch = readSongs();		
+		//First loop to check whether a given genre is already found within the database
+		for(int i = 0; i < songSearch.length; i++) {			
+			if(songSearch[i].getSongName().equals(song.getSongName())) {
+				throw new Exception("This Song already exists!");
+			}
+		}
+		
+		Transaction transAct = null;	
+		try(Session session = sessionFactory.openSession()){
+			transAct = session.beginTransaction();
+			session.saveOrUpdate(song);			
+			session.save(song);
+			transAct.commit();
+			return true;
+		}catch(Exception e) {
+			if(transAct != null) 
+				transAct.rollback();
+			throw e;			
+		}
+	}
+	
+	public Song readSong(int id) {
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		Song song = (Song)session.get(Song.class, id);
+		System.out.println("Found this thing -> "+song.getSongName());
+		session.getTransaction().commit();
+		session.close();
+		return song;	
+	}
+	
+
+	public Song[] readSongs() {
+		Transaction transAct = null;
+		try (Session session = sessionFactory.openSession()) {
+			transAct = session.beginTransaction();
+
+			@SuppressWarnings("unchecked")
+			List<Song> result = (List<Song>) session.createQuery("from Song order by songName").list();
+
+			transAct.commit();
+			Song[] array = new Song[result.size()];
+			return (Song[]) result.toArray(array);
+		} catch (Exception e) {
+			if (transAct != null)
+				transAct.rollback();
+			throw e;
+		}
+	}
+	
+	public List<Song> searchSong(String songSearch) throws Exception{
+		Transaction transAct = null;
+		try(Session session = sessionFactory.openSession()){
+			transAct = session.beginTransaction();	
+			Query query = session.createQuery("From Album where albumName like:name");
+			List<Song> songList = query.setParameter("name", songSearch).list();
+			
+			transAct.commit();
+			session.close();
+			
+			if (songList.size() == 0) {
+				throw new Exception("Nothing found!");
+			}
+			return songList;
+		}catch(Exception e){
+			if(transAct != null)
+				transAct.rollback();
+			throw e;
+		}
+	}
+
+	public boolean editSong(Song songEdit, int id) {
 		Transaction transAct = null;
 		try (Session session = sessionFactory.openSession()) {
 			transAct = session.beginTransaction();
@@ -409,23 +482,18 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
-	
-	public List<Song> searchSong(String songSearch) throws Exception{
+
+	public boolean removeSong(int id) {
 		Transaction transAct = null;
-		try(Session session = sessionFactory.openSession()){
-			transAct = session.beginTransaction();	
-			Query query = session.createQuery("From Song where songName like:name");
-			List<Song> songList = query.setParameter("name", songSearch).list();
-			
+		try (Session session = sessionFactory.openSession()) {
+			transAct = session.beginTransaction();
+			Song removeSong= (Song) session.load(Song.class, id);
+			session.delete(removeSong);
 			transAct.commit();
-			session.close();
-			
-			if (songList.size() == 0) {
-				throw new Exception("Nothing found!");
-			}
-			return songList;
-		}catch(Exception e){
-			if(transAct != null)
+			return true;
+
+		} catch (Exception e) {
+			if (transAct != null)
 				transAct.rollback();
 			throw e;
 		}

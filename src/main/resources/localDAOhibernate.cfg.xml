@@ -13,7 +13,7 @@
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/localmusicarch</property>
         <property name="hibernate.connection.username">olso</property>
         <property name="hibernate.connection.password">olso</property>
-        <property name="show_sql">true</property>
+ 		<property name="show_sql">true</property>
  
         <!-- Specifying Session Context -->
         <property name="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</property>
@@ -21,7 +21,7 @@
         <!-- Mapping With Model Class Containing Annotations -->
         <mapping class="model.LocalGenre" />
         <mapping class="model.LocalArtist" />
-        <mapping class="model.LocalAlbum" />
+        <mapping class="model.LocalAlbum" ></mapping>
         <mapping class="model.LocalSong" />
     </session-factory>
 </hibernate-configuration>
