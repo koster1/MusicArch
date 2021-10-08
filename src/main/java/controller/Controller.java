@@ -183,8 +183,8 @@ public class Controller {
     }
     
     //Poistaminen etätietokannasta
-    public void removeGenre(String genreID) {
-    	int removeID = Integer.parseInt(genreID);
+    public void removeGenre(int genreID) {
+
     	remoteDAO.removeGenre(removeID);
     }
     public void removeArtist(String artistID) {

@@ -42,7 +42,7 @@ public class View extends Application {
 	private Stage primaryStage;
 	private static BorderPane rootLayout;
 	private static BorderPane anotherRoot;
-	private static BorderPane userRoot;
+	private static AnchorPane userRoot;
 	private static SplitPane splitPane;
 	private static AnchorPane test;
 	private static BorderPane g;
@@ -220,8 +220,8 @@ public class View extends Application {
 		}
 		if(test) {
 			FXMLLoader fxmlLoader = new FXMLLoader();
-			fxmlLoader.setLocation(View.class.getResource("/view/fxmlFiles/OmaKokoelma.fxml"));
-			userRoot = (BorderPane) fxmlLoader.load();
+			fxmlLoader.setLocation(View.class.getResource("/view/fxmlFiles/OmaKokoelma2.fxml"));
+			userRoot = (AnchorPane) fxmlLoader.load();
 			Scene scene = new Scene(userRoot);
 			scene.getWindow();
 			scene.getStylesheets().add("/view/style.css");
