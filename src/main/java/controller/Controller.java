@@ -233,12 +233,12 @@ public class Controller {
     	remoteDAO.removeAlbum(albumID);
     }
     
-    public void searchAll(String genreSearch, String artistSearch, String albumSearch, String songSearch) {
+    public void searchAll(String search) {
     	try {
-			searchGenre(genreSearch);
-			searchArtist(artistSearch);
-			searchAlbums(albumSearch);
-			searchSongs(songSearch);
+			searchGenre(search);
+			searchArtist(search);
+			searchAlbums(search);
+			searchSongs(search);
 		} catch (Exception e) {
 			System.out.println("Universal search failed somewhere!");
 			e.printStackTrace();
