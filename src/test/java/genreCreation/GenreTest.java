@@ -19,38 +19,38 @@ public class GenreTest {
 	@Test
 	@Order(3)
 	@DisplayName("Delete a specific Genre from database")
-	public void deleteGenre(){
+	public void deleteGenre() throws Exception{
 		System.out.println("NOW DOING THE DELETION TEST");
 		Genre testGenre = new Genre();
 		testGenre.setGenreName(givenGenre);
 		rDAO.createGenre(testGenre);
-		int id = rDAO.searchGenre(givenGenre).getGenreID();
+		int id = rDAO.searchGenre(givenGenre).get(0).getGenreID();
 		rDAO.removeGenre(id);
-		assertEquals(null, rDAO.searchGenre(givenGenre).getGenreName());
+		assertEquals(null, rDAO.searchGenre(givenGenre).get(0).getGenreName());
 	}
 	
     @Test
     @Order(2)
 	@DisplayName("Searching a specific Genre from database")
-	public void searchGenre() {
+	public void searchGenre() throws Exception {
 		System.out.println("NOW DOING THE SEARCH TEST");
 		Genre testGenre = new Genre();
 		testGenre.setGenreName("TestGenre");
 		rDAO.createGenre(testGenre);
-		assertEquals(givenGenre, rDAO.searchGenre(givenGenre).getGenreName());
-		rDAO.removeGenre(rDAO.searchGenre(givenGenre).getGenreID());
+		assertEquals(givenGenre, rDAO.searchGenre(givenGenre).get(0).getGenreName());
+		rDAO.removeGenre(rDAO.searchGenre(givenGenre).get(0).getGenreID());
     }
 	
 	@Test
 	@Order(1)
 	@DisplayName("Add Genre into database")
-	public void createGenre() {
+	public void createGenre() throws Exception {
 		System.out.println("NOW DOING THE CREATION TEST");
 		Genre testGenre = new Genre();
 		testGenre.setGenreName("TestGenre");
 		rDAO.createGenre(testGenre);
-		assertEquals(givenGenre, rDAO.searchGenre(givenGenre).getGenreName(), "Expected to find TestGenre!");
-		rDAO.removeGenre(rDAO.searchGenre(givenGenre).getGenreID());
+		assertEquals(givenGenre, rDAO.searchGenre(givenGenre).get(0).getGenreName(), "Expected to find TestGenre!");
+		rDAO.removeGenre(rDAO.searchGenre(givenGenre).get(0).getGenreID());
 	}
 	
 }
