@@ -26,45 +26,49 @@ import view.*;
 
 public class Main {
 	public static void main(String args[]) {
-		RemoteDAO dao = new RemoteDAO();
+		
+		
+		RemoteDAO rDAO = new RemoteDAO();
+		List<String> testStrings = rDAO.getSearchable();
+		System.out.println("Testing!");
+		for(int i = 0; i < testStrings.size(); i++) {
+			System.out.println("Things in thing : "+testStrings.get(i));
+		}
+		
+//		RemoteDAO dao = new RemoteDAO();
 //		LocalDAO lDAO = new LocalDAO();
 //		View.main(args);
 		
-		List<String> testStrings = dao.getSearchable();
-		
-		for(int i = 0; i < testStrings.size(); i++) {
-			System.out.println("Searchable strings! Check it out ::: "+ testStrings.get(i));
-		}
-		
-		
-/*
-		Genre testGenre = new Genre();
-		testGenre.setGenreName("A testful genre!");
-		
-		Artist testArtist = new Artist();
-		testArtist.setArtistName("A testing artist!");
-		testArtist.setArtistBio("Don't mess with him >:c");
-		
-		Album testAlbum = new Album();
-		testAlbum.setAlbumName("testAlbum!");
-		Song song1 = new Song();
-		song1.setSongName("The first song!");
-		song1.setSongDuration(3);
-		Song song2 = new Song();
-		song2.setSongName("The second song! Ooooohhhh");
-		song2.setSongDuration(6);
-		
-		testAlbum.addSong(song1);
-		testAlbum.addSong(song2);
-		testAlbum.addGenre(testGenre);
-		testAlbum.addArtist(testArtist);
-		
-		try {
-			dao.createAlbum(testAlbum);
-		} catch (Exception e) {
-			System.out.println("Exception "+e.getMessage());
-		}
-		*/
+//		List<String> testStrings = dao.getSearchable();
+//		
+//		for(int i = 0; i < testStrings.size(); i++) {
+//			System.out.println("Searchable strings! Check it out ::: "+ testStrings.get(i));
+//		}
+
+//		Genre testGenre = new Genre();
+//		testGenre.setGenreName("A testful genre!");
+//		
+//		Artist testArtist = new Artist();
+//		testArtist.setArtistName("A testing artist!");
+//		testArtist.setArtistBio("Don't mess with him >:c");
+//		
+//		Album testAlbum = new Album();
+//		testAlbum.setAlbumName("testAlbum!");
+//		Song song1 = new Song();
+//		song1.setSongName("The first song!");
+//		Song song2 = new Song();
+//		song2.setSongName("The second song! Ooooohhhh");
+//		
+//		testAlbum.addSong(song1);
+//		testAlbum.addSong(song2);
+//		testAlbum.addGenre(testGenre);
+//		testAlbum.addArtist(testArtist);
+//		
+//		try {
+//			dao.createAlbum(testAlbum);
+//		} catch (Exception e) {
+//			System.out.println("Exception "+e.getMessage());
+//		}
 //		LocalGenre testGenre = new LocalGenre();
 //		testGenre.setGenreName("Wooowzers");
 //		lDAO.createGenre(testGenre);
@@ -268,7 +272,5 @@ public class Main {
 //		
 //		anotherTest = dao.readGenre("WowzersGenre");
 //		System.out.println("A weird test"+anotherTest);
-
-
-}
+	}
 }

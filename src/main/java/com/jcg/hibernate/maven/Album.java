@@ -21,25 +21,25 @@ import org.hibernate.mapping.Collection;
 
 
 @Entity
-@Table(name = "Albumi")
+@Table(name = "Album")
 public class Album {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "AlbumiID", updatable = false, nullable = false)
+	@Column(name = "AlbumID", updatable = false, nullable = false)
 	private int albumID;
 	
-	@Column(name = "AlbumiNimi")
+	@Column(name = "AlbumName")
 	private String albumName;
 	
-	@Column(name = "Julkaisuvuosi")
+	@Column(name = "AlbumYear")
 	private int albumYear;
 
 	@ManyToMany(fetch=FetchType.EAGER,
 			cascade={CascadeType.ALL})
 	@JoinTable(
-			name="koostuu",
-			joinColumns={@JoinColumn(name="AlbumiID")},
+			name="AlbumGenres",
+			joinColumns={@JoinColumn(name="AlbumID")},
 			inverseJoinColumns={@JoinColumn(name="GenreID")}
 			)
 	private List<Genre> albumGenres;
@@ -47,21 +47,18 @@ public class Album {
 	@ManyToMany(fetch=FetchType.LAZY,
 			cascade={CascadeType.ALL})
 	@JoinTable(
-			name="tekee",
-			joinColumns={@JoinColumn(name="AlbumiID")},
-			inverseJoinColumns={@JoinColumn(name="ArtistiID")})
+			name="AlbumArtists",
+			joinColumns={@JoinColumn(name="AlbumID")},
+			inverseJoinColumns={@JoinColumn(name="ArtistID")})
 	private List<Artist> albumArtists;
 	
 	@ManyToMany(fetch=FetchType.LAZY,
 			cascade= {CascadeType.ALL})
 	@JoinTable(
-			name="sisältyy",
-			joinColumns= {@JoinColumn(name="AlbumiID")},
-			inverseJoinColumns= {@JoinColumn(name="KappaleID")})
+			name="AlbumSongs",
+			joinColumns= {@JoinColumn(name="AlbumID")},
+			inverseJoinColumns= {@JoinColumn(name="SongID")})
 	private List<Song> albumSongs;
-	
-//	@OneToMany(mappedBy="Albumi")
-//	private List<Includes> includes;
 	
 	public List<Artist> getAlbumArtists(){
 		return albumArtists;

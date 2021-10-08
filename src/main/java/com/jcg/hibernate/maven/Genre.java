@@ -29,7 +29,7 @@ public class Genre  {
 	@Column(name = "GenreID", updatable = false, nullable = false)
 	private int genreID;
 
-	@Column(name = "GenreNimi")
+	@Column(name = "GenreName")
 	private String genreName;
 
 	public int getGenreID() {
@@ -49,9 +49,9 @@ public class Genre  {
 	}
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
-	@JoinTable(name = "koostuu", joinColumns = { 
+	@JoinTable(name = "AlbumGenres", joinColumns = { 
 			@JoinColumn(name = "GenreID") }, inverseJoinColumns = {
-			@JoinColumn(name = "AlbumiID") })
+			@JoinColumn(name = "AlbumID") })
 	private List<Album> genreAlbums;
 
 	public List<Album> getGenreAlbums() {
