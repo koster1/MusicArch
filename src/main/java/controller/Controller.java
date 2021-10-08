@@ -22,7 +22,7 @@ public class Controller {
 	private RemoteDAO remoteDAO = new RemoteDAO();
 	private LocalDAO localDAO = new LocalDAO();
 	
-	private ObservableList<String> list = FXCollections.observableArrayList();
+//	private ObservableList<String> list = FXCollections.observableArrayList();
 
 	/**
 	 * Default constructor
@@ -37,13 +37,23 @@ public class Controller {
     public void createGenre(String genreName) {
     	Genre newGenre = new Genre();
     	newGenre.setGenreName(genreName);
-    	remoteDAO.createGenre(newGenre);
+    	try {
+			remoteDAO.createGenre(newGenre);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
     public void createArtist(String artistName, String artistBio) {
     	Artist newArtist = new Artist();
     	newArtist.setArtistName(artistName);
     	newArtist.setArtistBio(artistBio);
-    	remoteDAO.createArtist(newArtist);
+    	try {
+			remoteDAO.createArtist(newArtist);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
     //SongListGiven removed for testing purposes!
     public void createAlbum(String albumName, int albumYear, String[] genreListGiven, String[] artistListGiven) {

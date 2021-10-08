@@ -6,11 +6,14 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.jcg.hibernate.maven.Album;
 import com.jcg.hibernate.maven.Artist;
 import com.jcg.hibernate.maven.Genre;
+import com.jcg.hibernate.maven.Song;
 import com.sun.glass.ui.Window;
 import com.sun.xml.bind.v2.runtime.unmarshaller.Loader;
 
+import antlr.debug.Event;
 import controller.Controller;
 import controller.GUIController;
 import javafx.application.Application;
@@ -20,6 +23,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -43,6 +49,10 @@ public class View extends Application {
 	private Pane view;
 	private static GUIController guiController;
 	private static Controller controller;
+	private static ListView<Artist> artistListView;
+	private static ListView<Genre> genreListView;
+	private static ListView<Album> albumListView;
+	private static ListView<Song> songListView;
 
 	public void init() {
 		controller = new Controller();
@@ -85,7 +95,7 @@ public class View extends Application {
 	// listauksia genreistä tms)
 	//BorderPanen keskelle asetettu etusivunäkymä (sisältää tulevaisuudessa listauksia genreistä tms)
 	public static void showFrontPage(Artist[] artistList, Genre[] genreList) throws IOException {
-
+		
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(View.class.getResource("/view/fxmlFiles/FrontPage.fxml"));
 		try {
@@ -94,27 +104,67 @@ public class View extends Application {
 			System.out.println("päädyit tänne " + e.getMessage());
 		}
 		
-		
+		ObservableList<Artist> choices = FXCollections.observableArrayList(artistList);
+		ObservableList<Genre> genreObservable = FXCollections.observableArrayList(genreList);
 		
 		AnchorPane Frontpage = (AnchorPane) loader.load();
 		rootLayout.setCenter(Frontpage);
-//
-//			System.out.println("fronttt " + Frontpage.getChildren());
-			TabPane tabPane = (TabPane) Frontpage.getChildren().get(0);
-			int counter1 = 0;
-			for (Artist artist : artistList) {
-				Tab tab = tabPane.getTabs().get(0);
-				Text text = new Text(artist.getArtistName());
+
+		TabPane tabPane = (TabPane) Frontpage.getChildren().get(0);
+		GridPane gridPane = (GridPane) Frontpage.getChildren().get(1);
+//		gridPane.setOnMouseClicked(event -> {System.out.println("GridPane event");});
+		Button button = new Button();
+		button.setOnMouseClicked(event -> {System.out.println("Childrennnn");});
+		button.setAccessibleText("this is a button, wow");
+		gridPane.add(button, 0, 0);
+		
+		int counter1 = 0;
+		for (Artist artist : artistList) {
+			System.out.println(artist.getArtistName());
+		}
+			Tab tab = tabPane.getTabs().get(0);
+			Tab tab2 = tabPane.getTabs().get(1);
+			Tab tab3 = tabPane.getTabs().get(2);
+			Tab tab4 = tabPane.getTabs().get(3);
+			
+			AnchorPane anchorpane = (AnchorPane)tab.getContent();
+			AnchorPane anchorpane2 = (AnchorPane)tab2.getContent();
+			AnchorPane anchorpane3 = (AnchorPane)tab3.getContent();
+			AnchorPane anchorpane4 = (AnchorPane)tab4.getContent();
+//				@SuppressWarnings("unchecked")
+			genreListView = (ListView<Genre>)anchorpane.getChildren().get(0);
+			artistListView = (ListView<Artist>)anchorpane2.getChildren().get(0);
+			albumListView = (ListView<Album>)anchorpane3.getChildren().get(0);
+			songListView = (ListView<Song>)anchorpane4.getChildren().get(0);
+			
+			tab.setOnSelectionChanged(event -> {
+				System.out.println("test");
+				});
+			genreListView.setCellFactory(lv -> new ListCell<Genre>() {
+				@Override
+				protected void updateItem(Genre genre, boolean empty) {
+					super.updateItem(genre, empty);
+					setText(empty || genre == null ? "" : genre.getGenreName()); 
+				}
+			});
+			genreListView.setItems(genreObservable);
+			
+			artistListView.setCellFactory(lv -> new ListCell<Artist>() {
+				@Override
+				protected void updateItem(Artist artist, boolean empty) {
+					super.updateItem(artist, empty);
+					setText(empty || artist == null ? "" : artist.getArtistName());
+				}
+			});			
+			artistListView.setItems(choices);
 				
-				AnchorPane anchorpane = (AnchorPane)tab.getContent();
-				System.out.println();
-//				tab.setContent(text);
-			}
-//			GridPane gridPane = (GridPane)tabPane.getTabs().get(0).getContent();
-//			Text text = new Text(genreList[0].getGenreName());
-//			text.setId("1");
-//			System.out.println("Tabpane näy ");
-//			gridPane.add(text, 0, 0);
+		System.out.println(artistListView.getItems().get(0).getArtistID());
+//		tab.setContent(text);
+//		GridPane gridPane = (GridPane)tabPane.getTabs().get(0).getContent();
+//		Text text = new Text(genreList[0].getGenreName());
+//		text.setId("1");
+//		System.out.println("Tabpane näy ");
+//		gridPane.add(text, 0, 0);
 //		GridPane gridPane = (GridPane)Frontpage.getChildren().get();
 //		gridPane.setAlignment(Pos.CENTER);
 		
@@ -131,6 +181,15 @@ public class View extends Application {
 //			}
 //		}
 
+	}
+	
+	public static void test() throws IOException {
+		Artist selectedItem = artistListView.getSelectionModel().getSelectedItem();
+		if(selectedItem != null) {
+			System.out.println("id = " + selectedItem.getArtistID());
+		} else {
+			System.out.println("no item selected");
+		}
 	}
 
 	public static void showHelpPage() throws IOException {
