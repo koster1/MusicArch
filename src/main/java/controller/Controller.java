@@ -225,6 +225,16 @@ public class Controller {
     public Genre[] getGenres() {
     	return remoteDAO.readGenres();
     }
-     
+    
+    public Album[] getAlbums() {
+    	 try {
+    		 Album[] albumList = remoteDAO.readAlbums();
+    		 System.out.println("Checking albumList = " + albumList);
+    		 return albumList;
+    	 } catch(Exception e) {
+    		 System.out.println(e.getMessage());
+    	 }
+    	 return null;
+    }
 
 }

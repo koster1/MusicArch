@@ -11,6 +11,7 @@ import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
@@ -289,9 +290,10 @@ public class GUIController {
 	private SplitPane SplittedRequestPage;
 	@FXML
 	private AnchorPane RequestCategories;
-
+	
 	// ----------------SIVUJEN VAIHDOT JA PÄIVITYKSET-----------------------
 	// Menunappulat
+	
 	@FXML
 	public void goFrontPage(ActionEvent event) throws IOException {
 		System.out.println("Test11");
@@ -306,7 +308,9 @@ public class GUIController {
 		try {
 			Artist[] artistList = controller.getArtists();
 			Genre[] genreList = controller.getGenres();
+			Album[] albumList = controller.getAlbums();
 			
+			System.out.println("albumList version 2 = "+albumList.length);
 			for (Artist artist : artistList) {
 				System.out.println("test" + artist.getArtistName());
 //				stringList.add(artist.getArtistName());

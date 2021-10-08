@@ -16,8 +16,9 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="452.0" prefWidth="324.0">
                     <children>
-                       <ListView layoutX="7.0" layoutY="14.0" prefHeight="432.0" prefWidth="413.0" AnchorPane.bottomAnchor="7.0" AnchorPane.topAnchor="14.0" />
-                    </children></AnchorPane>
+                       <ListView layoutX="7.0" layoutY="14.0" prefHeight="432.0" prefWidth="413.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="7.0" AnchorPane.topAnchor="14.0" />
+                    </children>
+                  </AnchorPane>
                   </content>
                 </Tab>
                 <Tab text="Artists">
@@ -34,7 +35,8 @@
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="452.0" prefWidth="324.0">
                     <children>
                        <ListView layoutX="7.0" layoutY="14.0" prefHeight="432.0" prefWidth="412.0" />
-                    </children></AnchorPane>
+                    </children>
+                  </AnchorPane>
                   </content>
                 </Tab>
                 <Tab text="Songs">
@@ -42,12 +44,13 @@
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="452.0" prefWidth="324.0">
                     <children>
                        <ListView layoutX="7.0" layoutY="14.0" prefHeight="432.0" prefWidth="412.0" />
-                    </children></AnchorPane>
+                    </children>
+                  </AnchorPane>
                   </content>
                 </Tab>
               </tabs>
             </TabPane>
-      <GridPane gridLinesVisible="true" layoutX="439.0" layoutY="30.0" minWidth="738.0" prefHeight="429.0" prefWidth="738.0" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="439.0" AnchorPane.rightAnchor="23.0" AnchorPane.topAnchor="30.0">
+      <GridPane gridLinesVisible="true" layoutX="447.0" layoutY="45.0" minWidth="578.0" prefHeight="422.0" prefWidth="728.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="447.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="45.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

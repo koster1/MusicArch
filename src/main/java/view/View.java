@@ -109,7 +109,6 @@ public class View extends Application {
 		
 		AnchorPane Frontpage = (AnchorPane) loader.load();
 		rootLayout.setCenter(Frontpage);
-
 		TabPane tabPane = (TabPane) Frontpage.getChildren().get(0);
 		GridPane gridPane = (GridPane) Frontpage.getChildren().get(1);
 //		gridPane.setOnMouseClicked(event -> {System.out.println("GridPane event");});
@@ -126,6 +125,7 @@ public class View extends Application {
 			Tab tab2 = tabPane.getTabs().get(1);
 			Tab tab3 = tabPane.getTabs().get(2);
 			Tab tab4 = tabPane.getTabs().get(3);
+//			tab.setDisable(true);
 			
 			AnchorPane anchorpane = (AnchorPane)tab.getContent();
 			AnchorPane anchorpane2 = (AnchorPane)tab2.getContent();
@@ -144,7 +144,7 @@ public class View extends Application {
 				@Override
 				protected void updateItem(Genre genre, boolean empty) {
 					super.updateItem(genre, empty);
-					setText(empty || genre == null ? "" : genre.getGenreName()); 
+					setText(empty || genre == null || genreList.length == 0 ? "" : genre.getGenreName()); 
 				}
 			});
 			genreListView.setItems(genreObservable);
@@ -153,12 +153,12 @@ public class View extends Application {
 				@Override
 				protected void updateItem(Artist artist, boolean empty) {
 					super.updateItem(artist, empty);
-					setText(empty || artist == null ? "" : artist.getArtistName());
+					setText(empty || artist == null || artistList.length == 0 ? "" : artist.getArtistName());
 				}
 			});			
 			artistListView.setItems(choices);
 				
-		System.out.println(artistListView.getItems().get(0).getArtistID());
+//		System.out.println(artistListView.getItems().get(0).getArtistID());
 //		tab.setContent(text);
 //		GridPane gridPane = (GridPane)tabPane.getTabs().get(0).getContent();
 //		Text text = new Text(genreList[0].getGenreName());
