@@ -27,26 +27,18 @@ import view.*;
 
 public class Main {
 	public static void main(String args[]) {
-		//RemoteDAO dao = new RemoteDAO();
-		//LocalDAO localDAO = new LocalDAO();
+//		RemoteDAO dao = new RemoteDAO();
+//		LocalDAO lDAO = new LocalDAO();
 		View.main(args);
-		/*List<Album> testList = dao.genreAlbums(2);
-		for(int i = 0; i < testList.size(); i++) {
-			System.out.println("WOOOW" + testList.get(i).getAlbumYear());
-		}
-		List<Album> artistList = dao.artistAlbums(1);
-		for(int i = 0; i<artistList.size(); i++) {
-			System.out.println("Artistsss"+artistList.get(i).getAlbumName());
-		}
-
-		List<String> testStrings = dao.getSearchable();
 		
-		for(int i = 0; i < testStrings.size(); i++) {
-			System.out.println("Searchable strings! Check it out ::: "+ testStrings.get(i));
-		}
-	}}
-		
+//		List<String> testStrings = dao.getSearchable();
+//		
+//		for(int i = 0; i < testStrings.size(); i++) {
+//			System.out.println("Searchable strings! Check it out ::: "+ testStrings.get(i));
+//		}
 /*
+		View.main(args);		
+
 		Genre testGenre = new Genre();
 		testGenre.setGenreName("A testful genre!");
 		
@@ -58,10 +50,8 @@ public class Main {
 		testAlbum.setAlbumName("testAlbum!");
 		Song song1 = new Song();
 		song1.setSongName("The first song!");
-		song1.setSongDuration(3);
 		Song song2 = new Song();
 		song2.setSongName("The second song! Ooooohhhh");
-		song2.setSongDuration(6);
 		
 		testAlbum.addSong(song1);
 		testAlbum.addSong(song2);
@@ -73,7 +63,7 @@ public class Main {
 		} catch (Exception e) {
 			System.out.println("Exception "+e.getMessage());
 		}
-		*/
+		
 //		LocalGenre testGenre = new LocalGenre();
 //		testGenre.setGenreName("Wooowzers");
 //		lDAO.createGenre(testGenre);
@@ -86,6 +76,7 @@ public class Main {
 //		for(int i = 0; i<artistList.size(); i++) {
 //			System.out.println("Artistsss"+artistList.get(i).getAlbumName());
 //		}
+
 //		List<String> allSearchable = dao.getSearchable();
 //		List<String> allGenres = dao.existingGenres();
 //		List<String> allArtists = dao.existingArtists();
@@ -304,5 +295,8 @@ public class Main {
 //		
 //		anotherTest = dao.readGenre("WowzersGenre");
 //		System.out.println("A weird test"+anotherTest);
-}
+
+
+
+	}
 }

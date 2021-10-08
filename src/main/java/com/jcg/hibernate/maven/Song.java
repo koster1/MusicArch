@@ -17,26 +17,23 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "Kappale")
+@Table(name = "Song")
 public class Song {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "KappaleID", updatable = false, nullable = false)
+	@Column(name = "SongID", updatable = false, nullable = false)
 	private int songID;
 	
-	@Column(name = "KappaleNimi")
+	@Column(name = "SongName")
 	private String songName;
-	
-	@Column(name = "KappaleenKesto")
-	private int songDuration;
 	
 	@ManyToMany(fetch=FetchType.EAGER,
 			cascade={CascadeType.ALL})
 	@JoinTable(
-			name="koostuu",
-			joinColumns={@JoinColumn(name="KappelID")},
-			inverseJoinColumns={@JoinColumn(name="AlbumiID")}
+			name="AlbumSongs",
+			joinColumns={@JoinColumn(name="SongID")},
+			inverseJoinColumns={@JoinColumn(name="AlbumID")}
 			)
 	private List<Album> songAlbums;
 	
@@ -53,12 +50,6 @@ public class Song {
 	public void setSongName(String songName) {
 		this.songName = songName;
 	}
-	public int getSongDuration() {
-		return songDuration;
-	}
-	public void setSongDuration(int songDuration) {
-		this.songDuration = songDuration;
-	}
 	public void setSongAlbums(List<Album> songAlbums) {
 		this.songAlbums = songAlbums;
 	}
@@ -71,6 +62,4 @@ public class Song {
 		}
 		songAlbums.add(album);
 	}
-	
-
 }
