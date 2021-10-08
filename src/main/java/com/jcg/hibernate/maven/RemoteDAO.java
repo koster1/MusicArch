@@ -127,7 +127,7 @@ public class RemoteDAO {
 		Transaction transAct = null;
 		try (Session session = sessionFactory.openSession()) {
 			transAct = session.beginTransaction();
-			Query query = session.createQuery("From Genre where genreNimi like:name");
+			Query query = session.createQuery("From Genre where genreName like:name");
 			List<Genre> genreList = query.setParameter("name", genreSearch).list();
 			
 			transAct.commit();
@@ -414,7 +414,7 @@ public class RemoteDAO {
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();	
-			Query query = session.createQuery("From Song where albumName like:name");
+			Query query = session.createQuery("From Song where songName like:name");
 			List<Song> songList = query.setParameter("name", songSearch).list();
 			
 			transAct.commit();
@@ -434,10 +434,11 @@ public class RemoteDAO {
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();
-			String sql = "select artistinimi from artisti union select albuminimi from albumi union select genrenimi from genre union select kappalenimi from kappale";
+			String sql = "select ArtistName from Artist union select AlbumName from Album union select GenreName from Genre union select SongName from Song";
 			SQLQuery query = session.createSQLQuery(sql);
 			List<String> results = query.list();
 			transAct.commit();
+			session.close();
 			return results;
 		}catch(Exception e) {
 			if(transAct != null)
@@ -449,7 +450,7 @@ public class RemoteDAO {
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();
-			String sql = "select genrenimi from genre";
+			String sql = "select GenreName from Genre";
 			SQLQuery query = session.createSQLQuery(sql);
 			List<String> results = query.list();
 			transAct.commit();
@@ -464,7 +465,7 @@ public class RemoteDAO {
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();
-			String sql = "select artistinimi from artisti";
+			String sql = "select ArtistName from Artist";
 			SQLQuery query = session.createSQLQuery(sql);
 			List<String> results = query.list();
 			transAct.commit();
@@ -479,7 +480,7 @@ public class RemoteDAO {
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();
-			String sql = "select albuminimi from albumi";
+			String sql = "select AlbumName from Album";
 			SQLQuery query = session.createSQLQuery(sql);
 			List<String> results = query.list();
 			transAct.commit();
@@ -494,7 +495,7 @@ public class RemoteDAO {
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();
-			String sql = "select kappalenimi from kappale";
+			String sql = "select SongName from Song";
 			SQLQuery query = session.createSQLQuery(sql);
 			List<String> results = query.list();
 			transAct.commit();
