@@ -35,6 +35,7 @@ import com.jcg.hibernate.maven.Genre;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.jcg.hibernate.maven.Song;
 
@@ -45,6 +46,10 @@ public class GUIController {
 	private View view;
 	private BorderPane borderpane;
 	private double pauseDuration = 0.2;
+	private List<Genre> genreResults;
+	private List<Artist> artistResults;
+	private List<Album> albumResults;
+	private List<Song> songResults;
 	
 	@FXML
 	private Button SearchButton;
@@ -438,5 +443,31 @@ public class GUIController {
 		
 	}
 	
+	//-------------Search results from controller------
+	
+	public void setGenreResults(List<Genre> genreResults) {
+		this.genreResults = genreResults;
+	}
+	public List<Genre> getGenreResults() {
+		return genreResults;
+	}
+	public void setArtistResults(List<Artist> artistResults) {
+		this.artistResults = artistResults;
+	}
+	public List<Artist> getArtistResults(){
+		return artistResults;
+	}
+	public void setAlbumResults(List<Album> albumResults) {
+		this.albumResults = albumResults;
+	}
+	public List<Album> getAlbumResults(){
+		return albumResults;
+	}
+	public void setSongResults(List<Song> songResults) {
+		this.songResults = songResults;
+	}
+	public List<Song> getSongResults(){
+		return songResults;
+	}
 
 }
