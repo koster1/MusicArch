@@ -237,17 +237,18 @@ public class RemoteDAO {
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();	
-			Query query = session.createQuery("From Artist where artistName like:name");
+			Query query = session.createQuery("From Artist where artistName =:name");
 			List<Artist> artistList = query.setParameter("name", artistSearch).list();
-			
-			transAct.commit();
-			session.close();
 			
 			if (artistList.size() == 0) {
 				throw new Exception("Nothing found!");
 			}
+			transAct.commit();
+			session.close();
+			
 			return artistList;
 		}catch(Exception e){
+			System.out.println("exception why??");
 			if(transAct != null)
 				transAct.rollback();
 			throw e;

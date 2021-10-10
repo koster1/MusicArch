@@ -408,7 +408,6 @@ public class GUIController {
 		view.showSearchPage(searchText);
 	}
 	
-
 	// --------------- Lisäyspyynnöt- sivun dropit-------------------
 
 	@FXML

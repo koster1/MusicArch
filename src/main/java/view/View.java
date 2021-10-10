@@ -205,9 +205,8 @@ public class View extends Application {
 	public static void showSearchPage(String searchText) throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(View.class.getResource("/view/fxmlFiles/SearchPage.fxml"));
-		loader.setControllerFactory(SearchController -> new SearchController(searchText));
+		loader.setControllerFactory(SearchController -> new SearchController(searchText, controller));
 		AnchorPane Frontpage = (AnchorPane) loader.load();
-		Frontpage.getChildren().add(new Text("testtttt")); // kokeellinen
 		rootLayout.setCenter(Frontpage);
 	}
 	//

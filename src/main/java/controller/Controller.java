@@ -233,16 +233,17 @@ public class Controller {
     	remoteDAO.removeAlbum(albumID);
     }
     
-    public void searchAll(String search) {
+    public List<Artist> searchAll(String search) {
     	try {
-			searchGenre(search);
-			searchArtist(search);
-			searchAlbums(search);
-			searchSongs(search);
+//			searchGenre(search);
+//			searchAlbums(search);
+//			searchSongs(search);
+			return searchArtist(search);
 		} catch (Exception e) {
 			System.out.println("Universal search failed somewhere!");
 			e.printStackTrace();
 		}
+		return null;
     } 
     private void searchGenre(String genreName) {
     	try {
@@ -252,13 +253,15 @@ public class Controller {
 			e.printStackTrace();
 		}
     }
-    private void searchArtist(String artistName) { 	
+    private List<Artist> searchArtist(String artistName) { 	
     	try {
-			GUIController.setArtistResults(remoteDAO.searchArtist(artistName));
+    		return remoteDAO.searchArtist(artistName);
+//			GUIController.setArtistResults(remoteDAO.searchArtist(artistName));
 		} catch (Exception e) {
 			System.out.println("Artist search failed!");
 			e.printStackTrace();
-		} 	
+		}
+		return null; 	
     }
     private void searchAlbums(String albumName) {
 		try {
