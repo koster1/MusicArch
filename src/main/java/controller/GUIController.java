@@ -408,6 +408,11 @@ public class GUIController {
 		view.showSearchPage(searchText);
 	}
 	
+	@FXML
+	void GoAlbumPage(ActionEvent event) throws IOException {
+		view.showAlbumPage();
+	}
+	
 	// --------------- Lisäyspyynnöt- sivun dropit-------------------
 
 	@FXML

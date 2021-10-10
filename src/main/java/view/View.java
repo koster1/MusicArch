@@ -17,6 +17,8 @@ import antlr.debug.Event;
 import controller.Controller;
 import controller.GUIController;
 import controller.SearchController;
+import controller.UserCollectionController;
+import controller.AlbumPageController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -70,6 +72,7 @@ public class View extends Application {
 		showHome();
 		guiController.goFrontPage();
 //		showFrontPage();
+		showAlbumPage();
 
 	}
 
@@ -209,6 +212,14 @@ public class View extends Application {
 		AnchorPane Frontpage = (AnchorPane) loader.load();
 		rootLayout.setCenter(Frontpage);
 	}
+	
+	public static void showAlbumPage() throws IOException {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(View.class.getResource("/view/fxmlFiles/AlbumPage.fxml"));
+		loader.setControllerFactory(AlbumPageController -> new AlbumPageController(controller));
+		AnchorPane Frontpage = (AnchorPane) loader.load();
+		rootLayout.setCenter(Frontpage);
+	}
 	//
 	public static void showUserCollectionPage() throws IOException {
 		System.out.println("User collection!!!");
@@ -230,6 +241,7 @@ public class View extends Application {
 		if(test) {
 			FXMLLoader fxmlLoader = new FXMLLoader();
 			fxmlLoader.setLocation(View.class.getResource("/view/fxmlFiles/OmaKokoelma2.fxml"));
+			fxmlLoader.setControllerFactory(UserCollectionController -> new UserCollectionController(controller));
 			userRoot = (AnchorPane) fxmlLoader.load();
 			Scene scene = new Scene(userRoot);
 			scene.getWindow();

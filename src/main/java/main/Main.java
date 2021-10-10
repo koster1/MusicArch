@@ -15,7 +15,9 @@ import com.jcg.hibernate.maven.Genre;
 import com.jcg.hibernate.maven.LocalDAO;
 
 import controller.Controller;
+import model.LocalAlbum;
 import model.LocalGenre;
+import model.LocalSong;
 
 import com.jcg.hibernate.maven.Album;
 import com.jcg.hibernate.maven.Artist;
@@ -28,9 +30,59 @@ import view.*;
 public class Main {
 	public static void main(String args[]) {
 //		RemoteDAO dao = new RemoteDAO();
-//		LocalDAO lDAO = new LocalDAO();
-		View.main(args);
 		
+		
+		/*
+		LocalDAO localDAO = new LocalDAO();
+		LocalGenre localGenre = new LocalGenre();
+		localGenre.setGenreID(4);
+		localGenre.setGenreName("Gospel");
+		
+		LocalAlbum localAlbum = new LocalAlbum();
+		localAlbum.setAlbumID(6);
+		localAlbum.setAlbumName("Tuulen valtakunta");
+		localAlbum.setAlbumYear(1999);
+		try {
+			localDAO.createGenre(localGenre, localAlbum);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		
+		// These are used in the testing of album creation. Created 10.10.2021 (worked)
+		/*LocalDAO lDAO = new LocalDAO();
+		
+		LocalAlbum localAlbum = new LocalAlbum();
+		localAlbum.setAlbumName("Master of puppets");
+		localAlbum.setAlbumID(2);
+		
+		LocalSong localSong1 = new LocalSong();
+		LocalSong localSong2 = new LocalSong();
+		LocalSong localSong3 = new LocalSong();
+		
+		localSong1.setSongID(2);
+		localSong2.setSongID(3);
+		localSong3.setSongID(4);
+		
+		localSong1.setSongName("Battery");
+		localSong2.setSongName("Master of Puppets");
+		localSong3.setSongName("The Thing That should Not Be");
+		
+		LocalSong[] localSongList = new LocalSong[3];
+		localSongList[0] = localSong1;
+		localSongList[1] = localSong2;
+		localSongList[2] = localSong3;
+		
+		try {
+			lDAO.createAlbum(localAlbum, localSongList);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//
+		 */
+		
+		View.main(args);
 //		List<String> testStrings = dao.getSearchable();
 //		
 //		for(int i = 0; i < testStrings.size(); i++) {

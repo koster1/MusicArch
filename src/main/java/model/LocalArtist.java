@@ -6,17 +6,17 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Artisti")
+@Table(name = "Artist")
 public class LocalArtist {
 	
 	@Id
-    @Column(name = "ArtistiID", updatable = false, nullable = false)
+    @Column(name = "ArtistID", updatable = false, nullable = false)
 	private int artistID;
 	
-	@Column(name = "ArtistiNimi")
+	@Column(name = "ArtistName")
 	private String artistName;
 	
-	@Column(name = "Biografia")
+	@Column(name = "Biography")
 	private String artistBio;
 	
 	public int getArtistID() {

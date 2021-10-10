@@ -23,7 +23,7 @@ public class LocalGenre {
     @Column(name = "GenreID", updatable = false, nullable = false)
 	private int genreID;
 	
-	@Column(name = "GenreNimi")
+	@Column(name = "GenreName")
 	private String genreName;
 	
 	public int getGenreID() {
@@ -41,12 +41,12 @@ public class LocalGenre {
 	
 	
 	//Everything from down here is highly experimental
-	@ManyToMany(fetch=FetchType.LAZY,
+	@ManyToMany(fetch=FetchType.EAGER,
 			cascade = {CascadeType.ALL})
 	@JoinTable(
-			name="koostuu",
+			name="AlbumGenres",
 			joinColumns={@JoinColumn(name="GenreID")},
-			inverseJoinColumns={@JoinColumn(name="AlbumiID")}
+			inverseJoinColumns={@JoinColumn(name="AlbumID")}
 			)
 	private List<LocalAlbum> genreAlbums;
 	

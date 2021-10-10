@@ -235,6 +235,7 @@ public class Controller {
     	remoteDAO.removeAlbum(albumID);
     }
     
+
     public List<Artist> searchAll(String search) {
     	try {
 //			searchGenre(search);
@@ -293,5 +294,46 @@ public class Controller {
     }
     public Song[] getSongs() {
     	return remoteDAO.readSongs();
+    }
+    
+    public List<LocalArtist> getLocalArtist(String search) throws Exception {
+    	return localDAO.searchArtist(search);
+    }
+    
+    public List<String> existinLocalArtists() {
+    	return localDAO.existingArtists();
+    }
+    
+    public LocalGenre[] getLocalGenres() {
+    	return localDAO.readGenres();
+    }
+    
+    public LocalAlbum[] getLocalAlbums() {
+    	return localDAO.readAlbums();
+    }
+    
+    public LocalArtist[] readArtists() {
+    	return localDAO.readArtists();
+    }
+    
+    public LocalAlbum readLocalAlbum(int id) {
+    	return localDAO.readAlbum(id);
+    }
+    
+    public List<LocalGenre> getLocalAlbumGenres(int albumID) {
+    	List<LocalGenre> localGenreList = localDAO.getLocalAlbumGenres(albumID);
+    	for(LocalGenre localGenre : localGenreList) {
+    		System.out.println("albumgenres ");
+    		System.out.println(localGenre);
+    	}
+    	System.out.println("albumgenre6");
+    	return localGenreList;
+    }
+    public List<LocalArtist> getLocalAlbumArtists(int albumID) {
+    	return localDAO.getLocalAlbumArtists(albumID);
+    }
+    
+    public List<LocalSong> getLocalAlbumSongs(int albumID) {
+    	return localDAO.localAlbumSongs(albumID);
     }
 }
