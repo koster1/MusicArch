@@ -41,6 +41,7 @@ public class Controller {
 			remoteDAO.createGenre(newGenre);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			System.out.println("Failed to create a genre! ");
 			e.printStackTrace();
 		}
     }
@@ -52,6 +53,7 @@ public class Controller {
 			remoteDAO.createArtist(newArtist);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			System.out.println("Failed to create an artist! ");
 			e.printStackTrace();
 		}
     }
