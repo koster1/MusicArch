@@ -15,7 +15,9 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.Label;
+import javafx.scene.control.Labeled;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -53,11 +55,15 @@ import javafx.util.Duration;
 import view.*;
 
 public class GUIController {
-	private Controller controller = new Controller();
+	private static Controller controller;
 	private View view;
 	private BorderPane borderpane;
 	private double pauseDuration = 0.2;
 
+	@FXML
+	private BorderPane mainPane;
+	@FXML
+	private ButtonBar Buttonbar;
 	@FXML
 	private Button SearchButton;
 
@@ -118,8 +124,9 @@ public class GUIController {
 	public GUIController() {
 	}
 
-	public GUIController(View view) {
+	public GUIController(View view, Controller controller) {
 		this.view = view;
+		this.controller = controller;
 	}
 
 	// SendGenreButton lähettää Genre-lomakkeen tiedot controlleriin.
@@ -211,31 +218,43 @@ public class GUIController {
 
 	@FXML
 	private TextField Songs;
-	@FXML
-	private TextField GenreName;
+	// @FXML
+//	private TextField GenreName;
 	@FXML
 	private TextField GenreName1;
 	@FXML
 	private TextField GenreName2;
 	@FXML
 	private TextField GenreName3;
-
+	@FXML
+	private TextField textfield;
+	@FXML
+	private Button NewArtist;
+	int i = 0;
 	@FXML
 	void SendAlbumButton(ActionEvent event) {
+		// System.out.print(Arrays.toString(ArtistList.toArray()));
+		for (i = 0; i < ArtistList.size(); i++) {
+			System.out.println(i);
+		}
+		/*for (i = 0; i < ArtistList.size(); i++) {
+			System.out.print(Arrays.toString(ArtistList.toArray()));
+
+		}*/
+		System.out.print(Arrays.toString(ArtistList.toArray()));
+		
 		String albumName = AlbumName.getText();
 		String a = Songs.getText();
-		String Gn = GenreName.getText();
+		// String Gn = GenreName.getText();
 		String Gn1 = GenreName1.getText();
 		String Gn2 = GenreName2.getText();
 		String Gn3 = GenreName3.getText();
-
 		String aN = ArtistName.getText();
 		int albumYear = Integer.parseInt(Released.getText());
-
-		String[] GenreListGiven = { "Heavy Metal" };
-		String[] artistName = { ArtistName.getText().toString() };
-		String[] songsListGiven = { a };
-		System.out.println(" Joo tässä olis " + albumName + albumYear+  GenreListGiven + artistName);
+		ArtistList.add(ArtistName.getText());
+		String[] GenreListGiven = {"Rock"};
+		String[] artistName =(ArtistList.toArray(new String[0]));
+		String[] songsListGiven = { "Testi" };
 
 		controller.createAlbum(albumName, albumYear, GenreListGiven, artistName);
 	}
@@ -244,44 +263,57 @@ public class GUIController {
 	// Pitää lisätä uusia tekstikenttiä moniarvoisille tiedoille
 	@FXML
 	private ScrollPane artistScroll;
-	// @FXML
-	// private GridPane root;
 	@FXML
 	private Button OkButton;
 	@FXML
-	private GridPane root;
+	private VBox root;
 	@FXML
-	private GridPane root1;
+	private VBox root1;
 	@FXML
 	private Pane root2;
-	int i = 1;
+	@FXML
+	private Button save;
+	List<String> ArtistList = new ArrayList<String>();
 
 	@FXML
-	private void NewArtist(ActionEvent event) {
-		// Napit menee päällekkäin
+	void NewArtist(ActionEvent event) {
+		final HBox parent = new HBox(5.0);
 		TextField field = new TextField();
+
 		Button button = new Button("-");
 		field.setAlignment(Pos.CENTER_LEFT);
 		button.setAlignment(Pos.CENTER_RIGHT);
-		button.setOnAction((e) -> {
-			root.getChildren().remove(field);
-			root.getChildren().remove(button);
+		button.setOnAction((e) -> parent.getChildren().clear());
+		HBox.setHgrow(field, Priority.ALWAYS);
+		HBox.setHgrow(button, Priority.NEVER);
+		parent.getChildren().setAll(field, button);
+		root.getChildren().add(parent);
+
+		// String items = ;
+		save.setOnAction((e2) -> {
+			ArtistList.add(field.getText().toString());
+			
 		});
-		GridPane.setHgrow(field, Priority.ALWAYS);
-		GridPane.setHgrow(button, Priority.NEVER);
-
-		root.getChildren().addAll(field, button);
-
+		
 	}
 
 	@FXML
 	void NewGenre(ActionEvent event) {
-
+		// Ei tiedä tarviiko
 	}
 
 	@FXML
 	void NewSong(ActionEvent event) {
-
+		final HBox parent = new HBox(5.0);
+		TextField field = new TextField();
+		Button button = new Button("-");
+		field.setAlignment(Pos.CENTER_LEFT);
+		button.setAlignment(Pos.CENTER_RIGHT);
+		button.setOnAction((e) -> root1.getChildren().remove(parent));
+		HBox.setHgrow(field, Priority.ALWAYS);
+		HBox.setHgrow(button, Priority.NEVER);
+		parent.getChildren().setAll(field, button);
+		root1.getChildren().add(parent);
 	}
 
 	// Lisäyspyynnöt- sivu (Splitpane- näkymä)

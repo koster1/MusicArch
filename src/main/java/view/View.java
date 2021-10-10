@@ -9,6 +9,7 @@ import java.util.List;
 import com.sun.glass.ui.Window;
 import com.sun.xml.bind.v2.runtime.unmarshaller.Loader;
 
+import controller.Controller;
 import controller.GUIController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -38,9 +39,11 @@ public class View extends Application {
 	private static BorderPane g;
 	private Pane view;
 	private static GUIController guiController;
+	private static Controller controller;
 
 	public void init() {
-		guiController = new GUIController(this); 
+		controller = new Controller();
+		guiController = new GUIController(this, controller); 
 	}
 
 	/* public void init() {Controller controller = new Controller();} */
@@ -63,10 +66,13 @@ public class View extends Application {
 		loader.setLocation(View.class.getResource("/view/fxmlFiles/RootLayout2.fxml"));
 
 		rootLayout = (BorderPane) loader.load();
-
 		Scene scene = new Scene(rootLayout);
 		String css = this.getClass().getResource("/view/style.css").toExternalForm();
 		scene.getStylesheets().add(css);
+		primaryStage.setMinWidth(1200);
+		primaryStage.setOnCloseRequest(event -> {
+			System.exit(-1);
+		});
 		primaryStage.setScene(scene);
 		primaryStage.show();
 
@@ -143,6 +149,7 @@ public class View extends Application {
 			scene.getWindow();
 			scene.getStylesheets().add("/view/style.css");
 			Stage stage2 = new Stage();
+			stage2.setMinWidth(1200);
 			stage2.setTitle("User");
 			stage2.setScene(scene);
 			stage2.show();
@@ -180,13 +187,15 @@ public class View extends Application {
 			}
 			if(test) {
 				FXMLLoader fxmlLoader = new FXMLLoader();
-				fxmlLoader.setLocation(View.class.getResource("/view/fxmlFiles/LisaysPyynnot2.fxml"));
+				fxmlLoader.setLocation(View.class.getResource("/view/fxmlFiles/Requests.fxml"));
 				anotherRoot = (BorderPane) fxmlLoader.load();
 
 				Scene scene = new Scene(anotherRoot);
 				scene.getStylesheets().add("/view/style.css");
-				
 				Stage stage = new Stage();
+				stage.setResizable(false);
+//				stage.setMinWidth(1000);
+//				stage.setMaxWidth(1000);
 				stage.setTitle("Request");
 				stage.setScene(scene);
 				stage.show();
@@ -197,21 +206,21 @@ public class View extends Application {
 	public static void showGenreForm() throws IOException {
 
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(View.class.getResource("/view/fxmlFiles/genrelisays.fxml"));
+		loader.setLocation(View.class.getResource("/view/fxmlFiles/GenreForm.fxml"));
 		AnchorPane genre = (AnchorPane) loader.load();
 		anotherRoot.setCenter(genre);
 	}
 
 	public static void showAlbumForm() throws IOException {
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(View.class.getResource("/view/fxmlFiles/albumilisays2.fxml"));
+		loader.setLocation(View.class.getResource("/view/fxmlFiles/AlbumForm.fxml"));
 		AnchorPane album = (AnchorPane) loader.load();
 		anotherRoot.setCenter(album);
 	}
 
 	public static void showArtistForm() throws IOException {
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(View.class.getResource("/view/fxmlFiles/artistilisays.fxml"));
+		loader.setLocation(View.class.getResource("/view/fxmlFiles/ArtistForm.fxml"));
 		AnchorPane artist = (AnchorPane) loader.load();
 		anotherRoot.setCenter(artist);
 	}

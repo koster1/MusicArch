@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane id="root2" accessibleRole="NODE" minHeight="600.0" minWidth="884.0" prefHeight="600.0" prefWidth="884.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUIController">
+<BorderPane id="root2" accessibleRole="NODE" minHeight="600.0" minWidth="1100.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUIController">
    <center>
-      <AnchorPane prefHeight="420.0" prefWidth="345.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="428.0" prefWidth="342.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets top="30.0" />
          </BorderPane.margin>

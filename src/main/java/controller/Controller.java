@@ -214,5 +214,8 @@ public class Controller {
     public Genre[] getGenres() {
     	return remoteDAO.readGenres();
     }
-
+    public List<String> getExistingGenres() {
+    	return remoteDAO.existingGenres();
+    }
+    
 }
