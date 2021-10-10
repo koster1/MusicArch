@@ -53,6 +53,18 @@ public class GUIController {
 	private List<Song> songResults;
 	
 	@FXML
+	private AnchorPane UserCategories;
+	
+	@FXML
+	public TitledPane UserGenreDrop;
+	
+	@FXML
+	private TitledPane UserAlbumDrop;
+	
+	@FXML
+	private TitledPane UserArtistDrop;
+	
+	@FXML
 	private Button SearchButton;
 	
 	// Etusivun hakukenttä
@@ -297,9 +309,15 @@ public class GUIController {
 	// ----------------SIVUJEN VAIHDOT JA PÄIVITYKSET-----------------------
 	// Menunappulat
 	
+    @FXML
+    private GridPane FrontGrid;
+	
+	@FXML
+	private AnchorPane FrontAnchor;
+	
 	@FXML
 	public void goFrontPage(ActionEvent event) throws IOException {
-		System.out.println("Test11");
+		System.out.println("FrontGrid = " + FrontGrid);
 		FrontPage.setStyle("-fx-border-color: #ffff33");
 		PauseTransition pause = new PauseTransition(Duration.seconds(pauseDuration));
 		System.out.println("Test12");
@@ -366,6 +384,8 @@ public class GUIController {
 
 	}
 	
+
+	
 	@FXML
 	void goUserCollection(ActionEvent event) throws IOException {
 		UserCollection.setStyle("-fx-border-color: #ffff33");
@@ -375,7 +395,17 @@ public class GUIController {
 			UserCollection.setStyle(null);
 		});
 		pause.play();
+
+		
+		
+		System.out.println("UserGenreDrop = "+UserGenreDrop);
 		view.showUserCollectionPage();
+	}
+	
+	@FXML
+	void goSearchPage(ActionEvent event) throws IOException {
+		String searchText = SearchBox.getText();
+		view.showSearchPage(searchText);
 	}
 	
 

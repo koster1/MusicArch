@@ -16,6 +16,7 @@ import com.sun.xml.bind.v2.runtime.unmarshaller.Loader;
 import antlr.debug.Event;
 import controller.Controller;
 import controller.GUIController;
+import controller.SearchController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -200,6 +201,15 @@ public class View extends Application {
 		rootLayout.setCenter(Frontpage);
 
 	}
+	
+	public static void showSearchPage(String searchText) throws IOException {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(View.class.getResource("/view/fxmlFiles/SearchPage.fxml"));
+		loader.setControllerFactory(SearchController -> new SearchController(searchText));
+		AnchorPane Frontpage = (AnchorPane) loader.load();
+		Frontpage.getChildren().add(new Text("testtttt")); // kokeellinen
+		rootLayout.setCenter(Frontpage);
+	}
 	//
 	public static void showUserCollectionPage() throws IOException {
 		System.out.println("User collection!!!");
@@ -230,7 +240,6 @@ public class View extends Application {
 			stage2.setTitle("User");
 			stage2.setScene(scene);
 			stage2.show();
-			userRoot.requestFocus();
 		}
 	}
 
