@@ -1,11 +1,6 @@
 package controller;
 
 import controller.*;
-import com.jcg.hibernate.maven.Artist;
-import com.jcg.hibernate.maven.Album;
-import com.jcg.hibernate.maven.RemoteDAO;
-import com.jcg.hibernate.maven.Genre;
-
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -16,14 +11,33 @@ import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.ScrollBar;
+import javafx.scene.control.ListView;
+
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.SplitPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.input.MouseEvent;
-import view.View;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
+import javafx.util.Duration;
+
+import com.jcg.hibernate.maven.Artist;
+import com.jcg.hibernate.maven.Album;
+import com.jcg.hibernate.maven.RemoteDAO;
+import com.jcg.hibernate.maven.Genre;
+
+
 
 import java.io.IOException;
 import java.lang.reflect.Array;
@@ -52,6 +66,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+
 import view.*;
 
 public class GUIController {
@@ -60,15 +75,32 @@ public class GUIController {
 	private BorderPane borderpane;
 	private double pauseDuration = 0.2;
 
+	private List<Genre> genreResults;
+	private List<Artist> artistResults;
+	private List<Album> albumResults;
+	private List<Song> songResults;
+	
 	@FXML
+
 	private BorderPane mainPane;
 	@FXML
 	private ButtonBar Buttonbar;
+	private AnchorPane UserCategories;
+	
+	@FXML
+	public TitledPane UserGenreDrop;
+	
+	@FXML
+	private TitledPane UserAlbumDrop;
+	
+	@FXML
+	private TitledPane UserArtistDrop;
+	
 	@FXML
 	private Button SearchButton;
 
 	// Etusivun hakukenttä
-	@FXML
+	@FXML 
 	private TextField SearchBox;
 
 	@FXML
@@ -129,6 +161,7 @@ public class GUIController {
 		this.controller = controller;
 	}
 
+
 	// SendGenreButton lähettää Genre-lomakkeen tiedot controlleriin.
 	// Ponnauttaa Virhe-ikkunan, jos tekstikenttä on tyhjä
 	// Täytyy lisätä muitakin ehtoja
@@ -185,7 +218,7 @@ public class GUIController {
 			Dialog<String> dialog = new Dialog<String>();
 			dialog.setTitle("Pyyntö lähetetty");
 			dialog.setHeaderText("Artistipyyntö lähetetty!");
-			dialog.setContentText("Lähetit pyynnön lisätä genren: " + artistName);
+			dialog.setContentText("Lähetit pyynnön lisätä artistin: " + artistName);
 
 			ButtonType type = new ButtonType("OK", ButtonData.OK_DONE);
 			dialog.getDialogPane().getButtonTypes().add(type);
@@ -252,11 +285,11 @@ public class GUIController {
 		String aN = ArtistName.getText();
 		int albumYear = Integer.parseInt(Released.getText());
 		ArtistList.add(ArtistName.getText());
-		String[] GenreListGiven = {"Rock"};
-		String[] artistName =(ArtistList.toArray(new String[0]));
-		String[] songsListGiven = { "Testi" };
-
-		controller.createAlbum(albumName, albumYear, GenreListGiven, artistName);
+		String[] GenreListGiven = { "Rock", "Pop" };
+		String[] artistName = { "Abba", "Red Hot Chili Peppers" };
+		String[] songListGiven = { "Testi" };
+//(ArtistList.toArray(new String[0]))
+		controller.createAlbum(albumName, albumYear, GenreListGiven, artistName, songListGiven);
 	}
 
 	// ------------AlbumiFormin toiminnallisuus--------------------
@@ -277,7 +310,7 @@ public class GUIController {
 
 	@FXML
 	void NewArtist(ActionEvent event) {
-		final HBox parent = new HBox(5.0);
+	/*	final HBox parent = new HBox(5.0);
 		TextField field = new TextField();
 
 		Button button = new Button("-");
@@ -293,7 +326,7 @@ public class GUIController {
 		save.setOnAction((e2) -> {
 			ArtistList.add(field.getText().toString());
 			
-		});
+		});*/
 		
 	}
 
@@ -322,12 +355,19 @@ public class GUIController {
 	private SplitPane SplittedRequestPage;
 	@FXML
 	private AnchorPane RequestCategories;
-
+	
 	// ----------------SIVUJEN VAIHDOT JA PÄIVITYKSET-----------------------
 	// Menunappulat
+	
+    @FXML
+    private GridPane FrontGrid;
+	
+	@FXML
+	private AnchorPane FrontAnchor;
+	
 	@FXML
 	public void goFrontPage(ActionEvent event) throws IOException {
-		System.out.println("Test11");
+		System.out.println("FrontGrid = " + FrontGrid);
 		FrontPage.setStyle("-fx-border-color: #ffff33");
 		PauseTransition pause = new PauseTransition(Duration.seconds(pauseDuration));
 		System.out.println("Test12");
@@ -338,30 +378,41 @@ public class GUIController {
 		System.out.println("Test13");
 		try {
 			Artist[] artistList = controller.getArtists();
-			ArrayList<String> stringList = new ArrayList<>();
+			Genre[] genreList = controller.getGenres();
+			Album[] albumList = controller.getAlbums();
+			
+			System.out.println("albumList version 2 = "+albumList.length);
 			for (Artist artist : artistList) {
-				System.out.println(artist.getArtistName());
-				stringList.add(artist.getArtistName());
+				System.out.println("test" + artist.getArtistName());
+//				stringList.add(artist.getArtistName());
 			}
-			System.out.println(stringList);
-			View.showFrontPage(stringList);
+
+
+
+//			System.out.println(stringList);
+			View.showFrontPage(artistList, genreList);
 
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			System.out.println(e.getMessage()+" EnTItY MaNAgEr iS CloSEd");
 		}
 
 	}
 
 	public void goFrontPage() throws IOException {
 		Artist[] artistList = controller.getArtists();
+		Genre[] genreList = controller.getGenres();
 		ArrayList<String> stringList = new ArrayList<>();
 		for (Artist artist : artistList) {
 			System.out.println(artist.getArtistName());
 			stringList.add(artist.getArtistName());
 		}
 
-		View.showFrontPage(stringList);
 
+	
+
+		
+			View.showFrontPage(artistList, genreList);
+		
 	}
 
 	@FXML
@@ -399,7 +450,17 @@ public class GUIController {
 			UserCollection.setStyle(null);
 		});
 		pause.play();
+
+		
+		
+		System.out.println("UserGenreDrop = "+UserGenreDrop);
 		view.showUserCollectionPage();
+	}
+
+	@FXML
+	void goSearchPage(ActionEvent event) throws IOException {
+		String searchText = SearchBox.getText();
+		view.showSearchPage(searchText);
 	}
 
 	// --------------- Lisäyspyynnöt- sivun dropit-------------------
@@ -468,4 +529,31 @@ public class GUIController {
 
 	}
 
+	
+	//-------------Search results from controller------
+	
+	public void setGenreResults(List<Genre> genreResults) {
+		this.genreResults = genreResults;
+	}
+	public List<Genre> getGenreResults() {
+		return genreResults;
+	}
+	public void setArtistResults(List<Artist> artistResults) {
+		this.artistResults = artistResults;
+	}
+	public List<Artist> getArtistResults(){
+		return artistResults;
+	}
+	public void setAlbumResults(List<Album> albumResults) {
+		this.albumResults = albumResults;
+	}
+	public List<Album> getAlbumResults(){
+		return albumResults;
+	}
+	public void setSongResults(List<Song> songResults) {
+		this.songResults = songResults;
+	}
+	public List<Song> getSongResults(){
+		return songResults;
+	}
 }

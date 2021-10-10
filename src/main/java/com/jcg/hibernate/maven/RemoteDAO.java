@@ -2,13 +2,9 @@ package com.jcg.hibernate.maven;
 
 import java.util.List;
 
-import javax.persistence.criteria.CriteriaQuery;
 
 import org.hibernate.*;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.criterion.Restrictions;
-import org.hibernate.service.ServiceRegistry;
 
 public class RemoteDAO {
 	static Session session;
@@ -23,8 +19,7 @@ public class RemoteDAO {
 //		sessionFactory = config.buildSessionFactory(serviceReg);
 //		return sessionFactory;
 //	}
-
-
+	
 //	private static SessionFactory buildSessionFactory() {
 //		Configuration config = new Configuration();
 //		config.configure("hibernate.cfg.xml");
@@ -70,17 +65,14 @@ public class RemoteDAO {
 	 * all found genreNames, to ensure that it will not allow the creation of a
 	 * genre that already exists. TESTED - Works
 	 */
-	public boolean createGenre(Genre genre) {
+	public boolean createGenre(Genre genre) throws Exception {
 		Genre[] genreSearch;
 		genreSearch = readGenres();
 
-		// First loop to check whether a given genre is already found within the
-		// database
+		// First loop to check whether a given genre is already found within the database
 		for (int i = 0; i < genreSearch.length; i++) {
 			if (genreSearch[i].getGenreName().equals(genre.getGenreName())) {
-				System.out.println("This one already exists! Can't add it!");
-
-				return false;
+				throw new Exception("This Genre already exists!");
 			}
 		}
 
@@ -130,32 +122,27 @@ public class RemoteDAO {
 		}
 	}
 
-	public Genre searchGenre(String genreSearch) {
-		Genre returnable = new Genre();
+	public List<Genre> searchGenre(String genreSearch) throws Exception {
 
 		Transaction transAct = null;
 		try (Session session = sessionFactory.openSession()) {
 			transAct = session.beginTransaction();
-			Query query = session.createQuery("From Genre where genreNimi like:name");
+			Query query = session.createQuery("From Genre where genreName =:name");
 			List<Genre> genreList = query.setParameter("name", genreSearch).list();
-
+			
 			transAct.commit();
 			session.close();
-
-			if (!genreList.isEmpty()) {
-				System.out.println("The genre list is NOT empty!");
-				returnable = genreList.get(0);
-				System.out.println("The returnable name is -> " + returnable.getGenreName());
-				return returnable;
+			
+			if (genreList.size() == 0) {
+				throw new Exception("Nothing found!");
 			}
+			return genreList;
+
 		} catch (Exception e) {
 			if (transAct != null)
-				System.out.println("Did we get an EXCEPTION in the catch block?");
 			transAct.rollback();
 			throw e;
 		}
-		System.out.println("Nothing found, returning default value");
-		return returnable;
 	}
 
 	// To be tested
@@ -192,14 +179,13 @@ public class RemoteDAO {
 		}
 	}
 
-	public boolean createArtist(Artist artist) {
+	public boolean createArtist(Artist artist) throws Exception {
 		Artist[] artistSearch = readArtists();
 		// First loop to check whether a given genre is already found within the
 		// database
 		for (int i = 0; i < artistSearch.length; i++) {
 			if (artistSearch[i].getArtistName().equals(artist.getArtistName())) {
-				System.out.println("This one already exists! Can't add it!");
-				return false;
+				throw new Exception("This Artist already exists!");
 			}
 		}
 
@@ -247,27 +233,27 @@ public class RemoteDAO {
 		}
 	}
 
-	public Artist searchArtist(String artistSearch) {
-		Artist returnable = new Artist();
+	public List<Artist> searchArtist(String artistSearch) throws Exception {
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();	
-			Query query = session.createQuery("From Artist where artistName like:name");
+			Query query = session.createQuery("From Artist where artistName =:name");
 			List<Artist> artistList = query.setParameter("name", artistSearch).list();
-
-			if(!artistList.isEmpty()) {
-				System.out.println("The genre list is NOT empty!");
-				returnable = artistList.get(0);
-				System.out.println("The returnable name is -> "+returnable.getArtistName());
-				return returnable;
-				}	
+			
+			if (artistList.size() == 0) {
+				throw new Exception("Nothing found!");
+			}
+			transAct.commit();
+			session.close();
+			
+			return artistList;
 		}catch(Exception e){
+			System.out.println("exception why??");
 			if(transAct != null)
 				transAct.rollback();
 			throw e;
 		}
-		System.out.println("Nothing found, returning default value");
-		return returnable;
+		
 	}
 		
 	public boolean editArtist(Artist artistEdit, int id) {
@@ -303,13 +289,12 @@ public class RemoteDAO {
 		}
 	}
 
-	public boolean createAlbum(Album album) {
+	public boolean createAlbum(Album album) throws Exception {
 		Album[] albumSearch = readAlbums();		
 		//First loop to check whether a given genre is already found within the database
 		for(int i = 0; i < albumSearch.length; i++) {			
 			if(albumSearch[i].getAlbumName().equals(album.getAlbumName())) {
-				System.out.println("This one already exists! Can't add it!");
-				return false;
+				throw new Exception("This Album already exists!");
 			}
 		}
 
@@ -355,6 +340,27 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
+	
+	public List<Album> searchAlbum(String albumSearch) throws Exception{
+		Transaction transAct = null;
+		try(Session session = sessionFactory.openSession()){
+			transAct = session.beginTransaction();	
+			Query query = session.createQuery("From Album where albumName like:name");
+			List<Album> albumList = query.setParameter("name", albumSearch).list();
+			
+			transAct.commit();
+			session.close();
+			
+			if (albumList.size() == 0) {
+				throw new Exception("Nothing found!");
+			}
+			return albumList;
+		}catch(Exception e){
+			if(transAct != null)
+				transAct.rollback();
+			throw e;
+		}
+	}
 
 	// To be tested! Still not sure how to handle the song list here :/
 	public boolean editAlbum(Album albumEdit, Song[] songEdit, int id) {
@@ -373,7 +379,6 @@ public class RemoteDAO {
 		}
 	}
 
-	// To be tested!
 	public boolean removeAlbum(int id) {
 		Transaction transAct = null;
 		try (Session session = sessionFactory.openSession()) {
@@ -390,11 +395,80 @@ public class RemoteDAO {
 		}
 	}
 
-//	public getRelated(albumID) {
-//		
-//	}
+	public boolean createSong(Song song) throws Exception {
+		Song[] songSearch = readSongs();		
+		//First loop to check whether a given genre is already found within the database
+		for(int i = 0; i < songSearch.length; i++) {			
+			if(songSearch[i].getSongName().equals(song.getSongName())) {
+				throw new Exception("This Song already exists!");
+			}
+		}
+		
+		Transaction transAct = null;	
+		try(Session session = sessionFactory.openSession()){
+			transAct = session.beginTransaction();
+			session.saveOrUpdate(song);			
+			session.save(song);
+			transAct.commit();
+			return true;
+		}catch(Exception e) {
+			if(transAct != null) 
+				transAct.rollback();
+			throw e;			
+		}
+	}
+	
+	public Song readSong(int id) {
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		Song song = (Song)session.get(Song.class, id);
+		System.out.println("Found this thing -> "+song.getSongName());
+		session.getTransaction().commit();
+		session.close();
+		return song;	
+	}
+	
 
-	public boolean editSong(int id) {
+	public Song[] readSongs() {
+		Transaction transAct = null;
+		try (Session session = sessionFactory.openSession()) {
+			transAct = session.beginTransaction();
+
+			@SuppressWarnings("unchecked")
+			List<Song> result = (List<Song>) session.createQuery("from Song order by songName").list();
+
+			transAct.commit();
+			Song[] array = new Song[result.size()];
+			return (Song[]) result.toArray(array);
+		} catch (Exception e) {
+			if (transAct != null)
+				transAct.rollback();
+			throw e;
+		}
+	}
+	
+	public List<Song> searchSong(String songSearch) throws Exception{
+		Transaction transAct = null;
+		try(Session session = sessionFactory.openSession()){
+			transAct = session.beginTransaction();	
+			Query query = session.createQuery("From Album where albumName like:name");
+			List<Song> songList = query.setParameter("name", songSearch).list();
+			
+			transAct.commit();
+			session.close();
+			
+			if (songList.size() == 0) {
+				throw new Exception("Nothing found!");
+			}
+			return songList;
+		}catch(Exception e){
+			if(transAct != null)
+				transAct.rollback();
+			throw e;
+		}
+	}
+
+	public boolean editSong(Song songEdit, int id) {
 		Transaction transAct = null;
 		try (Session session = sessionFactory.openSession()) {
 			transAct = session.beginTransaction();
@@ -409,15 +483,31 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
-	
+
+	public boolean removeSong(int id) {
+		Transaction transAct = null;
+		try (Session session = sessionFactory.openSession()) {
+			transAct = session.beginTransaction();
+			Song removeSong= (Song) session.load(Song.class, id);
+			session.delete(removeSong);
+			transAct.commit();
+			return true;
+
+		} catch (Exception e) {
+			if (transAct != null)
+				transAct.rollback();
+			throw e;
+		}
+	}
 	public List<String> getSearchable(){
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();
-			String sql = "select artistinimi from artisti union select albuminimi from albumi union select genrenimi from genre union select kappalenimi from kappale";
+			String sql = "select ArtistName from Artist union select AlbumName from Album union select GenreName from Genre union select SongName from Song";
 			SQLQuery query = session.createSQLQuery(sql);
 			List<String> results = query.list();
 			transAct.commit();
+			session.close();
 			return results;
 		}catch(Exception e) {
 			if(transAct != null)
@@ -429,7 +519,7 @@ public class RemoteDAO {
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();
-			String sql = "select genrenimi from genre";
+			String sql = "select GenreName from Genre";
 			SQLQuery query = session.createSQLQuery(sql);
 			List<String> results = query.list();
 			transAct.commit();
@@ -444,7 +534,7 @@ public class RemoteDAO {
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();
-			String sql = "select artistinimi from artisti";
+			String sql = "select ArtistName from Artist";
 			SQLQuery query = session.createSQLQuery(sql);
 			List<String> results = query.list();
 			transAct.commit();
@@ -459,7 +549,7 @@ public class RemoteDAO {
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();
-			String sql = "select albuminimi from albumi";
+			String sql = "select AlbumName from Album";
 			SQLQuery query = session.createSQLQuery(sql);
 			List<String> results = query.list();
 			transAct.commit();
@@ -474,7 +564,7 @@ public class RemoteDAO {
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();
-			String sql = "select kappalenimi from kappale";
+			String sql = "select SongName from Song";
 			SQLQuery query = session.createSQLQuery(sql);
 			List<String> results = query.list();
 			transAct.commit();
@@ -486,36 +576,6 @@ public class RemoteDAO {
 		}
 	}
 	
-	
-	/*
-	public Artist[] genreArtists(int genreID) {
-		Transaction transAct = null;
-		try(Session session = sessionFactory.openSession()){
-			transAct = session.beginTransaction();
-			
-		}catch(Exception e) {
-			if(transAct != null)
-				transAct.rollback();
-			throw e;
-		}
-	}
-	
-	public List<Album> artistAlbums(int artistID){
-		Transaction transAct = null;
-		try(Session session = sessionFactory.openSession()){
-			transAct = session.beginTransaction();
-			@SuppressWarnings("unchecked")
-			List<Album> testing = session.createCriteria(Album.class).setFetchMode("Genre", FetchMode.JOIN).add(Restrictions.eqOrIsNull("genreID", 1)).list();
-			System.out.println(testing.get(0));
-			transAct.commit();
-			return testing;
-		}catch(Exception e) {
-			if(transAct != null)
-				transAct.rollback();
-			throw e;
-		}
-	}
-	*/
 	/*
 	 * Method takes in a given genre's ID, and then opens a session with it. During the session, an album-list can be created based on the instance
 	 * After loading the list, the session is closed and the method returns a list of Albums based on the genre
@@ -556,8 +616,26 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
+	/*
+	 * Method takes in an album's ID and then opens a session with it. During the session, a song-list can be created based on the instance
+	 * After loading the list, the session is closed and the method returns a list of Songs based on the album.
+	 */
+	public List<Song> albumSongs(int albumID){
+		Transaction transAct = null;
+		try(Session session = sessionFactory.openSession()){
+			transAct = session.beginTransaction();
+			Album album = (Album) session.load(Album.class, albumID);
+			List<Song> array = album.getAlbumSongs();
+			transAct.commit();
+			session.close();
+			return array;
+		}catch(Exception e) {
+			if(transAct != null)
+				transAct.rollback();
+			throw e;
+		}
+	}
 	
-	//public List<Song> albumSongs(int albumID){}
 	public void finalize() {
 		try {
 			if (sessionFactory != null)

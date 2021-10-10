@@ -16,9 +16,10 @@
                   <TextField id="TxtFields" fx:id="SearchBox" layoutX="789.0" layoutY="11.0" prefHeight="26.0" prefWidth="268.0" AnchorPane.rightAnchor="133.4000000000001" />
                 <Button id="root" fx:id="Help" layoutX="258.0" layoutY="11.0" maxWidth="150.0" minHeight="-Infinity" minWidth="100.0" mnemonicParsing="false" onAction="#GoHelpPage" text="Ohje" />
                   <Button id="root" fx:id="Requests" layoutX="158.0" layoutY="11.0" maxWidth="150.0" minHeight="-Infinity" minWidth="100.0" mnemonicParsing="false" onAction="#ShowRequests" text="Lisäyspyynnöt" />
+
                   <Button id="root" fx:id="FrontPage" layoutX="43.0" layoutY="11.0" maxWidth="150.0" minHeight="-Infinity" minWidth="100.0" mnemonicParsing="false" onAction="#goFrontPage" text="Etusivu" />
-                  <Button id="root" fx:id="UserCollection" layoutX="390.0" layoutY="11.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#goUserCollection" text="Kokoelma" />
-                  <Button id="root" fx:id="SearchButton" layoutX="1083.0" layoutY="11.0" mnemonicParsing="false" onAction="#SearchTxt" text="Hae" AnchorPane.rightAnchor="52.20000000000009" />
+                  <Button id="root" fx:id="UserCollection" layoutX="143.0" layoutY="11.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#goUserCollection" text="Kokoelma" />
+                  <Button id="root" fx:id="SearchButton" layoutX="1083.0" layoutY="11.0" mnemonicParsing="false" onAction="#goSearchPage" text="Hae" AnchorPane.rightAnchor="52.20000000000009" />
                </children>
             </AnchorPane>
         </buttons>

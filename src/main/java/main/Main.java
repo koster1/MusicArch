@@ -8,15 +8,19 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import com.jcg.hibernate.maven.RemoteDAO;
+import com.jcg.hibernate.maven.Song;
 import com.jcg.hibernate.maven.Album;
 import com.jcg.hibernate.maven.Artist;
 import com.jcg.hibernate.maven.Genre;
 import com.jcg.hibernate.maven.LocalDAO;
 
 import controller.Controller;
+import model.LocalGenre;
+
 import com.jcg.hibernate.maven.Album;
 import com.jcg.hibernate.maven.Artist;
 import com.jcg.hibernate.maven.RemoteDAO;
+
 
 import view.*;
 
@@ -34,7 +38,46 @@ public class Main {
 			System.out.println("Artistsss"+artistList.get(i).getAlbumName());
 		}
 //		RemoteDAO dao = new RemoteDAO();
+//		LocalDAO lDAO = new LocalDAO();
 		View.main(args);
+		
+//		List<String> testStrings = dao.getSearchable();
+//		
+//		for(int i = 0; i < testStrings.size(); i++) {
+//			System.out.println("Searchable strings! Check it out ::: "+ testStrings.get(i));
+//		}
+/*
+		View.main(args);		
+
+		Genre testGenre = new Genre();
+		testGenre.setGenreName("A testful genre!");
+		
+		Artist testArtist = new Artist();
+		testArtist.setArtistName("A testing artist!");
+		testArtist.setArtistBio("Don't mess with him >:c");
+		
+		Album testAlbum = new Album();
+		testAlbum.setAlbumName("testAlbum!");
+		Song song1 = new Song();
+		song1.setSongName("The first song!");
+		Song song2 = new Song();
+		song2.setSongName("The second song! Ooooohhhh");
+		
+		testAlbum.addSong(song1);
+		testAlbum.addSong(song2);
+		testAlbum.addGenre(testGenre);
+		testAlbum.addArtist(testArtist);
+		
+		try {
+			dao.createAlbum(testAlbum);
+		} catch (Exception e) {
+			System.out.println("Exception "+e.getMessage());
+		}
+		
+//		LocalGenre testGenre = new LocalGenre();
+//		testGenre.setGenreName("Wooowzers");
+//		lDAO.createGenre(testGenre);
+		
 //		List<Album> testList = dao.genreAlbums(2);
 //		for(int i = 0; i < testList.size(); i++) {
 //			System.out.println("WOOOW" + testList.get(i).getAlbumYear());
@@ -122,18 +165,30 @@ public class Main {
 		controller.createGenre(genreList[0]);
 		controller.createGenre(genreList[1]);		
 	
+<<<<<<< HEAD
+	public static void main(String args[]) {
+		View.main(args);
+=======
 		controller.createArtist(artistList[0], "A really cool rock artist!");
 		controller.createArtist(artistList[1], "A moderately okay pop artist.");
 
 		controller.createAlbum("A Rock Album", 666, genreList, artistList);
 		
 		*/
+
 //		RemoteDAO dao = new RemoteDAO();
 //		
 //		LocalDAO localDAO = new LocalDAO();
-		
+
+//		LocalGenre genre = new LocalGenre();
+//		genre.setGenreID(2);
+//		genre.setGenreName("Rock");
+//		localDAO.createGenre(genre);
+
+
 //		dao.readArtist(2);
 //		System.out.println("testi");
+
 		
 //		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
 //		Session session = factory.getCurrentSession();
@@ -163,6 +218,22 @@ public class Main {
 //		
 //		
 		
+
+		
+		
+
+	
+//		List<String> searchableStrings = localDAO.getSearchable();
+//		for(int i = 0; i < searchableStrings.size(); i++) {
+//			System.out.println("Iterating through all the names in the database : "+searchableStrings.get(i));
+//		}
+
+//		List<String> searchableStrings = dao.getSearchable();
+//		System.out.println("Now creating a list of every name found in the database!");
+//		for(int i = 0; i < searchableStrings.size(); i++) {
+//			System.out.println("Iterating through all the names in the database : "+searchableStrings.get(i));
+//		}
+
 
 	
 //		
@@ -202,6 +273,7 @@ public class Main {
 //			System.out.println("Saving albums!");
 //			session.save(tempAlbum);
 //			session.save(tempAlbum2);
+
 //			System.out.println("Albums saved!");
 //			
 //			session.getTransaction().commit();			
@@ -235,5 +307,6 @@ public class Main {
 //		System.out.println("A weird test"+anotherTest);
 
 
-}
+
+	}
 }

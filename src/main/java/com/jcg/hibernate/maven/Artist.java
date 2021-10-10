@@ -16,26 +16,26 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Artisti")
+@Table(name = "Artist")
 public class Artist {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ArtistiID", updatable = false, nullable = false)
+    @Column(name = "ArtistID", updatable = false, nullable = false)
 	private int artistID;
 	
-	@Column(name = "ArtistiNimi")
+	@Column(name = "ArtistName")
 	private String artistName;
 	
-	@Column(name = "Biografia")
+	@Column(name = "Biography")
 	private String artistBio;
 	
 	@ManyToMany(fetch=FetchType.EAGER,
 			cascade={CascadeType.ALL})
 	@JoinTable(
-			name="tekee",
-			joinColumns={@JoinColumn(name="ArtistiID")},
-			inverseJoinColumns={@JoinColumn(name="AlbumiID")}
+			name="AlbumArtists",
+			joinColumns={@JoinColumn(name="ArtistID")},
+			inverseJoinColumns={@JoinColumn(name="AlbumID")}
 			)
 	private List<Album> artistAlbums;
 	
