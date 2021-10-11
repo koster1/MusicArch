@@ -100,8 +100,16 @@ public class Controller {
 					e.printStackTrace();
 				}
     		}*/
+//    		for(int i = 0; i<albumSongs.length; i++) {
+//    			try {
+//					Song linkSongs = (Song) remoteDAO.searchSong(songListGiven[i]);
+//				} catch (Exception e) {
+//					System.out.println("Failed to add a Song to Album!");
+//					e.printStackTrace();
+//				}
+//    		}
     		try {
-				remoteDAO.createAlbum(newAlbum);
+				remoteDAO.createAlbum(newAlbum, albumGenres[0], albumArtists[0]);
 				System.out.println("Created an Album successfully!");
 			} catch (Exception e) {
 				System.out.println("Failed to create an Album!");
