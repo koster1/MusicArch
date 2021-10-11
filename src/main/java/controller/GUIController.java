@@ -264,15 +264,18 @@ public class GUIController {
 	@FXML
 	private Button NewArtist;
 	int i = 0;
+
 	@FXML
 	void SendAlbumButton(ActionEvent event) {
 		// System.out.print(Arrays.toString(ArtistList.toArray()));
+		//tee textfieldistä näkyvä kaikille
+	//	ArtistList.add(field.getText().toString());
+
 		for (i = 0; i < ArtistList.size(); i++) {
 			System.out.println(i);
 		}
 		/*for (i = 0; i < ArtistList.size(); i++) {
 			System.out.print(Arrays.toString(ArtistList.toArray()));
-
 		}*/
 		System.out.print(Arrays.toString(ArtistList.toArray()));
 		
@@ -285,11 +288,12 @@ public class GUIController {
 		String aN = ArtistName.getText();
 		int albumYear = Integer.parseInt(Released.getText());
 		ArtistList.add(ArtistName.getText());
-		String[] GenreListGiven = { "Rock", "Pop" };
-		String[] artistName = { "Abba", "Red Hot Chili Peppers" };
-		String[] songListGiven = { "Testi" };
-//(ArtistList.toArray(new String[0]))
-		controller.createAlbum(albumName, albumYear, GenreListGiven, artistName, songListGiven);
+//		String[] GenreListGiven = { "Rock", "Pop" };
+//		String[] artistName = { "Abba", "Red Hot Chili Peppers" };
+//		String[] songListGiven = { "Testi" };
+		//(ArtistList.toArray(new String[0]))
+		
+		//controller.createAlbum(albumName, albumYear, GenreListGiven, artistName, songListGiven);
 	}
 
 	// ------------AlbumiFormin toiminnallisuus--------------------
@@ -307,12 +311,14 @@ public class GUIController {
 	@FXML
 	private Button save;
 	List<String> ArtistList = new ArrayList<String>();
-
+	int counter = 0;
 	@FXML
 	void NewArtist(ActionEvent event) {
-	/*	final HBox parent = new HBox(5.0);
+		counter++;
+		final HBox parent = new HBox(5.0);
 		TextField field = new TextField();
-
+		field.setId("" + counter);
+		//tee tähän counteri
 		Button button = new Button("-");
 		field.setAlignment(Pos.CENTER_LEFT);
 		button.setAlignment(Pos.CENTER_RIGHT);
@@ -326,7 +332,7 @@ public class GUIController {
 		save.setOnAction((e2) -> {
 			ArtistList.add(field.getText().toString());
 			
-		});*/
+		});
 		
 	}
 

@@ -72,7 +72,7 @@ public class Controller {
     		for(int i = 0; i<genreListGiven.length; i++) {
     			Genre linkGenre;
 				try {
-					linkGenre = (Genre) remoteDAO.searchGenre(genreListGiven[i]);
+					linkGenre = (Genre) remoteDAO.searchGenre(genreListGiven[i]).get(i);
 					System.out.println(linkGenre.getGenreName()+ " Täällä genreName");
 	        		newAlbum.addGenre(linkGenre);
 				} catch (Exception e) {
@@ -85,7 +85,7 @@ public class Controller {
     		for(int i = 0; i<artistListGiven.length; i++) {
     			Artist linkArtist;
 				try {
-					linkArtist = (Artist) remoteDAO.searchArtist(artistListGiven[i]);
+					linkArtist = (Artist) remoteDAO.searchArtist(artistListGiven[i]).get(i);
 					newAlbum.addArtist(linkArtist);
 				} catch (Exception e) {
 					System.out.println("Failed to add an Artist to Album!");
@@ -95,7 +95,7 @@ public class Controller {
     		}
     		for(int i = 0; i<songListGiven.length; i++) {
     			try {
-					Song linkSongs = (Song) remoteDAO.searchSong(songListGiven[i]);
+					Song linkSongs = (Song) remoteDAO.searchSong(songListGiven[i]).get(i);
 				} catch (Exception e) {
 					System.out.println("Failed to add a Song to Album!");
 					e.printStackTrace();
