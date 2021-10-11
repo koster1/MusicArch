@@ -50,28 +50,42 @@ public class Main {
 		}*/
 		
 		// These are used in the testing of album creation. Created 10.10.2021 (worked)
-		/*LocalDAO lDAO = new LocalDAO();
+		LocalDAO lDAO = new LocalDAO();
+		
+		LocalGenre localGenre = new LocalGenre();
+		localGenre.setGenreID(1);
+		localGenre.setGenreName("Progressive Rock");
 		
 		LocalAlbum localAlbum = new LocalAlbum();
-		localAlbum.setAlbumName("Master of puppets");
+		localAlbum.setAlbumName("Animals");
 		localAlbum.setAlbumID(2);
 		
 		LocalSong localSong1 = new LocalSong();
 		LocalSong localSong2 = new LocalSong();
 		LocalSong localSong3 = new LocalSong();
+		LocalSong localSong4 = new LocalSong();
+		LocalSong localSong5 = new LocalSong();
 		
 		localSong1.setSongID(2);
 		localSong2.setSongID(3);
 		localSong3.setSongID(4);
+		localSong4.setSongID(5);
+		localSong5.setSongID(6);
 		
-		localSong1.setSongName("Battery");
-		localSong2.setSongName("Master of Puppets");
-		localSong3.setSongName("The Thing That should Not Be");
 		
-		LocalSong[] localSongList = new LocalSong[3];
+		localSong1.setSongName("Pigs On The Wing Part 1");
+		localSong2.setSongName("Dogs");
+		localSong3.setSongName("Pigs");
+		localSong4.setSongName("Sheep");
+		localSong5.setSongName("Pigs On The Wing Part 2");
+		
+		
+		LocalSong[] localSongList = new LocalSong[5];
 		localSongList[0] = localSong1;
 		localSongList[1] = localSong2;
 		localSongList[2] = localSong3;
+		localSongList[3] = localSong4;
+		localSongList[4] = localSong5;
 		
 		try {
 			lDAO.createAlbum(localAlbum, localSongList);
@@ -80,9 +94,9 @@ public class Main {
 			e.printStackTrace();
 		}
 		//
-		 */
+		 
 		
-		View.main(args); 
+		View.main(args);
 //		List<String> testStrings = dao.getSearchable();
 //		
 //		for(int i = 0; i < testStrings.size(); i++) {
