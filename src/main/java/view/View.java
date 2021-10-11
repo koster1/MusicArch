@@ -19,6 +19,7 @@ import controller.FrontPageController;
 import controller.GUIController;
 import controller.SearchController;
 import controller.UserCollectionController;
+import controller.RequestFormsController;
 import controller.AlbumPageController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -111,85 +112,7 @@ public class View extends Application {
 		}
 		AnchorPane Frontpage = (AnchorPane) loader.load();
 		rootLayout.setCenter(Frontpage);
-		
-//		ObservableList<Artist> choices = FXCollections.observableArrayList(artistList);
-//		ObservableList<Genre> genreObservable = FXCollections.observableArrayList(genreList);
-		
-//		TabPane tabPane = (TabPane) Frontpage.getChildren().get(0);
-//		GridPane gridPane = (GridPane) Frontpage.getChildren().get(1);
-//		gridPane.setOnMouseClicked(event -> {System.out.println("GridPane event");});
-//		Button button = new Button();
-//		button.setOnMouseClicked(event -> {System.out.println("Childrennnn");});
-//		button.setAccessibleText("this is a button, wow");
-//		gridPane.add(button, 0, 0);
-		
-//		int counter1 = 0;
-//		for (Artist artist : artistList) {
-//			System.out.println(artist.getArtistName());
-//		}
-//			Tab tab = tabPane.getTabs().get(0);
-//			Tab tab2 = tabPane.getTabs().get(1);
-////			tab.setDisable(true);
-//			
-//			AnchorPane anchorpane = (AnchorPane)tab.getContent();
-//			AnchorPane anchorpane2 = (AnchorPane)tab2.getContent();
-//
-////				@SuppressWarnings("unchecked")
-//			genreListView = (ListView<Genre>)anchorpane.getChildren().get(0);
-//			artistListView = (ListView<Artist>)anchorpane2.getChildren().get(0);
-//			
-//			tab.setOnSelectionChanged(event -> {
-//				System.out.println("test");
-//				});
-//			genreListView.setCellFactory(lv -> new ListCell<Genre>() {
-//				@Override
-//				protected void updateItem(Genre genre, boolean empty) {
-//					super.updateItem(genre, empty);
-//					setText(empty || genre == null || genreList.length == 0 ? "" : genre.getGenreName()); 
-//				}
-//			});
-//			genreListView.setItems(genreObservable);
-//			
-//			artistListView.setCellFactory(lv -> new ListCell<Artist>() {
-//				@Override
-//				protected void updateItem(Artist artist, boolean empty) {
-//					super.updateItem(artist, empty);
-//					setText(empty || artist == null || artistList.length == 0 ? "" : artist.getArtistName());
-//				}
-//			});			
-//			artistListView.setItems(choices);
-				
-//		System.out.println(artistListView.getItems().get(0).getArtistID());
-//		tab.setContent(text);
-//		GridPane gridPane = (GridPane)tabPane.getTabs().get(0).getContent();
-//		Text text = new Text(genreList[0].getGenreName());
-//		text.setId("1");
-//		System.out.println("Tabpane näy ");
-//		gridPane.add(text, 0, 0);
-//		GridPane gridPane = (GridPane)Frontpage.getChildren().get();
-//		gridPane.setAlignment(Pos.CENTER);
-		
-//		for(int i = 0; i < gridPane.getColumnCount(); i++) {
-//			for(int j = 0; j < gridPane.getRowCount(); j++) {
-//				if(counter < stringList.size()) {
-//					Text text = new Text();
-//					text.setText(stringList.get(counter));
-//					gridPane.add(text, i, j);
-//					
-//					counter++;
-//				}
-//			}
-//		}
 
-	}
-	
-	public static void test() throws IOException {
-		Artist selectedItem = artistListView.getSelectionModel().getSelectedItem();
-		if(selectedItem != null) {
-			System.out.println("id = " + selectedItem.getArtistID());
-		} else {
-			System.out.println("no item selected");
-		}
 	}
 
 	public static void showHelpPage() throws IOException {
@@ -257,13 +180,7 @@ public class View extends Application {
 	//
 	public static void showRequestsWindow() throws IOException {
 		System.out.print(" !!!    täällä ollaan    !!!");
-		/*
-		 * try { System.out.print("   " + anotherRoot); }catch (Exception e){
-		 * System.out.print(e.getMessage()); }
-		 */
-		
-
-		
+			
 			List<Window> windows = Window.getWindows();
 			System.out.println(windows);
 			boolean test = true;
@@ -271,7 +188,7 @@ public class View extends Application {
 				for(int i = 0; i < windows.size(); i++) {
 					System.out.println(windows.get(i).getTitle());
 					if(windows.get(i).getTitle().contains("Request")) {
-						System.out.println("Truee");
+						System.out.println("True");
 						test = false;
 						break;
 					}
@@ -282,14 +199,13 @@ public class View extends Application {
 			if(test) {
 				FXMLLoader fxmlLoader = new FXMLLoader();
 				fxmlLoader.setLocation(View.class.getResource("/view/fxmlFiles/LisaysPyynnot2.fxml"));
+				fxmlLoader.setControllerFactory(RequestFormsController -> new RequestFormsController(controller));
 				anotherRoot = (BorderPane) fxmlLoader.load();
 
 				Scene scene = new Scene(anotherRoot);
 				scene.getStylesheets().add("/view/style.css");
 				Stage stage = new Stage();
 				stage.setResizable(false);
-//				stage.setMinWidth(1000);
-//				stage.setMaxWidth(1000);
 				stage.setTitle("Request");
 				stage.setScene(scene);
 				stage.show();
@@ -301,6 +217,7 @@ public class View extends Application {
 
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(View.class.getResource("/view/fxmlFiles/genrelisays.fxml"));
+		loader.setControllerFactory(RequestFormsController -> new RequestFormsController(controller));
 		AnchorPane genre = (AnchorPane) loader.load();
 		anotherRoot.setCenter(genre);
 	}
@@ -308,6 +225,7 @@ public class View extends Application {
 	public static void showAlbumForm() throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(View.class.getResource("/view/fxmlFiles/albumilisays.fxml"));
+		loader.setControllerFactory(RequestFormsController -> new RequestFormsController(controller));
 		AnchorPane album = (AnchorPane) loader.load();
 		anotherRoot.setCenter(album);
 	}
@@ -315,6 +233,7 @@ public class View extends Application {
 	public static void showArtistForm() throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(View.class.getResource("/view/fxmlFiles/artistilisays.fxml"));
+		loader.setControllerFactory(RequestFormsController -> new RequestFormsController(controller));
 		AnchorPane artist = (AnchorPane) loader.load();
 		anotherRoot.setCenter(artist);
 	}
