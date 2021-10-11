@@ -451,7 +451,7 @@ public class RemoteDAO {
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();	
-			Query query = session.createQuery("From Album where albumName like:name");
+			Query query = session.createQuery("From Song where SongName like:name");
 			List<Song> songList = query.setParameter("name", songSearch).list();
 			
 			transAct.commit();

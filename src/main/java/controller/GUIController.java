@@ -229,8 +229,11 @@ public class GUIController {
 
 	@FXML
 	void SendAlbumButton(ActionEvent event) {
-
-		// controller.createAlbum(albumName, null, julkaisuvuosi, null, null);
+      String[] genreListGiven = { "Rock", "Pop" };
+      String[] artistName = { "Abba", "Red Hot Chili Peppers" };
+      String[] songListGiven = { "Testi" };
+//      String albumName = AlbumName.getText();
+      controller.createAlbum(AlbumName.getText(), 1970, genreListGiven, artistName, songListGiven);
 
 	}
 
@@ -315,46 +318,46 @@ public class GUIController {
 	@FXML
 	private AnchorPane FrontAnchor;
 	
-	@FXML
-	public void goFrontPage(ActionEvent event) throws IOException {
-		System.out.println("FrontGrid = " + FrontGrid);
-		FrontPage.setStyle("-fx-border-color: #ffff33");
-		PauseTransition pause = new PauseTransition(Duration.seconds(pauseDuration));
-		System.out.println("Test12");
-		pause.setOnFinished(event1 -> {
-			FrontPage.setStyle(null);
-		});
-		pause.play();
-		System.out.println("Test13");
-		try {
-			Artist[] artistList = controller.getArtists();
-			Genre[] genreList = controller.getGenres();
-			Album[] albumList = controller.getAlbums();
-			
-			System.out.println("albumList version 2 = "+albumList.length);
-			for (Artist artist : artistList) {
-				System.out.println("test" + artist.getArtistName());
-//				stringList.add(artist.getArtistName());
-			}
-//			System.out.println(stringList);
-			View.showFrontPage(artistList, genreList);
-			
-		} catch (Exception e) {
-			System.out.println(e.getMessage()+" EnTItY MaNAgEr iS CloSEd");
-		}
-
-	}
+//	@FXML
+//	public void goFrontPage(ActionEvent event) throws IOException {
+//		System.out.println("FrontGrid = " + FrontGrid);
+//		FrontPage.setStyle("-fx-border-color: #ffff33");
+//		PauseTransition pause = new PauseTransition(Duration.seconds(pauseDuration));
+//		System.out.println("Test12");
+//		pause.setOnFinished(event1 -> {
+//			FrontPage.setStyle(null);
+//		});
+//		pause.play();
+//		System.out.println("Test13");
+//		try {
+//			Artist[] artistList = controller.getArtists();
+//			Genre[] genreList = controller.getGenres();
+//			Album[] albumList = controller.getAlbums();
+//			
+//			System.out.println("albumList version 2 = "+albumList.length);
+//			for (Artist artist : artistList) {
+//				System.out.println("test" + artist.getArtistName());
+////				stringList.add(artist.getArtistName());
+//			}
+////			System.out.println(stringList);
+//			View.showFrontPage(artistList, genreList);
+//			
+//		} catch (Exception e) {
+//			System.out.println(e.getMessage()+" EnTItY MaNAgEr iS CloSEd");
+//		}
+//
+//	}
 	
 	public void goFrontPage() throws IOException {
-		Artist[] artistList = controller.getArtists();
-		Genre[] genreList = controller.getGenres();
-		ArrayList<String> stringList = new ArrayList<>();
-		for (Artist artist : artistList) {
-			System.out.println(artist.getArtistName());
-			stringList.add(artist.getArtistName());
-		}
+//		Artist[] artistList = controller.getArtists();
+//		Genre[] genreList = controller.getGenres();
+//		ArrayList<String> stringList = new ArrayList<>();
+//		for (Artist artist : artistList) {
+//			System.out.println(artist.getArtistName());
+//			stringList.add(artist.getArtistName());
+//		}
 		
-			View.showFrontPage(artistList, genreList);
+			View.showFrontPage();
 		
 	}
 
