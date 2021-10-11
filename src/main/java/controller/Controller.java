@@ -236,7 +236,7 @@ public class Controller {
     }
     
 
-    public List<Artist> searchAll(String search) {
+    public Artist searchAll(String search) {
     	try {
 //			searchGenre(search);
 //			searchAlbums(search);
@@ -256,7 +256,7 @@ public class Controller {
 			e.printStackTrace();
 		}
     }
-    private List<Artist> searchArtist(String artistName) { 	
+    private Artist searchArtist(String artistName) { 	
     	try {
     		return remoteDAO.searchArtist(artistName);
 //			GUIController.setArtistResults(remoteDAO.searchArtist(artistName));
