@@ -30,6 +30,16 @@ public class Main {
 //		RemoteDAO dao = new RemoteDAO();
 //		LocalDAO lDAO = new LocalDAO();
 //		View.main(args);
+		RemoteDAO dao = new RemoteDAO();
+		try {
+			List<Album> testAlbum = dao.searchAlbum("testAlbum");
+			for(int i = 0; i<testAlbum.size(); i++) {
+				System.out.println("Found this -> "+testAlbum.get(i).getAlbumName());
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 //		List<String> testStrings = dao.getSearchable();
 //		
