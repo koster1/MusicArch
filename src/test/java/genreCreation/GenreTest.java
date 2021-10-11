@@ -3,6 +3,8 @@ package genreCreation;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -26,7 +28,9 @@ public class GenreTest {
 		rDAO.createGenre(testGenre);
 		int id = rDAO.searchGenre(givenGenre).getGenreID();
 		rDAO.removeGenre(id);
-		assertEquals(null, rDAO.searchGenre(givenGenre).getGenreName());
+		assertThrows(Exception.class, () ->{
+			rDAO.searchGenre(givenGenre).getGenreName();
+		});
 	}
 	
     @Test

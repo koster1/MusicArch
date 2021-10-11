@@ -3,7 +3,9 @@ package artistCreation;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.junit.jupiter.api.Assertions;
 
 import com.jcg.hibernate.maven.Artist;
 import com.jcg.hibernate.maven.RemoteDAO;
@@ -44,8 +46,11 @@ public class ArtistCreation {
 		testArtist.setArtistName(givenArtist);
 		testArtist.setArtistBio("A test bio");
 		rDAO.createArtist(testArtist);
+		System.out.println("This is the artist we are removing -> "+rDAO.searchArtist(givenArtist).getArtistName());
 		rDAO.removeArtist(rDAO.searchArtist(givenArtist).getArtistID());
-		assertEquals(null, rDAO.searchArtist(givenArtist).getArtistName());
+		assertThrows(Exception.class, () -> {
+			rDAO.searchArtist(givenArtist).getArtistName();
+		});
 		
 	}
 

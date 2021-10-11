@@ -241,6 +241,7 @@ public class RemoteDAO {
 			List<Artist> artistList = query.setParameter("name", artistSearch).list();
 			
 			if (artistList.size() == 0) {
+				System.out.println("Nothing found!");
 				throw new Exception("Nothing found!");
 			}
 			transAct.commit();
