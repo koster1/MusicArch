@@ -1,9 +1,12 @@
 package controller;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
@@ -19,93 +22,104 @@ import view.View;
 public class RequestFormsController {
 	private Controller controller;
 	private View view;
-	
-    @FXML
-    private AnchorPane RequestCategories;
 
-    @FXML
-    private TitledPane ArtistDrop;
+	@FXML
+	private AnchorPane RequestCategories;
 
-    @FXML
-    private TitledPane GenreDrop;
+	@FXML
+	private TitledPane ArtistDrop;
 
-    @FXML
-    private TitledPane AlbumDrop;
+	@FXML
+	private TitledPane GenreDrop;
 
-    @FXML
-    private TextField GenreAddTxtField;
+	@FXML
+	private TitledPane AlbumDrop;
 
-    @FXML
-    private Label GenreAddLabel;
+	@FXML
+	private TextField GenreAddTxtField;
 
-    @FXML
-    private Button SendGenre;
+	@FXML
+	private Label GenreAddLabel;
 
-    @FXML
-    private Label GenreAddTitle;
-    
-    @FXML
-    private TextField ArtistsName;
+	@FXML
+	private Button SendGenre;
 
-    @FXML
-    private TextArea Biografia;
+	@FXML
+	private Label GenreAddTitle;
 
- 	@FXML
-    private TextField Released;
+	@FXML
+	private TextField ArtistsName;
 
-    @FXML
-    private Label Year;
+	@FXML
+	private TextArea Biografia;
 
-    @FXML
-    private Label AlbumTitle;
+	@FXML
+	private TextField Released;
 
-    @FXML
-    private TextField AlbumName;
+	@FXML
+	private Label Year;
 
-    @FXML
-    private TextField ArtistName;
+	@FXML
+	private Label AlbumTitle;
 
-    @FXML
-    private TextField Songs;
+	@FXML
+	private TextField AlbumName;
 
-    @FXML
-    private TextField GenreName;
+	@FXML
+	private TextField ArtistName;
 
-    @FXML
-    protected void initialize() {
-    	
-    }
-    @FXML
-    void Album(MouseEvent event) {
+	@FXML
+	private TextField Songs;
 
-    }
-    @FXML
-    void Artist(MouseEvent event) {
+	@FXML
+	private TextField GenreName;
 
-    }
-    @FXML
-    void Genre(MouseEvent event) {
+	@FXML
+	protected void initialize() {
 
-    } 
-    public RequestFormsController (Controller controller) {
-    	this.controller = controller;
-    }
-    @FXML
-    void NewArtist(ActionEvent event) {
+	}
 
-    }
-    @FXML
-    void NewGenre(ActionEvent event) {
+	// Dropdownlists
+	@FXML
+	void Album(MouseEvent event) {
 
-    }
-    @FXML
-    void NewSong(ActionEvent event) {
+	}
 
-    }
-    @FXML
+	@FXML
+	void Artist(MouseEvent event) {
+
+	}
+
+	@FXML
+	void Genre(MouseEvent event) {
+
+	}
+
+	public RequestFormsController(Controller controller) {
+		this.controller = controller;
+	}
+
+	@FXML
+	void NewArtist(ActionEvent event) {
+
+	}
+
+	@FXML
+	void NewGenre(ActionEvent event) {
+
+	}
+
+	@FXML
+	void NewSong(ActionEvent event) {
+
+	}
+
+	// Switch forms in requests.fxml
+	@FXML
 	void GenreFormButton(ActionEvent event) throws IOException {
 		view.showGenreForm();
 	}
+
 	@FXML
 	void AlbumFormButton(ActionEvent event) throws IOException {
 		view.showAlbumForm();
@@ -115,37 +129,34 @@ public class RequestFormsController {
 	void ArtistFormButton(ActionEvent event) throws IOException {
 		view.showArtistForm();
 	}
-	// SendGenreButton lähettää Genre-lomakkeen tiedot controlleriin.
-	// Ponnauttaa Virhe-ikkunan, jos tekstikenttä on tyhjä
-	// Täytyy lisätä muitakin ehtoja
+
+	// SendGenreButton, SendArtistButton and SendAlbumButton sends data to
+	// controller.
+	// Popups error window if textfields are empty or
 	@FXML
 	void SendGenreButton(ActionEvent event) throws IOException {
 		String genreName = GenreAddTxtField.getText();
 		if (genreName.isEmpty()) {
-			view.Error();
-			/*
-			 * Alert alert = new Alert(AlertType.ERROR); alert.setTitle("Virhe!");
-			 * alert.setHeaderText("Tarkista genren nimi. Nimi ei voi olla tyhjä.");
-			 * alert.setContentText("Ooops, i did it again ;)"); alert.showAndWait();
-			 */
-			GenreAddTxtField.clear();
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Virhe!");
+			alert.setHeaderText("Tarkista genren nimi. Nimi ei voi olla tyhjä.");
+			alert.showAndWait();
 
 		} else {
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Vahistuspyyntö");
+			alert.setHeaderText("Vahvista genrepyyntö:");
+			alert.setContentText("Haluatko lähettää pyynnön lisätä genren " + genreName + "?");
 
-			controller.createGenre(genreName);
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == ButtonType.OK) {
+				controller.createGenre(genreName);
+				GenreAddTxtField.clear();
 
-			Dialog<String> dialog = new Dialog<String>();
-			dialog.setTitle("Pyyntö lähetetty");
-			dialog.setHeaderText("Genrepyyntö lähetetty!");
-			dialog.setContentText("Lähetit pyynnön lisätä genren: " + genreName);
-			GenreAddTxtField.clear();
-
-			ButtonType type = new ButtonType("OK", ButtonData.OK_DONE);
-			dialog.getDialogPane().getButtonTypes().add(type);
-			dialog.showAndWait();
-
+			}
 		}
 	}
+
 	// SendArtistButton lähettää Artist-lomakkeen tiedot controlleriin.
 	// Virhe-ikkuna ponnautetaan jos kentät ovat tyhjiä
 	// Täytyy lisätä muitakin ehtoja
@@ -156,37 +167,37 @@ public class RequestFormsController {
 		String artistBio = Biografia.getText();
 
 		if (ArtistsName.getText().isEmpty() || Biografia.getText().isEmpty()) {
-			view.Error();
-			/*
-			 * Alert alert = new Alert(AlertType.ERROR); alert.setTitle("Virhe!");
-			 * alert.setHeaderText("Tarkista artistin nimi. Nimeä ei voi jättää tyhjäksi!");
-			 * alert.setContentText("Ooops, there was an error!"); alert.showAndWait();
-			 */
-			ArtistsName.clear();
-			Biografia.clear();
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Virhe!");
+			alert.setHeaderText("Tarkista artistin nimi. Nimeä ei voi jättää tyhjäksi!");
+			alert.showAndWait();
+
 		} else {
-			// Pitää hakea booleani että minkä perustella katsotaan onko artisti kannassa
-			controller.createArtist(artistName, artistBio);
-			Dialog<String> dialog = new Dialog<String>();
-			dialog.setTitle("Pyyntö lähetetty");
-			dialog.setHeaderText("Artistipyyntö lähetetty!");
-			dialog.setContentText("Lähetit pyynnön lisätä artistin: " + artistName);
-			ButtonType type = new ButtonType("OK", ButtonData.OK_DONE);
-			dialog.getDialogPane().getButtonTypes().add(type);
-			dialog.showAndWait();
-			ArtistsName.clear();
-			Biografia.clear();
+
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Vahvistuspyyntö");
+			alert.setHeaderText("Vahvista artistipyyntö:");
+			alert.setContentText("Haluatko lähettää pyynnön lisätä artistin " + artistName
+					+ " ja artistille biografian: " + artistBio + "?");
+
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == ButtonType.OK) {
+				controller.createArtist(artistName, artistBio);
+				ArtistsName.clear();
+				Biografia.clear();
+			}
 		}
+
 	};
-	
+
 	@FXML
 	void SendAlbumButton(ActionEvent event) {
-      String[] genreListGiven = { "Funk" };
-      String[] artistName = { "Anna Puu" };
-      String[] songListGiven = { "Testi2" };
+		String[] genreListGiven = { "Funk" };
+		String[] artistName = { "Anna Puu" };
+		String[] songListGiven = { "Testi2" };
 //	  String albumName = AlbumName.getText();
-      controller.createAlbum(AlbumName.getText(), 1970, genreListGiven, artistName, songListGiven);
+		controller.createAlbum(AlbumName.getText(), 1970, genreListGiven, artistName, songListGiven);
 
-	}	
+	}
 
 }
