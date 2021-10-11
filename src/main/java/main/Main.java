@@ -82,7 +82,7 @@ public class Main {
 		//
 		 */
 		
-		View.main(args);
+		View.main(args); 
 //		List<String> testStrings = dao.getSearchable();
 //		
 //		for(int i = 0; i < testStrings.size(); i++) {

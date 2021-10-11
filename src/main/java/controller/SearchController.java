@@ -31,12 +31,8 @@ public class SearchController{
 	protected void initialize() {
 		try {
 			
-			List<Artist> artistList = controller.searchAll(search);
-			
-			for(Artist artist : artistList) {
-				System.out.println(artist.getArtistName());
-				SearchGrid.add(new Text(artist.getArtistName()), 0, 0);
-			}
+			Artist artistResults = controller.searchAll(search);
+			SearchGrid.add(new Text(artistResults.getArtistName()), 0, 0);
 			System.out.println("Search = " + search);
 		}catch (Exception e) {
 			System.out.println(e.getMessage() + " errorrrrr");
