@@ -294,6 +294,10 @@ public class Controller {
     	return remoteDAO.readSongs();
     }
     
+    public List<Album> getArtistAlbums(int artistID) {
+    	return remoteDAO.artistAlbums(artistID);
+    }
+    
     public List<LocalArtist> getLocalArtist(String search) throws Exception {
     	return localDAO.searchArtist(search);
     }
