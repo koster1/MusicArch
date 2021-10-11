@@ -20,8 +20,8 @@ public class ArtistCreation {
 		testArtist.setArtistName(givenArtist);
 		testArtist.setArtistBio("A test bio");
 		rDAO.createArtist(testArtist);
-		assertEquals(givenArtist, rDAO.searchArtist(givenArtist).get(0).getArtistName(), "Expected to find Test Artist");
-		rDAO.removeArtist(rDAO.searchArtist(givenArtist).get(0).getArtistID());
+		assertEquals(givenArtist, rDAO.searchArtist(givenArtist).getArtistName(), "Expected to find Test Artist");
+		rDAO.removeArtist(rDAO.searchArtist(givenArtist).getArtistID());
 	}
 	
 	@Test
@@ -32,8 +32,8 @@ public class ArtistCreation {
 		testArtist.setArtistName(givenArtist);
 		testArtist.setArtistBio("A test bio");
 		rDAO.createArtist(testArtist);
-		assertEquals(givenArtist, rDAO.searchArtist(givenArtist).get(0).getArtistName());
-		rDAO.removeArtist(rDAO.searchArtist(givenArtist).get(0).getArtistID());
+		assertEquals(givenArtist, rDAO.searchArtist(givenArtist).getArtistName());
+		rDAO.removeArtist(rDAO.searchArtist(givenArtist).getArtistID());
 	}
 	
 	@Test
@@ -44,8 +44,8 @@ public class ArtistCreation {
 		testArtist.setArtistName(givenArtist);
 		testArtist.setArtistBio("A test bio");
 		rDAO.createArtist(testArtist);
-		rDAO.removeArtist(rDAO.searchArtist(givenArtist).get(0).getArtistID());
-		assertEquals(null, rDAO.searchArtist(givenArtist).get(0).getArtistName());
+		rDAO.removeArtist(rDAO.searchArtist(givenArtist).getArtistID());
+		assertEquals(null, rDAO.searchArtist(givenArtist).getArtistName());
 		
 	}
 
