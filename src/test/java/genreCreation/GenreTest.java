@@ -3,6 +3,8 @@ package genreCreation;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -24,9 +26,11 @@ public class GenreTest {
 		Genre testGenre = new Genre();
 		testGenre.setGenreName(givenGenre);
 		rDAO.createGenre(testGenre);
-		int id = rDAO.searchGenre(givenGenre).get(0).getGenreID();
+		int id = rDAO.searchGenre(givenGenre).getGenreID();
 		rDAO.removeGenre(id);
-		assertEquals(null, rDAO.searchGenre(givenGenre).get(0).getGenreName());
+		assertThrows(Exception.class, () ->{
+			rDAO.searchGenre(givenGenre).getGenreName();
+		});
 	}
 	
     @Test
@@ -37,8 +41,8 @@ public class GenreTest {
 		Genre testGenre = new Genre();
 		testGenre.setGenreName("TestGenre");
 		rDAO.createGenre(testGenre);
-		assertEquals(givenGenre, rDAO.searchGenre(givenGenre).get(0).getGenreName());
-		rDAO.removeGenre(rDAO.searchGenre(givenGenre).get(0).getGenreID());
+		assertEquals(givenGenre, rDAO.searchGenre(givenGenre).getGenreName());
+		rDAO.removeGenre(rDAO.searchGenre(givenGenre).getGenreID());
     }
 	
 	@Test
@@ -49,8 +53,8 @@ public class GenreTest {
 		Genre testGenre = new Genre();
 		testGenre.setGenreName("TestGenre");
 		rDAO.createGenre(testGenre);
-		assertEquals(givenGenre, rDAO.searchGenre(givenGenre).get(0).getGenreName(), "Expected to find TestGenre!");
-		rDAO.removeGenre(rDAO.searchGenre(givenGenre).get(0).getGenreID());
+		assertEquals(givenGenre, rDAO.searchGenre(givenGenre).getGenreName(), "Expected to find TestGenre!");
+		rDAO.removeGenre(rDAO.searchGenre(givenGenre).getGenreID());
 	}
 	
 }

@@ -45,12 +45,11 @@ Text {
 }
 
 #labels {
-<<<<<<< HEAD
-=======
--fx-font-size: 14px;
-}
 
+-fx-font-size: 14px;
+-fx-font-size: 16px;
+}
 #listView {
 	-fx-font-size: 1.5em;
->>>>>>> refs/remotes/origin/Janin_branch
 }
+/* */

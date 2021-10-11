@@ -37,13 +37,12 @@ import com.jcg.hibernate.maven.Album;
 import com.jcg.hibernate.maven.RemoteDAO;
 import com.jcg.hibernate.maven.Genre;
 
-
-
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import com.jcg.hibernate.maven.Song;
 
@@ -79,28 +78,28 @@ public class GUIController {
 	private List<Artist> artistResults;
 	private List<Album> albumResults;
 	private List<Song> songResults;
-	
+
 	@FXML
 
 	private BorderPane mainPane;
 	@FXML
 	private ButtonBar Buttonbar;
 	private AnchorPane UserCategories;
-	
+
 	@FXML
 	public TitledPane UserGenreDrop;
-	
+
 	@FXML
 	private TitledPane UserAlbumDrop;
-	
+
 	@FXML
 	private TitledPane UserArtistDrop;
-	
+
 	@FXML
 	private Button SearchButton;
 
 	// Etusivun hakukenttä
-	@FXML 
+	@FXML
 	private TextField SearchBox;
 
 	@FXML
@@ -145,9 +144,6 @@ public class GUIController {
 
 	// ---------------------- Albumin lisäys--------------------
 
-	// Selvitä mikä tää send on?
-//	@FXML
-//	private Button Send;
 	@FXML
 	private TextField ArtistsName;
 	@FXML
@@ -161,7 +157,6 @@ public class GUIController {
 		this.controller = controller;
 	}
 
-
 	// SendGenreButton lähettää Genre-lomakkeen tiedot controlleriin.
 	// Ponnauttaa Virhe-ikkunan, jos tekstikenttä on tyhjä
 	// Täytyy lisätä muitakin ehtoja
@@ -169,28 +164,23 @@ public class GUIController {
 	void SendGenreButton(ActionEvent event) throws IOException {
 		String genreName = GenreAddTxtField.getText();
 		if (genreName.isEmpty()) {
-			view.Error();
-			/*
-			 * Alert alert = new Alert(AlertType.ERROR); alert.setTitle("Virhe!");
-			 * alert.setHeaderText("Tarkista genren nimi. Nimi ei voi olla tyhjä.");
-			 * alert.setContentText("Ooops, i did it again ;)"); alert.showAndWait();
-			 */
-			GenreAddTxtField.clear();
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Virhe!");
+			alert.setHeaderText("Tarkista genren nimi. Nimi ei voi olla tyhjä.");
+			alert.showAndWait();
 
 		} else {
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Vahistuspyyntö");
+			alert.setHeaderText("Vahvista genrepyyntö:");
+			alert.setContentText("Haluatko lähettää pyynnön lisätä genren " + genreName + "?");
 
-			controller.createGenre(genreName);
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == ButtonType.OK) {
+				controller.createGenre(genreName);
+				GenreAddTxtField.clear();
 
-			Dialog<String> dialog = new Dialog<String>();
-			dialog.setTitle("Pyyntö lähetetty");
-			dialog.setHeaderText("Genrepyyntö lähetetty!");
-			dialog.setContentText("Lähetit pyynnön lisätä genren: " + genreName);
-			GenreAddTxtField.clear();
-
-			ButtonType type = new ButtonType("OK", ButtonData.OK_DONE);
-			dialog.getDialogPane().getButtonTypes().add(type);
-			dialog.showAndWait();
-
+			}
 		}
 	}
 
@@ -204,29 +194,25 @@ public class GUIController {
 		String artistBio = Biografia.getText();
 
 		if (ArtistsName.getText().isEmpty() || Biografia.getText().isEmpty()) {
-			view.Error();
-			/*
-			 * Alert alert = new Alert(AlertType.ERROR); alert.setTitle("Virhe!");
-			 * alert.setHeaderText("Tarkista artistin nimi. Nimeä ei voi jättää tyhjäksi!");
-			 * alert.setContentText("Ooops, there was an error!"); alert.showAndWait();
-			 */
-			ArtistsName.clear();
-			Biografia.clear();
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Virhe!");
+			alert.setHeaderText("Tarkista artistin nimi. Nimeä ei voi jättää tyhjäksi!");
+			alert.showAndWait();
+
 		} else {
-			// Pitää hakea booleani että minkä perustella katsotaan onko artisti kannassa
-			controller.createArtist(artistName, artistBio);
-			Dialog<String> dialog = new Dialog<String>();
-			dialog.setTitle("Pyyntö lähetetty");
-			dialog.setHeaderText("Artistipyyntö lähetetty!");
-			dialog.setContentText("Lähetit pyynnön lisätä artistin: " + artistName);
 
-			ButtonType type = new ButtonType("OK", ButtonData.OK_DONE);
-			dialog.getDialogPane().getButtonTypes().add(type);
-			dialog.showAndWait();
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Vahvistuspyyntö");
+			alert.setHeaderText("Vahvista artistipyyntö:");
+			alert.setContentText("Haluatko lähettää pyynnön lisätä artistin " + artistName
+					+ " ja artistille biografian: " + artistBio + "?");
 
-			// Tässä on joku probleema!
-			ArtistsName.clear();
-			Biografia.clear();
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == ButtonType.OK) {
+				controller.createArtist(artistName, artistBio);
+				ArtistsName.clear();
+				Biografia.clear();
+			}
 		}
 
 	};
@@ -268,32 +254,39 @@ public class GUIController {
 	@FXML
 	void SendAlbumButton(ActionEvent event) {
 		// System.out.print(Arrays.toString(ArtistList.toArray()));
-		//tee textfieldistä näkyvä kaikille
-	//	ArtistList.add(field.getText().toString());
+		// tee textfieldistä näkyvä kaikille
+		// ArtistList.add(field.getText().toString());
 
-		for (i = 0; i < ArtistList.size(); i++) {
-			System.out.println(i);
-		}
-		/*for (i = 0; i < ArtistList.size(); i++) {
-			System.out.print(Arrays.toString(ArtistList.toArray()));
-		}*/
-		System.out.print(Arrays.toString(ArtistList.toArray()));
-		
-		String albumName = AlbumName.getText();
-		String a = Songs.getText();
-		// String Gn = GenreName.getText();
-		String Gn1 = GenreName1.getText();
-		String Gn2 = GenreName2.getText();
-		String Gn3 = GenreName3.getText();
-		String aN = ArtistName.getText();
-		int albumYear = Integer.parseInt(Released.getText());
-		ArtistList.add(ArtistName.getText());
+		// for (i = 0; i < ArtistList.size(); i++) {
+		// System.out.println(i);
+		// }
+		/*
+		 * for (i = 0; i < ArtistList.size(); i++) {
+		 * System.out.print(Arrays.toString(ArtistList.toArray())); }
+		 */
+		/*
+		 * System.out.print(Arrays.toString(ArtistList.toArray()));
+		 * 
+		 * String albumName = AlbumName.getText(); String a = Songs.getText(); // String
+		 * Gn = GenreName.getText(); String Gn1 = GenreName1.getText(); String Gn2 =
+		 * GenreName2.getText(); String Gn3 = GenreName3.getText(); String aN =
+		 * ArtistName.getText();
+		 */
+		// int albumYear = Integer.parseInt(Released.getText());
+		// ArtistList.add(ArtistName.getText());
 //		String[] GenreListGiven = { "Rock", "Pop" };
 //		String[] artistName = { "Abba", "Red Hot Chili Peppers" };
 //		String[] songListGiven = { "Testi" };
-		//(ArtistList.toArray(new String[0]))
-		
-		//controller.createAlbum(albumName, albumYear, GenreListGiven, artistName, songListGiven);
+		// (ArtistList.toArray(new String[0]))
+
+		// controller.createAlbum(albumName, albumYear, GenreListGiven, artistName,
+		// songListGiven);
+		String[] genreListGiven = { "Rock", "Pop" };
+		String[] artistName = { "Abba", "Red Hot Chili Peppers" };
+		String[] songListGiven = { "Testi" };
+//      String albumName = AlbumName.getText();
+		controller.createAlbum(AlbumName.getText(), 1970, genreListGiven, artistName, songListGiven);
+
 	}
 
 	// ------------AlbumiFormin toiminnallisuus--------------------
@@ -312,28 +305,24 @@ public class GUIController {
 	private Button save;
 	List<String> ArtistList = new ArrayList<String>();
 	int counter = 0;
+
 	@FXML
 	void NewArtist(ActionEvent event) {
-		counter++;
-		final HBox parent = new HBox(5.0);
-		TextField field = new TextField();
-		field.setId("" + counter);
-		//tee tähän counteri
-		Button button = new Button("-");
-		field.setAlignment(Pos.CENTER_LEFT);
-		button.setAlignment(Pos.CENTER_RIGHT);
-		button.setOnAction((e) -> parent.getChildren().clear());
-		HBox.setHgrow(field, Priority.ALWAYS);
-		HBox.setHgrow(button, Priority.NEVER);
-		parent.getChildren().setAll(field, button);
-		root.getChildren().add(parent);
+		/*
+		 * counter++; final HBox parent = new HBox(5.0); TextField field = new
+		 * TextField(); field.setId("" + counter); //tee tähän counteri Button button =
+		 * new Button("-"); field.setAlignment(Pos.CENTER_LEFT);
+		 * button.setAlignment(Pos.CENTER_RIGHT); button.setOnAction((e) ->
+		 * parent.getChildren().clear()); HBox.setHgrow(field, Priority.ALWAYS);
+		 * HBox.setHgrow(button, Priority.NEVER); parent.getChildren().setAll(field,
+		 * button); root.getChildren().add(parent);
+		 * 
+		 * // String items = ; save.setOnAction((e2) -> {
+		 * ArtistList.add(field.getText().toString());
+		 * 
+		 * });
+		 */
 
-		// String items = ;
-		save.setOnAction((e2) -> {
-			ArtistList.add(field.getText().toString());
-			
-		});
-		
 	}
 
 	@FXML
@@ -361,64 +350,57 @@ public class GUIController {
 	private SplitPane SplittedRequestPage;
 	@FXML
 	private AnchorPane RequestCategories;
-	
+
 	// ----------------SIVUJEN VAIHDOT JA PÄIVITYKSET-----------------------
 	// Menunappulat
-	
-    @FXML
-    private GridPane FrontGrid;
-	
+
+	@FXML
+	private GridPane FrontGrid;
+
 	@FXML
 	private AnchorPane FrontAnchor;
-	
-	@FXML
-	public void goFrontPage(ActionEvent event) throws IOException {
-		System.out.println("FrontGrid = " + FrontGrid);
-		FrontPage.setStyle("-fx-border-color: #ffff33");
-		PauseTransition pause = new PauseTransition(Duration.seconds(pauseDuration));
-		System.out.println("Test12");
-		pause.setOnFinished(event1 -> {
-			FrontPage.setStyle(null);
-		});
-		pause.play();
-		System.out.println("Test13");
-		try {
-			Artist[] artistList = controller.getArtists();
-			Genre[] genreList = controller.getGenres();
-			Album[] albumList = controller.getAlbums();
-			
-			System.out.println("albumList version 2 = "+albumList.length);
-			for (Artist artist : artistList) {
-				System.out.println("test" + artist.getArtistName());
-//				stringList.add(artist.getArtistName());
-			}
 
-
-
-//			System.out.println(stringList);
-			View.showFrontPage(artistList, genreList);
-
-		} catch (Exception e) {
-			System.out.println(e.getMessage()+" EnTItY MaNAgEr iS CloSEd");
-		}
-
-	}
+//	@FXML
+//	public void goFrontPage(ActionEvent event) throws IOException {
+//		System.out.println("FrontGrid = " + FrontGrid);
+//		FrontPage.setStyle("-fx-border-color: #ffff33");
+//		PauseTransition pause = new PauseTransition(Duration.seconds(pauseDuration));
+//		System.out.println("Test12");
+//		pause.setOnFinished(event1 -> {
+//			FrontPage.setStyle(null);
+//		});
+//		pause.play();
+//		System.out.println("Test13");
+//		try {
+//			Artist[] artistList = controller.getArtists();
+//			Genre[] genreList = controller.getGenres();
+//			Album[] albumList = controller.getAlbums();
+//			
+//			System.out.println("albumList version 2 = "+albumList.length);
+//			for (Artist artist : artistList) {
+//				System.out.println("test" + artist.getArtistName());
+////				stringList.add(artist.getArtistName());
+//			}
+////			System.out.println(stringList);
+//			View.showFrontPage(artistList, genreList);
+//			
+//		} catch (Exception e) {
+//			System.out.println(e.getMessage()+" EnTItY MaNAgEr iS CloSEd");
+//		}
+//
+//	}
 
 	public void goFrontPage() throws IOException {
-		Artist[] artistList = controller.getArtists();
-		Genre[] genreList = controller.getGenres();
-		ArrayList<String> stringList = new ArrayList<>();
-		for (Artist artist : artistList) {
-			System.out.println(artist.getArtistName());
-			stringList.add(artist.getArtistName());
-		}
+//		Artist[] artistList = controller.getArtists();
+//		Genre[] genreList = controller.getGenres();
+//		ArrayList<String> stringList = new ArrayList<>();
+//		for (Artist artist : artistList) {
+//			System.out.println(artist.getArtistName());
+//			stringList.add(artist.getArtistName());
+//		}
 
+		View.showFrontPage();
 
-	
-
-		
-			View.showFrontPage(artistList, genreList);
-		
 	}
 
 	@FXML
@@ -457,9 +439,7 @@ public class GUIController {
 		});
 		pause.play();
 
-		
-		
-		System.out.println("UserGenreDrop = "+UserGenreDrop);
+		System.out.println("UserGenreDrop = " + UserGenreDrop);
 		view.showUserCollectionPage();
 	}
 
@@ -467,6 +447,11 @@ public class GUIController {
 	void goSearchPage(ActionEvent event) throws IOException {
 		String searchText = SearchBox.getText();
 		view.showSearchPage(searchText);
+	}
+
+	@FXML
+	void GoAlbumPage(ActionEvent event) throws IOException {
+		view.showAlbumPage();
 	}
 
 	// --------------- Lisäyspyynnöt- sivun dropit-------------------
@@ -535,31 +520,37 @@ public class GUIController {
 
 	}
 
-	
-	//-------------Search results from controller------
-	
+	// -------------Search results from controller------
+
 	public void setGenreResults(List<Genre> genreResults) {
 		this.genreResults = genreResults;
 	}
+
 	public List<Genre> getGenreResults() {
 		return genreResults;
 	}
+
 	public void setArtistResults(List<Artist> artistResults) {
 		this.artistResults = artistResults;
 	}
-	public List<Artist> getArtistResults(){
+
+	public List<Artist> getArtistResults() {
 		return artistResults;
 	}
+
 	public void setAlbumResults(List<Album> albumResults) {
 		this.albumResults = albumResults;
 	}
-	public List<Album> getAlbumResults(){
+
+	public List<Album> getAlbumResults() {
 		return albumResults;
 	}
+
 	public void setSongResults(List<Song> songResults) {
 		this.songResults = songResults;
 	}
-	public List<Song> getSongResults(){
+
+	public List<Song> getSongResults() {
 		return songResults;
 	}
 }
