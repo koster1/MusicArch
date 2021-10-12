@@ -2,6 +2,8 @@ package controller;
 
 import java.io.IOException;
 
+import com.jcg.hibernate.maven.Album;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -212,9 +214,10 @@ public class RequestFormsController {
 	
 	@FXML
 	void SendAlbumButton(ActionEvent event) {
-      String[] genreListGiven = { "Funk" };
-      String[] artistName = { "Anna Puu" };
+      String[] genreListGiven = { GenreName.getText() };
+      String[] artistName = { ArtistName.getText()};
       String[] songListGiven = { "Testi2" };
+
 //	      String albumName = AlbumName.getText();
       controller.createAlbum(AlbumName.getText(), 1970, genreListGiven, artistName, songListGiven);
 

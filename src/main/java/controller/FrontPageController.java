@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.List;
+
 import com.jcg.hibernate.maven.Album;
 import com.jcg.hibernate.maven.Artist;
 import com.jcg.hibernate.maven.Genre;
@@ -8,11 +10,18 @@ import com.jcg.hibernate.maven.Song;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
+import model.LocalAlbum;
+import model.LocalArtist;
+import model.LocalGenre;
+import model.LocalSong;
 
 public class FrontPageController {
 	
@@ -34,11 +43,19 @@ public class FrontPageController {
     
     @FXML
     private Tab FrontPageArtistTab;
+    
+
+    @FXML
+    private ButtonBar BreadCrumbBar;
 	
 	public FrontPageController(Controller controller) {
 		this.controller = controller;
 	}
 	
+	/**
+	 * This method is for setting up the frontpage views list. 
+	 * It also adds eventlisteners to all list items
+	 * **/
 	@FXML
 	protected void initialize() {
 		Genre[] genreList = controller.getGenres();
@@ -55,6 +72,23 @@ public class FrontPageController {
 		});
 		FrontGenreListView.setItems(genreObservable);
 		
+		FrontGenreListView.setOnMouseClicked(me -> {
+			
+			Genre listGenre = FrontGenreListView.getSelectionModel().getSelectedItem();
+			List<Album> genreAlbums = controller.getGenreAlbums(listGenre.getGenreID());
+			
+
+
+			if(genreAlbums.size() > 0) {
+				FrontPageGrid.getChildren().clear();
+				FrontPageGrid.add(new Text(genreAlbums.get(0).getAlbumName()), 1, 0);
+			} else {
+				System.out.println("Nothing found ");
+			}
+			
+  
+		});
+		
 		FrontArtistListView.setCellFactory(lv -> new ListCell<Artist>() {
 			@Override
 			protected void updateItem(Artist artist, boolean empty) {
@@ -63,6 +97,24 @@ public class FrontPageController {
 			}
 		});			
 		FrontArtistListView.setItems(choices);
+		
+		FrontArtistListView.setOnMouseClicked(me -> {
+			
+			Artist listArtist = FrontArtistListView.getSelectionModel().getSelectedItem();
+			List<Album> artistAlbums = controller.getArtistAlbums(listArtist.getArtistID());
+			
+			if(artistAlbums.size() > 0) {
+				FrontPageGrid.getChildren().clear();
+				Text text = new Text();
+				text.setText(artistAlbums.get(0).getAlbumName());
+				text.onMouseEnteredProperty().addListener(event -> {
+					System.out.println("You clicked me!");
+				});
+				FrontPageGrid.add(text, 1, 0);
+			} else {
+				System.out.println("Nothing found ");
+			}
+		});
 		
 		
 		
