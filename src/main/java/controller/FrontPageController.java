@@ -61,37 +61,37 @@ public class FrontPageController {
 		});
 		FrontGenreListView.setItems(genreObservable);
 		
-		FrontGenreListView.setOnMouseClicked(me -> {
-			
-			Genre listGenre = FrontGenreListView.getSelectionModel().getSelectedItem();
-			List<LocalGenre> localGenre = controller(listGenre.getGenreID());
-			List<LocalArtist> localArtist = controller.getLocalAlbumArtists(listLocalAlbum.getAlbumID());
-			if(listLocalAlbum != null) {
-				AlbumNameLabel.setText(listLocalAlbum.getAlbumName()); 				
-			}
-			if(localGenre.size() > 0) {
-				AlbumGenreLabel.setText(localGenre.get(0).getGenreName());
-				System.out.println(listLocalAlbum.getAlbumName());
-			} else {
-				AlbumGenreLabel.setText("Not found");
-			}
-			if(localArtist.size() > 0) {
-				AlbumArtistLabel.setText(localArtist.get(0).getArtistName());
-			} else {
-				AlbumArtistLabel.setText("Not found");
-			}
-			List<LocalSong> localSongs = controller.getLocalAlbumSongs(listLocalAlbum.getAlbumID());
-			ObservableList<LocalSong> observableSongs = FXCollections.observableArrayList(localSongs);
-			
-    		SongListView.setCellFactory(lv -> new ListCell<LocalSong>() {
-    			@Override
-    			protected void updateItem(LocalSong localSong, boolean empty) {
-    				super.updateItem(localSong, empty);
-    				setText(empty || localSong == null || localSongs.size() == 0 ? "" : localSong.getSongName());
-    			}
-    		});		
-			SongListView.setItems(observableSongs);
-		});
+//		FrontGenreListView.setOnMouseClicked(me -> {
+//			
+//			Genre listGenre = FrontGenreListView.getSelectionModel().getSelectedItem();
+//			List<LocalGenre> localGenre = controller(listGenre.getGenreID());
+//			List<LocalArtist> localArtist = controller.getLocalAlbumArtists(listLocalAlbum.getAlbumID());
+//			if(listLocalAlbum != null) {
+//				AlbumNameLabel.setText(listLocalAlbum.getAlbumName()); 				
+//			}
+//			if(localGenre.size() > 0) {
+//				AlbumGenreLabel.setText(localGenre.get(0).getGenreName());
+//				System.out.println(listLocalAlbum.getAlbumName());
+//			} else {
+//				AlbumGenreLabel.setText("Not found");
+//			}
+//			if(localArtist.size() > 0) {
+//				AlbumArtistLabel.setText(localArtist.get(0).getArtistName());
+//			} else {
+//				AlbumArtistLabel.setText("Not found");
+//			}
+//			List<LocalSong> localSongs = controller.getLocalAlbumSongs(listLocalAlbum.getAlbumID());
+//			ObservableList<LocalSong> observableSongs = FXCollections.observableArrayList(localSongs);
+//			
+//    		SongListView.setCellFactory(lv -> new ListCell<LocalSong>() {
+//    			@Override
+//    			protected void updateItem(LocalSong localSong, boolean empty) {
+//    				super.updateItem(localSong, empty);
+//    				setText(empty || localSong == null || localSongs.size() == 0 ? "" : localSong.getSongName());
+//    			}
+//    		});		
+//			SongListView.setItems(observableSongs);
+//		});
 		
 		FrontArtistListView.setCellFactory(lv -> new ListCell<Artist>() {
 			@Override

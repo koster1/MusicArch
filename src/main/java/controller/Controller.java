@@ -41,6 +41,7 @@ public class Controller {
 			remoteDAO.createGenre(newGenre);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			System.out.println("Failed to create a genre! ");
 			e.printStackTrace();
 		}
     }
@@ -52,6 +53,7 @@ public class Controller {
 			remoteDAO.createArtist(newArtist);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			System.out.println("Failed to create an artist! ");
 			e.printStackTrace();
 		}
     }
@@ -80,6 +82,9 @@ public class Controller {
 						linkGenre.add(genre);
 					}
 					System.out.println("toimiiko? controller createAlbum");
+					newAlbum.addGenre(remoteDAO.searchGenre(genreListGiven[i]));
+//					linkGenre = (Genre) remoteDAO.searchGenre(genreListGiven[i]);
+
 //	        		newAlbum.addGenre(linkGenre);
 				} catch (Exception e) {
 					System.out.println("Failed to add a Genre to Album!");
@@ -253,7 +258,7 @@ public class Controller {
     }
     
 
-    public List<Artist> searchAll(String search) {
+    public Artist searchAll(String search) {
     	try {
 //			searchGenre(search);
 //			searchAlbums(search);
@@ -273,7 +278,7 @@ public class Controller {
 			e.printStackTrace();
 		}
     }
-    private List<Artist> searchArtist(String artistName) { 	
+    private Artist searchArtist(String artistName) { 	
     	try {
     		return remoteDAO.searchArtist(artistName);
 //			GUIController.setArtistResults(remoteDAO.searchArtist(artistName));
@@ -313,10 +318,6 @@ public class Controller {
     	return remoteDAO.readSongs();
     }
     
-    public List<Album> getArtistAlbums(int artistID) {
-    	return remoteDAO.artistAlbums(artistID);
-    }
-    
     public List<LocalArtist> getLocalArtist(String search) throws Exception {
     	return localDAO.searchArtist(search);
     }
@@ -339,6 +340,20 @@ public class Controller {
     
     public LocalAlbum readLocalAlbum(int id) {
     	return localDAO.readAlbum(id);
+    }
+    
+    public List<String> getSearchable() {
+    	return remoteDAO.getSearchable();
+    }
+    
+    public List<Album> getGenreAlbums(int genreID){
+    	return remoteDAO.genreAlbums(genreID);
+    }
+    public List<Album> getArtistAlbums(int artistID){
+    	return remoteDAO.artistAlbums(artistID);
+    }
+    public List<Song> getAlbumSong(int albumID){
+    	return remoteDAO.albumSongs(albumID);
     }
     
     public List<LocalGenre> getLocalAlbumGenres(int albumID) {

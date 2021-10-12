@@ -15,6 +15,7 @@ import com.jcg.hibernate.maven.Genre;
 import com.jcg.hibernate.maven.LocalDAO;
 
 import controller.Controller;
+import controller.GUIController;
 import model.LocalAlbum;
 import model.LocalGenre;
 import model.LocalSong;
@@ -31,6 +32,8 @@ public class Main {
 	public static void main(String args[]) {
 //		RemoteDAO dao = new RemoteDAO();
 		
+		View.main(args);
+		/*
 		
 		
 //		LocalDAO localDAO = new LocalDAO();
@@ -48,6 +51,22 @@ public class Main {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
+		LocalDAO localDAO = new LocalDAO();
+		LocalGenre localGenre = new LocalGenre();
+		localGenre.setGenreID(4);
+		localGenre.setGenreName("Gospel");
+		
+		LocalAlbum localAlbum = new LocalAlbum();
+		localAlbum.setAlbumID(20);
+		localAlbum.setAlbumName("Tulen valtakunta");
+		localAlbum.setAlbumYear(2021);
+		try {
+			localDAO.createGenre(localGenre, localAlbum);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		
 		// These are used in the testing of album creation. Created 10.10.2021 (worked)
 //		LocalDAO lDAO = new LocalDAO();
@@ -80,17 +99,28 @@ public class Main {
 //			e.printStackTrace();
 //		}
 		//
-		 
-		
-		View.main(args);
+<<<<<<< HEAD
+		 */
+//		RemoteDAO rDAO = new RemoteDAO();
+//		Album[] testAlbums = rDAO.readAlbums();
+//		
+//		for(int i = 0; i < testAlbums.length; i++) {
+//			System.out.println("This is an album ->"+testAlbums[i].getAlbumName());
+//		}
+//		
+//		String[] genreListGiven = {"Iskelmä"};
+//		String[] artistName = {"Anna Puu"};
+//		String[] songListGiven = {"Testiiiii"};
+//		Controller controller = new Controller();
+//		controller.createAlbum("lyhyempikinköhänkönsä", 1978, genreListGiven, artistName, songListGiven);
+//		View.main(args); 
 //		List<String> testStrings = dao.getSearchable();
 //		
 //		for(int i = 0; i < testStrings.size(); i++) {
 //			System.out.println("Searchable strings! Check it out ::: "+ testStrings.get(i));
 //		}
 /*
-		View.main(args);		
-
+		View.main(args);		 
 		Genre testGenre = new Genre();
 		testGenre.setGenreName("A testful genre!");
 		
