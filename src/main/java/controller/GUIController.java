@@ -51,10 +51,10 @@ public class GUIController {
 	private View view;
 	private BorderPane borderpane;
 	private double pauseDuration = 0.2;
-	private List<Genre> genreResults;
-	private List<Artist> artistResults;
-	private List<Album> albumResults;
-	private List<Song> songResults;
+	private Genre genreResults;
+	private Artist artistResults;
+	private Album albumResults;
+	private Song songResults;
 	List<String> everythingFound;
 	
 	@FXML
@@ -237,28 +237,28 @@ public class GUIController {
 	
 	//-------------Search results from controller------
 	
-	public void setGenreResults(List<Genre> genreResults) {
-		this.genreResults = genreResults;
+	public void setGenreResults(Genre genre) {
+		this.genreResults = genre;
 	}
-	public List<Genre> getGenreResults() {
+	public Genre getGenreResults() {
 		return genreResults;
 	}
-	public void setArtistResults(List<Artist> artistResults) {
+	public void setArtistResults(Artist artistResults) {
 		this.artistResults = artistResults;
 	}
-	public List<Artist> getArtistResults(){
+	public Artist getArtistResults(){
 		return artistResults;
 	}
-	public void setAlbumResults(List<Album> albumResults) {
-		this.albumResults = albumResults;
+	public void setAlbumResults(Album album) {
+		this.albumResults = album;
 	}
-	public List<Album> getAlbumResults(){
+	public Album getAlbumResults(){
 		return albumResults;
 	}
-	public void setSongResults(List<Song> songResults) {
-		this.songResults = songResults;
+	public void setSongResults(Song song) {
+		this.songResults = song;
 	}
-	public List<Song> getSongResults(){
+	public Song getSongResults(){
 		return songResults;
 	}
 

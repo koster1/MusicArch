@@ -20,7 +20,7 @@ public class albumTest {
 		Album testAlbum = new Album();
 		testAlbum.setAlbumName(givenAlbumTitle);
 		testAlbum.setAlbumYear(1234);
-		rDAO.createAlbum(testAlbum);
+		rDAO.createAlbum(testAlbum, null, null);
 		assertEquals(givenAlbumTitle, rDAO.searchAlbum(givenAlbumTitle).getAlbumName(), "Expected to find Test Album");	
 		rDAO.removeAlbum(rDAO.searchAlbum(givenAlbumTitle).getAlbumID());
 	}
@@ -32,7 +32,7 @@ public class albumTest {
 		Album testAlbum = new Album();
 		testAlbum.setAlbumName(givenAlbumTitle);
 		testAlbum.setAlbumYear(1234);
-		rDAO.createAlbum(testAlbum);
+		rDAO.createAlbum(testAlbum, null, null);
 		assertEquals(givenAlbumTitle, rDAO.searchAlbum(givenAlbumTitle).getAlbumName());
 		rDAO.removeAlbum(rDAO.searchAlbum(givenAlbumTitle).getAlbumID());
 	}
@@ -44,7 +44,7 @@ public class albumTest {
 		Album testAlbum = new Album();
 		testAlbum.setAlbumName(givenAlbumTitle);
 		testAlbum.setAlbumYear(1234);
-		rDAO.createAlbum(testAlbum);
+		rDAO.createAlbum(testAlbum, null, null);
 		System.out.println("This is the Album we are deleting -> "+rDAO.searchAlbum(givenAlbumTitle).getAlbumName());
 		rDAO.removeAlbum(rDAO.searchAlbum(givenAlbumTitle).getAlbumID());
 		assertThrows(Exception.class, () -> {
