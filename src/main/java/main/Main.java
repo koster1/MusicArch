@@ -34,8 +34,13 @@ public class Main {
 		
 		View.main(args);
 		/*
+<<<<<<< HEAD
 		
 		
+=======
+
+
+>>>>>>> branch 'master' of https://gitlab.metropolia.fi/janiap/MusicArch.git
 //		LocalDAO localDAO = new LocalDAO();
 //		LocalGenre localGenre = new LocalGenre();
 //		localGenre.setGenreID(4);
@@ -66,8 +71,12 @@ public class Main {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'master' of https://gitlab.metropolia.fi/janiap/MusicArch.git
 		
+>>>>>>> refs/heads/master
 		// These are used in the testing of album creation. Created 10.10.2021 (worked)
 //		LocalDAO lDAO = new LocalDAO();
 //		
