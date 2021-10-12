@@ -127,15 +127,17 @@ public class RemoteDAO {
 		Transaction transAct = null;
 		try (Session session = sessionFactory.openSession()) {
 			transAct = session.beginTransaction();
-			Query query = session.createQuery("From Genre where genreName like:name");
+			Query query = session.createQuery("From Genre where genreName =:name");
 			List<Genre> genreList = query.setParameter("name", genreSearch).list();
+			System.out.println("The genre search result was -> "+genreList.get(0).getGenreName());
 			
-			transAct.commit();
-			session.close();
 			
 			if (genreList.size() == 0) {
 				throw new Exception("Nothing found!");
 			}
+			
+			transAct.commit();
+			session.close();
 			return genreList.get(0);
 
 		} catch (Exception e) {
@@ -193,7 +195,6 @@ public class RemoteDAO {
 		try (Session session = sessionFactory.openSession()) {
 			transAct = session.beginTransaction();
 			session.saveOrUpdate(artist);
-			session.save(artist);
 			transAct.commit();
 			return true;
 		} catch (Exception e) {
@@ -237,7 +238,7 @@ public class RemoteDAO {
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();	
-			Query query = session.createQuery("From Artist where artistName =:name");
+			Query query = session.createQuery("From Artist where ArtistName =:name");
 			List<Artist> artistList = query.setParameter("name", artistSearch).list();
 			
 			if (artistList.size() == 0) {
@@ -297,13 +298,24 @@ public class RemoteDAO {
 				throw new Exception("This Album already exists!");
 			}
 		}
+		
+		
+		
 
+//		Album testAlbum = new Album();
+//		testAlbum.setAlbumName(album.getAlbumName());
+//		testAlbum.setAlbumYear(album.getAlbumYear());
+//		
+//		testAlbum.setAlbumArtists(album.getAlbumArtists());
+//		testAlbum.setAlbumGenres(album.getAlbumGenres());
+		
 		Transaction transAct = null;	
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();
 			session.saveOrUpdate(album);			
 			session.save(album);
 			transAct.commit();
+			session.close();
 			return true;
 		}catch(Exception e) {
 			if(transAct != null) 
@@ -331,7 +343,7 @@ public class RemoteDAO {
 			@SuppressWarnings("unchecked")
 			List<Album> result = (List<Album>) session.createQuery("from Album order by albumName").list();
 
-			transAct.commit();
+//			transAct.commit();
 			Album[] array = new Album[result.size()];
 			return (Album[]) result.toArray(array);
 		} catch (Exception e) {

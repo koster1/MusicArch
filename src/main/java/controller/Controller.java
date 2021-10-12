@@ -74,8 +74,9 @@ public class Controller {
     		for(int i = 0; i<albumGenres.length; i++) {
     			Genre linkGenre;
 				try {
-					linkGenre = (Genre) remoteDAO.searchGenre(genreListGiven[i]);
-	        		newAlbum.addGenre(linkGenre);
+					newAlbum.addGenre(remoteDAO.searchGenre(genreListGiven[i]));
+//					linkGenre = (Genre) remoteDAO.searchGenre(genreListGiven[i]);
+//	        		newAlbum.addGenre(linkGenre);
 				} catch (Exception e) {
 					System.out.println("Failed to add a Genre to Album!");
 					e.printStackTrace();
@@ -322,6 +323,10 @@ public class Controller {
     
     public LocalAlbum readLocalAlbum(int id) {
     	return localDAO.readAlbum(id);
+    }
+    
+    public List<String> getSearchable() {
+    	return remoteDAO.getSearchable();
     }
     
     public List<LocalGenre> getLocalAlbumGenres(int albumID) {

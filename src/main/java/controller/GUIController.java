@@ -9,19 +9,23 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.TilePane;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
@@ -51,6 +55,10 @@ public class GUIController {
 	private List<Artist> artistResults;
 	private List<Album> albumResults;
 	private List<Song> songResults;
+	List<String> everythingFound;
+	
+	@FXML
+    private ContextMenu searchContext;
 	
 	@FXML
 	private AnchorPane UserCategories;
@@ -75,11 +83,12 @@ public class GUIController {
 	void SearchTxt(ActionEvent event) {
 		SearchButton.setStyle("-fx-border-color: #ffff33");
 		PauseTransition pause = new PauseTransition(Duration.seconds(pauseDuration));
-		
+	
 		pause.setOnFinished(event1 -> {
 			SearchButton.setStyle(null);
 		});
 		pause.play();
+		
 	}
 
 	//
@@ -218,6 +227,9 @@ public class GUIController {
 
 	@FXML
 	private TextField Songs;
+	
+
+	
 	/*
 	 * @FXML private TextField Songs1;
 	 * 
@@ -483,6 +495,57 @@ public class GUIController {
 		}
 		
 	}
+	
+	 @FXML
+	 void getSearchable(MouseEvent event) {
+		 if(everythingFound == null) {
+			 everythingFound = new ArrayList<>();
+		 }
+		 everythingFound = controller.getSearchable();
+		 System.out.println("Fetched all the searchable values");
+    }
+	
+	 @FXML
+	 void refreshSearchList(KeyEvent event) {
+		int menuCounter = 0; 
+		List<String> strippedList = new ArrayList<String>();
+		SearchBox.setContextMenu(searchContext);	
+		searchContext.show(SearchBox, null, pauseDuration, 50);	
+		
+		for(int i = 0; i<everythingFound.size(); i++) {		
+			if(everythingFound.get(i).toLowerCase().contains(SearchBox.getText().toLowerCase())) {
+				strippedList.add(everythingFound.get(i));
+				menuCounter++;
+			}
+		}
+		searchContext.getItems().clear();
+		if(menuCounter > 5) {
+			menuCounter = 4;
+		}
+		for(int i = 0; i<menuCounter; i++) {
+			if(SearchBox.getText().isEmpty()) {
+				break;
+			}
+			String testString = strippedList.get(i);
+			MenuItem searchItem = new MenuItem(testString);
+			searchItem.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent t) {
+					SearchBox.setText(searchItem.getText());
+					try {
+						view.showSearchPage(SearchBox.getText());
+						SearchBox.clear();
+					}catch(IOException e1) {
+						System.out.println("Failed to commit a search in GUIController's refreshSearchList method!");
+						e1.printStackTrace();
+					}	
+				}
+			});
+			System.out.println("Added a new menu item -> "+searchItem.getText());
+			searchContext.getItems().add(searchItem);
+		}
+	 }
+    
 	
 	//-------------Search results from controller------
 	
