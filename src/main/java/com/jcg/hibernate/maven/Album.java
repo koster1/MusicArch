@@ -35,7 +35,7 @@ public class Album {
 	@Column(name = "AlbumYear")
 	private int albumYear;
 
-	@ManyToMany(fetch=FetchType.EAGER,
+	@ManyToMany(fetch=FetchType.LAZY,
 			cascade={CascadeType.ALL})
 	@JoinTable(
 			name="AlbumGenres",
@@ -79,6 +79,7 @@ public class Album {
 		this.albumGenres = albumGenres;
 	}
 	public void addGenre(Genre genre) {
+		System.out.println("genre = " + genre.getGenreName());
 		if(albumGenres == null) {
 			albumGenres = new ArrayList<>();
 		}

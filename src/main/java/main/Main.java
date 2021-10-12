@@ -34,10 +34,23 @@ public class Main {
 		
 		View.main(args);
 		/*
-=======
 		
 		
->>>>>>> branch 'master' of https://gitlab.metropolia.fi/janiap/MusicArch.git
+//		LocalDAO localDAO = new LocalDAO();
+//		LocalGenre localGenre = new LocalGenre();
+//		localGenre.setGenreID(4);
+//		localGenre.setGenreName("Gospel");
+//		
+//		LocalAlbum localAlbum = new LocalAlbum();
+//		localAlbum.setAlbumID(20);
+//		localAlbum.setAlbumName("Tulen valtakunta");
+//		localAlbum.setAlbumYear(2021);
+//		try {
+//			localDAO.createGenre(localGenre, localAlbum);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		LocalDAO localDAO = new LocalDAO();
 		LocalGenre localGenre = new LocalGenre();
 		localGenre.setGenreID(4);
@@ -53,6 +66,7 @@ public class Main {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 		
 		// These are used in the testing of album creation. Created 10.10.2021 (worked)
 //		LocalDAO lDAO = new LocalDAO();
