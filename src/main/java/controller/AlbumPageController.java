@@ -39,6 +39,9 @@ public class AlbumPageController {
 
 	    @FXML
 	    private Button CollectionAdd;
+	    
+	    @FXML
+	    private Button BackButton;
 
 	    @FXML
 	    private ListView<?> AlbumPageListView;
