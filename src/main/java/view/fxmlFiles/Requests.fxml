@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane id="root2" accessibleRole="NODE" minHeight="600.0" minWidth="1100.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUIController">
+<BorderPane id="root2" accessibleRole="NODE" minHeight="573.0" minWidth="812.0" prefHeight="573.0" prefWidth="812.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUIController">
    <center>
       <AnchorPane prefHeight="428.0" prefWidth="342.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>

@@ -97,26 +97,26 @@ public class GUIController {
 
 	@FXML
 	void ShowRequests(ActionEvent event) throws IOException {
-		
+/*
 		Requests.setStyle("-fx-border-color: #ffff33");
 		PauseTransition pause = new PauseTransition(Duration.seconds(pauseDuration));
 		
 		pause.setOnFinished(event1 -> {
 			Requests.setStyle(null);
 		});
-		pause.play();
+		pause.play();*/
 		view.showRequestsWindow();
 	}
 
 	@FXML
 	void GoHelpPage(ActionEvent event) throws IOException {
-		Help.setStyle("-fx-border-color: #ffff33");
+		/*Help.setStyle("-fx-border-color: #ffff33");
 		PauseTransition pause = new PauseTransition(Duration.seconds(pauseDuration));
 		
 		pause.setOnFinished(event1 -> {
 			Help.setStyle(null);
 		});
-		pause.play();
+		pause.play();*/
 		view.showHelpPage();
 
 	}
@@ -125,13 +125,13 @@ public class GUIController {
 	
 	@FXML
 	void goUserCollection(ActionEvent event) throws IOException {
-		UserCollection.setStyle("-fx-border-color: #ffff33");
+	/*	UserCollection.setStyle("-fx-border-color: #ffff33");
 		PauseTransition pause = new PauseTransition(Duration.seconds(pauseDuration));
 		
 		pause.setOnFinished(event1 -> {
 			UserCollection.setStyle(null);
 		});
-		pause.play();
+		pause.play();*/
 
 		
 		

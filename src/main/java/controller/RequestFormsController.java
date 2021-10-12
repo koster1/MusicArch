@@ -1,10 +1,14 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -17,6 +21,9 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import view.View;
 
 public class RequestFormsController {
@@ -73,6 +80,10 @@ public class RequestFormsController {
 
 	@FXML
 	private TextField GenreName;
+	@FXML
+	private VBox root;
+	@FXML
+	private VBox root1;
 
 	@FXML
 	protected void initialize() {
@@ -99,21 +110,6 @@ public class RequestFormsController {
 		this.controller = controller;
 	}
 
-	@FXML
-	void NewArtist(ActionEvent event) {
-
-	}
-
-	@FXML
-	void NewGenre(ActionEvent event) {
-
-	}
-
-	@FXML
-	void NewSong(ActionEvent event) {
-
-	}
-
 	// Switch forms in requests.fxml
 	@FXML
 	void GenreFormButton(ActionEvent event) throws IOException {
@@ -128,6 +124,47 @@ public class RequestFormsController {
 	@FXML
 	void ArtistFormButton(ActionEvent event) throws IOException {
 		view.showArtistForm();
+	}
+
+	private Button save;
+	List<Object> ArtistList = new ArrayList<Object>();
+	int counter = 0;
+
+	@FXML
+	void NewArtist(ActionEvent event) {
+			TextField field = new TextField();
+
+		//counter++;
+		final HBox parent = new HBox(5.0);
+		field.setId("" + counter++);
+		System.out.print(field.getId());
+		ArtistList.add(field.getId());
+		Button button = new Button("-");
+		field.setAlignment(Pos.CENTER_LEFT);
+		button.setAlignment(Pos.CENTER_RIGHT);
+		button.setOnAction((e) -> parent.getChildren().clear());
+		HBox.setHgrow(field, Priority.ALWAYS);
+		HBox.setHgrow(button, Priority.NEVER);
+		parent.getChildren().setAll(field, button);
+		root.getChildren().add(parent);
+
+	}
+
+	@FXML
+	void NewGenre(ActionEvent event) {
+
+	}
+
+	@FXML
+	void NewSong(ActionEvent event) {
+		/*
+		 * final HBox parent = new HBox(5.0); TextField field = new TextField(); Button
+		 * button = new Button("-"); field.setAlignment(Pos.CENTER_LEFT);
+		 * button.setAlignment(Pos.CENTER_RIGHT); button.setOnAction((e) ->
+		 * root1.getChildren().remove(parent)); HBox.setHgrow(field, Priority.ALWAYS);
+		 * HBox.setHgrow(button, Priority.NEVER); parent.getChildren().setAll(field,
+		 * button); root1.getChildren().add(parent);
+		 */
 	}
 
 	// SendGenreButton, SendArtistButton and SendAlbumButton sends data to
@@ -192,6 +229,13 @@ public class RequestFormsController {
 
 	@FXML
 	void SendAlbumButton(ActionEvent event) {
+		//ArtistList.add(field.getText().toString());
+		int i = 0;
+		System.out.print(Arrays.toString(ArtistList.toArray()));
+		for (i = 0; i < ArtistList.size(); i++) {
+			 System.out.print(i); 
+			 }
+			 
 		String[] genreListGiven = { "Funk" };
 		String[] artistName = { "Anna Puu" };
 		String[] songListGiven = { "Testi2" };

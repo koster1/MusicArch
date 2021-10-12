@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUIController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="500.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUIController">
    <children>
       <Label layoutX="126.0" layoutY="59.0" prefHeight="27.0" prefWidth="171.0" text="Albumin lisäys" AnchorPane.topAnchor="59.0">
          <font>
@@ -22,7 +22,7 @@
       <TextField id="TxtFields" fx:id="Released" layoutX="116.0" layoutY="165.0" prefHeight="30.0" prefWidth="222.0" AnchorPane.leftAnchor="116.0" />
       <Label layoutX="114.0" layoutY="201.0" text="Genret" AnchorPane.leftAnchor="114.0" />
       <TextField id="TxtFields" fx:id="GenreName" layoutX="115.0" layoutY="219.0" prefHeight="30.0" prefWidth="222.0" AnchorPane.leftAnchor="115.0" />
-      <Label layoutX="33.0" layoutY="216.0" prefHeight="18.0" prefWidth="90.0" text="Artistin nimi" AnchorPane.leftAnchor="33.0" />
+      <Label layoutX="116.0" layoutY="249.0" prefHeight="18.0" prefWidth="90.0" text="Artistin nimi" AnchorPane.leftAnchor="116.0" />
       <TextField id="TxtFields" fx:id="ArtistName" layoutX="116.0" layoutY="266.0" prefHeight="30.0" prefWidth="220.0" AnchorPane.leftAnchor="116.0" />
       <Button id="PlusButtons" fx:id="NewArtist" layoutX="363.0" layoutY="266.0" mnemonicParsing="false" onAction="#NewArtist" prefHeight="30.0" prefWidth="30.0" text="+" />
       <ScrollPane layoutX="126.0" layoutY="296.0" prefHeight="65.0" prefWidth="220.0">
@@ -30,7 +30,7 @@
             <VBox fx:id="root" prefHeight="66.0" prefWidth="202.0" />
          </content>
       </ScrollPane>
-      <Button fx:id="save" layoutX="403.0" layoutY="268.0" mnemonicParsing="false" text="Save" />
+      <Button fx:id="save" layoutX="363.0" layoutY="316.0" mnemonicParsing="false" text="Save" />
       <Label layoutX="120.0" layoutY="368.0" text="Kappaleet" AnchorPane.leftAnchor="120.0" />
       <TextField id="TxtFields" fx:id="Songs" layoutX="120.0" layoutY="386.0" prefHeight="30.0" prefWidth="220.0" AnchorPane.leftAnchor="120.0" />
       <Button id="PlusButtons" layoutX="363.0" layoutY="386.0" mnemonicParsing="false" onAction="#NewSong" prefHeight="30.0" prefWidth="30.0" text="+" />

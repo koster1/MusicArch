@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUIController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="500.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUIController">
    <children>
       <Label fx:id="GenreAddTitle" layoutX="131.0" layoutY="61.0" text="Artistin lisäys" AnchorPane.topAnchor="60.0">
          <font>
@@ -19,7 +19,7 @@
       <TextField id="TxtFields" fx:id="ArtistsName" layoutX="131.0" layoutY="136.0" prefHeight="26.0" prefWidth="238.0" />
       <Label layoutX="131.0" layoutY="186.0" text="Kirjoita artistille biografia" />
       <TextArea id="TxtFields" fx:id="Biografia" layoutX="134.0" layoutY="219.0" prefHeight="182.0" prefWidth="238.0" />
-      <Button id="Send" layoutX="289.0" layoutY="443.0" maxWidth="80.0" mnemonicParsing="false" onAction="#SendArtistButton" prefHeight="20.0" prefWidth="80.0" text="Lähetä" />
+      <Button layoutX="289.0" layoutY="443.0" maxWidth="80.0" mnemonicParsing="false" onAction="#SendArtistButton" prefHeight="20.0" prefWidth="80.0" text="Lähetä" />
    </children>
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
