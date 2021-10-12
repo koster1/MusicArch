@@ -194,7 +194,6 @@ public class GUIController {
 	 @FXML
 	 void refreshSearchList(KeyEvent event) {
 		 
-		 
 		int menuCounter = 0;
 		List<String> strippedList = new ArrayList<String>();
 		SearchBox.setContextMenu(searchContext);	

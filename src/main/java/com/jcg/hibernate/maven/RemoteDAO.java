@@ -290,64 +290,9 @@ public class RemoteDAO {
 				transAct.rollback();
 			throw e;
 		}
-	}
-
-	public boolean createAlbum(Album album, Artist artist, Genre genre) throws Exception {
-		System.out.println("Before readAlbums");
-		Album[] albumSearch = readAlbums();	
-		System.out.println("After readAlbums");
-		//First loop to check whether a given genre is already found within the database
-		for(int i = 0; i < albumSearch.length; i++) {
-			System.out.println("For loop " + i + " " + albumSearch.length);
-			System.out.println(albumSearch[i].getAlbumName() + " albumSearch");
-			System.out.println(album.getAlbumName() + " Album");
-			if(albumSearch[i].getAlbumName().equals(album.getAlbumName())) {
-				System.out.println("Throwing exception");
-				throw new Exception("This Album already exists!");
-			}
-		}
-		Transaction transAct = null;	
-		try(Session session = sessionFactory.openSession()){
-			transAct = session.beginTransaction();
-			System.out.println("Before saveOrUpdate");
-//			session.saveOrUpdate(album);	
-			System.out.println("After saveOrUpdate");
-//			System.out.println(album2.getAlbumName() + " albumYear " + album2.getAlbumYear() + album2.getAlbumID());
-//			session.saveOrUpdate(album2);
-//			transAct.commit();
-//			Album album3 = (Album)session.load(Album.class, searchAlbum(album2.getAlbumName()).get(0).getAlbumID());
-			
-//			Genre persistentGenre = (Genre)session.load(Genre.class, genre.getGenreID());
-//			System.out.println("Genrecopy: " + persistentGenre.getGenreID() + " " + persistentGenre.getGenreName());
-			System.out.println("before genreaddalbum ");
-//			genre.addAlbum(album);
-//			album.addArtist(artist);
-//			genre.addAlbum(album);
-//			session.saveOrUpdate(genre);
-			Artist artist2 = (Artist)session.load(Artist.class, artist.getArtistID());
-			artist2.addAlbum(album);
-			session.update(artist2);
-			Genre genre2 = (Genre)session.load(Genre.class, genre.getGenreID());
-			genre2.addAlbum(album);
-			session.update(genre2);
-			System.out.println("test exceptioncopy");
-			
-
-			transAct.commit();
-			System.out.println("After Commit");
-			session.close();
-			return true;
-		}catch(Exception e) {
-			if(transAct != null) 
-				transAct.rollback();
-			throw e;			
-		}
-	}
-
-		
-		
+	}		
 	
-	public boolean createAlbum2(Album album, List<Artist> artistList, List<Genre> genreList) throws Exception {
+	public boolean createAlbum(Album album, List<Artist> artistList, List<Genre> genreList) throws Exception {
 		System.out.println("Before readAlbums");
 		Album[] albumSearch = readAlbums();	
 		System.out.println("After readAlbums");
