@@ -46,6 +46,12 @@
 }
 
 
+/* Kaikki tekstikentät */
+#TxtFields {
+-fx-font-size: 17.5px;
+
+}
+
 /* Kaikki lähetysnapit */
 #Send {
 	

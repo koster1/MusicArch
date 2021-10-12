@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Optional;
 import com.jcg.hibernate.maven.*;
 
+import com.jcg.hibernate.maven.Album;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -129,9 +131,8 @@ public class RequestFormsController {
 		view.showArtistForm();
 	}
 
-	private Button save;
-	//List<Artist> ArtistList = new ArrayList<Artist>();
-	ArrayList<TextField> artistList = new ArrayList<TextField>();
+	List<Artist> ArtistList = new ArrayList<Artist>();
+	ArrayList<TextField> artistList1 = new ArrayList<TextField>();
 	int counter = 0;
 
 	@FXML
@@ -141,7 +142,7 @@ public class RequestFormsController {
 		final HBox parent = new HBox(5.0);
 		field.setId(String.valueOf(counter++));
 		System.out.print(field.getId());
-		artistList.add(field);
+		artistList1.add(field);
 		System.out.println(field.getId());
 		// ArtistList.add(field.getId());
 		Button button = new Button("-");
@@ -260,16 +261,16 @@ public class RequestFormsController {
 		// ArtistList.add(field.getText().toString());
 		int i = 0;
 
-		/*for (i = 0; i < ArtistList.size(); i++) {
+		for (i = 0; i < ArtistList.size(); i++) {
 			System.out.print(" HALOO " + i);
-		}*/
-		String[] artistName = new String[artistList.size()];
+		}
+		String[] artistName = new String[artistList1.size()];
 
-		for (TextField textfield : artistList) {
+		for (TextField textfield : artistList1) {
 			int j = 0;
 			System.out.println("Testataan listaa " + textfield.getId());
 			System.out.println(textfield.getText());
-			artistName[i] = textfield.getText();
+			artistName[j] = textfield.getText();
 		}
 
 		
@@ -278,6 +279,7 @@ public class RequestFormsController {
 //	  String albumName = AlbumName.getText();
 		controller.createAlbum(AlbumName.getText(), Integer.parseInt(Released.getText()), genreListGiven, artistName,
 				songListGiven);
+
 
 	}
 

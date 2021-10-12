@@ -39,6 +39,9 @@ public class AlbumPageController {
 
 	    @FXML
 	    private Button CollectionAdd;
+	    
+	    @FXML
+	    private Button BackButton;
 
 	    @FXML
 	    private ListView<?> AlbumPageListView;
@@ -54,7 +57,7 @@ public class AlbumPageController {
 		
 		
 		
-		AlbumName.setText("Wish You Were Here");
+		AlbumName.setText("");
 		AlbumYear.setText("1975");
 		AlbumArtist.setText("Pink Floyd");
 		AlbumGenre.setText("Progressive Rock");
