@@ -39,12 +39,18 @@ public class AlbumPageController {
 
 	    @FXML
 	    private Button CollectionAdd;
+	    
+	    @FXML
+	    private Button BackButton;
 
 	    @FXML
 	    private ListView<?> AlbumPageListView;
+	    
+	    int id;
 	
-	public AlbumPageController(Controller controller) {
+	public AlbumPageController(Controller controller, int id) {
 		this.controller = controller;
+		this.id = id;
 	}
 	
 	@FXML
@@ -52,9 +58,10 @@ public class AlbumPageController {
 		// Build the listview
 		System.out.println("You are in Album page");
 		
+		System.out.println("Frontpage id=" + this.id);
 		
 		
-		AlbumName.setText("Wish You Were Here");
+		AlbumName.setText("");
 		AlbumYear.setText("1975");
 		AlbumArtist.setText("Pink Floyd");
 		AlbumGenre.setText("Progressive Rock");

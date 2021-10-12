@@ -9,25 +9,43 @@
 /*Päänäkymän elementtejä */
 #root {
 -fx-background-color: #404040;
--fx-font-size: 17.5px;
--fx-text-fill: #ffff33;
+-fx-text-fill: orange;
 -fx-accent: red;
+
+-fx-focus-color: yellow;
+-fx-faint-focus-color: yellow;
+
+}
+
+.tab-pane{
+	
+}
+.root {
+-fx-accent: orange;
+-fx-focus-color: orange;
 
 }
 #Buttonbarbuttons {
 -fx-text-fill: orange;
-}
+-fx-faint-focus-color: yellow;
+-fx-focus-color:orange;
 
+}
+#Buttonbarbuttons:focused {
+-fx-faint-focus-color: yellow;
+-fx-focus-color:orange; 
+}
 /*Lisäyssivusta löytyviä elementtejä */
 #RequestDrops {
--fx-body-color: #404040;
--fx-font-size: 17.5px;
+-fx-background-color: #404040;
 -fx-text-fill: #ffff33;
 }
 /*Albumilomakkeen txtfieldien lisäysnapit */
 #PlusButtons {
 	
 }
+
+
 /* Kaikki tekstikentät */
 #TxtFields {
 -fx-font-size: 17.5px;
@@ -39,20 +57,65 @@
 	
 }
 
+.text-area {
+-fx-border-color: #404040;
+-fx-border-radius:1%;
+
+	
+}
+/* Kaikki tekstikentät */
+.text-field {
+-fx-border-color: #404040;
+-fx-border-radius:1%;
+
+}
+.text-field:focused {
+	-fx-focus-color: orange;
+-fx-faint-focus-color: yellow;
+}
+.text-area:focused {
+	-fx-focus-color: orange;
+-fx-faint-focus-color: yellow;
+}
+.label {
+	
+}
+.button {
+-fx-text-fill: orange;
+-fx-background-color: #404040;
+-fx-border-radius:5%;	
+
+}
+.button:focused {
+-fx-faint-focus-color: orange;
+-fx-focus-color: orange;
+-fx-border-color: -fx-faint-focus-color; 
+
+}
+.scroll-pane.decrement-button {
+	-fx-background-color: transparent;
+}
+
+/* */
 #root2 {
--fx-font-size: 17.5px;
--fx-text-fill: #ffff33;
+-fx-text-fill: orange;
+-fx-body-color: #404040;
+
 }
 
 Text {
--fx-font-size: 17.5px;
 -fx-text-fill: orange;
 }
 
 #labels {
--fx-font-size: 16px;
-}
 
-#listView {
-	-fx-font-size: 1.5em;
 }
+#listView {
+-fx-font-size: 1.5em;
+
+}
+#scroll{
+	-fx-border-color: #404040;
+	-fx-background-color: white;
+}
+/* */

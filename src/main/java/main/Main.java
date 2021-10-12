@@ -30,12 +30,26 @@ import view.*;
 
 public class Main {
 	public static void main(String args[]) {
+		RemoteDAO dao = new RemoteDAO();
+		View.main(args);
+	/*	List<Album> testList = dao.genreAlbums(2);
+		for(int i = 0; i < testList.size(); i++) {
+			System.out.println("WOOOW" + testList.get(i).getAlbumYear());
+		}
+		List<Album> artistList = dao.artistAlbums(1);
+		for(int i = 0; i<artistList.size(); i++) {
+			System.out.println("Artistsss"+artistList.get(i).getAlbumName());*/
+		
 //		RemoteDAO dao = new RemoteDAO();
 		
-		View.main(args);
 		/*
+<<<<<<< HEAD
 		
 		
+=======
+
+
+>>>>>>> branch 'master' of https://gitlab.metropolia.fi/janiap/MusicArch.git
 //		LocalDAO localDAO = new LocalDAO();
 //		LocalGenre localGenre = new LocalGenre();
 //		localGenre.setGenreID(4);
@@ -66,8 +80,12 @@ public class Main {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'master' of https://gitlab.metropolia.fi/janiap/MusicArch.git
 		
+>>>>>>> refs/heads/master
 		// These are used in the testing of album creation. Created 10.10.2021 (worked)
 //		LocalDAO lDAO = new LocalDAO();
 //		
