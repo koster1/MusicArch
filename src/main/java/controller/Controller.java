@@ -82,7 +82,7 @@ public class Controller {
 						linkGenre.add(genre);
 					}
 					System.out.println("toimiiko? controller createAlbum");
-					newAlbum.addGenre(remoteDAO.searchGenre(genreListGiven[i]));
+//					newAlbum.addGenre(remoteDAO.searchGenre(genreListGiven[i]));
 //					linkGenre = (Genre) remoteDAO.searchGenre(genreListGiven[i]);
 
 //	        		newAlbum.addGenre(linkGenre);
@@ -119,8 +119,8 @@ public class Controller {
     				gemre.setGenreName("uusiTestiGenre");
 //    				
 //    				remoteDAO.createAlbum(newAlbum, artist, genre);
-//    				remoteDAO.createAlbum2(newAlbum, artist, genre);
-    				remoteDAO.addAlbumGenre(newAlbum, artist, genre);
+    				remoteDAO.createAlbum2(newAlbum, linkArtist, linkGenre);
+//    				remoteDAO.addAlbumGenre(newAlbum, artist, genre);
 //    				remoteDAO.createAlbum(newAlbum, genre, artist);
 //    				System.out.println("Created an Album successfully!");
     				
