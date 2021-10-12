@@ -60,8 +60,8 @@ public class AlbumPageController {
 		
 		AlbumName.setText(album.getAlbumName());
 		AlbumYear.setText(String.valueOf(album.getAlbumYear()));
-//		AlbumArtist.setText(String.valueOf(album.getAlbumArtists()));
-//		AlbumGenre.setText((album.getAlbumGenres()));
+		AlbumArtist.setText(String.valueOf(album.getAlbumArtists()));
+		AlbumGenre.setText((album.getAlbumGenres()));
 		
 		//AlbumPageListView.setAccessibleText(album.getAlbumSongs());
 		
