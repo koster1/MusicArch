@@ -130,18 +130,18 @@ public class RequestFormsController {
 	}
 
 	private Button save;
-	List<Artist> ArtistList = new ArrayList<Artist>();
-	ArrayList<TextField> list = new ArrayList<TextField>();
-		int counter = 0;
+	//List<Artist> ArtistList = new ArrayList<Artist>();
+	ArrayList<TextField> artistList = new ArrayList<TextField>();
+	int counter = 0;
 
 	@FXML
 	void NewArtist(ActionEvent event) {
-		//String.valueOf(counter++);
+		// String.valueOf(counter++);
 		TextField field = new TextField();
 		final HBox parent = new HBox(5.0);
 		field.setId(String.valueOf(counter++));
 		System.out.print(field.getId());
-		list.add(field);
+		artistList.add(field);
 		System.out.println(field.getId());
 		// ArtistList.add(field.getId());
 		Button button = new Button("-");
@@ -155,23 +155,26 @@ public class RequestFormsController {
 
 	}
 
+	int counter2 = 0;
+	ArrayList<TextField> genreList = new ArrayList<TextField>();
+
 	@FXML
 	void NewGenre(ActionEvent event) {
-		int counter = 0;
 
-		TextField genrefield = new TextField();
+		TextField field = new TextField();
 		final HBox parent = new HBox(5.0);
-		genrefield.setId("" + counter++);
-		System.out.print(genrefield.getId());
-
-		// ArtistList.add(genrefield.getId());
+		field.setId(String.valueOf(counter2++));
+		System.out.print(field.getId());
+		genreList.add(field);
+		System.out.println(field.getId());
+		// ArtistList.add(field.getId());
 		Button button = new Button("-");
-		genrefield.setAlignment(Pos.CENTER_LEFT);
+		field.setAlignment(Pos.CENTER_LEFT);
 		button.setAlignment(Pos.CENTER_RIGHT);
 		button.setOnAction((e) -> parent.getChildren().clear());
-		HBox.setHgrow(genrefield, Priority.ALWAYS);
+		HBox.setHgrow(field, Priority.ALWAYS);
 		HBox.setHgrow(button, Priority.NEVER);
-		parent.getChildren().setAll(genrefield, button);
+		parent.getChildren().setAll(field, button);
 		root2.getChildren().add(parent);
 	}
 
@@ -256,19 +259,19 @@ public class RequestFormsController {
 	void SendAlbumButton(ActionEvent event) {
 		// ArtistList.add(field.getText().toString());
 		int i = 0;
-		// System.out.print(Arrays.toString(ArtistList.toArray()));
-		for (i = 0; i < ArtistList.size(); i++) {
-			System.out.print(" HALOO " + i);
-		}		
-		String[] artistName = new String[list.size()] ;
 
-		for (TextField textfield : list) {
+		/*for (i = 0; i < ArtistList.size(); i++) {
+			System.out.print(" HALOO " + i);
+		}*/
+		String[] artistName = new String[artistList.size()];
+
+		for (TextField textfield : artistList) {
 			int j = 0;
 			System.out.println("Testataan listaa " + textfield.getId());
 			System.out.println(textfield.getText());
 			artistName[i] = textfield.getText();
 		}
-		
+
 		String[] genreListGiven = { "Funk" };
 		String[] songListGiven = { "Testi2" };
 //	  String albumName = AlbumName.getText();
