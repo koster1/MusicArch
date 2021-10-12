@@ -32,14 +32,14 @@ public class Main {
 	public static void main(String args[]) {
 		RemoteDAO dao = new RemoteDAO();
 		View.main(args);
-		List<Album> testList = dao.genreAlbums(2);
+	/*	List<Album> testList = dao.genreAlbums(2);
 		for(int i = 0; i < testList.size(); i++) {
 			System.out.println("WOOOW" + testList.get(i).getAlbumYear());
 		}
 		List<Album> artistList = dao.artistAlbums(1);
 		for(int i = 0; i<artistList.size(); i++) {
-			System.out.println("Artistsss"+artistList.get(i).getAlbumName());
-		}
+			System.out.println("Artistsss"+artistList.get(i).getAlbumName());*/
+		
 //		RemoteDAO dao = new RemoteDAO();
 		
 		/*

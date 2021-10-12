@@ -132,7 +132,7 @@ public class RequestFormsController {
 	}
 
 	List<Artist> ArtistList = new ArrayList<Artist>();
-	ArrayList<TextField> artistList1 = new ArrayList<TextField>();
+	ArrayList<TextField> artistList = new ArrayList<TextField>();
 	int counter = 0;
 
 	@FXML
@@ -142,7 +142,7 @@ public class RequestFormsController {
 		final HBox parent = new HBox(5.0);
 		field.setId(String.valueOf(counter++));
 		System.out.print(field.getId());
-		artistList1.add(field);
+		artistList.add(field);
 		System.out.println(field.getId());
 		// ArtistList.add(field.getId());
 		Button button = new Button("-");
@@ -178,24 +178,26 @@ public class RequestFormsController {
 		parent.getChildren().setAll(field, button);
 		root2.getChildren().add(parent);
 	}
+		int counter3 = 0;
+		ArrayList<TextField> songList = new ArrayList<TextField>();
 
 	@FXML
 	void NewSong(ActionEvent event) {
-		int counter = 0;
 
-		TextField songfield = new TextField();
+		TextField field = new TextField();
 		final HBox parent = new HBox(5.0);
-		songfield.setId("" + counter++);
-		System.out.print(songfield.getId());
-
-		// ArtistList.add(songfield.getId());
+		field.setId(String.valueOf(counter3++));
+		System.out.print(field.getId());
+		songList.add(field);
+		System.out.println(field.getId());
+		// ArtistList.add(field.getId());
 		Button button = new Button("-");
-		songfield.setAlignment(Pos.CENTER_LEFT);
+		field.setAlignment(Pos.CENTER_LEFT);
 		button.setAlignment(Pos.CENTER_RIGHT);
 		button.setOnAction((e) -> parent.getChildren().clear());
-		HBox.setHgrow(songfield, Priority.ALWAYS);
+		HBox.setHgrow(field, Priority.ALWAYS);
 		HBox.setHgrow(button, Priority.NEVER);
-		parent.getChildren().setAll(songfield, button);
+		parent.getChildren().setAll(field, button);
 		root1.getChildren().add(parent);
 	}
 
@@ -254,33 +256,51 @@ public class RequestFormsController {
 			}
 		}
 
+		
 	};
 
 	@FXML
 	void SendAlbumButton(ActionEvent event) {
 		// ArtistList.add(field.getText().toString());
-		int i = 0;
+		//int i = 0;
 
-		for (i = 0; i < ArtistList.size(); i++) {
-			System.out.print(" HALOO " + i);
+		
+		String[] genreListGiven = new String[genreList.size()];
+		int k= 0;
+		for (TextField textfield : genreList) {
+			System.out.println("Testataan listaa " + textfield.getId());
+			System.out.println(textfield.getText());
+			genreListGiven[k] = textfield.getText();
+			k++;
 		}
-		String[] artistName = new String[artistList1.size()];
+		for (String string: genreListGiven) {
+			System.out.print("----------------------------- "+string);
+		}
+		
+		
+		String[] artistName = new String[artistList.size()];
+		int j = 0;
 
-		for (TextField textfield : artistList1) {
-			int j = 0;
+		for (TextField textfield : artistList) {
 			System.out.println("Testataan listaa " + textfield.getId());
 			System.out.println(textfield.getText());
 			artistName[j] = textfield.getText();
+			j++;
+		}
+		
+		String[] songListGiven = new String[songList.size()];
+
+		int h= 0;
+		for (TextField textfield : songList) {
+			System.out.println("Testataan listaa " + textfield.getId());
+			System.out.println(textfield.getText());
+			songListGiven[h] = textfield.getText();
+			h++;
 		}
 
-		
-		String[] genreListGiven = { "Funk" };
-		String[] songListGiven = { "Testi2" };
-//	  String albumName = AlbumName.getText();
-		controller.createAlbum(AlbumName.getText(), Integer.parseInt(Released.getText()), genreListGiven, artistName,
-				songListGiven);
-
+		controller.createAlbum(AlbumName.getText(), Integer.parseInt(Released.getText()), genreListGiven, artistName, songListGiven);
+		}
 
 	}
 
-}
+

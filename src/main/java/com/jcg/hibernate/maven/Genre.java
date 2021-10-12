@@ -31,9 +31,9 @@ public class Genre  {
 
 	@Column(name = "GenreName")
 	private String genreName;
-
+	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
-			@JoinTable(name = "AlbumGenres", joinColumns = { 
+	@JoinTable(name = "AlbumGenres", joinColumns = { 
 			@JoinColumn(name = "GenreID") }, inverseJoinColumns = {
 			@JoinColumn(name = "AlbumID") })
 	private List<Album> genreAlbums;
@@ -53,7 +53,6 @@ public class Genre  {
 	public void setGenreName(String genreName) {
 		this.genreName = genreName;
 	}
-
 
 	public List<Album> getGenreAlbums() {
 		return genreAlbums;

@@ -119,7 +119,7 @@ public class Controller {
     				gemre.setGenreName("uusiTestiGenre");
 //    				
 //    				remoteDAO.createAlbum(newAlbum, artist, genre);
-    				remoteDAO.createAlbum(newAlbum, linkArtist, linkGenre);
+    				remoteDAO.createAlbum2(newAlbum, linkArtist, linkGenre);
 //    				remoteDAO.addAlbumGenre(newAlbum, artist, genre);
 //    				remoteDAO.createAlbum(newAlbum, genre, artist);
 //    				System.out.println("Created an Album successfully!");
