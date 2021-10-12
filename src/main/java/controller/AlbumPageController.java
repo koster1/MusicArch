@@ -55,14 +55,15 @@ public class AlbumPageController {
 		// Build the listview
 		System.out.println("You are in Album page");
 		
+		Album album = controller.getAlbum(19);
 		
 		
-		AlbumName.setText("");
-		AlbumYear.setText("1975");
-		AlbumArtist.setText("Pink Floyd");
-		AlbumGenre.setText("Progressive Rock");
+		AlbumName.setText(album.getAlbumName());
+		AlbumYear.setText(String.valueOf(album.getAlbumYear()));
+//		AlbumArtist.setText(String.valueOf(album.getAlbumArtists()));
+//		AlbumGenre.setText((album.getAlbumGenres()));
 		
-		AlbumPageListView.setAccessibleText("test");
+		//AlbumPageListView.setAccessibleText(album.getAlbumSongs());
 		
 	}
 	
