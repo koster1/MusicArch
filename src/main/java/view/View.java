@@ -73,8 +73,8 @@ public class View extends Application {
 		this.primaryStage.setTitle("MusicArch");
 		showHome();
 		
-		showFrontPage();
-//		showAlbumPage();
+//	 	showFrontPage();
+		showAlbumPage();
 
 	}
 

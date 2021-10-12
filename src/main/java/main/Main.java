@@ -34,8 +34,10 @@ public class Main {
 		
 		View.main(args);
 		/*
-
-
+=======
+		
+		
+<<<<<<< HEAD
 //		LocalDAO localDAO = new LocalDAO();
 //		LocalGenre localGenre = new LocalGenre();
 //		localGenre.setGenreID(4);
@@ -51,6 +53,9 @@ public class Main {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
+//		
+=======
+>>>>>>> branch 'master' of https://gitlab.metropolia.fi/janiap/MusicArch.git
 		LocalDAO localDAO = new LocalDAO();
 		LocalGenre localGenre = new LocalGenre();
 		localGenre.setGenreID(4);
