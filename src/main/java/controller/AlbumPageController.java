@@ -57,7 +57,7 @@ public class AlbumPageController {
 		
 		
 		
-		AlbumName.setText("Wish You Were Here");
+		AlbumName.setText("");
 		AlbumYear.setText("1975");
 		AlbumArtist.setText("Pink Floyd");
 		AlbumGenre.setText("Progressive Rock");
