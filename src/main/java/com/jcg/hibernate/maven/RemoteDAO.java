@@ -368,8 +368,8 @@ public class RemoteDAO {
 		Transaction transAct = null;
 		try (Session session = sessionFactory.openSession()) {
 			transAct = session.beginTransaction();
+			
 			@SuppressWarnings("unchecked")
-
 			List<Album> result = (List<Album>) session.createQuery("from Album").list();
 			System.out.println("After album query ");
 			transAct.commit();
