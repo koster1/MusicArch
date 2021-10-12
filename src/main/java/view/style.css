@@ -28,6 +28,7 @@
 }
 /* Kaikki tekstikentät */
 #TxtFields {
+	
 }
 
 /* Kaikki lähetysnapit */
@@ -42,11 +43,10 @@
 
 Text {
 -fx-text-fill: orange;
+-fx-text-size:17.0;
 }
 
 #labels {
-
--fx-font-size: 14px;
 -fx-font-size: 16px;
 }
 #listView {

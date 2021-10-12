@@ -13,12 +13,12 @@
         <buttons>
             <AnchorPane id="root" nodeOrientation="LEFT_TO_RIGHT" prefHeight="68.0" prefWidth="9000">
                <children>
-                  <TextField id="TxtFields" fx:id="SearchBox" layoutX="789.0" layoutY="11.0" prefHeight="26.0" prefWidth="268.0" AnchorPane.rightAnchor="133.4000000000001" />
-                <Button id="root" fx:id="Help" layoutX="296.0" layoutY="16.0" maxWidth="150.0" minHeight="-Infinity" minWidth="100.0" mnemonicParsing="false" onAction="#GoHelpPage" text="Ohje" />
-                  <Button id="root" fx:id="Requests" layoutX="213.0" layoutY="16.0" maxWidth="150.0" minHeight="-Infinity" minWidth="100.0" mnemonicParsing="false" onAction="#ShowRequests" text="Lisäyspyynnöt" />
 
                   <Button id="root" fx:id="FrontPage" layoutX="31.0" layoutY="16.0" maxWidth="150.0" minHeight="-Infinity" minWidth="100.0" mnemonicParsing="false" onAction="#goFrontPage" text="Etusivu" />
                   <Button id="root" fx:id="UserCollection" layoutX="127.0" layoutY="16.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#goUserCollection" text="Kokoelma" />
+                  <Button id="root" fx:id="Requests" layoutX="213.0" layoutY="16.0" maxWidth="150.0" minHeight="-Infinity" minWidth="100.0" mnemonicParsing="false" onAction="#ShowRequests" text="Lisäyspyynnöt" />
+                <Button id="root" fx:id="Help" layoutX="296.0" layoutY="16.0" maxWidth="150.0" minHeight="-Infinity" minWidth="100.0" mnemonicParsing="false" onAction="#GoHelpPage" text="Ohje" />
+                  <TextField id="TxtFields" fx:id="SearchBox" layoutX="789.0" layoutY="11.0" prefHeight="26.0" prefWidth="268.0" AnchorPane.rightAnchor="133.4000000000001" />
                   <Button id="root" fx:id="SearchButton" layoutX="1083.0" layoutY="11.0" mnemonicParsing="false" onAction="#goSearchPage" text="Hae" AnchorPane.rightAnchor="52.20000000000009" />
                </children>
             </AnchorPane>
