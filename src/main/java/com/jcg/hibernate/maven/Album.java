@@ -35,7 +35,7 @@ public class Album {
 	@Column(name = "AlbumYear")
 	private int albumYear;
 
-	@ManyToMany(fetch=FetchType.EAGER,
+	@ManyToMany(fetch=FetchType.LAZY,
 			cascade={CascadeType.ALL})
 	@JoinTable(
 			name="AlbumGenres",
