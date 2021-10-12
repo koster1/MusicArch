@@ -59,6 +59,8 @@ public class AlbumPageController {
 		AlbumArtist.setText("Pink Floyd");
 		AlbumGenre.setText("Progressive Rock");
 		
+		AlbumPageListView.setAccessibleText("test");
+		
 	}
 	
 	
