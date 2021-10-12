@@ -11,7 +11,7 @@
    <children>
       <TextField id="TxtFields" fx:id="Released" layoutX="82.0" layoutY="363.0" prefHeight="37.0" prefWidth="250.0" />
       <Label id="labels" fx:id="Year" layoutX="82.0" layoutY="345.0" prefHeight="18.0" prefWidth="122.0" text="Julkaisuvuosi" />
-      <Button id="Send" layoutX="570.0" layoutY="476.0" maxWidth="80.0" mnemonicParsing="false" onAction="#SendAlbumButton" prefHeight="20.0" prefWidth="80.0" text="Lähetä" />
+      <Button id="Send" layoutX="500.0" layoutY="213.0" maxWidth="80.0" mnemonicParsing="false" onAction="#SendAlbumButton" prefHeight="20.0" prefWidth="80.0" text="Lähetä" />
       <Label id="labels" fx:id="AlbumTitle" layoutX="79.0" layoutY="34.0" prefHeight="27.0" prefWidth="207.0" text="Albumin lisäys">
          <font>
             <Font name="System Bold" size="18.0" />
@@ -19,8 +19,8 @@
       </Label>
       <TextField id="TxtFields" fx:id="AlbumName" layoutX="79.0" layoutY="175.0" prefHeight="30.0" prefWidth="250.0" />
       <Label id="labels" layoutX="79.0" layoutY="158.0" text="Albumin nimi" />
-      <TextField id="TxtFields" fx:id="ArtistName" layoutX="79.0" layoutY="100.0" prefHeight="30.0" prefWidth="250.0" />
-      <Label id="labels" layoutX="79.0" layoutY="75.0" prefHeight="18.0" prefWidth="250.0" text="Artistin nimi" />
+      <TextField id="TxtFields" fx:id="ArtistName" layoutX="79.0" layoutY="100.0" prefHeight="30.0" prefWidth="250.0" text="gfdgfdgdsfgdgsggdsf" />
+      <Label layoutX="79.0" layoutY="75.0" prefHeight="18.0" prefWidth="250.0" text="Artistin nimi" />
       <Label id="labels" layoutX="79.0" layoutY="453.0" text="Kappaleet" />
       <TextField id="TxtFields" fx:id="Songs" layoutX="82.0" layoutY="469.0" prefHeight="30.0" prefWidth="250.0" />
       <Button id="PlusButtons" layoutX="342.0" layoutY="471.0" mnemonicParsing="false" onAction="#NewSong" prefHeight="30.0" prefWidth="30.0" text="+" />

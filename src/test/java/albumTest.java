@@ -1,4 +1,4 @@
-package albumCreation;
+
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -44,7 +44,7 @@ public class albumTest {
 		Album testAlbum = new Album();
 		testAlbum.setAlbumName(givenAlbumTitle);
 		testAlbum.setAlbumYear(1234);
-		rDAO.createAlbum(testAlbum, null, null);
+		rDAO.createAlbum(testAlbum, "test", "test");
 		System.out.println("This is the Album we are deleting -> "+rDAO.searchAlbum(givenAlbumTitle).getAlbumName());
 		rDAO.removeAlbum(rDAO.searchAlbum(givenAlbumTitle).getAlbumID());
 		assertThrows(Exception.class, () -> {

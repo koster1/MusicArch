@@ -132,8 +132,6 @@ public class RemoteDAO {
 			Query query = session.createQuery("From Genre where genreName =:name");
 			List<Genre> genreList = query.setParameter("name", genreSearch).list();
 			System.out.println("The genre search result was -> "+genreList.get(0).getGenreName());
-			
-			
 			if (genreList.size() == 0) {
 				throw new Exception("Nothing found!");
 			}
@@ -294,7 +292,7 @@ public class RemoteDAO {
 		}
 	}
 
-	public boolean createAlbum(Album album, Genre genre, Artist artist) throws Exception {
+	public boolean createAlbum(Album album, Artist artist, Genre genre) throws Exception {
 		System.out.println("Before readAlbums");
 		Album[] albumSearch = readAlbums();	
 		System.out.println("After readAlbums");
@@ -308,7 +306,6 @@ public class RemoteDAO {
 				throw new Exception("This Album already exists!");
 			}
 		}
-		
 		Transaction transAct = null;	
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();
@@ -320,31 +317,25 @@ public class RemoteDAO {
 //			transAct.commit();
 //			Album album3 = (Album)session.load(Album.class, searchAlbum(album2.getAlbumName()).get(0).getAlbumID());
 			
-			System.out.println("Before new loops" + album.getAlbumID());
+//			Genre persistentGenre = (Genre)session.load(Genre.class, genre.getGenreID());
+//			System.out.println("Genrecopy: " + persistentGenre.getGenreID() + " " + persistentGenre.getGenreName());
+			System.out.println("before genreaddalbum ");
+//			genre.addAlbum(album);
+//			album.addArtist(artist);
+//			genre.addAlbum(album);
+//			session.saveOrUpdate(genre);
+			Artist artist2 = (Artist)session.load(Artist.class, artist.getArtistID());
+			artist2.addAlbum(album);
+			session.update(artist2);
+			Genre genre2 = (Genre)session.load(Genre.class, genre.getGenreID());
+			genre2.addAlbum(album);
+			session.update(genre2);
+			System.out.println("test exceptioncopy");
 			
-			genre.addAlbum(album);
-			session.saveOrUpdate(genre);
-//			for(Genre genre : genreList) {
-////				Genre persistentGenre = (Genre)session.load(Genre.class, genre.getGenreID());
-//				Genre tempGenre = new Genre();
-//				tempGenre = genre;
-//				tempGenre.addAlbum(album);
-//				System.out.println("genre loopppi ");
-//				System.out.println("Genre loop " + tempGenre.getGenreName());
-//				session.saveOrUpdate(tempGenre);
-//				System.out.println("Genre loop after save");
-//			}
-//			
-//			for(Artist artist : artistList) {
-////				Artist persistentArtist = (Artist)session.load(Artist.class, artist.getArtistID());
-//				Artist tempArtist = new Artist();
-//				tempArtist = artist;
-//				tempArtist.addAlbum(album);
-//				System.out.println("artist loop " + tempArtist.getArtistName());
-//				session.saveOrUpdate(tempArtist);
-//				System.out.println("Artist loop after save");
-//			}
+
 			transAct.commit();
+			System.out.println("After Commit");
+			session.close();
 			return true;
 		}catch(Exception e) {
 			if(transAct != null) 
@@ -352,6 +343,85 @@ public class RemoteDAO {
 			throw e;			
 		}
 	}
+
+		
+		
+	
+	public boolean createAlbum2(Album album, List<Artist> artistList, List<Genre> genreList) throws Exception {
+		System.out.println("Before readAlbums");
+		Album[] albumSearch = readAlbums();	
+		System.out.println("After readAlbums");
+		//First loop to check whether a given genre is already found within the database
+		for(int i = 0; i < albumSearch.length; i++) {
+			System.out.println("For loop " + i + " " + albumSearch.length);
+			System.out.println(albumSearch[i].getAlbumName() + " albumSearch");
+			System.out.println(album.getAlbumName() + " Album");
+			if(albumSearch[i].getAlbumName().equals(album.getAlbumName())) {
+				System.out.println("Throwing exception");
+				throw new Exception("This Album already exists!");
+			}
+		}
+		Transaction transAct = null;	
+		try(Session session = sessionFactory.openSession()){
+			transAct = session.beginTransaction();
+
+			System.out.println("Before Artist saveOrUpdate");
+
+			System.out.println("After Artist saveOrUpdate");
+
+			
+			System.out.println("test exception");
+			
+			
+			for(Artist artist : artistList) {
+				
+			Artist artist2 = (Artist)session.load(Artist.class, artist.getArtistID());
+			artist2.addAlbum(album);
+			session.update(artist2);
+		}
+			
+			for(Genre genre : genreList) {
+				Genre genre2 = (Genre)session.load(Genre.class, genre.getGenreID());
+				genre2.addAlbum(album);
+				session.update(genre2);
+				
+			}
+
+			transAct.commit();
+			session.close();
+			return true;
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			if(transAct != null) 
+				transAct.rollback();
+			throw e;			
+		}
+	}
+	
+	public boolean addAlbumGenre(Album album, Artist artist, Genre genre) {
+		Transaction transAct = null;	
+		try(Session session = sessionFactory.openSession()){
+			transAct = session.beginTransaction();
+			System.out.println("Before Artist saveOrUpdate");
+//			session.saveOrUpdate(album);	
+			System.out.println("After Artist saveOrUpdate albumgenre");
+
+			genre.addAlbum(album);
+
+			session.saveOrUpdate(genre);
+
+			transAct.commit();
+			System.out.println("After Commit");
+			session.close();
+			return true;
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			if(transAct != null) 
+				transAct.rollback();
+			throw e;			
+		}
+	}
+	
 	
 	public Album readAlbum(int id) {
 		Session session = sessionFactory.openSession();
@@ -375,13 +445,14 @@ public class RemoteDAO {
 			transAct.commit();
 			Album[] array = new Album[result.size()];
 			
+			System.out.println("After album query2 ");
 			System.out.println((Album[])result.toArray(array) + " array");
 //			 (Album[]) result.toArray(array);
 			 return (Album[])result.toArray(array);
 		} catch (Exception e) {
 			if (transAct != null)
 				transAct.rollback();
-			throw e;
+			return new Album[0];
 		}
 	}
 	
