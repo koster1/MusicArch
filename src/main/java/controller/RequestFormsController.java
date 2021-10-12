@@ -272,6 +272,7 @@ public class RequestFormsController {
 			artistName[i] = textfield.getText();
 		}
 
+		
 		String[] genreListGiven = { "Funk" };
 		String[] songListGiven = { "Testi2" };
 //	  String albumName = AlbumName.getText();
