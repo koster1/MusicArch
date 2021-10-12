@@ -214,8 +214,8 @@ public class RequestFormsController {
 	
 	@FXML
 	void SendAlbumButton(ActionEvent event) {
-      String[] genreListGiven = { GenreName.getText() };
-      String[] artistName = { ArtistName.getText()};
+      String[] genreListGiven = { GenreName.getText(), "Rock"};
+      String[] artistName = { ArtistName.getText(), "U2", "Will Wood"};
       String[] songListGiven = { "Testi2" };
 
 //	      String albumName = AlbumName.getText();

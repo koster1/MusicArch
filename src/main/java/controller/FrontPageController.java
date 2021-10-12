@@ -107,9 +107,13 @@ public class FrontPageController {
 				FrontPageGrid.getChildren().clear();
 				Text text = new Text();
 				text.setText(artistAlbums.get(0).getAlbumName());
-				text.onMouseEnteredProperty().addListener(event -> {
-					System.out.println("You clicked me!");
+				
+				for(int i = 0; i < 9; i++) {
+					System.out.println(FrontPageGrid.getChildren());
+				FrontPageGrid.setOnMouseClicked(even -> {
+					System.out.println("print me");
 				});
+				}
 				FrontPageGrid.add(text, 1, 0);
 			} else {
 				System.out.println("Nothing found ");
