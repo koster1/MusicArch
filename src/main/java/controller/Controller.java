@@ -297,10 +297,6 @@ public class Controller {
     	return remoteDAO.readSongs();
     }
     
-    public List<Album> getArtistAlbums(int artistID) {
-    	return remoteDAO.artistAlbums(artistID);
-    }
-    
     public List<LocalArtist> getLocalArtist(String search) throws Exception {
     	return localDAO.searchArtist(search);
     }
@@ -327,6 +323,16 @@ public class Controller {
     
     public List<String> getSearchable() {
     	return remoteDAO.getSearchable();
+    }
+    
+    public List<Album> getGenreAlbums(int genreID){
+    	return remoteDAO.genreAlbums(genreID);
+    }
+    public List<Album> getArtistAlbums(int artistID){
+    	return remoteDAO.artistAlbums(artistID);
+    }
+    public List<Song> getAlbumSong(int albumID){
+    	return remoteDAO.albumSongs(albumID);
     }
     
     public List<LocalGenre> getLocalAlbumGenres(int albumID) {
