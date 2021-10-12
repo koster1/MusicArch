@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -24,6 +25,7 @@ public class albumTest {
 	private String genreName = "A really cool Jenkins Genre!";
 	
 	@Test
+	@Disabled
 	@DisplayName("Adding an album to the database")
 	public void createAlbum() throws Exception {
 		Controller controller = new Controller();
@@ -44,6 +46,7 @@ public class albumTest {
 	}
 	
 	@Test
+	@Disabled
 	@DisplayName("Searching for a specific album from the database")
 	public void searchAlbum() throws Exception{
 		Controller controller = new Controller();
@@ -64,6 +67,7 @@ public class albumTest {
 	}
 	
 	@Test
+	@Disabled
 	@DisplayName("Deleting a specific album from the database")
 	public void deleteArtist() throws Exception {
 		Controller controller = new Controller();
