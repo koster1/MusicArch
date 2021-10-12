@@ -16,12 +16,9 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="345.0" prefWidth="268.0">
                <children>
-<<<<<<< HEAD
                   <GridPane fx:id="AlbumInfo" alignment="CENTER" layoutX="54.0" layoutY="25.0" prefHeight="252.0" prefWidth="438.0" AnchorPane.bottomAnchor="221.0" AnchorPane.leftAnchor="54.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="25.0">
-=======
                   <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="44.0" text="Back" />
                   <GridPane alignment="CENTER" layoutX="60.0" layoutY="80.0" prefHeight="204.0" prefWidth="438.0" AnchorPane.bottomAnchor="214.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="48.0" AnchorPane.topAnchor="80.0">
->>>>>>> refs/heads/jemilam_branch
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
@@ -58,17 +55,11 @@
                               <Insets bottom="5.0" />
                            </padding>
                         </Label>
-<<<<<<< HEAD
-=======
-                        <Button alignment="CENTER" mnemonicParsing="false" text="kokoelma" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+              <Button alignment="CENTER" mnemonicParsing="false" text="kokoelma" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
                         <Button alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="68.0" text="Toive" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
->>>>>>> refs/heads/jemilam_branch
                      </children>
                   </GridPane>
-<<<<<<< HEAD
                   <Button fx:id="BackButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="44.0" text="Back" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
-=======
->>>>>>> refs/heads/jemilam_branch
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="345.0" prefWidth="349.0">

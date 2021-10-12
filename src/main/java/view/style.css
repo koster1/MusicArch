@@ -37,7 +37,7 @@
 /*Lisäyssivusta löytyviä elementtejä */
 #RequestDrops {
 -fx-background-color: #404040;
--fx-text-fill: #ffff33;
+-fx-text-fill: orange;
 }
 /*Albumilomakkeen txtfieldien lisäysnapit */
 #PlusButtons {
@@ -130,4 +130,20 @@ Text {
 #scroll{
 -fx-background-color: white;
 }
-/* */
+/*Errorit ja ilmoitukset */
+.dialog-pane {
+
+-fx-accent: red;
+-fx-background-color: #404040;
+
+-fx-focus-color: orange;
+-fx-faint-focus-color: orange;
+}
+.dialog-pane  .button{
+-fx-background-color: #404040;
+-fx-text-fill: orange;
+}
+.dialog-pane .button:hover{     
+  -fx-background-color:orange;
+
+ }
