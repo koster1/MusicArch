@@ -129,15 +129,15 @@ public class RemoteDAO {
 		Transaction transAct = null;
 		try (Session session = sessionFactory.openSession()) {
 			transAct = session.beginTransaction();
-			Query query = session.createQuery("From Genre where genreName like:name");
+			Query query = session.createQuery("From Genre where genreName =:name");
 			List<Genre> genreList = query.setParameter("name", genreSearch).list();
-			
-			transAct.commit();
-			session.close();
 			
 			if (genreList.size() == 0) {
 				throw new Exception("Nothing found!");
 			}
+			transAct.commit();
+			session.close();
+			
 			return genreList.get(0);
 
 		} catch (Exception e) {
@@ -291,7 +291,7 @@ public class RemoteDAO {
 		}
 	}
 
-	public boolean createAlbum(Album album, Genre genre, Artist artist) throws Exception {
+	public boolean createAlbum(Album album, Artist artist, Genre genre) throws Exception {
 		System.out.println("Before readAlbums");
 		Album[] albumSearch = readAlbums();	
 		System.out.println("After readAlbums");
@@ -316,9 +316,6 @@ public class RemoteDAO {
 //		album2.setAlbumGenres(album.getAlbumGenres());
 //		System.out.println(album2.getAlbumGenres().get(0).getGenreName());
 
-		
-
-		
 		Transaction transAct = null;	
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();
@@ -330,10 +327,64 @@ public class RemoteDAO {
 //			transAct.commit();
 //			Album album3 = (Album)session.load(Album.class, searchAlbum(album2.getAlbumName()).get(0).getAlbumID());
 			
-			System.out.println("Before new loops" + album.getAlbumID());
+//			Genre persistentGenre = (Genre)session.load(Genre.class, genre.getGenreID());
+//			System.out.println("Genrecopy: " + persistentGenre.getGenreID() + " " + persistentGenre.getGenreName());
+			System.out.println("before genreaddalbum ");
+//			genre.addAlbum(album);
+//			album.addArtist(artist);
+//			genre.addAlbum(album);
+//			session.saveOrUpdate(genre);
+			artist.addAlbum(album);
+			session.saveOrUpdate(artist);
+			System.out.println("test exceptioncopy");
 			
+
+			transAct.commit();
+			System.out.println("After Commit");
+			session.close();
+			return true;
+		}catch(Exception e) {
+			if(transAct != null) 
+				transAct.rollback();
+			throw e;			
+		}
+	}
+
+		
+		
+	
+	public boolean createAlbum2(Album album, Artist artist, Genre genre) throws Exception {
+		Transaction transAct = null;	
+		try(Session session = sessionFactory.openSession()){
+			transAct = session.beginTransaction();
+			System.out.println("Before Artist saveOrUpdate");
+//			session.saveOrUpdate(album);	
+			System.out.println("After Artist saveOrUpdate");
+//			System.out.println(album2.getAlbumName() + " albumYear " + album2.getAlbumYear() + album2.getAlbumID());
+//			session.saveOrUpdate(album2);
+//			transAct.commit();
+//			Album album3 = (Album)session.load(Album.class, searchAlbum(album2.getAlbumName()).get(0).getAlbumID());
+			
+//			genre.addAlbum(album);
+//			album.addArtist(artist);
+//			album.addArtist(artist);
+			
+//			album.addArtist(artist);
 			genre.addAlbum(album);
 			session.saveOrUpdate(genre);
+//			session.save(album);
+//			session.update(album);
+			
+			System.out.println("test exception");
+			
+//			for(Genre genre : genreList) {
+//				album.addGenre(genre);
+//				session.saveOrUpdate(album);
+//			}
+//			session.saveOrUpdate(album);
+//			session.saveOrUpdate(album);
+//			session.saveOrUpdate(album);
+			
 //			for(Genre genre : genreList) {
 ////				Genre persistentGenre = (Genre)session.load(Genre.class, genre.getGenreID());
 //				Genre tempGenre = new Genre();
@@ -356,14 +407,41 @@ public class RemoteDAO {
 //			}
 			transAct.commit();
 			System.out.println("After Commit");
-//			session.close();
+			session.close();
 			return true;
 		}catch(Exception e) {
+			System.out.println(e.getMessage());
 			if(transAct != null) 
 				transAct.rollback();
 			throw e;			
 		}
 	}
+	
+	public boolean addAlbumGenre(Album album, Artist artist, Genre genre) {
+		Transaction transAct = null;	
+		try(Session session = sessionFactory.openSession()){
+			transAct = session.beginTransaction();
+			System.out.println("Before Artist saveOrUpdate");
+//			session.saveOrUpdate(album);	
+			System.out.println("After Artist saveOrUpdate albumgenre");
+
+			artist.addAlbum(album);
+			genre.addAlbum(album);
+			session.saveOrUpdate(artist);
+			session.saveOrUpdate(genre);
+
+			transAct.commit();
+			System.out.println("After Commit");
+			session.close();
+			return true;
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			if(transAct != null) 
+				transAct.rollback();
+			throw e;			
+		}
+	}
+	
 	
 	public Album readAlbum(int id) {
 		Session session = sessionFactory.openSession();
@@ -383,17 +461,17 @@ public class RemoteDAO {
 			@SuppressWarnings("unchecked")
 			List<Album> result = (List<Album>) session.createQuery("from Album").list();
 			System.out.println("After album query ");
-			System.out.println("After album query2 " + result.get(0).getAlbumName());
 			transAct.commit();
 			Album[] array = new Album[result.size()];
 			
+			System.out.println("After album query2 ");
 			System.out.println((Album[])result.toArray(array) + " array");
 //			 (Album[]) result.toArray(array);
 			 return (Album[])result.toArray(array);
 		} catch (Exception e) {
 			if (transAct != null)
 				transAct.rollback();
-			throw e;
+			return new Album[0];
 		}
 	}
 	

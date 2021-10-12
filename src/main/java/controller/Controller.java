@@ -66,24 +66,34 @@ public class Controller {
     	Genre[] albumGenres = new Genre[genreListGiven.length];
     	Artist[] albumArtists = new Artist[artistListGiven.length];
     	Song[] albumSongs = new Song[songListGiven.length];
-    	
-    	
+    	Genre genre = new Genre();
+    	Artist artist = new Artist();
+    	List<Artist> linkArtist = new ArrayList<>();
+    	List<Genre> linkGenre = new ArrayList<>();
     	if(genreListGiven.length != 0 || artistListGiven.length != 0) {
     		for(int i = 0; i<albumGenres.length; i++) {
-    			Genre linkGenre;
 				try {
-					linkGenre = (Genre) remoteDAO.searchGenre(genreListGiven[i]);
-	        		newAlbum.addGenre(linkGenre);
+					
+					genre = (Genre) remoteDAO.searchGenre(genreListGiven[i]);
+					if(genre != null) {
+						System.out.println("genreName album "+genre.getGenreName() + " " + genre.getGenreID());
+						linkGenre.add(genre);
+					}
+					System.out.println("toimiiko? controller createAlbum");
+//	        		newAlbum.addGenre(linkGenre);
 				} catch (Exception e) {
 					System.out.println("Failed to add a Genre to Album!");
-					e.printStackTrace();
+					System.out.println(e.getMessage());
 				}
         	}
     		for(int i = 0; i<albumArtists.length; i++) {
-    			Artist linkArtist;
 				try {
-					linkArtist = (Artist) remoteDAO.searchArtist(artistListGiven[i]);
-					newAlbum.addArtist(linkArtist);
+					artist = (Artist) remoteDAO.searchArtist(artistListGiven[i]);
+					if(artist != null) {
+						System.out.println("ArtistID " + artist.getArtistID());
+						linkArtist.add(artist);
+					}
+//					newAlbum.addArtist(linkArtist);
 				} catch (Exception e) {
 					System.out.println("Failed to add an Artist to Album!");
 					e.printStackTrace();
@@ -99,8 +109,17 @@ public class Controller {
 //				}
 //    		}
     		try {
-				remoteDAO.createAlbum(newAlbum, albumGenres[0], albumArtists[0]);
-				System.out.println("Created an Album successfully!");
+    		
+    				Genre gemre = new Genre();
+    				gemre.setGenreName("uusiTestiGenre");
+//    				
+//    				remoteDAO.createAlbum(newAlbum, artist, genre);
+//    				remoteDAO.createAlbum2(newAlbum, artist, genre);
+    				remoteDAO.addAlbumGenre(newAlbum, artist, genre);
+//    				remoteDAO.createAlbum(newAlbum, genre, artist);
+//    				System.out.println("Created an Album successfully!");
+    				
+    			
 			} catch (Exception e) {
 				System.out.println("Failed to create an Album!");
 				e.printStackTrace();

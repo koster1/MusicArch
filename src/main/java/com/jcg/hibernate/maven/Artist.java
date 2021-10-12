@@ -30,13 +30,10 @@ public class Artist {
 	@Column(name = "Biography")
 	private String artistBio;
 	
-	@ManyToMany(fetch=FetchType.EAGER,
-			cascade={CascadeType.ALL})
-	@JoinTable(
-			name="AlbumArtists",
-			joinColumns={@JoinColumn(name="ArtistID")},
-			inverseJoinColumns={@JoinColumn(name="AlbumID")}
-			)
+	@ManyToMany(fetch=FetchType.EAGER,cascade={CascadeType.ALL})
+					@JoinTable(name="AlbumArtists", joinColumns= {
+					@JoinColumn(name="ArtistID")},inverseJoinColumns = {
+					@JoinColumn(name="AlbumID")})
 	private List<Album> artistAlbums;
 	
 	public List<Album> getArtistAlbums(){
