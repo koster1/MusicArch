@@ -122,21 +122,23 @@ public class RemoteDAO {
 		}
 	}
 
-	public List<Genre> searchGenre(String genreSearch) throws Exception {
+	public Genre searchGenre(String genreSearch) throws Exception {
 
 		Transaction transAct = null;
 		try (Session session = sessionFactory.openSession()) {
 			transAct = session.beginTransaction();
-			Query query = session.createQuery("From Genre where genreName like:name");
+			Query query = session.createQuery("From Genre where genreName =:name");
 			List<Genre> genreList = query.setParameter("name", genreSearch).list();
+			System.out.println("The genre search result was -> "+genreList.get(0).getGenreName());
 			
-			transAct.commit();
-			session.close();
 			
 			if (genreList.size() == 0) {
 				throw new Exception("Nothing found!");
 			}
-			return genreList;
+			
+			transAct.commit();
+			session.close();
+			return genreList.get(0);
 
 		} catch (Exception e) {
 			if (transAct != null)
@@ -193,7 +195,6 @@ public class RemoteDAO {
 		try (Session session = sessionFactory.openSession()) {
 			transAct = session.beginTransaction();
 			session.saveOrUpdate(artist);
-			session.save(artist);
 			transAct.commit();
 			return true;
 		} catch (Exception e) {
@@ -233,21 +234,23 @@ public class RemoteDAO {
 		}
 	}
 
-	public List<Artist> searchArtist(String artistSearch) throws Exception {
+	public Artist searchArtist(String artistSearch) throws Exception {
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();	
-			Query query = session.createQuery("From Artist where artistName like:name");
+			Query query = session.createQuery("From Artist where ArtistName =:name");
 			List<Artist> artistList = query.setParameter("name", artistSearch).list();
 			
+			if (artistList.size() == 0) {
+				System.out.println("Nothing found!");
+				throw new Exception("Nothing found!");
+			}
 			transAct.commit();
 			session.close();
 			
-			if (artistList.size() == 0) {
-				throw new Exception("Nothing found!");
-			}
-			return artistList;
+			return artistList.get(0);
 		}catch(Exception e){
+			System.out.println("exception why??");
 			if(transAct != null)
 				transAct.rollback();
 			throw e;
@@ -272,7 +275,6 @@ public class RemoteDAO {
 		}
 	}		
 	
-	//To be tested!
 	public boolean removeArtist(int id) {
 		Transaction transAct = null;		
 		try(Session session = sessionFactory.openSession()){
@@ -296,13 +298,24 @@ public class RemoteDAO {
 				throw new Exception("This Album already exists!");
 			}
 		}
+		
+		
+		
 
+//		Album testAlbum = new Album();
+//		testAlbum.setAlbumName(album.getAlbumName());
+//		testAlbum.setAlbumYear(album.getAlbumYear());
+//		
+//		testAlbum.setAlbumArtists(album.getAlbumArtists());
+//		testAlbum.setAlbumGenres(album.getAlbumGenres());
+		
 		Transaction transAct = null;	
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();
 			session.saveOrUpdate(album);			
 			session.save(album);
 			transAct.commit();
+			session.close();
 			return true;
 		}catch(Exception e) {
 			if(transAct != null) 
@@ -330,7 +343,7 @@ public class RemoteDAO {
 			@SuppressWarnings("unchecked")
 			List<Album> result = (List<Album>) session.createQuery("from Album order by albumName").list();
 
-			transAct.commit();
+//			transAct.commit();
 			Album[] array = new Album[result.size()];
 			return (Album[]) result.toArray(array);
 		} catch (Exception e) {
@@ -340,7 +353,7 @@ public class RemoteDAO {
 		}
 	}
 	
-	public List<Album> searchAlbum(String albumSearch) throws Exception{
+	public Album searchAlbum(String albumSearch) throws Exception{
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();	
@@ -353,7 +366,7 @@ public class RemoteDAO {
 			if (albumList.size() == 0) {
 				throw new Exception("Nothing found!");
 			}
-			return albumList;
+			return albumList.get(0);
 		}catch(Exception e){
 			if(transAct != null)
 				transAct.rollback();
@@ -446,11 +459,11 @@ public class RemoteDAO {
 		}
 	}
 	
-	public List<Song> searchSong(String songSearch) throws Exception{
+	public Song searchSong(String songSearch) throws Exception{
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();	
-			Query query = session.createQuery("From Album where albumName like:name");
+			Query query = session.createQuery("From Song where SongName like:name");
 			List<Song> songList = query.setParameter("name", songSearch).list();
 			
 			transAct.commit();
@@ -459,7 +472,7 @@ public class RemoteDAO {
 			if (songList.size() == 0) {
 				throw new Exception("Nothing found!");
 			}
-			return songList;
+			return songList.get(0);
 		}catch(Exception e){
 			if(transAct != null)
 				transAct.rollback();

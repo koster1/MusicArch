@@ -41,6 +41,7 @@ public class Controller {
 			remoteDAO.createGenre(newGenre);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			System.out.println("Failed to create a genre! ");
 			e.printStackTrace();
 		}
     }
@@ -52,6 +53,7 @@ public class Controller {
 			remoteDAO.createArtist(newArtist);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			System.out.println("Failed to create an artist! ");
 			e.printStackTrace();
 		}
     }
@@ -72,8 +74,9 @@ public class Controller {
     		for(int i = 0; i<albumGenres.length; i++) {
     			Genre linkGenre;
 				try {
-					linkGenre = (Genre) remoteDAO.searchGenre(genreListGiven[i]);
-	        		newAlbum.addGenre(linkGenre);
+					newAlbum.addGenre(remoteDAO.searchGenre(genreListGiven[i]));
+//					linkGenre = (Genre) remoteDAO.searchGenre(genreListGiven[i]);
+//	        		newAlbum.addGenre(linkGenre);
 				} catch (Exception e) {
 					System.out.println("Failed to add a Genre to Album!");
 					e.printStackTrace();
@@ -233,16 +236,18 @@ public class Controller {
     	remoteDAO.removeAlbum(albumID);
     }
     
-    public void searchAll(String genreSearch, String artistSearch, String albumSearch, String songSearch) {
+
+    public Artist searchAll(String search) {
     	try {
-			searchGenre(genreSearch);
-			searchArtist(artistSearch);
-			searchAlbums(albumSearch);
-			searchSongs(songSearch);
+//			searchGenre(search);
+//			searchAlbums(search);
+//			searchSongs(search);
+			return searchArtist(search);
 		} catch (Exception e) {
 			System.out.println("Universal search failed somewhere!");
 			e.printStackTrace();
 		}
+		return null;
     } 
     private void searchGenre(String genreName) {
     	try {
@@ -252,13 +257,15 @@ public class Controller {
 			e.printStackTrace();
 		}
     }
-    private void searchArtist(String artistName) { 	
+    private Artist searchArtist(String artistName) { 	
     	try {
-			GUIController.setArtistResults(remoteDAO.searchArtist(artistName));
+    		return remoteDAO.searchArtist(artistName);
+//			GUIController.setArtistResults(remoteDAO.searchArtist(artistName));
 		} catch (Exception e) {
 			System.out.println("Artist search failed!");
 			e.printStackTrace();
-		} 	
+		}
+		return null; 	
     }
     private void searchAlbums(String albumName) {
 		try {
@@ -279,6 +286,7 @@ public class Controller {
     public Genre[] getGenres() {
     	return remoteDAO.readGenres();
     }
+
     public Artist[] getArtists() {
     	return remoteDAO.readArtists();
     }
@@ -287,5 +295,54 @@ public class Controller {
     }
     public Song[] getSongs() {
     	return remoteDAO.readSongs();
+    }
+    
+    public List<Album> getArtistAlbums(int artistID) {
+    	return remoteDAO.artistAlbums(artistID);
+    }
+    
+    public List<LocalArtist> getLocalArtist(String search) throws Exception {
+    	return localDAO.searchArtist(search);
+    }
+    
+    public List<String> existinLocalArtists() {
+    	return localDAO.existingArtists();
+    }
+    
+    public LocalGenre[] getLocalGenres() {
+    	return localDAO.readGenres();
+    }
+    
+    public LocalAlbum[] getLocalAlbums() {
+    	return localDAO.readAlbums();
+    }
+    
+    public LocalArtist[] readArtists() {
+    	return localDAO.readArtists();
+    }
+    
+    public LocalAlbum readLocalAlbum(int id) {
+    	return localDAO.readAlbum(id);
+    }
+    
+    public List<String> getSearchable() {
+    	return remoteDAO.getSearchable();
+    }
+    
+    public List<LocalGenre> getLocalAlbumGenres(int albumID) {
+    	List<LocalGenre> localGenreList = localDAO.getLocalAlbumGenres(albumID);
+    	for(LocalGenre localGenre : localGenreList) {
+    		System.out.println("albumgenres ");
+    		System.out.println(localGenre);
+    	}
+    	System.out.println("albumgenre6");
+    	return localGenreList;
+    }
+    public List<LocalArtist> getLocalAlbumArtists(int albumID) {
+    	return localDAO.getLocalAlbumArtists(albumID);
+    }
+    
+    public List<LocalSong> getLocalAlbumSongs(int albumID) {
+    	return localDAO.localAlbumSongs(albumID);
     }
 }

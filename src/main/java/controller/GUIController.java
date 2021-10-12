@@ -9,18 +9,23 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.TilePane;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
@@ -50,6 +55,22 @@ public class GUIController {
 	private List<Artist> artistResults;
 	private List<Album> albumResults;
 	private List<Song> songResults;
+	List<String> everythingFound;
+	
+	@FXML
+    private ContextMenu searchContext;
+	
+	@FXML
+	private AnchorPane UserCategories;
+	
+	@FXML
+	public TitledPane UserGenreDrop;
+	
+	@FXML
+	private TitledPane UserAlbumDrop;
+	
+	@FXML
+	private TitledPane UserArtistDrop;
 	
 	@FXML
 	private Button SearchButton;
@@ -62,11 +83,12 @@ public class GUIController {
 	void SearchTxt(ActionEvent event) {
 		SearchButton.setStyle("-fx-border-color: #ffff33");
 		PauseTransition pause = new PauseTransition(Duration.seconds(pauseDuration));
-		
+	
 		pause.setOnFinished(event1 -> {
 			SearchButton.setStyle(null);
 		});
 		pause.play();
+		
 	}
 
 	//
@@ -205,6 +227,9 @@ public class GUIController {
 
 	@FXML
 	private TextField Songs;
+	
+
+	
 	/*
 	 * @FXML private TextField Songs1;
 	 * 
@@ -216,8 +241,11 @@ public class GUIController {
 
 	@FXML
 	void SendAlbumButton(ActionEvent event) {
-
-		// controller.createAlbum(albumName, null, julkaisuvuosi, null, null);
+      String[] genreListGiven = { "Rock", "Pop" };
+      String[] artistName = { "Abba", "Red Hot Chili Peppers" };
+      String[] songListGiven = { "Testi" };
+//      String albumName = AlbumName.getText();
+      controller.createAlbum(AlbumName.getText(), 1970, genreListGiven, artistName, songListGiven);
 
 	}
 
@@ -292,47 +320,56 @@ public class GUIController {
 	private SplitPane SplittedRequestPage;
 	@FXML
 	private AnchorPane RequestCategories;
-
+	
 	// ----------------SIVUJEN VAIHDOT JA PÄIVITYKSET-----------------------
 	// Menunappulat
+	
+    @FXML
+    private GridPane FrontGrid;
+	
 	@FXML
-	public void goFrontPage(ActionEvent event) throws IOException {
-		System.out.println("Test11");
-		FrontPage.setStyle("-fx-border-color: #ffff33");
-		PauseTransition pause = new PauseTransition(Duration.seconds(pauseDuration));
-		System.out.println("Test12");
-		pause.setOnFinished(event1 -> {
-			FrontPage.setStyle(null);
-		});
-		pause.play();
-		System.out.println("Test13");
-		try {
-			Artist[] artistList = controller.getArtists();
-			Genre[] genreList = controller.getGenres();
-			
-			for (Artist artist : artistList) {
-				System.out.println("test" + artist.getArtistName());
-//				stringList.add(artist.getArtistName());
-			}
-//			System.out.println(stringList);
-			View.showFrontPage(artistList, genreList);
-			
-		} catch (Exception e) {
-			System.out.println(e.getMessage()+" EnTItY MaNAgEr iS CloSEd");
-		}
-
-	}
+	private AnchorPane FrontAnchor;
+	
+//	@FXML
+//	public void goFrontPage(ActionEvent event) throws IOException {
+//		System.out.println("FrontGrid = " + FrontGrid);
+//		FrontPage.setStyle("-fx-border-color: #ffff33");
+//		PauseTransition pause = new PauseTransition(Duration.seconds(pauseDuration));
+//		System.out.println("Test12");
+//		pause.setOnFinished(event1 -> {
+//			FrontPage.setStyle(null);
+//		});
+//		pause.play();
+//		System.out.println("Test13");
+//		try {
+//			Artist[] artistList = controller.getArtists();
+//			Genre[] genreList = controller.getGenres();
+//			Album[] albumList = controller.getAlbums();
+//			
+//			System.out.println("albumList version 2 = "+albumList.length);
+//			for (Artist artist : artistList) {
+//				System.out.println("test" + artist.getArtistName());
+////				stringList.add(artist.getArtistName());
+//			}
+////			System.out.println(stringList);
+//			View.showFrontPage(artistList, genreList);
+//			
+//		} catch (Exception e) {
+//			System.out.println(e.getMessage()+" EnTItY MaNAgEr iS CloSEd");
+//		}
+//
+//	}
 	
 	public void goFrontPage() throws IOException {
-		Artist[] artistList = controller.getArtists();
-		Genre[] genreList = controller.getGenres();
-		ArrayList<String> stringList = new ArrayList<>();
-		for (Artist artist : artistList) {
-			System.out.println(artist.getArtistName());
-			stringList.add(artist.getArtistName());
-		}
+//		Artist[] artistList = controller.getArtists();
+//		Genre[] genreList = controller.getGenres();
+//		ArrayList<String> stringList = new ArrayList<>();
+//		for (Artist artist : artistList) {
+//			System.out.println(artist.getArtistName());
+//			stringList.add(artist.getArtistName());
+//		}
 		
-			View.showFrontPage(artistList, genreList);
+			View.showFrontPage();
 		
 	}
 
@@ -362,6 +399,8 @@ public class GUIController {
 
 	}
 	
+
+	
 	@FXML
 	void goUserCollection(ActionEvent event) throws IOException {
 		UserCollection.setStyle("-fx-border-color: #ffff33");
@@ -371,10 +410,24 @@ public class GUIController {
 			UserCollection.setStyle(null);
 		});
 		pause.play();
+
+		
+		
+		System.out.println("UserGenreDrop = "+UserGenreDrop);
 		view.showUserCollectionPage();
 	}
 	
-
+	@FXML
+	void goSearchPage(ActionEvent event) throws IOException {
+		String searchText = SearchBox.getText();
+		view.showSearchPage(searchText);
+	}
+	
+	@FXML
+	void GoAlbumPage(ActionEvent event) throws IOException {
+		view.showAlbumPage();
+	}
+	
 	// --------------- Lisäyspyynnöt- sivun dropit-------------------
 
 	@FXML
@@ -442,6 +495,57 @@ public class GUIController {
 		}
 		
 	}
+	
+	 @FXML
+	 void getSearchable(MouseEvent event) {
+		 if(everythingFound == null) {
+			 everythingFound = new ArrayList<>();
+		 }
+		 everythingFound = controller.getSearchable();
+		 System.out.println("Fetched all the searchable values");
+    }
+	
+	 @FXML
+	 void refreshSearchList(KeyEvent event) {
+		int menuCounter = 0; 
+		List<String> strippedList = new ArrayList<String>();
+		SearchBox.setContextMenu(searchContext);	
+		searchContext.show(SearchBox, null, pauseDuration, 50);	
+		
+		for(int i = 0; i<everythingFound.size(); i++) {		
+			if(everythingFound.get(i).toLowerCase().contains(SearchBox.getText().toLowerCase())) {
+				strippedList.add(everythingFound.get(i));
+				menuCounter++;
+			}
+		}
+		searchContext.getItems().clear();
+		if(menuCounter > 5) {
+			menuCounter = 4;
+		}
+		for(int i = 0; i<menuCounter; i++) {
+			if(SearchBox.getText().isEmpty()) {
+				break;
+			}
+			String testString = strippedList.get(i);
+			MenuItem searchItem = new MenuItem(testString);
+			searchItem.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent t) {
+					SearchBox.setText(searchItem.getText());
+					try {
+						view.showSearchPage(SearchBox.getText());
+						SearchBox.clear();
+					}catch(IOException e1) {
+						System.out.println("Failed to commit a search in GUIController's refreshSearchList method!");
+						e1.printStackTrace();
+					}	
+				}
+			});
+			System.out.println("Added a new menu item -> "+searchItem.getText());
+			searchContext.getItems().add(searchItem);
+		}
+	 }
+    
 	
 	//-------------Search results from controller------
 	

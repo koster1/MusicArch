@@ -15,7 +15,10 @@ import com.jcg.hibernate.maven.Genre;
 import com.jcg.hibernate.maven.LocalDAO;
 
 import controller.Controller;
+import controller.GUIController;
+import model.LocalAlbum;
 import model.LocalGenre;
+import model.LocalSong;
 
 import com.jcg.hibernate.maven.Album;
 import com.jcg.hibernate.maven.Artist;
@@ -30,25 +33,86 @@ public class Main {
 //		RemoteDAO dao = new RemoteDAO();
 //		LocalDAO lDAO = new LocalDAO();
 //		View.main(args);
-		RemoteDAO dao = new RemoteDAO();
+//		RemoteDAO dao = new RemoteDAO();
+//		try {
+//			List<Album> testAlbum = dao.searchAlbum("testAlbum");
+//			for(int i = 0; i<testAlbum.size(); i++) {
+//				System.out.println("Found this -> "+testAlbum.get(i).getAlbumName());
+//			}
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		View.main(args);
+		/*
+		LocalDAO localDAO = new LocalDAO();
+		LocalGenre localGenre = new LocalGenre();
+		localGenre.setGenreID(4);
+		localGenre.setGenreName("Gospel");
+		
+		LocalAlbum localAlbum = new LocalAlbum();
+		localAlbum.setAlbumID(6);
+		localAlbum.setAlbumName("Tuulen valtakunta");
+		localAlbum.setAlbumYear(1999);
 		try {
-			List<Album> testAlbum = dao.searchAlbum("testAlbum");
-			for(int i = 0; i<testAlbum.size(); i++) {
-				System.out.println("Found this -> "+testAlbum.get(i).getAlbumName());
-			}
+			localDAO.createGenre(localGenre, localAlbum);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		
+		// These are used in the testing of album creation. Created 10.10.2021 (worked)
+		/*LocalDAO lDAO = new LocalDAO();
+		
+		LocalAlbum localAlbum = new LocalAlbum();
+		localAlbum.setAlbumName("Master of puppets");
+		localAlbum.setAlbumID(2);
+		
+		LocalSong localSong1 = new LocalSong();
+		LocalSong localSong2 = new LocalSong();
+		LocalSong localSong3 = new LocalSong();
+		
+		localSong1.setSongID(2);
+		localSong2.setSongID(3);
+		localSong3.setSongID(4);
+		
+		localSong1.setSongName("Battery");
+		localSong2.setSongName("Master of Puppets");
+		localSong3.setSongName("The Thing That should Not Be");
+		
+		LocalSong[] localSongList = new LocalSong[3];
+		localSongList[0] = localSong1;
+		localSongList[1] = localSong2;
+		localSongList[2] = localSong3;
+		
+		try {
+			lDAO.createAlbum(localAlbum, localSongList);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		//
+		 */
+//		RemoteDAO rDAO = new RemoteDAO();
+//		Album[] testAlbums = rDAO.readAlbums();
+//		
+//		for(int i = 0; i < testAlbums.length; i++) {
+//			System.out.println("This is an album ->"+testAlbums[i].getAlbumName());
+//		}
+//		
+//		String[] genreListGiven = {"Iskelmä"};
+//		String[] artistName = {"Anna Puu"};
+//		String[] songListGiven = {"Testiiiii"};
+//		Controller controller = new Controller();
+//		controller.createAlbum("lyhyempikinköhänkönsä", 1978, genreListGiven, artistName, songListGiven);
+//		View.main(args); 
 //		List<String> testStrings = dao.getSearchable();
 //		
 //		for(int i = 0; i < testStrings.size(); i++) {
 //			System.out.println("Searchable strings! Check it out ::: "+ testStrings.get(i));
 //		}
 /*
-		View.main(args);		
-
+		View.main(args);		 
 		Genre testGenre = new Genre();
 		testGenre.setGenreName("A testful genre!");
 		
@@ -233,11 +297,8 @@ public class Main {
 //		for(int i = 0; i < searchableStrings.size(); i++) {
 //			System.out.println("Iterating through all the names in the database : "+searchableStrings.get(i));
 //		}
-
-
 	
 //		
-		
 //		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
 //		
 //		Session session = factory.getCurrentSession();
@@ -250,7 +311,6 @@ public class Main {
 //			
 //			Genre tempGenre = new Genre();
 //			tempGenre.
-			
 //			session.beginTransaction();
 //			Genre tempGenre = new Genre();
 //			tempGenre.setGenreName("ChadGenre");

@@ -15,7 +15,11 @@ import com.sun.xml.bind.v2.runtime.unmarshaller.Loader;
 
 import antlr.debug.Event;
 import controller.Controller;
+import controller.FrontPageController;
 import controller.GUIController;
+import controller.SearchController;
+import controller.UserCollectionController;
+import controller.AlbumPageController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -42,7 +46,7 @@ public class View extends Application {
 	private Stage primaryStage;
 	private static BorderPane rootLayout;
 	private static BorderPane anotherRoot;
-	private static BorderPane userRoot;
+	private static AnchorPane userRoot;
 	private static SplitPane splitPane;
 	private static AnchorPane test;
 	private static BorderPane g;
@@ -67,8 +71,9 @@ public class View extends Application {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("MusicArch");
 		showHome();
-		guiController.goFrontPage();
-//		showFrontPage();
+		
+		showFrontPage();
+//		showAlbumPage();
 
 	}
 
@@ -94,71 +99,67 @@ public class View extends Application {
 	// BorderPanen keskelle asetettu etusivunäkymä (sisältää tulevaisuudessa
 	// listauksia genreistä tms)
 	//BorderPanen keskelle asetettu etusivunäkymä (sisältää tulevaisuudessa listauksia genreistä tms)
-	public static void showFrontPage(Artist[] artistList, Genre[] genreList) throws IOException {
+	public static void showFrontPage() throws IOException {
 		
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(View.class.getResource("/view/fxmlFiles/FrontPage.fxml"));
+		loader.setControllerFactory(FrontPageController -> new FrontPageController(controller));
 		try {
 			System.out.println("lataaja " + loader);
 		} catch (Exception e) {
 			System.out.println("päädyit tänne " + e.getMessage());
 		}
-		
-		ObservableList<Artist> choices = FXCollections.observableArrayList(artistList);
-		ObservableList<Genre> genreObservable = FXCollections.observableArrayList(genreList);
-		
 		AnchorPane Frontpage = (AnchorPane) loader.load();
 		rootLayout.setCenter(Frontpage);
-
-		TabPane tabPane = (TabPane) Frontpage.getChildren().get(0);
-		GridPane gridPane = (GridPane) Frontpage.getChildren().get(1);
-//		gridPane.setOnMouseClicked(event -> {System.out.println("GridPane event");});
-		Button button = new Button();
-		button.setOnMouseClicked(event -> {System.out.println("Childrennnn");});
-		button.setAccessibleText("this is a button, wow");
-		gridPane.add(button, 0, 0);
 		
-		int counter1 = 0;
-		for (Artist artist : artistList) {
-			System.out.println(artist.getArtistName());
-		}
-			Tab tab = tabPane.getTabs().get(0);
-			Tab tab2 = tabPane.getTabs().get(1);
-			Tab tab3 = tabPane.getTabs().get(2);
-			Tab tab4 = tabPane.getTabs().get(3);
-			
-			AnchorPane anchorpane = (AnchorPane)tab.getContent();
-			AnchorPane anchorpane2 = (AnchorPane)tab2.getContent();
-			AnchorPane anchorpane3 = (AnchorPane)tab3.getContent();
-			AnchorPane anchorpane4 = (AnchorPane)tab4.getContent();
-//				@SuppressWarnings("unchecked")
-			genreListView = (ListView<Genre>)anchorpane.getChildren().get(0);
-			artistListView = (ListView<Artist>)anchorpane2.getChildren().get(0);
-			albumListView = (ListView<Album>)anchorpane3.getChildren().get(0);
-			songListView = (ListView<Song>)anchorpane4.getChildren().get(0);
-			
-			tab.setOnSelectionChanged(event -> {
-				System.out.println("test");
-				});
-			genreListView.setCellFactory(lv -> new ListCell<Genre>() {
-				@Override
-				protected void updateItem(Genre genre, boolean empty) {
-					super.updateItem(genre, empty);
-					setText(empty || genre == null ? "" : genre.getGenreName()); 
-				}
-			});
-			genreListView.setItems(genreObservable);
-			
-			artistListView.setCellFactory(lv -> new ListCell<Artist>() {
-				@Override
-				protected void updateItem(Artist artist, boolean empty) {
-					super.updateItem(artist, empty);
-					setText(empty || artist == null ? "" : artist.getArtistName());
-				}
-			});			
-			artistListView.setItems(choices);
+//		ObservableList<Artist> choices = FXCollections.observableArrayList(artistList);
+//		ObservableList<Genre> genreObservable = FXCollections.observableArrayList(genreList);
+		
+//		TabPane tabPane = (TabPane) Frontpage.getChildren().get(0);
+//		GridPane gridPane = (GridPane) Frontpage.getChildren().get(1);
+//		gridPane.setOnMouseClicked(event -> {System.out.println("GridPane event");});
+//		Button button = new Button();
+//		button.setOnMouseClicked(event -> {System.out.println("Childrennnn");});
+//		button.setAccessibleText("this is a button, wow");
+//		gridPane.add(button, 0, 0);
+		
+//		int counter1 = 0;
+//		for (Artist artist : artistList) {
+//			System.out.println(artist.getArtistName());
+//		}
+//			Tab tab = tabPane.getTabs().get(0);
+//			Tab tab2 = tabPane.getTabs().get(1);
+////			tab.setDisable(true);
+//			
+//			AnchorPane anchorpane = (AnchorPane)tab.getContent();
+//			AnchorPane anchorpane2 = (AnchorPane)tab2.getContent();
+//
+////				@SuppressWarnings("unchecked")
+//			genreListView = (ListView<Genre>)anchorpane.getChildren().get(0);
+//			artistListView = (ListView<Artist>)anchorpane2.getChildren().get(0);
+//			
+//			tab.setOnSelectionChanged(event -> {
+//				System.out.println("test");
+//				});
+//			genreListView.setCellFactory(lv -> new ListCell<Genre>() {
+//				@Override
+//				protected void updateItem(Genre genre, boolean empty) {
+//					super.updateItem(genre, empty);
+//					setText(empty || genre == null || genreList.length == 0 ? "" : genre.getGenreName()); 
+//				}
+//			});
+//			genreListView.setItems(genreObservable);
+//			
+//			artistListView.setCellFactory(lv -> new ListCell<Artist>() {
+//				@Override
+//				protected void updateItem(Artist artist, boolean empty) {
+//					super.updateItem(artist, empty);
+//					setText(empty || artist == null || artistList.length == 0 ? "" : artist.getArtistName());
+//				}
+//			});			
+//			artistListView.setItems(choices);
 				
-		System.out.println(artistListView.getItems().get(0).getArtistID());
+//		System.out.println(artistListView.getItems().get(0).getArtistID());
 //		tab.setContent(text);
 //		GridPane gridPane = (GridPane)tabPane.getTabs().get(0).getContent();
 //		Text text = new Text(genreList[0].getGenreName());
@@ -168,7 +169,6 @@ public class View extends Application {
 //		GridPane gridPane = (GridPane)Frontpage.getChildren().get();
 //		gridPane.setAlignment(Pos.CENTER);
 		
-		int counter = 0;
 //		for(int i = 0; i < gridPane.getColumnCount(); i++) {
 //			for(int j = 0; j < gridPane.getRowCount(); j++) {
 //				if(counter < stringList.size()) {
@@ -200,6 +200,22 @@ public class View extends Application {
 		rootLayout.setCenter(Frontpage);
 
 	}
+	
+	public static void showSearchPage(String searchText) throws IOException {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(View.class.getResource("/view/fxmlFiles/SearchPage.fxml"));
+		loader.setControllerFactory(SearchController -> new SearchController(searchText, controller));
+		AnchorPane Frontpage = (AnchorPane) loader.load();
+		rootLayout.setCenter(Frontpage);
+	}
+	
+	public static void showAlbumPage() throws IOException {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(View.class.getResource("/view/fxmlFiles/AlbumPage.fxml"));
+		loader.setControllerFactory(AlbumPageController -> new AlbumPageController(controller));
+		AnchorPane Frontpage = (AnchorPane) loader.load();
+		rootLayout.setCenter(Frontpage);
+	}
 	//
 	public static void showUserCollectionPage() throws IOException {
 		System.out.println("User collection!!!");
@@ -220,17 +236,18 @@ public class View extends Application {
 		}
 		if(test) {
 			FXMLLoader fxmlLoader = new FXMLLoader();
-			fxmlLoader.setLocation(View.class.getResource("/view/fxmlFiles/OmaKokoelma.fxml"));
-			userRoot = (BorderPane) fxmlLoader.load();
+			fxmlLoader.setLocation(View.class.getResource("/view/fxmlFiles/OmaKokoelma2.fxml"));
+			fxmlLoader.setControllerFactory(UserCollectionController -> new UserCollectionController(controller));
+			userRoot = (AnchorPane) fxmlLoader.load();
 			Scene scene = new Scene(userRoot);
 			scene.getWindow();
 			scene.getStylesheets().add("/view/style.css");
 			Stage stage2 = new Stage();
 			stage2.setMinWidth(1200);
+			stage2.setMinHeight(500);
 			stage2.setTitle("User");
 			stage2.setScene(scene);
 			stage2.show();
-			userRoot.requestFocus();
 		}
 	}
 

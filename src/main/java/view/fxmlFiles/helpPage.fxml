@@ -1,10 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUIController">
-   <children>
-      <Label layoutX="286.0" layoutY="191.0" text="Apua" />
-   </children>
+<AnchorPane prefHeight="500.0" prefWidth="954.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+	<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="954.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+	  <content>
+	    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="489.0" prefWidth="1000.0">
+	         <children>
+	            <TextFlow layoutX="51.0" layoutY="16.0" prefHeight="422.0" prefWidth="755.0" AnchorPane.bottomAnchor="67.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="245.0" AnchorPane.topAnchor="0.0">
+	               <children>
+	                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sovelluksen käyttöohjeet&#10;&#10;Albumin lisääminen kokoelmaan:&#10;&#10;1. Etsi haluamasi albumi sovelluksen hakutoiminnolla tai etusivuiltamme.&#10;2. Klikkaamalla albumia pääset albumisivulle, jossa kerrotaan levyn tiedot&#10;3. Klikkaamalla lisäyspainiketta voit lisätä albumin kokoelmaasi.&#10;&#10;Kokoelman tarkastelu:&#10;&#10;Voit tarkastella kokoelmassasi olevia levyä ja hakea kokoelmasta levyjä sanahaulla." wrappingWidth="352.10504150390625">
+	                     <font>
+	                        <Font size="10.0" />
+	                     </font>
+	                  </Text>
+	               </children>
+                  <padding>
+                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                  </padding>
+	            </TextFlow>
+	         </children></AnchorPane>
+	  </content>
+	</ScrollPane>
 </AnchorPane>
