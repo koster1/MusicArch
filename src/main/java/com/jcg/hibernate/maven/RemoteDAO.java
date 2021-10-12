@@ -6,6 +6,8 @@ import java.util.List;
 import org.hibernate.*;
 import org.hibernate.cfg.Configuration;
 
+import model.LocalSong;
+
 public class RemoteDAO {
 	static Session session;
 	static SessionFactory sessionFactory;
@@ -217,6 +219,7 @@ public class RemoteDAO {
 
 	// Tested! Works
 	public Artist[] readArtists() {
+		System.out.println("Got a readartist request");
 		Transaction transAct = null;
 		try (Session session = sessionFactory.openSession()) {
 			transAct = session.beginTransaction();
@@ -225,6 +228,7 @@ public class RemoteDAO {
 			List<Artist> result = (List<Artist>) session.createQuery("from Artist order by artistName").list();
 			transAct.commit();
 			Artist[] array = new Artist[result.size()];
+
 			session.close();
 			return (Artist[]) result.toArray(array);
 		} catch (Exception e) {
@@ -290,32 +294,57 @@ public class RemoteDAO {
 		}
 	}
 
-	public boolean createAlbum(Album album) throws Exception {
-		Album[] albumSearch = readAlbums();		
+	public boolean createAlbum(Album album, Genre genre, Artist artist) throws Exception {
+		System.out.println("Before readAlbums");
+		Album[] albumSearch = readAlbums();	
+		System.out.println("After readAlbums");
 		//First loop to check whether a given genre is already found within the database
-		for(int i = 0; i < albumSearch.length; i++) {			
+		for(int i = 0; i < albumSearch.length; i++) {
+			System.out.println("For loop " + i + " " + albumSearch.length);
+			System.out.println(albumSearch[i].getAlbumName() + " albumSearch");
+			System.out.println(album.getAlbumName() + " Album");
 			if(albumSearch[i].getAlbumName().equals(album.getAlbumName())) {
+				System.out.println("Throwing exception");
 				throw new Exception("This Album already exists!");
 			}
 		}
 		
-		
-		
-
-//		Album testAlbum = new Album();
-//		testAlbum.setAlbumName(album.getAlbumName());
-//		testAlbum.setAlbumYear(album.getAlbumYear());
-//		
-//		testAlbum.setAlbumArtists(album.getAlbumArtists());
-//		testAlbum.setAlbumGenres(album.getAlbumGenres());
-		
 		Transaction transAct = null;	
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();
-			session.saveOrUpdate(album);			
-			session.save(album);
+			System.out.println("Before saveOrUpdate");
+//			session.saveOrUpdate(album);	
+			System.out.println("After saveOrUpdate");
+//			System.out.println(album2.getAlbumName() + " albumYear " + album2.getAlbumYear() + album2.getAlbumID());
+//			session.saveOrUpdate(album2);
+//			transAct.commit();
+//			Album album3 = (Album)session.load(Album.class, searchAlbum(album2.getAlbumName()).get(0).getAlbumID());
+			
+			System.out.println("Before new loops" + album.getAlbumID());
+			
+			genre.addAlbum(album);
+			session.saveOrUpdate(genre);
+//			for(Genre genre : genreList) {
+////				Genre persistentGenre = (Genre)session.load(Genre.class, genre.getGenreID());
+//				Genre tempGenre = new Genre();
+//				tempGenre = genre;
+//				tempGenre.addAlbum(album);
+//				System.out.println("genre loopppi ");
+//				System.out.println("Genre loop " + tempGenre.getGenreName());
+//				session.saveOrUpdate(tempGenre);
+//				System.out.println("Genre loop after save");
+//			}
+//			
+//			for(Artist artist : artistList) {
+////				Artist persistentArtist = (Artist)session.load(Artist.class, artist.getArtistID());
+//				Artist tempArtist = new Artist();
+//				tempArtist = artist;
+//				tempArtist.addAlbum(album);
+//				System.out.println("artist loop " + tempArtist.getArtistName());
+//				session.saveOrUpdate(tempArtist);
+//				System.out.println("Artist loop after save");
+//			}
 			transAct.commit();
-			session.close();
 			return true;
 		}catch(Exception e) {
 			if(transAct != null) 
@@ -339,13 +368,16 @@ public class RemoteDAO {
 		Transaction transAct = null;
 		try (Session session = sessionFactory.openSession()) {
 			transAct = session.beginTransaction();
-
 			@SuppressWarnings("unchecked")
-			List<Album> result = (List<Album>) session.createQuery("from Album order by albumName").list();
 
-//			transAct.commit();
+			List<Album> result = (List<Album>) session.createQuery("from Album").list();
+			System.out.println("After album query ");
+			transAct.commit();
 			Album[] array = new Album[result.size()];
-			return (Album[]) result.toArray(array);
+			
+			System.out.println((Album[])result.toArray(array) + " array");
+//			 (Album[]) result.toArray(array);
+			 return (Album[])result.toArray(array);
 		} catch (Exception e) {
 			if (transAct != null)
 				transAct.rollback();

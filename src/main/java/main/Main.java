@@ -34,53 +34,58 @@ public class Main {
 		
 		View.main(args);
 		/*
+=======
+		
+		
+>>>>>>> branch 'master' of https://gitlab.metropolia.fi/janiap/MusicArch.git
 		LocalDAO localDAO = new LocalDAO();
 		LocalGenre localGenre = new LocalGenre();
 		localGenre.setGenreID(4);
 		localGenre.setGenreName("Gospel");
 		
 		LocalAlbum localAlbum = new LocalAlbum();
-		localAlbum.setAlbumID(6);
-		localAlbum.setAlbumName("Tuulen valtakunta");
-		localAlbum.setAlbumYear(1999);
+		localAlbum.setAlbumID(20);
+		localAlbum.setAlbumName("Tulen valtakunta");
+		localAlbum.setAlbumYear(2021);
 		try {
 			localDAO.createGenre(localGenre, localAlbum);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		}
 		
 		// These are used in the testing of album creation. Created 10.10.2021 (worked)
-		/*LocalDAO lDAO = new LocalDAO();
-		
-		LocalAlbum localAlbum = new LocalAlbum();
-		localAlbum.setAlbumName("Master of puppets");
-		localAlbum.setAlbumID(2);
-		
-		LocalSong localSong1 = new LocalSong();
-		LocalSong localSong2 = new LocalSong();
-		LocalSong localSong3 = new LocalSong();
-		
-		localSong1.setSongID(2);
-		localSong2.setSongID(3);
-		localSong3.setSongID(4);
-		
-		localSong1.setSongName("Battery");
-		localSong2.setSongName("Master of Puppets");
-		localSong3.setSongName("The Thing That should Not Be");
-		
-		LocalSong[] localSongList = new LocalSong[3];
-		localSongList[0] = localSong1;
-		localSongList[1] = localSong2;
-		localSongList[2] = localSong3;
-		
-		try {
-			lDAO.createAlbum(localAlbum, localSongList);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		LocalDAO lDAO = new LocalDAO();
+//		
+//		LocalAlbum localAlbum = new LocalAlbum();
+//		localAlbum.setAlbumName("Master of puppets");
+//		localAlbum.setAlbumID(2);
+//		
+//		LocalSong localSong1 = new LocalSong();
+//		LocalSong localSong2 = new LocalSong();
+//		LocalSong localSong3 = new LocalSong();
+//		
+//		localSong1.setSongID(2);
+//		localSong2.setSongID(3);
+//		localSong3.setSongID(4);
+//		
+//		localSong1.setSongName("Battery");
+//		localSong2.setSongName("Master of Puppets");
+//		localSong3.setSongName("The Thing That should Not Be");
+//		
+//		LocalSong[] localSongList = new LocalSong[3];
+//		localSongList[0] = localSong1;
+//		localSongList[1] = localSong2;
+//		localSongList[2] = localSong3;
+//		
+//		try {
+//			lDAO.createAlbum(localAlbum, localSongList);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		//
+<<<<<<< HEAD
 		 */
 //		RemoteDAO rDAO = new RemoteDAO();
 //		Album[] testAlbums = rDAO.readAlbums();

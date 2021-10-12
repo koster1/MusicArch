@@ -7,27 +7,27 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="603.0" prefWidth="745.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUIController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="603.0" prefWidth="745.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RequestFormsController">
    <children>
-      <TextField id="TxtFields" fx:id="Released" layoutX="82.0" layoutY="303.0" prefHeight="37.0" prefWidth="250.0" />
-      <Label id="labels" fx:id="Year" layoutX="82.0" layoutY="285.0" prefHeight="18.0" prefWidth="122.0" text="Julkaisuvuosi" />
-      <Button id="Send" layoutX="457.0" layoutY="199.0" maxWidth="80.0" mnemonicParsing="false" onAction="#SendAlbumButton" prefHeight="20.0" prefWidth="80.0" text="Lähetä" />
+      <TextField id="TxtFields" fx:id="Released" layoutX="82.0" layoutY="363.0" prefHeight="37.0" prefWidth="250.0" />
+      <Label id="labels" fx:id="Year" layoutX="82.0" layoutY="345.0" prefHeight="18.0" prefWidth="122.0" text="Julkaisuvuosi" />
+      <Button id="Send" layoutX="570.0" layoutY="476.0" maxWidth="80.0" mnemonicParsing="false" onAction="#SendAlbumButton" prefHeight="20.0" prefWidth="80.0" text="Lähetä" />
       <Label id="labels" fx:id="AlbumTitle" layoutX="79.0" layoutY="34.0" prefHeight="27.0" prefWidth="207.0" text="Albumin lisäys">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <TextField id="TxtFields" fx:id="AlbumName" layoutX="79.0" layoutY="171.0" prefHeight="30.0" prefWidth="250.0" />
-      <Label id="labels" layoutX="79.0" layoutY="145.0" text="Albumin nimi" />
+      <TextField id="TxtFields" fx:id="AlbumName" layoutX="79.0" layoutY="175.0" prefHeight="30.0" prefWidth="250.0" />
+      <Label id="labels" layoutX="79.0" layoutY="158.0" text="Albumin nimi" />
       <TextField id="TxtFields" fx:id="ArtistName" layoutX="79.0" layoutY="100.0" prefHeight="30.0" prefWidth="250.0" />
       <Label id="labels" layoutX="79.0" layoutY="75.0" prefHeight="18.0" prefWidth="250.0" text="Artistin nimi" />
-      <Label id="labels" layoutX="79.0" layoutY="350.0" text="Kappaleet" />
-      <TextField id="TxtFields" fx:id="Songs" layoutX="82.0" layoutY="376.0" prefHeight="30.0" prefWidth="250.0" />
-      <Button id="PlusButtons" layoutX="342.0" layoutY="378.0" mnemonicParsing="false" onAction="#NewSong" prefHeight="30.0" prefWidth="30.0" text="+" />
+      <Label id="labels" layoutX="79.0" layoutY="453.0" text="Kappaleet" />
+      <TextField id="TxtFields" fx:id="Songs" layoutX="82.0" layoutY="469.0" prefHeight="30.0" prefWidth="250.0" />
+      <Button id="PlusButtons" layoutX="342.0" layoutY="471.0" mnemonicParsing="false" onAction="#NewSong" prefHeight="30.0" prefWidth="30.0" text="+" />
       <Button id="PlusButtons" layoutX="342.0" layoutY="100.0" mnemonicParsing="false" onAction="#NewArtist" prefHeight="30.0" prefWidth="30.0" text="+" />
-      <TextField id="TxtFields" fx:id="GenreName" layoutX="79.0" layoutY="239.0" prefHeight="37.0" prefWidth="250.0" />
-      <Label id="labels" layoutX="79.0" layoutY="212.0" text="Genret" />
-      <Button id="PlusButtons" layoutX="342.0" layoutY="242.0" mnemonicParsing="false" onAction="#NewGenre" prefHeight="30.0" prefWidth="30.0" text="+" />
+      <TextField id="TxtFields" fx:id="GenreName" layoutX="79.0" layoutY="285.0" prefHeight="37.0" prefWidth="250.0" />
+      <Label id="labels" layoutX="82.0" layoutY="270.0" text="Genret" />
+      <Button id="PlusButtons" layoutX="342.0" layoutY="285.0" mnemonicParsing="false" onAction="#NewGenre" prefHeight="30.0" prefWidth="30.0" text="+" />
    </children>
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

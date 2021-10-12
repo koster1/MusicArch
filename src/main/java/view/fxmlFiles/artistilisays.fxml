@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUIController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RequestFormsController">
    <children>
       <TextField id="TxtFields" fx:id="ArtistsName" layoutX="131.0" layoutY="136.0" prefHeight="26.0" prefWidth="238.0" />
       <Label layoutX="131.0" layoutY="101.0" prefHeight="18.0" prefWidth="122.0" text="Kirjoita artistin nimi" />
