@@ -234,7 +234,7 @@ public class RequestFormsController {
 		String artistName = ArtistsName.getText();
 		String artistBio = Biografia.getText();
 
-		if (ArtistsName.getText().isEmpty() || Biografia.getText().isEmpty()) {
+		if (ArtistsName.getText().isEmpty()) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Virhe!");
 			alert.setHeaderText("Tarkista artistin nimi. Nimeä ei voi jättää tyhjäksi!");
