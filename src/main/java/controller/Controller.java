@@ -20,9 +20,10 @@ import model.*;
 public class Controller {
 
 	private RemoteDAO remoteDAO = new RemoteDAO();
-	//private LocalDAO localDAO = new LocalDAO();
+
+	private LocalDAO localDAO = new LocalDAO();
+	private GUIController GUIController = new GUIController();
 	
-	private ObservableList<String> list = FXCollections.observableArrayList();
 
 	/**
 	 * Default constructor
@@ -33,19 +34,32 @@ public class Controller {
      */
     public Controller() {}
     
-    //Luominen etätietokantaan
+    //Luominen etätietokantaan.
     public void createGenre(String genreName) {
     	Genre newGenre = new Genre();
     	newGenre.setGenreName(genreName);
-    	remoteDAO.createGenre(newGenre);
+    	try {
+			remoteDAO.createGenre(newGenre);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("Failed to create a genre! ");
+			e.printStackTrace();
+		}
     }
     public void createArtist(String artistName, String artistBio) {
     	Artist newArtist = new Artist();
     	newArtist.setArtistName(artistName);
     	newArtist.setArtistBio(artistBio);
-    	remoteDAO.createArtist(newArtist);
+    	try {
+			remoteDAO.createArtist(newArtist);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("Failed to create an artist! ");
+			e.printStackTrace();
+		}
     }
-    public void createAlbum(String albumName, int albumYear, String[] genreListGiven, String[] artistListGiven) {
+    //SongListGiven removed for testing purposes!
+    public void createAlbum(String albumName, int albumYear, String[] genreListGiven, String[] artistListGiven, String[] songListGiven) {
     	
     	//So first we create an album with the given name and year
     	Album newAlbum = new Album();
@@ -54,37 +68,74 @@ public class Controller {
     	
     	Genre[] albumGenres = new Genre[genreListGiven.length];
     	Artist[] albumArtists = new Artist[artistListGiven.length];
+    	Song[] albumSongs = new Song[songListGiven.length];
+    	
     	
     	if(genreListGiven.length != 0 || artistListGiven.length != 0) {
     		for(int i = 0; i<albumGenres.length; i++) {
-    			Genre linkGenre = remoteDAO.searchGenre(genreListGiven[i]);
-        		newAlbum.addGenre(linkGenre);
+    			Genre linkGenre;
+				try {
+					newAlbum.addGenre(remoteDAO.searchGenre(genreListGiven[i]));
+//					linkGenre = (Genre) remoteDAO.searchGenre(genreListGiven[i]);
+//	        		newAlbum.addGenre(linkGenre);
+				} catch (Exception e) {
+					System.out.println("Failed to add a Genre to Album!");
+					e.printStackTrace();
+				}
         	}
     		for(int i = 0; i<albumArtists.length; i++) {
-    			Artist linkArtist = remoteDAO.searchArtist(artistListGiven[i]);
-    			newAlbum.addArtist(linkArtist);
+    			Artist linkArtist;
+				try {
+					linkArtist = (Artist) remoteDAO.searchArtist(artistListGiven[i]);
+					newAlbum.addArtist(linkArtist);
+				} catch (Exception e) {
+					System.out.println("Failed to add an Artist to Album!");
+					e.printStackTrace();
+				}
+    			
     		}
-    		
-    		remoteDAO.createAlbum(newAlbum);
+//    		for(int i = 0; i<albumSongs.length; i++) {
+//    			try {
+//					Song linkSongs = (Song) remoteDAO.searchSong(songListGiven[i]);
+//				} catch (Exception e) {
+//					System.out.println("Failed to add a Song to Album!");
+//					e.printStackTrace();
+//				}
+//    		}
+    		try {
+				remoteDAO.createAlbum(newAlbum, albumGenres[0], albumArtists[0]);
+				System.out.println("Created an Album successfully!");
+			} catch (Exception e) {
+				System.out.println("Failed to create an Album!");
+				e.printStackTrace();
+			}
     	}
     	else {
     		System.out.println("Can't create album without artists or genres!");
     	}
     	
     }
-    //Paikalliseen tietokantaan luominen
-    public void createLocalGenre(String genreName) {
-    	LocalGenre newGenre = new LocalGenre();
-    	newGenre.setGenreName(genreName);
-    	localDAO.createGenre(newGenre);
+    
+    //Paikalliseen tietokantaan luominen.
+//    public void createLocalGenre (int GenreID, String genreName) {
+//    	LocalGenre localGenre = new LocalGenre();
+//    	Genre genre = remoteDAO.searchGenre(genreName);
+//    	localGenre.setGenreID(GenreID);
+//    	localGenre.setGenreName(genreName);
+//    	
+//    	localDAO.createGenre(localGenre);
+//    }
+    public void createLocalArtist(int ArtistID, String artistName, String artistBio) throws Exception {
+    	LocalArtist localArtist = new LocalArtist();
+    	Artist remoteartist = remoteDAO.searchArtist(artistName);
+    	
+    	localArtist.setArtistID(ArtistID);
+    	localArtist.setArtistName(artistName);
+    	localArtist.setArtistBio(artistBio);
+
+    	localDAO.createArtist(localArtist);
     }
-    public void createLocalArtist(String artistName, String artistBio) {
-    	LocalArtist newArtist = new LocalArtist();
-    	newArtist.setArtistName(artistName);
-    	newArtist.setArtistBio(artistBio);
-    	localDAO.createArtist(newArtist);
-    }
-    public void createLocalAlbum(String albumName, Song[] songListGiven, int albumYear, Genre[] genreListGiven, Artist[] artistListGiven ) {
+    public void createLocalAlbum(String albumName, Song[] songListGiven, int albumYear, Genre[] genreListGiven, Artist[] artistListGiven ) throws Exception {
     	LocalAlbum newAlbum = new LocalAlbum();
     	LocalSong[] songList = new LocalSong[songListGiven.length];
     	newAlbum.setAlbumName(albumName);
@@ -109,6 +160,7 @@ public class Controller {
     //Tallennus paikalliseen tietokantaan
     public void saveLocalGenre(int genreID) {
     	LocalGenre saveLocalGenre = new LocalGenre();
+    	
     	saveLocalGenre = localDAO.readGenre(genreID);
     }
     public void saveLocalArtist(int artistID) {
@@ -165,51 +217,72 @@ public class Controller {
     }
     
     //Poistaminen etätietokannasta
-    public void removeGenre(String genreID) {
-    	int removeID = Integer.parseInt(genreID);
-    	remoteDAO.removeGenre(removeID);
+    public void removeGenre(int genreID) {
+    	remoteDAO.removeGenre(genreID);
     }
-    public void removeArtist(String artistID) {
-    	int removeID = Integer.parseInt(artistID);
-    	remoteDAO.removeArtist(removeID);
+    public void removeArtist(int artistID) {
+    	remoteDAO.removeArtist(artistID);
     }
-    public void removeAlbum(String albumID) {
-    	int removeID = Integer.parseInt(albumID);
-    	remoteDAO.removeAlbum(removeID);
+    public void removeAlbum(int albumID) {
+    	remoteDAO.removeAlbum(albumID);
     }
     //Poistaminen paikallisesta tietokannasta
-    public void removeLocalGenre(String genreID) {
-    	int removeID = Integer.parseInt(genreID);
-    	remoteDAO.removeGenre(removeID);
+    public void removeLocalGenre(int genreID) {
+    	remoteDAO.removeGenre(genreID);
     }
-    public void removeLocalArtist(String artistID) {
-    	int removeID = Integer.parseInt(artistID);
-    	remoteDAO.removeArtist(removeID);
+    public void removeLocalArtist(int artistID) {
+    	remoteDAO.removeArtist(artistID);
     }
-    public void removeLocalAlbum(String albumID) {
-    	int removeID = Integer.parseInt(albumID);
-    	remoteDAO.removeAlbum(removeID);
+    public void removeLocalAlbum(int albumID) {
+    	remoteDAO.removeAlbum(albumID);
     }
     
-    //Hakutoiminnot
-    
-    /*public void searchAll(int genreID, int artistID, int albumID) {
-    	
+
+    public Artist searchAll(String search) {
+    	try {
+//			searchGenre(search);
+//			searchAlbums(search);
+//			searchSongs(search);
+			return searchArtist(search);
+		} catch (Exception e) {
+			System.out.println("Universal search failed somewhere!");
+			e.printStackTrace();
+		}
+		return null;
+    } 
+    private void searchGenre(String genreName) {
+    	try {
+			GUIController.setGenreResults(remoteDAO.searchGenre(genreName));
+		} catch (Exception e) {
+			System.out.println("Genre search failed!");
+			e.printStackTrace();
+		}
     }
-     */
-    
-    public void searchGenre(String genreName) {
-    	remoteDAO.searchGenre(genreName);
+    private Artist searchArtist(String artistName) { 	
+    	try {
+    		return remoteDAO.searchArtist(artistName);
+//			GUIController.setArtistResults(remoteDAO.searchArtist(artistName));
+		} catch (Exception e) {
+			System.out.println("Artist search failed!");
+			e.printStackTrace();
+		}
+		return null; 	
     }
-    public void searchArtist(String artistName) {
-    	remoteDAO.searchArtist(artistName);
+    private void searchAlbums(String albumName) {
+		try {
+			GUIController.setAlbumResults(remoteDAO.searchAlbum(albumName));
+		} catch (Exception e) {
+			System.out.println("Album search failed!");
+			e.printStackTrace();
+		}
     }
-    /* public void searchAlbum (String albumName) {
-    	remoteDAO.searchAlbum()
-    } */
-    
-    public Artist[] getArtists() {
-    	return remoteDAO.readArtists();
+    private void searchSongs(String songName) {
+    	try {
+			GUIController.setSongResults(remoteDAO.searchSong(songName));
+		} catch (Exception e) {
+			System.out.println("Song search failed!");
+			e.printStackTrace();
+		}
     }
     public Genre[] getGenres() {
     	return remoteDAO.readGenres();
@@ -217,5 +290,69 @@ public class Controller {
     public List<String> getExistingGenres() {
     	return remoteDAO.existingGenres();
     }
+
+    public Artist[] getArtists() {
+    	return remoteDAO.readArtists();
+    }
+    public Album[] getAlbums() {
+    	return remoteDAO.readAlbums();
+    }
+    public Song[] getSongs() {
+    	return remoteDAO.readSongs();
+    }
     
+    public List<LocalArtist> getLocalArtist(String search) throws Exception {
+    	return localDAO.searchArtist(search);
+    }
+    
+    public List<String> existinLocalArtists() {
+    	return localDAO.existingArtists();
+    }
+    
+    public LocalGenre[] getLocalGenres() {
+    	return localDAO.readGenres();
+    }
+    
+    public LocalAlbum[] getLocalAlbums() {
+    	return localDAO.readAlbums();
+    }
+    
+    public LocalArtist[] readArtists() {
+    	return localDAO.readArtists();
+    }
+    
+    public LocalAlbum readLocalAlbum(int id) {
+    	return localDAO.readAlbum(id);
+    }
+    
+    public List<String> getSearchable() {
+    	return remoteDAO.getSearchable();
+    }
+    
+    public List<Album> getGenreAlbums(int genreID){
+    	return remoteDAO.genreAlbums(genreID);
+    }
+    public List<Album> getArtistAlbums(int artistID){
+    	return remoteDAO.artistAlbums(artistID);
+    }
+    public List<Song> getAlbumSong(int albumID){
+    	return remoteDAO.albumSongs(albumID);
+    }
+    
+    public List<LocalGenre> getLocalAlbumGenres(int albumID) {
+    	List<LocalGenre> localGenreList = localDAO.getLocalAlbumGenres(albumID);
+    	for(LocalGenre localGenre : localGenreList) {
+    		System.out.println("albumgenres ");
+    		System.out.println(localGenre);
+    	}
+    	System.out.println("albumgenre6");
+    	return localGenreList;
+    }
+    public List<LocalArtist> getLocalAlbumArtists(int albumID) {
+    	return localDAO.getLocalAlbumArtists(albumID);
+    }
+    
+    public List<LocalSong> getLocalAlbumSongs(int albumID) {
+    	return localDAO.localAlbumSongs(albumID);
+    }
 }

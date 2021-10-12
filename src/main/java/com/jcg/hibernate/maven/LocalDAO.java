@@ -32,15 +32,14 @@ public class LocalDAO {
 	
 	
 	
-	public boolean createGenre(LocalGenre genre) {
+	public boolean createGenre(LocalGenre genre, LocalAlbum localAlbum) throws Exception {
 		LocalGenre[] genreSearch;
 		genreSearch = readGenres();
 		
 		//First loop to check whether a given genre is already found within the database
 		for(int i = 0; i < genreSearch.length; i++) {			
 			if(genreSearch[i].getGenreName().equals(genre.getGenreName())) {
-				System.out.println("This one already exists! Can't add it!");
-				return false;
+				throw new Exception("This Genre already exists!");
 			}
 		}
 				
@@ -48,7 +47,12 @@ public class LocalDAO {
 		
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();
+			
+			
+			genre.addAlbum(localAlbum);
 			session.saveOrUpdate(genre);
+			
+//			session.saveOrUpdate(genre);
 			
 			transAct.commit();
 			return true;
@@ -175,34 +179,95 @@ public class LocalDAO {
 		Transaction transAct = null;
 		try (Session session = sessionFactory.openSession()) {
 			transAct = session.beginTransaction();
-			System.out.println("readArtists 1");
-			
-			
+			System.out.println("Local readArtists exception 0 ");
 			@SuppressWarnings("unchecked")
-			List<LocalArtist> result = (List<LocalArtist>) session.createQuery("from LocalArtist").list();
-			System.out.println("readArtists 2");
+			List<LocalArtist> result = (List<LocalArtist>) session.createQuery("from LocalArtist order by artistName").list();
+			System.out.println("Local readArtists exception 1");
 			transAct.commit();
+			session.close();
+			System.out.println("Local readArtists exception 2");
 			LocalArtist[] array = new LocalArtist[result.size()];
-			return (LocalArtist[]) result.toArray(array);
+			array = (LocalArtist[]) result.toArray(array);
+			return array;
 		} catch (Exception e) {
+			System.out.println("Local readArtists exception 3");
 			if (transAct != null)
 				transAct.rollback();
 			throw e;
 		}
 	}
 	
-	public Artist searchArtist(String artistSearch) {
+//	public LocalArtist[] readArtists() {
+//		Transaction transAct = null;
+//		try (Session session = sessionFactory.openSession()) {
+//			transAct = session.beginTransaction();
+//			System.out.println("readArtists 1");
+//			
+//			
+//			@SuppressWarnings("unchecked")
+//			List<LocalArtist> result = (List<LocalArtist>) session.createQuery("from LocalArtist").list();
+//			System.out.println("readArtists 2");
+//			transAct.commit();
+//			LocalArtist[] array = new LocalArtist[result.size()];
+//			return (LocalArtist[]) result.toArray(array);
+//		} catch (Exception e) {
+//			if (transAct != null)
+//				transAct.rollback();
+//			throw e;
+//		}
+//	}
+//	
+	public List<LocalArtist> searchArtist(String artistSearch) throws Exception {
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();	
-			Query query = session.createQuery("From Artisti where artistiNimi like:name");
-			List<Artist> artistList = query.setParameter("name", artistSearch).list();
-
+			Query query = session.createQuery("From Artist where artistName =:name");
+			List<LocalArtist> artistList = query.setParameter("name", artistSearch).list();
+			
+			if (artistList.size() == 0) {
+				throw new Exception("Nothing found!");
+			}
 			transAct.commit();
 			session.close();
-			return artistList.get(0);			
+			
+			return artistList;
+		}catch(Exception e){
+			System.out.println("exception why??");
+			if(transAct != null)
+				transAct.rollback();
+			throw e;
 		}
-	}	
+		
+	}
+	
+	public List<String> existingArtists(){
+		Transaction transAct = null;
+		try(Session session = sessionFactory.openSession()){
+			transAct = session.beginTransaction();
+			String sql = "select ArtistName from Artist";
+			SQLQuery query = session.createSQLQuery(sql);
+			List<String> results = query.list();
+			transAct.commit();
+			return results;
+		}catch(Exception e) {
+			if(transAct != null)
+				transAct.rollback();
+			throw e;
+		}
+	}
+	
+//	public Artist searchArtist(String artistSearch) {
+//		Transaction transAct = null;
+//		try(Session session = sessionFactory.openSession()){
+//			transAct = session.beginTransaction();	
+//			Query query = session.createQuery("From Artisti where artistiNimi like:name");
+//			List<Artist> artistList = query.setParameter("name", artistSearch).list();
+//
+//			transAct.commit();
+//			session.close();
+//			return artistList.get(0);			
+//		}
+//	}	
 	
 	//To be tested!
 	public boolean editArtist(LocalArtist artistEdit, int id) {
@@ -237,9 +302,36 @@ public class LocalDAO {
 			throw e;
 		}
 	}
+	
+	
 	//Still not sure how to handle the song list here :/
-	public boolean createAlbum(LocalAlbum album, LocalSong[] songs) {
-		return true;
+	public boolean createAlbum(LocalAlbum localAlbum, LocalSong[] songs) throws Exception {
+		LocalAlbum[] albumSearch = readAlbums();		
+		//First loop to check whether a given genre is already found within the database
+		for(int i = 0; i < albumSearch.length; i++) {			
+			if(albumSearch[i].getAlbumName().equals(localAlbum.getAlbumName())) {
+				throw new Exception("This Album already exists!");
+			}
+		}
+
+		Transaction transAct = null;	
+		try(Session session = sessionFactory.openSession()){
+			transAct = session.beginTransaction();
+			
+			for(LocalSong localSong : songs) {
+				localSong.addAlbum(localAlbum);
+				session.saveOrUpdate(localSong);
+			}
+			
+//			session.saveOrUpdate(localAlbum);			
+			session.save(localAlbum);
+			transAct.commit();
+			return true;
+		}catch(Exception e) {
+			if(transAct != null) 
+				transAct.rollback();
+			throw e;			
+		}
 	}
 	
 	public LocalAlbum readAlbum(int id) {
@@ -256,12 +348,12 @@ public class LocalDAO {
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();
-			
+			System.out.println("album1");
 			@SuppressWarnings("unchecked")
-			List<LocalAlbum> result = (List<LocalAlbum>) session.createQuery("from LocalAlbumi").list();
-			
-			transAct.commit();
+			List<LocalAlbum> result = (List<LocalAlbum>) session.createQuery("from LocalAlbum order by AlbumName").list();
+			System.out.println("album2");
 			LocalAlbum[] array = new LocalAlbum[result.size()];
+			transAct.commit();
 			return (LocalAlbum[]) result.toArray(array);
 		}catch (Exception e) {
 			if (transAct != null)
@@ -275,7 +367,7 @@ public class LocalDAO {
 		Transaction transAct = null;		
 		try(Session session = sessionFactory.openSession()){
 		transAct = session.beginTransaction();		
-		Album editAlbum = (Album)session.load(Album.class, id);		
+		LocalAlbum editAlbum = (LocalAlbum)session.load(LocalAlbum.class, id);		
 		session.saveOrUpdate(editAlbum);
 		transAct.commit();
 		return true;
@@ -332,6 +424,71 @@ public class LocalDAO {
 		} catch(Exception e) {
 			if(transaction != null)
 				transaction.rollback();
+			throw e;
+		}
+		
+	}
+	/*
+	 * Method takes in an album's ID and then opens a session with it. During the session, a song-list can be created based on the instance
+	 * After loading the list, the session is closed and the method returns a list of Songs based on the album.
+	 */
+	public List<LocalSong> localAlbumSongs(int albumID){
+		Transaction transAct = null;
+		try(Session session = sessionFactory.openSession()){
+			transAct = session.beginTransaction();
+			LocalAlbum localAlbum = (LocalAlbum) session.load(LocalAlbum.class, albumID);
+			List<LocalSong> array = localAlbum.getAlbumSongs();
+			System.out.println(array);
+			transAct.commit();
+			session.close();
+			return array;
+		}catch(Exception e) {
+			if(transAct != null)
+				transAct.rollback();
+			throw e;
+		}
+	}
+	
+	public List<LocalGenre> getLocalAlbumGenres(int albumID) {
+		Transaction transAct = null;
+		try(Session session = sessionFactory.openSession()){
+			transAct = session.beginTransaction();
+			System.out.println("albumgenre1");
+			LocalAlbum localAlbum = (LocalAlbum) session.load(LocalAlbum.class, albumID);
+			System.out.println("albumgenre2");
+			List<LocalGenre> array = localAlbum.getAlbumGenres();
+			System.out.println("albumgenre3 " + array);
+			transAct.commit();
+			System.out.println("albumgenre4");
+			session.close();
+			System.out.println("albumgenre close");
+			return array;
+		}catch(Exception e) {
+			System.out.println("albumgenre5");
+			if(transAct != null)
+				transAct.rollback();
+			throw e;
+		}
+	}
+	
+	public List<LocalArtist> getLocalAlbumArtists(int albumID) {
+		Transaction transAct = null;
+		try(Session session = sessionFactory.openSession()){
+			transAct = session.beginTransaction();
+			System.out.println("albumgenre1");
+			LocalAlbum localAlbum = (LocalAlbum) session.load(LocalAlbum.class, albumID);
+			System.out.println("albumgenre2");
+			List<LocalArtist> array = localAlbum.getAlbumArtists();
+			System.out.println("albumgenre3 " + array);
+			transAct.commit();
+			System.out.println("albumgenre4");
+			session.close();
+			System.out.println("albumgenre close");
+			return array;
+		}catch(Exception e) {
+			System.out.println("albumgenre5");
+			if(transAct != null)
+				transAct.rollback();
 			throw e;
 		}
 	}

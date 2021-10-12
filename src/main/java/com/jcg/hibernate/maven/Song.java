@@ -1,26 +1,42 @@
 package com.jcg.hibernate.maven;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+
 @Entity
-@Table(name = "Kappale")
+@Table(name = "Song")
 public class Song {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "KappaleID", updatable = false, nullable = false)
+	@Column(name = "SongID", updatable = false, nullable = false)
 	private int songID;
 	
-	@Column(name = "KappaleNimi")
+	@Column(name = "SongName")
 	private String songName;
 	
-	@Column(name = "KappaleenKesto")
-	private int songDuration;
+	@ManyToMany(fetch=FetchType.EAGER,
+			cascade={CascadeType.ALL})
+	@JoinTable(
+			name="AlbumSongs",
+			joinColumns={@JoinColumn(name="SongID")},
+			inverseJoinColumns={@JoinColumn(name="AlbumID")}
+			)
+	private List<Album> songAlbums;
+	
 	
 	public int getSongID() {
 		return songID;
@@ -34,11 +50,16 @@ public class Song {
 	public void setSongName(String songName) {
 		this.songName = songName;
 	}
-	public int getSongDuration() {
-		return songDuration;
+	public void setSongAlbums(List<Album> songAlbums) {
+		this.songAlbums = songAlbums;
 	}
-	public void setSongDuration(int songDuration) {
-		this.songDuration = songDuration;
+	public List<Album> getSongAlbums() {
+		return songAlbums;
 	}
-
+	public void addAlbum(Album album) {
+		if(songAlbums == null) {
+			songAlbums = new ArrayList<>();
+		}
+		songAlbums.add(album);
+	}
 }

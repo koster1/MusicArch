@@ -1,57 +1,49 @@
 package controller;
 
 import controller.*;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.SplitPane;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.TilePane;
+import javafx.scene.text.Text;
+import javafx.util.Duration;
+
 import com.jcg.hibernate.maven.Artist;
 import com.jcg.hibernate.maven.Album;
 import com.jcg.hibernate.maven.RemoteDAO;
 import com.jcg.hibernate.maven.Genre;
 
-import javafx.animation.PauseTransition;
-import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
-import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.Label;
-import javafx.scene.control.Labeled;
-import javafx.scene.control.ScrollBar;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TitledPane;
-import javafx.scene.input.MouseEvent;
-import view.View;
+
+
 
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import com.jcg.hibernate.maven.Song;
 
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonBar.ButtonData;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.SplitPane;
-import javafx.scene.control.TextArea;
-
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.util.Duration;
 import view.*;
 
 public class GUIController {
@@ -59,33 +51,50 @@ public class GUIController {
 	private View view;
 	private BorderPane borderpane;
 	private double pauseDuration = 0.2;
-
+	private Genre genreResults;
+	private Artist artistResults;
+	private Album albumResults;
+	private Song songResults;
+	List<String> everythingFound;
+	
 	@FXML
-	private BorderPane mainPane;
+    private ContextMenu searchContext;
+	
 	@FXML
-	private ButtonBar Buttonbar;
+	private AnchorPane UserCategories;
+	
+	@FXML
+	public TitledPane UserGenreDrop;
+	
+	@FXML
+	private TitledPane UserAlbumDrop;
+	
+	@FXML
+	private TitledPane UserArtistDrop;
+	
 	@FXML
 	private Button SearchButton;
-
+	
 	// Etusivun hakukenttä
-	@FXML
+	@FXML 
 	private TextField SearchBox;
 
 	@FXML
 	void SearchTxt(ActionEvent event) {
 		SearchButton.setStyle("-fx-border-color: #ffff33");
 		PauseTransition pause = new PauseTransition(Duration.seconds(pauseDuration));
-
+	
 		pause.setOnFinished(event1 -> {
 			SearchButton.setStyle(null);
 		});
 		pause.play();
+		
 	}
 
 	//
 	@FXML
 	private GridPane gridView;
-	@FXML
+	@FXML 
 	private Button gridButton;
 	// Rootlayoutin keskikohta
 	@FXML
@@ -101,275 +110,29 @@ public class GUIController {
 	@FXML
 	private Button UserCollection;
 
-	// ----------------------Genren lisäyslomake---------------------
-	@FXML
-	private TextField GenreAddTxtField;
-	@FXML
-	private Label GenreAddLabel;
-	@FXML
-	private Button SendGenre;
-	@FXML
-	private Label GenreAddTitle;
-
-	// ---------------------- Albumin lisäys--------------------
-
-	// Selvitä mikä tää send on?
-//	@FXML
-//	private Button Send;
-	@FXML
-	private TextField ArtistsName;
-	@FXML
-	private TextArea Biografia;
-
-	public GUIController() {
-	}
-
+	
+	public GUIController() {}
+	
 	public GUIController(View view, Controller controller) {
 		this.view = view;
 		this.controller = controller;
 	}
 
-	// SendGenreButton lähettää Genre-lomakkeen tiedot controlleriin.
-	// Ponnauttaa Virhe-ikkunan, jos tekstikenttä on tyhjä
-	// Täytyy lisätä muitakin ehtoja
-	@FXML
-	void SendGenreButton(ActionEvent event) throws IOException {
-		String genreName = GenreAddTxtField.getText();
-		if (genreName.isEmpty()) {
-			view.Error();
-			/*
-			 * Alert alert = new Alert(AlertType.ERROR); alert.setTitle("Virhe!");
-			 * alert.setHeaderText("Tarkista genren nimi. Nimi ei voi olla tyhjä.");
-			 * alert.setContentText("Ooops, i did it again ;)"); alert.showAndWait();
-			 */
-			GenreAddTxtField.clear();
-
-		} else {
-
-			controller.createGenre(genreName);
-
-			Dialog<String> dialog = new Dialog<String>();
-			dialog.setTitle("Pyyntö lähetetty");
-			dialog.setHeaderText("Genrepyyntö lähetetty!");
-			dialog.setContentText("Lähetit pyynnön lisätä genren: " + genreName);
-			GenreAddTxtField.clear();
-
-			ButtonType type = new ButtonType("OK", ButtonData.OK_DONE);
-			dialog.getDialogPane().getButtonTypes().add(type);
-			dialog.showAndWait();
-
-		}
-	}
-
-	// SendArtistButton lähettää Artist-lomakkeen tiedot controlleriin.
-	// Virhe-ikkuna ponnautetaan jos kentät ovat tyhjiä
-	// Täytyy lisätä muitakin ehtoja
-	@FXML
-	void SendArtistButton(ActionEvent event) throws IOException {
-		System.out.print(" Artistin nimi: " + ArtistsName.getText() + " Artistin bio: " + Biografia.getText() + " ");
-		String artistName = ArtistsName.getText();
-		String artistBio = Biografia.getText();
-
-		if (ArtistsName.getText().isEmpty() || Biografia.getText().isEmpty()) {
-			view.Error();
-			/*
-			 * Alert alert = new Alert(AlertType.ERROR); alert.setTitle("Virhe!");
-			 * alert.setHeaderText("Tarkista artistin nimi. Nimeä ei voi jättää tyhjäksi!");
-			 * alert.setContentText("Ooops, there was an error!"); alert.showAndWait();
-			 */
-			ArtistsName.clear();
-			Biografia.clear();
-		} else {
-			// Pitää hakea booleani että minkä perustella katsotaan onko artisti kannassa
-			controller.createArtist(artistName, artistBio);
-			Dialog<String> dialog = new Dialog<String>();
-			dialog.setTitle("Pyyntö lähetetty");
-			dialog.setHeaderText("Artistipyyntö lähetetty!");
-			dialog.setContentText("Lähetit pyynnön lisätä genren: " + artistName);
-
-			ButtonType type = new ButtonType("OK", ButtonData.OK_DONE);
-			dialog.getDialogPane().getButtonTypes().add(type);
-			dialog.showAndWait();
-
-			// Tässä on joku probleema!
-			ArtistsName.clear();
-			Biografia.clear();
-		}
-
-	};
-
-	// Lähetetään album-lomakkeen tiedot controllerille
-	// ALbum jutut
-
-	@FXML
-	private TextField Released;
-
-	@FXML
-	private Label Year;
-
-	@FXML
-	private Label AlbumTitle;
-
-	@FXML
-	private TextField AlbumName;
-
-	@FXML
-	private TextField ArtistName;
-
-	@FXML
-	private TextField Songs;
-	// @FXML
-//	private TextField GenreName;
-	@FXML
-	private TextField GenreName1;
-	@FXML
-	private TextField GenreName2;
-	@FXML
-	private TextField GenreName3;
-	@FXML
-	private TextField textfield;
-	@FXML
-	private Button NewArtist;
-	int i = 0;
-	@FXML
-	void SendAlbumButton(ActionEvent event) {
-		// System.out.print(Arrays.toString(ArtistList.toArray()));
-		for (i = 0; i < ArtistList.size(); i++) {
-			System.out.println(i);
-		}
-		/*for (i = 0; i < ArtistList.size(); i++) {
-			System.out.print(Arrays.toString(ArtistList.toArray()));
-
-		}*/
-		System.out.print(Arrays.toString(ArtistList.toArray()));
-		
-		String albumName = AlbumName.getText();
-		String a = Songs.getText();
-		// String Gn = GenreName.getText();
-		String Gn1 = GenreName1.getText();
-		String Gn2 = GenreName2.getText();
-		String Gn3 = GenreName3.getText();
-		String aN = ArtistName.getText();
-		int albumYear = Integer.parseInt(Released.getText());
-		ArtistList.add(ArtistName.getText());
-		String[] GenreListGiven = {"Rock"};
-		String[] artistName =(ArtistList.toArray(new String[0]));
-		String[] songsListGiven = { "Testi" };
-
-		controller.createAlbum(albumName, albumYear, GenreListGiven, artistName);
-	}
-
-	// ------------AlbumiFormin toiminnallisuus--------------------
-	// Pitää lisätä uusia tekstikenttiä moniarvoisille tiedoille
-	@FXML
-	private ScrollPane artistScroll;
-	@FXML
-	private Button OkButton;
-	@FXML
-	private VBox root;
-	@FXML
-	private VBox root1;
-	@FXML
-	private Pane root2;
-	@FXML
-	private Button save;
-	List<String> ArtistList = new ArrayList<String>();
-
-	@FXML
-	void NewArtist(ActionEvent event) {
-		final HBox parent = new HBox(5.0);
-		TextField field = new TextField();
-
-		Button button = new Button("-");
-		field.setAlignment(Pos.CENTER_LEFT);
-		button.setAlignment(Pos.CENTER_RIGHT);
-		button.setOnAction((e) -> parent.getChildren().clear());
-		HBox.setHgrow(field, Priority.ALWAYS);
-		HBox.setHgrow(button, Priority.NEVER);
-		parent.getChildren().setAll(field, button);
-		root.getChildren().add(parent);
-
-		// String items = ;
-		save.setOnAction((e2) -> {
-			ArtistList.add(field.getText().toString());
-			
-		});
-		
-	}
-
-	@FXML
-	void NewGenre(ActionEvent event) {
-		// Ei tiedä tarviiko
-	}
-
-	@FXML
-	void NewSong(ActionEvent event) {
-		final HBox parent = new HBox(5.0);
-		TextField field = new TextField();
-		Button button = new Button("-");
-		field.setAlignment(Pos.CENTER_LEFT);
-		button.setAlignment(Pos.CENTER_RIGHT);
-		button.setOnAction((e) -> root1.getChildren().remove(parent));
-		HBox.setHgrow(field, Priority.ALWAYS);
-		HBox.setHgrow(button, Priority.NEVER);
-		parent.getChildren().setAll(field, button);
-		root1.getChildren().add(parent);
-	}
-
-	// Lisäyspyynnöt- sivu (Splitpane- näkymä)
-
-	@FXML
-	private SplitPane SplittedRequestPage;
-	@FXML
-	private AnchorPane RequestCategories;
-
+	
 	// ----------------SIVUJEN VAIHDOT JA PÄIVITYKSET-----------------------
 	// Menunappulat
-	@FXML
-	public void goFrontPage(ActionEvent event) throws IOException {
-		System.out.println("Test11");
-		FrontPage.setStyle("-fx-border-color: #ffff33");
-		PauseTransition pause = new PauseTransition(Duration.seconds(pauseDuration));
-		System.out.println("Test12");
-		pause.setOnFinished(event1 -> {
-			FrontPage.setStyle(null);
-		});
-		pause.play();
-		System.out.println("Test13");
-		try {
-			Artist[] artistList = controller.getArtists();
-			ArrayList<String> stringList = new ArrayList<>();
-			for (Artist artist : artistList) {
-				System.out.println(artist.getArtistName());
-				stringList.add(artist.getArtistName());
-			}
-			System.out.println(stringList);
-			View.showFrontPage(stringList);
-
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-
-	}
-
+	
+	
 	public void goFrontPage() throws IOException {
-		Artist[] artistList = controller.getArtists();
-		ArrayList<String> stringList = new ArrayList<>();
-		for (Artist artist : artistList) {
-			System.out.println(artist.getArtistName());
-			stringList.add(artist.getArtistName());
-		}
-
-		View.showFrontPage(stringList);
-
+		View.showFrontPage();
 	}
 
 	@FXML
 	void ShowRequests(ActionEvent event) throws IOException {
-
+		
 		Requests.setStyle("-fx-border-color: #ffff33");
 		PauseTransition pause = new PauseTransition(Duration.seconds(pauseDuration));
-
+		
 		pause.setOnFinished(event1 -> {
 			Requests.setStyle(null);
 		});
@@ -381,7 +144,7 @@ public class GUIController {
 	void GoHelpPage(ActionEvent event) throws IOException {
 		Help.setStyle("-fx-border-color: #ffff33");
 		PauseTransition pause = new PauseTransition(Duration.seconds(pauseDuration));
-
+		
 		pause.setOnFinished(event1 -> {
 			Help.setStyle(null);
 		});
@@ -389,83 +152,115 @@ public class GUIController {
 		view.showHelpPage();
 
 	}
+	
 
+	
 	@FXML
 	void goUserCollection(ActionEvent event) throws IOException {
 		UserCollection.setStyle("-fx-border-color: #ffff33");
 		PauseTransition pause = new PauseTransition(Duration.seconds(pauseDuration));
-
+		
 		pause.setOnFinished(event1 -> {
 			UserCollection.setStyle(null);
 		});
 		pause.play();
+
+		
+		
+		System.out.println("UserGenreDrop = "+UserGenreDrop);
 		view.showUserCollectionPage();
 	}
-
-	// --------------- Lisäyspyynnöt- sivun dropit-------------------
-
+	
 	@FXML
-	private TitledPane GenreDrop;
-	@FXML
-	private TitledPane AlbumDrop;
-	@FXML
-	private TitledPane ArtistDrop;
-	@FXML
-	private AnchorPane RequestForms;
-
-//-------------Dropit-----------------------
-	@FXML
-	void Album(MouseEvent event) throws IOException {
+	void goSearchPage(ActionEvent event) throws IOException {
+		String searchText = SearchBox.getText();
+		view.showSearchPage(searchText);
 	}
-
+	
 	@FXML
-	void Artist(MouseEvent event) {
+	void GoAlbumPage(ActionEvent event) throws IOException {
+		view.showAlbumPage();
 	}
-
-	@FXML
-	void Genre(MouseEvent event) throws IOException {
-	}
-
-// -----------------LomakeButtonit------------
-	@FXML
-	void GenreFormButton(ActionEvent event) throws IOException {
-		view.showGenreForm();
-	}
-
-	@FXML
-	void AlbumFormButton(ActionEvent event) throws IOException {
-		view.showAlbumForm();
-	}
-
-	@FXML
-	void ArtistFormButton(ActionEvent event) throws IOException {
-		view.showArtistForm();
-	}
-
-// -------------------Receive content from remote database-------------
-
-	//
-	@FXML
-	void getArtists(ActionEvent event) throws IOException {
-		Artist[] artistList = controller.getArtists();
-		System.out.println(artistList[0].getArtistName() + " and " + artistList[0].getArtistID());
-		ArrayList<String> stringList = new ArrayList<>();
-		for (Artist artist : artistList) {
-			System.out.println(artist.getArtistName());
-			stringList.add(artist.getArtistName());
-		}
-		int counter = 0;
-		for (int i = 0; i < gridView.getColumnCount(); i++) {
-			for (int j = 0; j < gridView.getRowCount(); j++) {
-				if (counter < stringList.size()) {
-					Text text = new Text();
-					text.setText(artistList[counter].getArtistName());
-					gridView.add(text, i, j);
-					counter++;
-				}
+	
+	 @FXML
+	 void getSearchable(MouseEvent event) {
+		 if(everythingFound == null) {
+			 everythingFound = new ArrayList<>();
+		 }
+		 everythingFound = controller.getSearchable();
+		 System.out.println("Fetched all the searchable values");
+    }
+	
+	 @FXML
+	 void refreshSearchList(KeyEvent event) {
+		 
+		 
+		int menuCounter = 0;
+		List<String> strippedList = new ArrayList<String>();
+		SearchBox.setContextMenu(searchContext);	
+		searchContext.show(SearchBox, null, pauseDuration, 50);	
+		
+		for(int i = 0; i<everythingFound.size(); i++) {		
+			if(everythingFound.get(i).toLowerCase().contains(SearchBox.getText().toLowerCase())) {
+				strippedList.add(everythingFound.get(i));
+				menuCounter++;
 			}
 		}
-
+		searchContext.getItems().clear();
+		if(menuCounter > 5) {
+			menuCounter = 4;
+		}
+		for(int i = 0; i<menuCounter; i++) {
+			if(SearchBox.getText().isEmpty()) {
+				break;
+			}
+			String testString = strippedList.get(i);
+			MenuItem searchItem = new MenuItem(testString);
+			searchItem.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent t) {
+					SearchBox.setText(searchItem.getText());
+					try {
+						view.showSearchPage(SearchBox.getText());
+						SearchBox.clear();
+					}catch(IOException e1) {
+						System.out.println("Failed to commit a search in GUIController's refreshSearchList method!");
+						e1.printStackTrace();
+					}	
+				}
+			});
+			System.out.println("Added a new menu item -> "+searchItem.getText());
+			searchContext.getItems().add(searchItem);
+		}
+	 }
+    
+	
+	//-------------Search results from controller------
+	
+	public void setGenreResults(Genre genre) {
+		this.genreResults = genre;
+	}
+	public Genre getGenreResults() {
+		return genreResults;
+	}
+	public void setArtistResults(Artist artistResults) {
+		this.artistResults = artistResults;
+	}
+	public Artist getArtistResults(){
+		return artistResults;
+	}
+	public void setAlbumResults(Album album) {
+		this.albumResults = album;
+	}
+	public Album getAlbumResults(){
+		return albumResults;
+	}
+	public void setSongResults(Song song) {
+		this.songResults = song;
+	}
+	public Song getSongResults(){
+		return songResults;
 	}
 
 }
+

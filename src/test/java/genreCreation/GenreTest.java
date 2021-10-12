@@ -3,6 +3,8 @@ package genreCreation;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -19,20 +21,22 @@ public class GenreTest {
 	@Test
 	@Order(3)
 	@DisplayName("Delete a specific Genre from database")
-	public void deleteGenre(){
+	public void deleteGenre() throws Exception{
 		System.out.println("NOW DOING THE DELETION TEST");
 		Genre testGenre = new Genre();
 		testGenre.setGenreName(givenGenre);
 		rDAO.createGenre(testGenre);
 		int id = rDAO.searchGenre(givenGenre).getGenreID();
 		rDAO.removeGenre(id);
-		assertEquals(null, rDAO.searchGenre(givenGenre).getGenreName());
+		assertThrows(Exception.class, () ->{
+			rDAO.searchGenre(givenGenre).getGenreName();
+		});
 	}
 	
     @Test
     @Order(2)
 	@DisplayName("Searching a specific Genre from database")
-	public void searchGenre() {
+	public void searchGenre() throws Exception {
 		System.out.println("NOW DOING THE SEARCH TEST");
 		Genre testGenre = new Genre();
 		testGenre.setGenreName("TestGenre");
@@ -44,7 +48,7 @@ public class GenreTest {
 	@Test
 	@Order(1)
 	@DisplayName("Add Genre into database")
-	public void createGenre() {
+	public void createGenre() throws Exception {
 		System.out.println("NOW DOING THE CREATION TEST");
 		Genre testGenre = new Genre();
 		testGenre.setGenreName("TestGenre");

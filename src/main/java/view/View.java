@@ -6,11 +6,21 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.jcg.hibernate.maven.Album;
+import com.jcg.hibernate.maven.Artist;
+import com.jcg.hibernate.maven.Genre;
+import com.jcg.hibernate.maven.Song;
 import com.sun.glass.ui.Window;
 import com.sun.xml.bind.v2.runtime.unmarshaller.Loader;
 
+import antlr.debug.Event;
 import controller.Controller;
+import controller.FrontPageController;
 import controller.GUIController;
+import controller.SearchController;
+import controller.UserCollectionController;
+import controller.RequestFormsController;
+import controller.AlbumPageController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,7 +29,12 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Button;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -33,13 +48,17 @@ public class View extends Application {
 	private Stage primaryStage;
 	private static BorderPane rootLayout;
 	private static BorderPane anotherRoot;
-	private static BorderPane userRoot;
+	private static AnchorPane userRoot;
 	private static SplitPane splitPane;
 	private static AnchorPane test;
 	private static BorderPane g;
 	private Pane view;
 	private static GUIController guiController;
 	private static Controller controller;
+	private static ListView<Artist> artistListView;
+	private static ListView<Genre> genreListView;
+	private static ListView<Album> albumListView;
+	private static ListView<Song> songListView;
 
 	public void init() {
 		controller = new Controller();
@@ -54,8 +73,9 @@ public class View extends Application {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("MusicArch");
 		showHome();
-		guiController.goFrontPage();
-//		showFrontPage();
+		
+		showFrontPage();
+//		showAlbumPage();
 
 	}
 
@@ -81,37 +101,18 @@ public class View extends Application {
 	// BorderPanen keskelle asetettu etusivunäkymä (sisältää tulevaisuudessa
 	// listauksia genreistä tms)
 	//BorderPanen keskelle asetettu etusivunäkymä (sisältää tulevaisuudessa listauksia genreistä tms)
-	public static void showFrontPage(ArrayList<String> stringList) throws IOException {
-
+	public static void showFrontPage() throws IOException {
+		
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(View.class.getResource("/view/fxmlFiles/FrontPage.fxml"));
+		loader.setControllerFactory(FrontPageController -> new FrontPageController(controller));
 		try {
 			System.out.println("lataaja " + loader);
 		} catch (Exception e) {
 			System.out.println("päädyit tänne " + e.getMessage());
 		}
-		System.out.println("Test1");
 		AnchorPane Frontpage = (AnchorPane) loader.load();
-		System.out.println("Test2");
 		rootLayout.setCenter(Frontpage);
-		System.out.println("Test3");
-		GridPane gridPane = (GridPane)Frontpage.getChildren().get(0);
-		System.out.println("Test4");
-		gridPane.setAlignment(Pos.CENTER);
-		System.out.println("Test5");
-		System.out.println(stringList.toString());
-		int counter = 0;
-		for(int i = 0; i < gridPane.getColumnCount(); i++) {
-			for(int j = 0; j < gridPane.getRowCount(); j++) {
-				if(counter < stringList.size()) {
-					Text text = new Text();
-					text.setText(stringList.get(counter));
-					gridPane.add(text, i, j);
-					counter++;
-				}
-			}
-		}
-		System.out.println("Test6");
 
 	}
 
@@ -122,6 +123,22 @@ public class View extends Application {
 		AnchorPane Frontpage = (AnchorPane) loader.load();
 		rootLayout.setCenter(Frontpage);
 
+	}
+	
+	public static void showSearchPage(String searchText) throws IOException {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(View.class.getResource("/view/fxmlFiles/SearchPage.fxml"));
+		loader.setControllerFactory(SearchController -> new SearchController(searchText, controller));
+		AnchorPane Frontpage = (AnchorPane) loader.load();
+		rootLayout.setCenter(Frontpage);
+	}
+	
+	public static void showAlbumPage() throws IOException {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(View.class.getResource("/view/fxmlFiles/AlbumPage.fxml"));
+		loader.setControllerFactory(AlbumPageController -> new AlbumPageController(controller));
+		AnchorPane Frontpage = (AnchorPane) loader.load();
+		rootLayout.setCenter(Frontpage);
 	}
 	//
 	public static void showUserCollectionPage() throws IOException {
@@ -143,17 +160,18 @@ public class View extends Application {
 		}
 		if(test) {
 			FXMLLoader fxmlLoader = new FXMLLoader();
-			fxmlLoader.setLocation(View.class.getResource("/view/fxmlFiles/OmaKokoelma.fxml"));
-			userRoot = (BorderPane) fxmlLoader.load();
+			fxmlLoader.setLocation(View.class.getResource("/view/fxmlFiles/OmaKokoelma2.fxml"));
+			fxmlLoader.setControllerFactory(UserCollectionController -> new UserCollectionController(controller));
+			userRoot = (AnchorPane) fxmlLoader.load();
 			Scene scene = new Scene(userRoot);
 			scene.getWindow();
 			scene.getStylesheets().add("/view/style.css");
 			Stage stage2 = new Stage();
 			stage2.setMinWidth(1200);
+			stage2.setMinHeight(500);
 			stage2.setTitle("User");
 			stage2.setScene(scene);
 			stage2.show();
-			userRoot.requestFocus();
 		}
 	}
 
@@ -163,13 +181,7 @@ public class View extends Application {
 	//
 	public static void showRequestsWindow() throws IOException {
 		System.out.print(" !!!    täällä ollaan    !!!");
-		/*
-		 * try { System.out.print("   " + anotherRoot); }catch (Exception e){
-		 * System.out.print(e.getMessage()); }
-		 */
-		
-
-		
+			
 			List<Window> windows = Window.getWindows();
 			System.out.println(windows);
 			boolean test = true;
@@ -177,7 +189,7 @@ public class View extends Application {
 				for(int i = 0; i < windows.size(); i++) {
 					System.out.println(windows.get(i).getTitle());
 					if(windows.get(i).getTitle().contains("Request")) {
-						System.out.println("Truee");
+						System.out.println("True");
 						test = false;
 						break;
 					}
@@ -188,14 +200,14 @@ public class View extends Application {
 			if(test) {
 				FXMLLoader fxmlLoader = new FXMLLoader();
 				fxmlLoader.setLocation(View.class.getResource("/view/fxmlFiles/Requests.fxml"));
+
+				fxmlLoader.setControllerFactory(RequestFormsController -> new RequestFormsController(controller));
 				anotherRoot = (BorderPane) fxmlLoader.load();
 
 				Scene scene = new Scene(anotherRoot);
 				scene.getStylesheets().add("/view/style.css");
 				Stage stage = new Stage();
 				stage.setResizable(false);
-//				stage.setMinWidth(1000);
-//				stage.setMaxWidth(1000);
 				stage.setTitle("Request");
 				stage.setScene(scene);
 				stage.show();
@@ -207,6 +219,7 @@ public class View extends Application {
 
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(View.class.getResource("/view/fxmlFiles/GenreForm.fxml"));
+		loader.setControllerFactory(RequestFormsController -> new RequestFormsController(controller));
 		AnchorPane genre = (AnchorPane) loader.load();
 		anotherRoot.setCenter(genre);
 	}
@@ -214,6 +227,7 @@ public class View extends Application {
 	public static void showAlbumForm() throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(View.class.getResource("/view/fxmlFiles/AlbumForm.fxml"));
+		loader.setControllerFactory(RequestFormsController -> new RequestFormsController(controller));
 		AnchorPane album = (AnchorPane) loader.load();
 		anotherRoot.setCenter(album);
 	}
@@ -221,6 +235,7 @@ public class View extends Application {
 	public static void showArtistForm() throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(View.class.getResource("/view/fxmlFiles/ArtistForm.fxml"));
+		loader.setControllerFactory(RequestFormsController -> new RequestFormsController(controller));
 		AnchorPane artist = (AnchorPane) loader.load();
 		anotherRoot.setCenter(artist);
 	}

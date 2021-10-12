@@ -25,4 +25,5 @@
         <mapping class="com.jcg.hibernate.maven.Album" />
         <mapping class="com.jcg.hibernate.maven.Song" />
     </session-factory>
+
 </hibernate-configuration>
