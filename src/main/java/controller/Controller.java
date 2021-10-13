@@ -257,52 +257,20 @@ public class Controller {
     	remoteDAO.removeAlbum(albumID);
     }
     
-
-    public Artist searchAll(String search) {
-    	try {
-//			searchGenre(search);
-//			searchAlbums(search);
-//			searchSongs(search);
-			return searchArtist(search);
-		} catch (Exception e) {
-			System.out.println("Universal search failed somewhere!");
-			e.printStackTrace();
-		}
-		return null;
-    } 
-    private void searchGenre(String genreName) {
-    	try {
-			GUIController.setGenreResults(remoteDAO.searchGenre(genreName));
-		} catch (Exception e) {
-			System.out.println("Genre search failed!");
-			e.printStackTrace();
-		}
+    public Genre searchGenre(String genreName) throws Exception {
+			 return remoteDAO.searchGenre(genreName);
+	
     }
-    private Artist searchArtist(String artistName) { 	
-    	try {
+    public Artist searchArtist(String artistName) throws Exception { 	
     		return remoteDAO.searchArtist(artistName);
-//			GUIController.setArtistResults(remoteDAO.searchArtist(artistName));
-		} catch (Exception e) {
-			System.out.println("Artist search failed!");
-			e.printStackTrace();
-		}
-		return null; 	
+	
     }
-    private void searchAlbums(String albumName) {
-		try {
-			GUIController.setAlbumResults(remoteDAO.searchAlbum(albumName));
-		} catch (Exception e) {
-			System.out.println("Album search failed!");
-			e.printStackTrace();
-		}
+    public Album searchAlbum(String albumName) throws Exception {
+			return remoteDAO.searchAlbum(albumName);
     }
-    private void searchSongs(String songName) {
-    	try {
-			GUIController.setSongResults(remoteDAO.searchSong(songName));
-		} catch (Exception e) {
-			System.out.println("Song search failed!");
-			e.printStackTrace();
-		}
+    private Song searchSongs(String songName) throws Exception {
+			return remoteDAO.searchSong(songName);
+
     }
     public Genre[] getGenres() {
     	return remoteDAO.readGenres();
