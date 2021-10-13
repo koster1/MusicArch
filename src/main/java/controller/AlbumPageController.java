@@ -48,9 +48,12 @@ public class AlbumPageController {
 
 	    @FXML
 	    private ListView<?> AlbumPageListView;
+	    
+	    int id;
 	
-	public AlbumPageController(Controller controller) {
+	public AlbumPageController(Controller controller, int id) {
 		this.controller = controller;
+		this.id = id;
 	}
 	
 	@FXML
@@ -58,14 +61,14 @@ public class AlbumPageController {
 		// Build the listview
 		System.out.println("You are in Album page");
 		
-		Album album = controller.getAlbum(2);
-//		List<Artist> albumArtistlist = controller.getAlbumArtistList(2);
-//		List<Genre> albumGenreList = controller.getAlbumGenreList(2);
- 		
+//		Album album = controller.getAlbum(id);
+		
+		
+
 		
 //		//tekee artistilistasta stringin
 //	
-		StringBuilder strbul=new StringBuilder();
+//		StringBuilder strbul=new StringBuilder();
 //        for(Artist artist : albumArtistlist)
 //        {
 //            strbul.append(artist.getArtistName());
@@ -88,10 +91,14 @@ public class AlbumPageController {
 //       
 	
 		
-		AlbumName.setText(album.getAlbumName());
-		AlbumYear.setText(String.valueOf(album.getAlbumYear()));
 //		AlbumArtist.setText(artists);
 //		AlbumGenre.setText(genres);
+
+		AlbumName.setText("Wish You Were Here");
+		AlbumYear.setText(String.valueOf(1975));
+		AlbumArtist.setText("Pink Floyd");
+		AlbumGenre.setText("Progressive Rock");
+
 		
 		//AlbumPageListView.setAccessibleText(album.getAlbumSongs());
 		

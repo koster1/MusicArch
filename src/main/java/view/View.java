@@ -133,10 +133,10 @@ public class View extends Application {
 		rootLayout.setCenter(Frontpage);
 	}
 
-	public static void showAlbumPage() throws IOException {
+	public static void showAlbumPage(int id) throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(View.class.getResource("/view/fxmlFiles/AlbumPage.fxml"));
-		loader.setControllerFactory(AlbumPageController -> new AlbumPageController(controller));
+		loader.setControllerFactory(AlbumPageController -> new AlbumPageController(controller, id));
 		AnchorPane Frontpage = (AnchorPane) loader.load();
 		rootLayout.setCenter(Frontpage);
 	}

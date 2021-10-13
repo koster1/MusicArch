@@ -267,8 +267,6 @@ public class RequestFormsController {
 
 	@FXML
 	void SendAlbumButton(ActionEvent event) {
-		// ArtistList.add(field.getText().toString());
-		// int i = 0;
 
 		if (AlbumName.getText().isEmpty()) {
 			Alert alert = new Alert(AlertType.ERROR);
