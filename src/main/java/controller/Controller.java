@@ -177,6 +177,15 @@ public class Controller {
     	Album saveAlbum = new Album();
     	saveAlbum = remoteDAO.readAlbum(albumID);
     }
+    public Album getAlbum(int albumID) {
+    	return remoteDAO.readAlbum(albumID);
+    }
+//    public List<Artist> getAlbumArtistList(int albumID) {
+//    	return remoteDAO.albumArtistList(albumID);
+//    }
+//    public List<Genre> getAlbumGenreList(int albumID){
+//    	return remoteDAO.albumGenreList(albumID);
+//    }
     //Tallennus paikalliseen tietokantaan
     public void saveLocalGenre(int genreID) {
     	LocalGenre saveLocalGenre = new LocalGenre();

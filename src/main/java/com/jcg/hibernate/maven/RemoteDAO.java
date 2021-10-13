@@ -750,6 +750,36 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
+	public List<Artist> albumArtistList(int albumID){
+		Transaction transAct = null;
+		try(Session session = sessionFactory.openSession()){
+			transAct = session.beginTransaction();
+			Album album = (Album) session.load(Album.class, albumID);
+			List<Artist> array = album.getAlbumArtists();
+			transAct.commit();
+			session.close();
+			return array;
+		}catch(Exception e) {
+			if(transAct != null)
+				transAct.rollback();
+			throw e;
+		}
+	}
+	public List<Genre> albumGenreList(int albumID){
+		Transaction transAct = null;
+		try(Session session = sessionFactory.openSession()){
+			transAct = session.beginTransaction();
+			Album album = (Album) session.load(Album.class, albumID);
+			List<Genre> array = album.getAlbumGenres();
+			transAct.commit();
+			session.close();
+			return array;
+		}catch(Exception e) {
+			if(transAct != null)
+				transAct.rollback();
+			throw e;
+		}
+	}
 	
 	public void finalize() {
 		try {
