@@ -64,7 +64,8 @@ public class AlbumPageController {
  		
 		
 //		//tekee artistilistasta stringin
-//		StringBuilder strbul=new StringBuilder();
+//	
+		StringBuilder strbul=new StringBuilder();
 //        for(Artist artist : albumArtistlist)
 //        {
 //            strbul.append(artist.getArtistName());
