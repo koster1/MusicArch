@@ -59,7 +59,7 @@ public class FrontPageController {
 	}
 	
 	/**
-	 * This method is for setting up the frontpage views list. 
+	 * This method is for setting up the frontpage list. 
 	 * It also adds eventlisteners to all list items
 	 * **/
 	@FXML

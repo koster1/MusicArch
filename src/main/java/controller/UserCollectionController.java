@@ -65,6 +65,10 @@ public class UserCollectionController {
     	this.controller = controller;
     }
     
+    /**
+	 * This initialize method is for setting up the OmaKokoelma2 with data from then local database.
+	 * It also gives all the list items clickEvenetListeners for album info.
+	 * **/
     @FXML
     protected void initialize() {
     	
@@ -123,30 +127,6 @@ public class UserCollectionController {
     	} catch(Exception e) {
     		System.out.println(e.getMessage() + " usercollection init");
     	}
-    	
-    	
-    	
-//    	LocalArtist[] artistList;
-//    	try {
-//    		
-//    		artistList = controller.readArtists();
-//    		ObservableList<LocalArtist> choices = FXCollections.observableArrayList(artistList);
-//    		for(LocalArtist artist : artistList) {
-//    			System.out.println(artist);
-//    		}
-//    		
-//    		GridListView.setCellFactory(lv -> new ListCell<LocalArtist>() {
-//    			@Override
-//    			protected void updateItem(LocalArtist localArtist, boolean empty) {
-//    				super.updateItem(localArtist, empty);
-//    				setText(empty || localArtist == null || artistList.length == 0 ? "" : localArtist.getArtistName());
-//    			}
-//    		});			
-//    		GridListView.setItems(choices);
-//    	} catch(Exception e) {
-//    		System.out.println(e.getMessage() + " usercollection init");
-//    	}
-//    	
 
     }
     @FXML

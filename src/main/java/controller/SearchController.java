@@ -38,6 +38,10 @@ public class SearchController{
 		this.controller = controller;
 	}
 	
+	
+	/**
+	 * This initialize is for setting up the SearchPage with the search results
+	 * **/
 	@FXML
 	protected void initialize() {
 		try {
