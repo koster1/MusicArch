@@ -17,7 +17,6 @@ public class AlbumPageController {
 
 	private Controller controller;
 	private View view;
-	private RemoteDAO rDAO;
 	
 	   @FXML
 	    private GridPane AlbumInfo;
@@ -55,9 +54,6 @@ public class AlbumPageController {
 	
 	@FXML
 	protected void initialize() {
-		// Build the listview
-		System.out.println("You are in Album page");
-		
 		System.out.println("Frontpage id=" + this.id);
 		
 		
