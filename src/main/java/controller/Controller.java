@@ -82,10 +82,6 @@ public class Controller {
 						linkGenre.add(genre);
 					}
 					System.out.println("toimiiko? controller createAlbum");
-//					newAlbum.addGenre(remoteDAO.searchGenre(genreListGiven[i]));
-//					linkGenre = (Genre) remoteDAO.searchGenre(genreListGiven[i]);
-
-//	        		newAlbum.addGenre(linkGenre);
 				} catch (Exception e) {
 					System.out.println("Failed to add a Genre to Album!");
 					System.out.println(e.getMessage());
@@ -98,32 +94,14 @@ public class Controller {
 						System.out.println("ArtistID " + artist.getArtistID());
 						linkArtist.add(artist);
 					}
-//					newAlbum.addArtist(linkArtist);
 				} catch (Exception e) {
 					System.out.println("Failed to add an Artist to Album!");
 					e.printStackTrace();
 				}
     			
     		}
-//    		for(int i = 0; i<albumSongs.length; i++) {
-//    			try {
-//					Song linkSongs = (Song) remoteDAO.searchSong(songListGiven[i]);
-//				} catch (Exception e) {
-//					System.out.println("Failed to add a Song to Album!");
-//					e.printStackTrace();
-//				}
-//    		}
     		try {
-    		
-    				Genre gemre = new Genre();
-    				gemre.setGenreName("uusiTestiGenre");
-//    				
-//    				remoteDAO.createAlbum(newAlbum, artist, genre);
-    				remoteDAO.createAlbum2(newAlbum, linkArtist, linkGenre);
-//    				remoteDAO.addAlbumGenre(newAlbum, artist, genre);
-//    				remoteDAO.createAlbum(newAlbum, genre, artist);
-//    				System.out.println("Created an Album successfully!");
-    				
+    			remoteDAO.createAlbum(newAlbum, linkArtist, linkGenre);	
     			
 			} catch (Exception e) {
 				System.out.println("Failed to create an Album!");
@@ -136,15 +114,6 @@ public class Controller {
     	
     }
     
-    //Paikalliseen tietokantaan luominen.
-//    public void createLocalGenre (int GenreID, String genreName) {
-//    	LocalGenre localGenre = new LocalGenre();
-//    	Genre genre = remoteDAO.searchGenre(genreName);
-//    	localGenre.setGenreID(GenreID);
-//    	localGenre.setGenreName(genreName);
-//    	
-//    	localDAO.createGenre(localGenre);
-//    }
     public void createLocalArtist(int ArtistID, String artistName, String artistBio) throws Exception {
     	LocalArtist localArtist = new LocalArtist();
     	Artist remoteartist = remoteDAO.searchArtist(artistName);
