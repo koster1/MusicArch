@@ -1,13 +1,8 @@
 package controller;
 
-
-
-import java.util.List;
-
 import com.jcg.hibernate.maven.Album;
 import com.jcg.hibernate.maven.Artist;
 import com.jcg.hibernate.maven.Genre;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -38,6 +33,10 @@ public class SearchController{
 		this.controller = controller;
 	}
 	
+	
+	/**
+	 * This initialize is for setting up the SearchPage with the search results
+	 * **/
 	@FXML
 	protected void initialize() {
 		try {

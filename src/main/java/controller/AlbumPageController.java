@@ -7,20 +7,11 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
 import view.View;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import com.jcg.hibernate.maven.Album;
-import com.jcg.hibernate.maven.Artist;
-import com.jcg.hibernate.maven.Genre;
-import com.jcg.hibernate.maven.RemoteDAO;
 
 public class AlbumPageController {
 
 	private Controller controller;
 	private View view;
-	private RemoteDAO rDAO;
 	
 	   @FXML
 	    private GridPane AlbumInfo;
@@ -58,49 +49,12 @@ public class AlbumPageController {
 	
 	@FXML
 	protected void initialize() {
-		// Build the listview
-		System.out.println("You are in Album page");
-		
-//		Album album = controller.getAlbum(id);
-		
-		
-
-		
-//		//tekee artistilistasta stringin
-//	
-//		StringBuilder strbul=new StringBuilder();
-//        for(Artist artist : albumArtistlist)
-//        {
-//            strbul.append(artist.getArtistName());
-//            //for adding comma between elements
-//            strbul.append(",");
-//        }
-//        String artists=strbul.toString();
-//       
-//		
-//		//genreistä string
-//		
-//		StringBuilder strbul2=new StringBuilder();
-//        for(Genre genre : albumGenreList)
-//        {
-//            strbul2.append(genre.getGenreName());
-//            //for adding comma between elements
-//            strbul2.append(",");
-//        }
-//        String genres=strbul2.toString();
-//       
-	
-		
-//		AlbumArtist.setText(artists);
-//		AlbumGenre.setText(genres);
+		System.out.println("Frontpage id=" + this.id);
 
 		AlbumName.setText("Wish You Were Here");
 		AlbumYear.setText(String.valueOf(1975));
 		AlbumArtist.setText("Pink Floyd");
 		AlbumGenre.setText("Progressive Rock");
-
-		
-		//AlbumPageListView.setAccessibleText(album.getAlbumSongs());
 		
 	}
 	

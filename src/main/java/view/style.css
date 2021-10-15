@@ -10,140 +10,121 @@
 -fx-background-color: #404040;
 -fx-text-fill: orange;
 -fx-accent: red;
-
 -fx-focus-color: orange;
 -fx-faint-focus-color: orange;
-
 }
 
-.tab-pane{
-	
-}
 .root {
 -fx-accent: orange;
 -fx-focus-color: orange;
-
 }
+
 #Buttonbarbuttons {
 -fx-text-fill: orange;
 -fx-faint-focus-color: orange;
 -fx-focus-color:orange;
-
 }
+
 #Buttonbarbuttons:focused {
 -fx-faint-focus-color: orange;
 -fx-focus-color:orange; 
 }
-/*Lisäyssivusta löytyviä elementtejä */
+
+/*Requests.fxml elements */
 #RequestDrops {
 -fx-background-color: #404040;
 -fx-text-fill: orange;
 }
-/*Albumilomakkeen txtfieldien lisäysnapit */
-#PlusButtons {
-	
-}
-
-/* Kaikki lähetysnapit */
-#Send {
-	
-}
 
 .text-area {
 -fx-border-color: #404040;
--fx-border-radius:1%;
-
-	
+-fx-border-radius:1.0%;	
 }
-/* Kaikki tekstikentät */
+
+/* All textfields*/
 .text-field {
 -fx-border-color: #404040;
--fx-border-radius:1%;
-
+-fx-border-radius:1.0%;
 }
+
 .text-field:focused {
-	-fx-focus-color: orange;
+-fx-focus-color: orange;
 -fx-faint-focus-color: orange;
 }
+
 .text-area:focused {
 	-fx-focus-color: orange;
 -fx-faint-focus-color: orange;
 }
-.label {
-	
-}
+
 .button {
 -fx-text-fill: orange;
 -fx-background-color: #404040;
--fx-border-radius:5%;	
+-fx-border-radius:5.0%;	
 -fx-font-weight:bold;	
-
 }
+
 .button:focused {
 -fx-faint-focus-color: orange;
 -fx-focus-color: orange;
 -fx-border-color: -fx-faint-focus-color; 
+}
 
-}
 .scroll-pane {
-	-fx-border-color: #404040;
-	
+-fx-border-color: #404040;
 }
+
 .scroll-pane.decrement-button {
 -fx-background-color: white;
 }
+
 .thumb {
-	-fx-background-color: #F0F0F0	;
-	
+-fx-background-color: #F0F0F0	;
 }
+
 .decrement-arrow {
-	-fx-background-color: #F0F0F0	;
-	
+-fx-background-color: #F0F0F0	;	
 }
+
 .increment-arrow {
-	-fx-background-color: #F0F0F0	;
-	
+-fx-background-color: #F0F0F0	;
 }
+
 .scroll-bar:vertical {
-		-fx-background-color: #404040	;
-	
+-fx-background-color: #404040	;	
 }
-/* */
+
 #root2 {
 -fx-text-fill: orange;
 -fx-body-color: #404040;
-
 }
-
 
 Text {
 -fx-text-fill: orange;
 }
 
-#labels {
-
-}
 #listView {
 -fx-font-size: 1.5em;
-
 }
+
 #scroll{
 -fx-background-color: white;
 }
-/*Errorit ja ilmoitukset */
-.dialog-pane {
 
+/*Errors and notifications */
+.dialog-pane {
 -fx-accent: red;
 -fx-background-color: #404040;
-
 -fx-focus-color: orange;
 -fx-faint-focus-color: orange;
 }
+
 .dialog-pane  .button{
 -fx-background-color: #404040;
 -fx-text-fill: orange;
 }
+
 .dialog-pane .button:hover{     
-  -fx-background-color:orange;
+-fx-background-color:orange;
 
  }
