@@ -1,23 +1,11 @@
 package controller;
 
-import controller.*;
-import javafx.animation.PauseTransition;
-import javafx.application.Platform;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar.ButtonData;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.SplitPane;
-import javafx.scene.control.TextArea;
 
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
@@ -27,17 +15,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.TilePane;
-import javafx.scene.text.Text;
 
-import javafx.util.Duration;
 import com.jcg.hibernate.maven.Artist;
 import com.jcg.hibernate.maven.Album;
 import com.jcg.hibernate.maven.Genre;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import java.util.List;
@@ -79,20 +62,7 @@ public class GUIController {
 	// Etusivun hakukenttä
 	@FXML 
 	private TextField SearchBox;
-
-	@FXML
-	void SearchTxt(ActionEvent event) {
-	/*	SearchButton.setStyle("-fx-border-color: #ffff33");
-		PauseTransition pause = new PauseTransition(Duration.seconds(pauseDuration));
-
-		pause.setOnFinished(event1 -> {
-			SearchButton.setStyle(null);
-		});
-		pause.play();*/
-		
-	}
-
-	//
+	
 	@FXML
 	private GridPane gridView;
 	@FXML 
@@ -132,26 +102,12 @@ public class GUIController {
 	@FXML
 	void ShowRequests(ActionEvent event) throws IOException {
 
-/*
-		Requests.setStyle("-fx-border-color: #ffff33");
-		PauseTransition pause = new PauseTransition(Duration.seconds(pauseDuration));
-		
-		pause.setOnFinished(event1 -> {
-			Requests.setStyle(null);
-		});
-		pause.play();*/
 		view.showRequestsWindow();
 	}
 
 	@FXML
 	void GoHelpPage(ActionEvent event) throws IOException {
-		/*Help.setStyle("-fx-border-color: #ffff33");
-		PauseTransition pause = new PauseTransition(Duration.seconds(pauseDuration));
-		
-		pause.setOnFinished(event1 -> {
-			Help.setStyle(null);
-		});
-		pause.play();*/
+
 		view.showHelpPage();
 
 	}
@@ -160,17 +116,6 @@ public class GUIController {
 	
 	@FXML
 	void goUserCollection(ActionEvent event) throws IOException {
-	/*	UserCollection.setStyle("-fx-border-color: #ffff33");
-		PauseTransition pause = new PauseTransition(Duration.seconds(pauseDuration));
-		
-		pause.setOnFinished(event1 -> {
-			UserCollection.setStyle(null);
-		});
-		pause.play();*/
-
-		
-		
-		System.out.println("UserGenreDrop = "+UserGenreDrop);
 		view.showUserCollectionPage();
 	}
 	
@@ -180,11 +125,10 @@ public class GUIController {
 		view.showSearchPage(searchText);
 	}
 	
-	@FXML
-	void GoAlbumPage(ActionEvent event) throws IOException {
-		view.showAlbumPage();
-	}
-	
+	/*
+	 * Upon clicking the search bar, this method is triggered, and will fetch
+	 * all names found within the database.
+	 */
 	 @FXML
 	 void getSearchable(MouseEvent event) {
 		 if(everythingFound == null) {
@@ -193,7 +137,14 @@ public class GUIController {
 		 everythingFound = controller.getSearchable();
 		 System.out.println("Fetched all the searchable values");
     }
-	
+	/*
+	 * refreshSearchList-method is triggered by keypresses in the search-bar.
+	 * Each time a new key is pressed, the method will compare the user's input
+	 * against a list of all names in the database. 
+	 * Upon finding a match, it will create a list of MenuItems inside the ContextMenu,
+	 * which will autofill the search bar upon being clicked, and automatically
+	 * trigger a search inside the program
+	 */
 	 @FXML
 	 void refreshSearchList(KeyEvent event) {
 		 
@@ -235,8 +186,6 @@ public class GUIController {
 			searchContext.getItems().add(searchItem);
 		}
 	 }
-
-
 	
 	//-------------Search results from controller------
 	

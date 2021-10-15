@@ -6,7 +6,6 @@ import java.util.List;
 import org.hibernate.*;
 import org.hibernate.cfg.Configuration;
 
-import model.LocalSong;
 
 public class RemoteDAO {
 	static Session session;
