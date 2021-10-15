@@ -16,9 +16,9 @@
          </font>
       </Label>
       <Label layoutX="131.0" layoutY="101.0" prefHeight="18.0" prefWidth="122.0" text="Kirjoita artistin nimi" />
-      <TextField id="TxtFields" fx:id="ArtistsName" layoutX="131.0" layoutY="136.0" prefHeight="26.0" prefWidth="238.0" />
+      <TextField fx:id="ArtistsName" layoutX="131.0" layoutY="136.0" prefHeight="26.0" prefWidth="238.0" />
       <Label layoutX="131.0" layoutY="186.0" text="Kirjoita artistille biografia" />
-      <TextArea id="TxtFields" fx:id="Biografia" layoutX="134.0" layoutY="219.0" prefHeight="182.0" prefWidth="238.0" />
+      <TextArea fx:id="Biografia" layoutX="134.0" layoutY="219.0" prefHeight="182.0" prefWidth="238.0" />
       <Button layoutX="289.0" layoutY="443.0" maxWidth="80.0" mnemonicParsing="false" onAction="#SendArtistButton" prefHeight="20.0" prefWidth="80.0" text="Lähetä" />
    </children>
    <padding>
