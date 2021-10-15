@@ -56,52 +56,26 @@ public class GUIController {
 	private Song songResults;
 	List<String> everythingFound;
 
-	
 	@FXML
     private ContextMenu searchContext;
-	
 	@FXML
-
 	private AnchorPane UserCategories;
-	
 	@FXML
 	public TitledPane UserGenreDrop;
-	
 	@FXML
 	private TitledPane UserAlbumDrop;
-	
 	@FXML
 	private TitledPane UserArtistDrop;
-	
 	@FXML
 	private Button SearchButton;
-	
-	// Etusivun hakukenttä
 	@FXML 
 	private TextField SearchBox;
-
-	@FXML
-	void SearchTxt(ActionEvent event) {
-	/*	SearchButton.setStyle("-fx-border-color: #ffff33");
-		PauseTransition pause = new PauseTransition(Duration.seconds(pauseDuration));
-
-		pause.setOnFinished(event1 -> {
-			SearchButton.setStyle(null);
-		});
-		pause.play();*/
-		
-	}
-
-	//
 	@FXML
 	private GridPane gridView;
 	@FXML 
 	private Button gridButton;
-	// Rootlayoutin keskikohta
 	@FXML
 	private AnchorPane Keskikohta;
-
-	// Pääsivun nappulat
 	@FXML
 	private Button Requests;
 	@FXML
@@ -118,10 +92,14 @@ public class GUIController {
 		this.view = view;
 		this.controller = controller;
 	}
+	@FXML
+	void SearchTxt(ActionEvent event) {
+
+	}
 
 	
-	// ----------------SIVUJEN VAIHDOT JA PÄIVITYKSET-----------------------
-	// Menunappulat
+	//-----Page changes, window creation calls and page updates---
+	// Menubuttons
 	
 	
 	public void goFrontPage() throws IOException {
@@ -132,26 +110,12 @@ public class GUIController {
 	@FXML
 	void ShowRequests(ActionEvent event) throws IOException {
 
-/*
-		Requests.setStyle("-fx-border-color: #ffff33");
-		PauseTransition pause = new PauseTransition(Duration.seconds(pauseDuration));
-		
-		pause.setOnFinished(event1 -> {
-			Requests.setStyle(null);
-		});
-		pause.play();*/
 		view.showRequestsWindow();
 	}
 
 	@FXML
 	void GoHelpPage(ActionEvent event) throws IOException {
-		/*Help.setStyle("-fx-border-color: #ffff33");
-		PauseTransition pause = new PauseTransition(Duration.seconds(pauseDuration));
-		
-		pause.setOnFinished(event1 -> {
-			Help.setStyle(null);
-		});
-		pause.play();*/
+
 		view.showHelpPage();
 
 	}
@@ -160,13 +124,6 @@ public class GUIController {
 	
 	@FXML
 	void goUserCollection(ActionEvent event) throws IOException {
-	/*	UserCollection.setStyle("-fx-border-color: #ffff33");
-		PauseTransition pause = new PauseTransition(Duration.seconds(pauseDuration));
-		
-		pause.setOnFinished(event1 -> {
-			UserCollection.setStyle(null);
-		});
-		pause.play();*/
 
 		
 		
@@ -178,11 +135,6 @@ public class GUIController {
 	void goSearchPage(ActionEvent event) throws IOException {
 		String searchText = SearchBox.getText();
 		view.showSearchPage(searchText);
-	}
-	
-	@FXML
-	void GoAlbumPage(ActionEvent event) throws IOException {
-		view.showAlbumPage();
 	}
 	
 	 @FXML
@@ -238,7 +190,7 @@ public class GUIController {
 
 
 	
-	//-------------Search results from controller------
+	//----Search results from controller------
 	
 	public void setGenreResults(Genre genre) {
 		this.genreResults = genre;

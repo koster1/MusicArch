@@ -64,8 +64,6 @@ public class View extends Application {
 		guiController = new GUIController(this, controller);
 	}
 
-	/* public void init() {Controller controller = new Controller();} */
-
 	@Override
 	public void start(Stage primaryStage) throws IOException {
 
@@ -74,11 +72,10 @@ public class View extends Application {
 		showHome();
 
 		showFrontPage();
-//		showAlbumPage();
 
 	}
 	
-	// Näyttää etusivun Pohjan (BorderPane), johon on asetettu menuvalikko
+	// Places the rootLayout.fxml file on top of the primaryStage
 	public void showHome() throws IOException {
 		// Load root layout from fxml file.
 		FXMLLoader loader = new FXMLLoader();
@@ -97,10 +94,7 @@ public class View extends Application {
 
 	}
 
-	// BorderPanen keskelle asetettu etusivunäkymä (sisältää tulevaisuudessa
-	// listauksia genreistä tms)
-	// BorderPanen keskelle asetettu etusivunäkymä (sisältää tulevaisuudessa
-	// listauksia genreistä tms)
+	// FrontPage.fxml is placed in the center of rootLayout- BorderPane
 	public static void showFrontPage() throws IOException {
 
 		FXMLLoader loader = new FXMLLoader();
@@ -115,16 +109,17 @@ public class View extends Application {
 		rootLayout.setCenter(Frontpage);
 
 	}
-
+	//showHelpPage.fxml contains software instructions.
+	//showHelpPage.fxml is placed in the center of rootLayout- BorderPane
 	public static void showHelpPage() throws IOException {
-
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(View.class.getResource("/view/fxmlFiles/helpPage.fxml"));
 		AnchorPane Frontpage = (AnchorPane) loader.load();
 		rootLayout.setCenter(Frontpage);
 
 	}
-
+	//The search results are set on the SearchPage.fxml. 
+	//showHelpPage.fxml is placed in the center of rootLayout- BorderPane
 	public static void showSearchPage(String searchText) throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(View.class.getResource("/view/fxmlFiles/SearchPage.fxml"));
@@ -132,7 +127,8 @@ public class View extends Application {
 		AnchorPane Frontpage = (AnchorPane) loader.load();
 		rootLayout.setCenter(Frontpage);
 	}
-
+	//showAlbumPage method gets id from frontPageController
+	//showAlbumPage.fxml is placed in the center of rootLayout- BorderPane
 	public static void showAlbumPage(int id) throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(View.class.getResource("/view/fxmlFiles/AlbumPage.fxml"));
@@ -141,7 +137,7 @@ public class View extends Application {
 		rootLayout.setCenter(Frontpage);
 	}
 
-	//
+	//UserCollection.fxml is placed in the center of userRoot- AnchorPane
 	public static void showUserCollectionPage() throws IOException {
 		System.out.println("User collection!!!");
 		List<Window> windows = Window.getWindows();
@@ -161,7 +157,7 @@ public class View extends Application {
 		}
 		if (test) {
 			FXMLLoader fxmlLoader = new FXMLLoader();
-			fxmlLoader.setLocation(View.class.getResource("/view/fxmlFiles/OmaKokoelma2.fxml"));
+			fxmlLoader.setLocation(View.class.getResource("/view/fxmlFiles/UserCollection.fxml"));
 			fxmlLoader.setControllerFactory(UserCollectionController -> new UserCollectionController(controller));
 			userRoot = (AnchorPane) fxmlLoader.load();
 			Scene scene = new Scene(userRoot);
@@ -176,10 +172,8 @@ public class View extends Application {
 		}
 	}
 
-	// -------------------Lisayspohjan OMA stage---------------------------------
-	// Lisäysnäkymän (sisältää lisäyspyynnöt ja lisäyspohjat) oma stage,
-	// jossa vaihdetaan keskiosan lomake-fxml:ää
-	//
+	// -------------------Requests stage---------------------------------
+	//Requests.fxml is placed in the center of anotherRoot- BorderPane
 	public static void showRequestsWindow() throws IOException {
 		System.out.print(" !!!    täällä ollaan    !!!");
 			
@@ -215,7 +209,8 @@ public class View extends Application {
 
 	}
 
-
+	//showGenreForm, showAlbumForm and showArtistForm changes the 
+	//form in the requests.fxml file.
 	public static void showGenreForm() throws IOException {
 
 		FXMLLoader loader = new FXMLLoader();
@@ -239,18 +234,6 @@ public class View extends Application {
 		loader.setControllerFactory(RequestFormsController -> new RequestFormsController(controller));
 		AnchorPane artist = (AnchorPane) loader.load();
 		anotherRoot.setCenter(artist);
-	}
-
-	public static void Error() throws IOException {
-		FXMLLoader fxmlLoader = new FXMLLoader();
-		fxmlLoader.setLocation(View.class.getResource("/view/fxmlFiles/Error.fxml"));
-		test = (AnchorPane) fxmlLoader.load();
-		Scene error = new Scene(test);
-		error.getStylesheets().add("/view/style.css");
-		Stage stage = new Stage();
-		stage.setTitle("Error Window");
-		stage.setScene(error);
-		stage.show();
 	}
 
 	public Stage getPrimaryStage() {
