@@ -6,29 +6,11 @@ import java.util.List;
 import org.hibernate.*;
 import org.hibernate.cfg.Configuration;
 
+import model.LocalSong;
+
 public class RemoteDAO {
 	static Session session;
 	static SessionFactory sessionFactory;
-	
-//	private static SessionFactory buildSessionFactory() {
-//		Configuration config = new Configuration();
-//		config.configure("hibernate.cfg.xml");
-//		
-//		ServiceRegistry serviceReg = new StandardServiceRegistryBuilder().applySettings(config.getProperties()).build();
-//		
-//		sessionFactory = config.buildSessionFactory(serviceReg);
-//		return sessionFactory;
-//	}
-	
-//	private static SessionFactory buildSessionFactory() {
-//		Configuration config = new Configuration();
-//		config.configure("hibernate.cfg.xml");
-//		
-//		ServiceRegistry serviceReg = new StandardServiceRegistryBuilder().applySettings(config.getProperties()).build();
-//		
-//		sessionFactory = config.buildSessionFactory(serviceReg);
-//		return sessionFactory;
-//	}
 
 	public RemoteDAO() {
 		try {
@@ -37,47 +19,20 @@ public class RemoteDAO {
 			System.err.println("Istuntotehtaan luonti ei onnistunut: " + e.getMessage());
 			System.exit(-1);
 		}
-//		session = buildSessionFactory().openSession();
-//		SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
 	}
-
-	
-	
-	// -------------JEMILAN TESTIT-----------------------
-	public boolean GenreExist(String genreName) {
-		Genre[] genreSearch = readGenres();
-
-		// First loop to check whether a given genre is already found within the
-		// database
-		for (int i = 0; i < genreSearch.length; i++) {
-			if (genreSearch[i].getGenreName().equals(genreName)) {
-				System.out.println("This one already exists! Can't add it!");
-
-				return true;
-			}
-		}
-		return false;
-	}
-
-	// --------------------------------------------------------------
 	/*
 	 * Method used to create a new genre in the database. Will first iterate through
 	 * all found genreNames, to ensure that it will not allow the creation of a
-	 * genre that already exists. TESTED - Works
+	 * genre that already exists. 
 	 */
 	public boolean createGenre(Genre genre) throws Exception {
-		Genre[] genreSearch;
-		genreSearch = readGenres();
-
-		// First loop to check whether a given genre is already found within the database
+		Genre[] genreSearch = readGenres();
 		for (int i = 0; i < genreSearch.length; i++) {
 			if (genreSearch[i].getGenreName().equals(genre.getGenreName())) {
 				throw new Exception("This Genre already exists!");
 			}
 		}
-
 		Transaction transAct = null;
-
 		try (Session session = sessionFactory.openSession()) {
 			transAct = session.beginTransaction();
 			session.saveOrUpdate(genre);
@@ -90,8 +45,9 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
-
-	// These are missing a simple text search!
+	/*
+	 * readGenre() will return a singular Genre-object from the remote database, based on the given genreID
+	 */
 	public Genre readGenre(int id) {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
@@ -101,7 +57,9 @@ public class RemoteDAO {
 		session.close();
 		return genre;
 	}
-
+	/*
+	 * readGenres() will return a list of all Genres found within the database
+	 */
 	public Genre[] readGenres() {
 		Transaction transAct = null;
 		try (Session session = sessionFactory.openSession()) {
@@ -121,17 +79,16 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
-
+	/*
+	 * searchGenre() will return a single Genre-object based on a simple String input, used to search the database for the Genre
+	 */
 	public Genre searchGenre(String genreSearch) throws Exception {
-
 		Transaction transAct = null;
 		try (Session session = sessionFactory.openSession()) {
 			transAct = session.beginTransaction();
 			Query query = session.createQuery("From Genre where genreName =:name");
 			List<Genre> genreList = query.setParameter("name", genreSearch).list();
 			System.out.println("The genre search result was -> "+genreList.get(0).getGenreName());
-			
-			
 			if (genreList.size() == 0) {
 				throw new Exception("Nothing found!");
 			}
@@ -146,8 +103,10 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
-
-	// To be tested
+	/*
+	 * editGenre() will update a given Genre based on its ID. This is used to find the Genre from the database, which will then be 
+	 * updated based on a given Genre-object
+	 */
 	public boolean editGenre(Genre genreEdit, int id) {
 		Transaction transAct = null;
 		try (Session session = sessionFactory.openSession()) {
@@ -163,8 +122,9 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
-
-	// Working! Still needs extra logic for checking if a genre can be removed
+	/*
+	 * removeGenre() will remove a single Genre based on the given genreID
+	 */
 	public boolean removeGenre(int id) {
 		Transaction transAct = null;
 		try (Session session = sessionFactory.openSession()) {
@@ -180,11 +140,13 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
-
+	/*
+	 * Method used to create a new artist in the database. Will first iterate through
+	 * all found artistNames, to ensure that it will not allow the creation of a
+	 * artist that already exists. 
+	 */
 	public boolean createArtist(Artist artist) throws Exception {
 		Artist[] artistSearch = readArtists();
-		// First loop to check whether a given genre is already found within the
-		// database
 		for (int i = 0; i < artistSearch.length; i++) {
 			if (artistSearch[i].getArtistName().equals(artist.getArtistName())) {
 				throw new Exception("This Artist already exists!");
@@ -203,8 +165,9 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
-
-	// TESTED! Works
+	/*
+	 * readArtist() will return a singular Artist-object from the remote database, based on the given artistID
+	 */
 	public Artist readArtist(int id) {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
@@ -215,8 +178,11 @@ public class RemoteDAO {
 		return artist;
 	}
 
-	// Tested! Works
+	/*
+	 * readArtists() will return a list of all artists found within the database
+	 */
 	public Artist[] readArtists() {
+		System.out.println("Got a readartist request");
 		Transaction transAct = null;
 		try (Session session = sessionFactory.openSession()) {
 			transAct = session.beginTransaction();
@@ -225,6 +191,7 @@ public class RemoteDAO {
 			List<Artist> result = (List<Artist>) session.createQuery("from Artist order by artistName").list();
 			transAct.commit();
 			Artist[] array = new Artist[result.size()];
+
 			session.close();
 			return (Artist[]) result.toArray(array);
 		} catch (Exception e) {
@@ -233,7 +200,9 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
-
+	/*
+	 * searchArtist() will return a single Artist-object based on a simple String input, used to search the database for the Artist
+	 */
 	public Artist searchArtist(String artistSearch) throws Exception {
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
@@ -257,9 +226,11 @@ public class RemoteDAO {
 		}
 		
 	}
-		
+	/*
+	 * editArtist() will update a given Artist based on its ID. This is used to find the Artist from the database, which will then be 
+	 * updated based on a given Artist-object
+	 */
 	public boolean editArtist(Artist artistEdit, int id) {
-
 		Transaction transAct = null;		
 		try(Session session = sessionFactory.openSession()){
 		transAct = session.beginTransaction();		
@@ -274,7 +245,9 @@ public class RemoteDAO {
 			throw e;
 		}
 	}		
-	
+	/*
+	 * removeArtist() will remove a single Artist based on the given artistID
+	 */
 	public boolean removeArtist(int id) {
 		Transaction transAct = null;		
 		try(Session session = sessionFactory.openSession()){
@@ -288,42 +261,69 @@ public class RemoteDAO {
 				transAct.rollback();
 			throw e;
 		}
-	}
-
-	public boolean createAlbum(Album album) throws Exception {
-		Album[] albumSearch = readAlbums();		
-		//First loop to check whether a given genre is already found within the database
-		for(int i = 0; i < albumSearch.length; i++) {			
+	}		
+	/*
+	 * Method used to create a new album in the database. Will first iterate through
+	 * all found albumNames, to ensure that it will not allow the creation of a
+	 * album that already exists. 
+	 * Additionally, it will also add the genres and artists to a the album.
+	 */
+	public boolean createAlbum(Album album, List<Artist> artistList, List<Genre> genreList) throws Exception {
+		Album[] albumSearch = readAlbums();	
+		
+		for(int i = 0; i < albumSearch.length; i++) {
 			if(albumSearch[i].getAlbumName().equals(album.getAlbumName())) {
 				throw new Exception("This Album already exists!");
 			}
 		}
-		
-		
-		
-
-//		Album testAlbum = new Album();
-//		testAlbum.setAlbumName(album.getAlbumName());
-//		testAlbum.setAlbumYear(album.getAlbumYear());
-//		
-//		testAlbum.setAlbumArtists(album.getAlbumArtists());
-//		testAlbum.setAlbumGenres(album.getAlbumGenres());
-		
 		Transaction transAct = null;	
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();
-			session.saveOrUpdate(album);			
-			session.save(album);
+			for(Artist artist : artistList) {
+				
+			Artist artist2 = (Artist)session.load(Artist.class, artist.getArtistID());
+			artist2.addAlbum(album);
+			session.update(artist2);
+		}
+			for(Genre genre : genreList) {
+				Genre genre2 = (Genre)session.load(Genre.class, genre.getGenreID());
+				genre2.addAlbum(album);
+				session.update(genre2);	
+			}
 			transAct.commit();
 			session.close();
 			return true;
 		}catch(Exception e) {
+			System.out.println(e.getMessage());
 			if(transAct != null) 
 				transAct.rollback();
 			throw e;			
 		}
 	}
 	
+	/*
+	 * Method used to add an album to a single genre.
+	 */
+	public boolean addAlbumGenre(Album album, Artist artist, Genre genre) {
+		Transaction transAct = null;	
+		try(Session session = sessionFactory.openSession()){
+			transAct = session.beginTransaction();
+			genre.addAlbum(album);
+			session.saveOrUpdate(genre);
+			transAct.commit();
+			System.out.println("After Commit");
+			session.close();
+			return true;
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			if(transAct != null) 
+				transAct.rollback();
+			throw e;			
+		}
+	}
+	/*
+	 * readAlbum() will return a singular Album-object from the remote database, based on the given albumID
+	 */
 	public Album readAlbum(int id) {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
@@ -333,26 +333,30 @@ public class RemoteDAO {
 		session.close();
 		return album;	
 	}
-	
-
+	/*
+	 * readAlbums() will return a list of all albums found within the database
+	 */
 	public Album[] readAlbums() {
 		Transaction transAct = null;
 		try (Session session = sessionFactory.openSession()) {
 			transAct = session.beginTransaction();
-
+			
 			@SuppressWarnings("unchecked")
-			List<Album> result = (List<Album>) session.createQuery("from Album order by albumName").list();
-
-//			transAct.commit();
+			List<Album> result = (List<Album>) session.createQuery("from Album").list();
+			System.out.println("After album query ");
+			transAct.commit();
 			Album[] array = new Album[result.size()];
-			return (Album[]) result.toArray(array);
+			
+			 return (Album[])result.toArray(array);
 		} catch (Exception e) {
 			if (transAct != null)
 				transAct.rollback();
-			throw e;
+			return new Album[0];
 		}
 	}
-	
+	/*
+	 * searchAlbum() will return a single Album-object based on a simple String input, used to search the database for the Album
+	 */
 	public Album searchAlbum(String albumSearch) throws Exception{
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
@@ -373,8 +377,10 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
-
-	// To be tested! Still not sure how to handle the song list here :/
+	/*
+	 * editAlbum() will update a given Album based on its ID. This is used to find the Album from the database, which will then be 
+	 * updated based on a given Album-object
+	 */
 	public boolean editAlbum(Album albumEdit, Song[] songEdit, int id) {
 		Transaction transAct = null;
 		try (Session session = sessionFactory.openSession()) {
@@ -390,7 +396,9 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
-
+	/*
+	 * removeAlbum() will remove a single Album based on the given albumID
+	 */
 	public boolean removeAlbum(int id) {
 		Transaction transAct = null;
 		try (Session session = sessionFactory.openSession()) {
@@ -406,10 +414,13 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
-
+	/*
+	 * Method used to create a new song in the database. Will first iterate through
+	 * all found songNames, to ensure that it will not allow the creation of a
+	 * song that already exists. 
+	 */
 	public boolean createSong(Song song) throws Exception {
 		Song[] songSearch = readSongs();		
-		//First loop to check whether a given genre is already found within the database
 		for(int i = 0; i < songSearch.length; i++) {			
 			if(songSearch[i].getSongName().equals(song.getSongName())) {
 				throw new Exception("This Song already exists!");
@@ -429,7 +440,9 @@ public class RemoteDAO {
 			throw e;			
 		}
 	}
-	
+	/*
+	 * readSong() will return a singular Song-object from the remote database, based on the given songID
+	 */
 	public Song readSong(int id) {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
@@ -440,7 +453,9 @@ public class RemoteDAO {
 		return song;	
 	}
 	
-
+	/*
+	 * readSongs() will return a list of all albums found within the database
+	 */
 	public Song[] readSongs() {
 		Transaction transAct = null;
 		try (Session session = sessionFactory.openSession()) {
@@ -458,7 +473,9 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
-	
+	/*
+	 * searchSong() will return a single Song-object based on a simple String input, used to search the database for the Song
+	 */
 	public Song searchSong(String songSearch) throws Exception{
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
@@ -479,7 +496,10 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
-
+	/*
+	 * editSong() will update a given Song based on its ID. This is used to find the Song from the database, which will then be 
+	 * updated based on a given Song-object
+	 */
 	public boolean editSong(Song songEdit, int id) {
 		Transaction transAct = null;
 		try (Session session = sessionFactory.openSession()) {
@@ -495,7 +515,9 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
-
+	/*
+	 * removeSong() will remove a single Song based on the given songID
+	 */
 	public boolean removeSong(int id) {
 		Transaction transAct = null;
 		try (Session session = sessionFactory.openSession()) {
@@ -511,6 +533,9 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
+	/*
+	 * getSearchable() will return a list of every single name within the database.
+	 */
 	public List<String> getSearchable(){
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
@@ -527,6 +552,9 @@ public class RemoteDAO {
 			throw e;
 		}		
 	}	
+	/*
+	 * existingGenres() will return a list of every genreName found within the database
+	 */
 	public List<String> existingGenres(){
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
@@ -542,6 +570,9 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
+	/*
+	 * existingArtists() will return a list of every artistName found within the database
+	 */
 	public List<String> existingArtists(){
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
@@ -557,6 +588,9 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
+	/*
+	 * existingAlbums() will return a list of every albumName found within the database
+	 */
 	public List<String> existingAlbums(){
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
@@ -572,6 +606,9 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
+	/*
+	 * existingSongs() will return a list of every songName found within the database
+	 */
 	public List<String> existingSongs(){
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
@@ -638,6 +675,44 @@ public class RemoteDAO {
 			transAct = session.beginTransaction();
 			Album album = (Album) session.load(Album.class, albumID);
 			List<Song> array = album.getAlbumSongs();
+			transAct.commit();
+			session.close();
+			return array;
+		}catch(Exception e) {
+			if(transAct != null)
+				transAct.rollback();
+			throw e;
+		}
+	}
+	/*
+	 * Method takes in an album's ID and then opens a session using it. A list of artists is created based on the Album, 
+	 * and the method thus returns a list of Artists related to the given album
+	 */
+	public List<Artist> albumArtistList(int albumID){
+		Transaction transAct = null;
+		try(Session session = sessionFactory.openSession()){
+			transAct = session.beginTransaction();
+			Album album = (Album) session.load(Album.class, albumID);
+			List<Artist> array = album.getAlbumArtists();
+			transAct.commit();
+			session.close();
+			return array;
+		}catch(Exception e) {
+			if(transAct != null)
+				transAct.rollback();
+			throw e;
+		}
+	}
+	/*
+	 * Method takes in an album's ID and then opens a session using it. A list of genres is created based on the Album,
+	 * and the method thus returns a list of Genres related to the given album
+	 */
+	public List<Genre> albumGenreList(int albumID){
+		Transaction transAct = null;
+		try(Session session = sessionFactory.openSession()){
+			transAct = session.beginTransaction();
+			Album album = (Album) session.load(Album.class, albumID);
+			List<Genre> array = album.getAlbumGenres();
 			transAct.commit();
 			session.close();
 			return array;

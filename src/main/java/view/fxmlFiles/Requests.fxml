@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane id="root2" accessibleRole="NODE" minHeight="-Infinity" minWidth="900.0" prefWidth="900.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RequestFormsController">
+<BorderPane id="root2" accessibleRole="NODE" minHeight="573.0" minWidth="812.0" prefHeight="619.0" prefWidth="854.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUIController">
    <center>
       <AnchorPane prefHeight="428.0" prefWidth="342.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -17,25 +17,25 @@
       </AnchorPane>
    </center>
    <top>
-      <Label id="root" alignment="CENTER" prefHeight="58.0" prefWidth="1000.0" text="Lisäyspyynnöt" BorderPane.alignment="CENTER">
+      <Label id="root" alignment="CENTER" prefHeight="58.0" prefWidth="1100.0" text="Lisäyspyynnöt" BorderPane.alignment="CENTER">
          <font>
             <Font name="System Bold" size="24.0" />
          </font></Label>
    </top>
    <left>
-      <AnchorPane fx:id="RequestCategories" minWidth="400.0" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="RequestCategories" minWidth="345.0" prefHeight="515.0" prefWidth="345.0" BorderPane.alignment="CENTER">
          <children>
-            <TitledPane id="RequestDrops" fx:id="ArtistDrop" alignment="CENTER" animated="false" layoutX="-3.0" layoutY="152.0" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#Artist" prefHeight="37.0" prefWidth="410.0" text="Artistipyyntö" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="152.0">
+            <TitledPane id="RequestDrops" fx:id="GenreDrop" alignment="CENTER" animated="false" layoutX="3.0" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#Genre" prefHeight="38.0" prefWidth="408.0" text="Genrepyyntö" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="30.0">
                <graphic>
-                  <Button mnemonicParsing="false" onAction="#ArtistFormButton" text="+" />
+                  <Button mnemonicParsing="false" onAction="#GenreFormButton" text="+" />
                </graphic>
                <font>
                   <Font size="13.0" />
                </font>
             </TitledPane>
-            <TitledPane id="RequestDrops" fx:id="GenreDrop" alignment="CENTER" animated="false" layoutX="3.0" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#Genre" prefHeight="38.0" prefWidth="408.0" text="Genrepyyntö" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="30.0">
+            <TitledPane id="RequestDrops" fx:id="ArtistDrop" alignment="CENTER" animated="false" layoutX="-3.0" layoutY="152.0" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#Artist" prefHeight="37.0" prefWidth="410.0" text="Artistipyyntö" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="152.0">
                <graphic>
-                  <Button mnemonicParsing="false" onAction="#GenreFormButton" text="+" />
+                  <Button mnemonicParsing="false" onAction="#ArtistFormButton" text="+" />
                </graphic>
                <font>
                   <Font size="13.0" />

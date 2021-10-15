@@ -90,7 +90,6 @@ public class UserCollectionController {
     		GridListView.setOnMouseClicked(me -> {
     			
     			LocalAlbum listLocalAlbum = GridListView.getSelectionModel().getSelectedItem();
-    		
     			List<LocalGenre> localGenre = controller.getLocalAlbumGenres(listLocalAlbum.getAlbumID());
     			List<LocalArtist> localArtist = controller.getLocalAlbumArtists(listLocalAlbum.getAlbumID());
     			if(listLocalAlbum != null) {
@@ -100,15 +99,16 @@ public class UserCollectionController {
     				AlbumGenreLabel.setText(localGenre.get(0).getGenreName());
     				System.out.println(listLocalAlbum.getAlbumName());
     			} else {
-    				AlbumGenreLabel.setText("Not found");
+    				AlbumGenreLabel.setText("Ei löytynyt");
     			}
     			if(localArtist.size() > 0) {
     				AlbumArtistLabel.setText(localArtist.get(0).getArtistName());
     			} else {
-    				AlbumArtistLabel.setText("Not found");
+    				AlbumArtistLabel.setText("Ei löytynyt");
     			}
     			List<LocalSong> localSongs = controller.getLocalAlbumSongs(listLocalAlbum.getAlbumID());
     			ObservableList<LocalSong> observableSongs = FXCollections.observableArrayList(localSongs);
+    			
         		SongListView.setCellFactory(lv -> new ListCell<LocalSong>() {
         			@Override
         			protected void updateItem(LocalSong localSong, boolean empty) {

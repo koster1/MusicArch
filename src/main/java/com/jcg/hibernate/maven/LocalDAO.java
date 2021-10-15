@@ -52,7 +52,7 @@ public class LocalDAO {
 			genre.addAlbum(localAlbum);
 			session.saveOrUpdate(genre);
 			
-			session.saveOrUpdate(genre);
+//			session.saveOrUpdate(genre);
 			
 			transAct.commit();
 			return true;
@@ -323,7 +323,7 @@ public class LocalDAO {
 				session.saveOrUpdate(localSong);
 			}
 			
-			session.saveOrUpdate(localAlbum);			
+//			session.saveOrUpdate(localAlbum);			
 			session.save(localAlbum);
 			transAct.commit();
 			return true;
