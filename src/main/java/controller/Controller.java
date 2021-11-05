@@ -19,9 +19,6 @@ public class Controller {
 	private LocalDAO localDAO = new LocalDAO();
 	private GUIController GUIController = new GUIController();
 
-    /**
-     * Default constructor
-     */
     public Controller() {}
     
     public void createGenre(String genreName) {
@@ -30,7 +27,6 @@ public class Controller {
     	try {
 			remoteDAO.createGenre(newGenre);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			System.out.println("Failed to create a genre! ");
 			e.printStackTrace();
 		}
@@ -42,7 +38,6 @@ public class Controller {
     	try {
 			remoteDAO.createArtist(newArtist);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			System.out.println("Failed to create an artist! ");
 			e.printStackTrace();
 		}
@@ -58,6 +53,8 @@ public class Controller {
     	Artist artist = new Artist();
     	List<Artist> linkArtist = new ArrayList<>();
     	List<Genre> linkGenre = new ArrayList<>();
+    	List<Song> linkSong = new ArrayList<>();
+
     	
     	if(genreListGiven.length != 0 || artistListGiven.length != 0) {
     		for(int i = 0; i<genreListGiven.length; i++) {
@@ -84,8 +81,14 @@ public class Controller {
 				}
     			
     		}
+    		
+    		for(int i = 0; i<songListGiven.length; i++) {
+					Song song = new Song();
+					song.setSongName(songListGiven[i]);
+					linkSong.add(song);    			
+    		}
     		try {
-    			remoteDAO.createAlbum(newAlbum, linkArtist, linkGenre);	
+    			remoteDAO.createAlbum(newAlbum, linkArtist, linkGenre, linkSong);	
     			
 			} catch (Exception e) {
 				System.out.println("Failed to create an Album!");
@@ -135,8 +138,7 @@ public class Controller {
 
     	saveLocalAlbum = localDAO.readAlbum(albumID);
     }
-    
-    
+
     public void editGenre(String genreID, String genreName) {
     	Genre editGenre = new Genre();
     	int editID = Integer.parseInt(genreID);
@@ -150,12 +152,24 @@ public class Controller {
     	editArtist.setArtistBio(artistBio);
     	remoteDAO.editArtist(editArtist, editID);
     }
-    public void editAlbum(String albumID, String albumName, Song[] songListGiven, int albumYear) {
+    //Still WIP
+    public void editAlbum(String albumID, String albumName, int albumYear, String[] artistListEdit, String[] genreListEdit, String[] songListEdit) {
     	Album editAlbum = new Album();
     	int editID = Integer.parseInt(albumID);
     	editAlbum.setAlbumName(albumName);
     	editAlbum.setAlbumYear(albumYear);
-    	remoteDAO.editAlbum(editAlbum, null, editID);
+    	
+    	if(artistListEdit.length != 0) {
+    		//This is where the addition should happen! How do we handle an edit-situation where an artist doesn't exist? Do we make a blank default artist with the artist's name, or just throw an error like before?
+    	}
+    	if(genreListEdit.length != 0) {
+    		//This is where the addition should happen!
+    	}
+    	if(songListEdit.length != 0) {
+    		//This is where the addition should happen!
+    	}
+    	
+    	remoteDAO.editAlbum(editAlbum, editID);
     }
 
     public void editLocalGenre(String genreID, String genreName) {

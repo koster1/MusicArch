@@ -102,11 +102,12 @@ public class GUIController {
 		String searchText = SearchBox.getText();
 		view.showSearchPage(searchText);
 	}
-
 	/*
 	 * Upon clicking the search bar, this method is triggered, and will fetch
 	 * all names found within the database.
 	 */
+
+	
 	 @FXML
 	 void getSearchable(MouseEvent event) {
 		 if(everythingFound == null) {

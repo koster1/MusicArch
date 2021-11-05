@@ -267,9 +267,12 @@ public class RemoteDAO {
 	 * album that already exists. 
 	 * Additionally, it will also add the genres and artists to a the album.
 	 */
-	public boolean createAlbum(Album album, List<Artist> artistList, List<Genre> genreList) throws Exception {
+	public boolean createAlbum(Album album, List<Artist> artistList, List<Genre> genreList, List<Song> songList) throws Exception {
 		Album[] albumSearch = readAlbums();	
-		
+		//This is placeholder code, just for testing-purposes, for now. Could maybe place the adding inside this loop, if adding the song here works?
+		for(Song song : songList) {
+			createSong(song);
+		}
 		for(int i = 0; i < albumSearch.length; i++) {
 			if(albumSearch[i].getAlbumName().equals(album.getAlbumName())) {
 				throw new Exception("This Album already exists!");
@@ -283,11 +286,17 @@ public class RemoteDAO {
 			Artist artist2 = (Artist)session.load(Artist.class, artist.getArtistID());
 			artist2.addAlbum(album);
 			session.update(artist2);
-		}
+			}
 			for(Genre genre : genreList) {
 				Genre genre2 = (Genre)session.load(Genre.class, genre.getGenreID());
 				genre2.addAlbum(album);
 				session.update(genre2);	
+			}			
+			//This'd be adding songs, but it requires the song to already exist, so...
+			for(Song song : songList) {
+				Song song2 = (Song)session.load(Song.class, song.getSongID());
+				song2.addAlbum(album);
+				session.update(song2);
 			}
 			transAct.commit();
 			session.close();
@@ -379,8 +388,9 @@ public class RemoteDAO {
 	/*
 	 * editAlbum() will update a given Album based on its ID. This is used to find the Album from the database, which will then be 
 	 * updated based on a given Album-object
+	 * Editing the song-list is trickier. Currently not implemented.
 	 */
-	public boolean editAlbum(Album albumEdit, Song[] songEdit, int id) {
+	public boolean editAlbum(Album albumEdit, int id) {
 		Transaction transAct = null;
 		try (Session session = sessionFactory.openSession()) {
 			transAct = session.beginTransaction();
@@ -419,18 +429,19 @@ public class RemoteDAO {
 	 * song that already exists. 
 	 */
 	public boolean createSong(Song song) throws Exception {
-		Song[] songSearch = readSongs();		
+		Song[] songSearch = readSongs();
+		System.out.println("Before the song Search!");
 		for(int i = 0; i < songSearch.length; i++) {			
 			if(songSearch[i].getSongName().equals(song.getSongName())) {
-				throw new Exception("This Song already exists!");
+				return true;
 			}
 		}
 		
+		System.out.println("After the song search! Going into the transaction!");
 		Transaction transAct = null;	
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();
-			session.saveOrUpdate(song);			
-			session.save(song);
+			session.saveOrUpdate(song);
 			transAct.commit();
 			return true;
 		}catch(Exception e) {
