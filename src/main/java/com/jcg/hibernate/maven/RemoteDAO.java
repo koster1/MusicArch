@@ -1,5 +1,6 @@
 package com.jcg.hibernate.maven;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -119,7 +120,7 @@ public class RemoteDAO {
 		} catch (Exception e) {
 			if (transAct != null)
 				transAct.rollback();
-			throw e;
+			throw e; 
 		}
 	}
 	/*
@@ -262,7 +263,10 @@ public class RemoteDAO {
 			throw e;
 		}
 	}		
-	/*
+	/* CURRENT PROBLEM -> Adding songs that already exist within the database! 
+	 * -> The error I get: "No row with the given identifier exists: [com.jcg.hibernate.maven.Song#0]
+	 * -> Would seem to imply it can't find a songID with the .getSongID()-method. Makes sense, since at this point the actual song 
+	 * -> from the songList it's been given doesn't have an ID, just the default ID of 0, as per Hibernation mapping for an auto-incrementing ID.
 	 * Method used to create a new album in the database. Will first iterate through
 	 * all found albumNames, to ensure that it will not allow the creation of a
 	 * album that already exists. 
@@ -270,9 +274,18 @@ public class RemoteDAO {
 	 */
 	public boolean createAlbum(Album album, List<Artist> artistList, List<Genre> genreList, List<Song> songList) throws Exception {
 		Album[] albumSearch = readAlbums();	
+		List<Song> newSongs = new ArrayList<Song>();
 		//This is placeholder code, just for testing-purposes, for now. Could maybe place the adding inside this loop, if adding the song here works?
 		for(Song song : songList) {
-			createSong(song);
+			if(!existingSongs().contains(song.getSongName())) {
+				System.out.println("This song doesn't exist! So now we're making a song with the title: "+song.getSongName());
+				createSong(song);
+				newSongs.add(searchSong(song.getSongName())); //This'd be making a list of songs that have now been created? 
+			}else {
+				newSongs.add(searchSong(song.getSongName()));
+				System.out.println("This song"+song.getSongName()+" DID exist! Moving on!");
+			}
+			
 		}
 		for(int i = 0; i < albumSearch.length; i++) {
 			if(albumSearch[i].getAlbumName().equals(album.getAlbumName())) {
@@ -285,8 +298,8 @@ public class RemoteDAO {
 			for(Artist artist : artistList) {
 				
 			Artist artist2 = (Artist)session.load(Artist.class, artist.getArtistID());
-			artist2.addAlbum(album);
-			session.update(artist2);
+				artist2.addAlbum(album);
+				session.update(artist2);
 			}
 			for(Genre genre : genreList) {
 				Genre genre2 = (Genre)session.load(Genre.class, genre.getGenreID());
@@ -294,7 +307,7 @@ public class RemoteDAO {
 				session.update(genre2);	
 			}			
 			//This'd be adding songs, but it requires the song to already exist, so...
-			for(Song song : songList) {
+			for(Song song : newSongs) {
 				Song song2 = (Song)session.load(Song.class, song.getSongID());
 				song2.addAlbum(album);
 				session.update(song2);

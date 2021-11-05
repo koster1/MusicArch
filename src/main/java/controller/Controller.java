@@ -63,8 +63,7 @@ public class Controller {
     	
     	if(genreListGiven.length != 0 || artistListGiven.length != 0) {
     		for(int i = 0; i<genreListGiven.length; i++) {
-				try {
-					
+				try {					
 					genre = (Genre) remoteDAO.searchGenre(genreListGiven[i]);
 					if(genre != null) {
 						System.out.println("genreName album "+genre.getGenreName() + " " + genre.getGenreID());
@@ -129,18 +128,18 @@ public class Controller {
     
     //Tallennus etätietokantaan.
     
-    public void saveGenre(int genreID) {
-    	Genre saveGenre = new Genre();
-    	saveGenre = remoteDAO.readGenre(genreID);
-    }
-    public void saveArtist(int artistID) {
-    	Artist saveArtist = new Artist();
-    	saveArtist = remoteDAO.readArtist(artistID);
-    }
-    public void saveAlbum(int albumID) {
-    	Album saveAlbum = new Album();
-    	saveAlbum = remoteDAO.readAlbum(albumID);
-    }
+//    public void saveGenre(int genreID) {
+//    	Genre saveGenre = new Genre();
+//    	saveGenre = remoteDAO.readGenre(genreID);
+//    }
+//    public void saveArtist(int artistID) {
+//    	Artist saveArtist = new Artist();
+//    	saveArtist = remoteDAO.readArtist(artistID);
+//    }
+//    public void saveAlbum(int albumID) {
+//    	Album saveAlbum = new Album();
+//    	saveAlbum = remoteDAO.readAlbum(albumID);
+//    }
     public Album getAlbum(int albumID) {
     	return remoteDAO.readAlbum(albumID);
     }
@@ -186,6 +185,7 @@ public class Controller {
     	editAlbum.setAlbumName(albumName);
     	editAlbum.setAlbumYear(albumYear);
     	
+    	//Maybe check if the genre/artist/song doesn't exist in the database, throw an error?    	
     	if(artistListEdit.length != 0) {
     		//This is where the addition should happen! How do we handle an edit-situation where an artist doesn't exist? Do we make a blank default artist with the artist's name, or just throw an error like before?
     	}
