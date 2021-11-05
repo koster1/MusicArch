@@ -182,7 +182,7 @@ public class GUIController {
 	
 	@FXML
 	void GoAlbumPage(ActionEvent event) throws IOException {
-		view.showAlbumPage();
+		//view.showAlbumPage();
 	}
 	
 	 @FXML
