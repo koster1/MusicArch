@@ -283,7 +283,7 @@ public class RemoteDAO {
 				newSongs.add(searchSong(song.getSongName())); //This'd be making a list of songs that have now been created? 
 			}else {
 				newSongs.add(searchSong(song.getSongName()));
-				System.out.println("This song"+song.getSongName()+" DID exist! Moving on!");
+				System.out.println("This song"+song.getSongName()+" DID exist! Adding it to the reference list! Moving on!");
 			}
 			
 		}
