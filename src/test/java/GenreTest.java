@@ -57,4 +57,21 @@ public class GenreTest {
 		rDAO.removeGenre(rDAO.searchGenre(givenGenre).getGenreID());
 	}
 	
+	@Test
+	@DisplayName("Editing a genre within the database")
+	public void editGenre() throws Exception {
+		System.out.println("NOW DOING THE EDITING TEST");
+		Genre testGenre = new Genre();
+		testGenre.setGenreName(givenGenre);
+		rDAO.createGenre(testGenre);
+		int id = rDAO.searchGenre(givenGenre).getGenreID();
+		
+		RemoteDAO rDAO = new RemoteDAO();
+		Genre editGenre = new Genre();
+		editGenre.setGenreName("TestGenreEdited");
+		rDAO.editGenre(editGenre, id);
+		assertEquals("TestGenreEdited", rDAO.readGenre(id).getGenreName());
+		rDAO.removeGenre(id);
+	}
+	
 }

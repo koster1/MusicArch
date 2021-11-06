@@ -113,7 +113,8 @@ public class RemoteDAO {
 		try (Session session = sessionFactory.openSession()) {
 			transAct = session.beginTransaction();
 			Genre editGenre = (Genre) session.load(Genre.class, id);
-			session.saveOrUpdate(editGenre);
+			editGenre.setGenreName(genreEdit.getGenreName());
+			session.update(editGenre);
 			transAct.commit();
 			return true;
 
