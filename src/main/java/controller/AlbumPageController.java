@@ -69,7 +69,6 @@ public class AlbumPageController {
 		
 		System.out.println("Albuminimi: " + album.getAlbumName());
 		System.out.println("artisti?? " +  artists);
-//		System.out.println(genres);
 		AlbumName.setText(album.getAlbumName());
 		AlbumYear.setText(String.valueOf(album.getAlbumYear()));
 		AlbumArtist.setText(artists.get(0).getArtistName());
