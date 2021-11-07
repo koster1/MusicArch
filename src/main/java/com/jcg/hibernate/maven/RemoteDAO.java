@@ -410,7 +410,9 @@ public class RemoteDAO {
 		try (Session session = sessionFactory.openSession()) {
 			transAct = session.beginTransaction();
 			Album editAlbum = (Album) session.load(Album.class, id);
-			session.saveOrUpdate(editAlbum);
+			albumEdit.setAlbumID(editAlbum.getAlbumID());
+			editAlbum.setAlbumName(albumEdit.getAlbumName());
+			session.update(editAlbum);
 			transAct.commit();
 			return true;
 
