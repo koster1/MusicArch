@@ -192,6 +192,6 @@ public class GUIController {
 	public Song getSongResults(){
 		return songResults;
 	}
-
+ 
 }
 
