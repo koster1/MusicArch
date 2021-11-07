@@ -1,5 +1,13 @@
 package controller;
 
+import java.util.List;
+
+import com.jcg.hibernate.maven.Album;
+import com.jcg.hibernate.maven.Artist;
+import com.jcg.hibernate.maven.Genre;
+import com.jcg.hibernate.maven.Song;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -40,23 +48,40 @@ public class AlbumPageController {
 	    @FXML
 	    private ListView<?> AlbumPageListView;
 	    
-	    int id;
+	    private int id;
+	    private Album album;
+	    private List<Artist> artists;
+	    private List<Genre> genres;
+	    private List<Song> songs;
 	
 	public AlbumPageController(Controller controller, int id) {
 		this.controller = controller;
 		this.id = id;
+		this.album = this.controller.getAlbum(this.id);
+		this.artists = this.controller.getAlbumArtistList(id);
+		this.genres = this.controller.getAlbumGenreList(id);
+		this.songs = this.controller.getAlbumSong(id);
 	}
 	
 	@FXML
 	protected void initialize() {
 		System.out.println("Frontpage id=" + this.id);
-
-		AlbumName.setText("Wish You Were Here");
-		AlbumYear.setText(String.valueOf(1975));
-		AlbumArtist.setText("Pink Floyd");
-		AlbumGenre.setText("Progressive Rock");
+		
+		System.out.println("Albuminimi: " + album.getAlbumName());
+		System.out.println("artisti?? " +  artists);
+//		System.out.println(genres);
+		AlbumName.setText(album.getAlbumName());
+		AlbumYear.setText(String.valueOf(album.getAlbumYear()));
+		AlbumArtist.setText(artists.get(0).getArtistName());
+		AlbumGenre.setText(genres.get(0).getGenreName());
 		
 	}
+	
+	   @FXML
+	    void addToCollection(ActionEvent event) throws Exception {
+		   
+		   this.controller.createLocalAlbum(this.id, album.getAlbumName(), this.songs, album.getAlbumYear(), this.genres, this.artists );
+	    }	
 	
 	
 }

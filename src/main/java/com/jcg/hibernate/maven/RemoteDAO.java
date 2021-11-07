@@ -704,6 +704,7 @@ public class RemoteDAO {
 			transAct = session.beginTransaction();
 			Album album = (Album) session.load(Album.class, albumID);
 			List<Artist> array = album.getAlbumArtists();
+			
 			transAct.commit();
 			session.close();
 			return array;

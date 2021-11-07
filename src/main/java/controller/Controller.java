@@ -111,19 +111,64 @@ public class Controller {
 
     	localDAO.createArtist(localArtist);
     }
-    public void createLocalAlbum(String albumName, Song[] songListGiven, int albumYear, Genre[] genreListGiven, Artist[] artistListGiven ) throws Exception {
+    public void createLocalAlbum(int albumID, String albumName, List<Song> songListGiven, int albumYear, List<Genre> genreListGiven, List<Artist> artistListGiven ) throws Exception {
     	LocalAlbum newAlbum = new LocalAlbum();
-    	LocalSong[] songList = new LocalSong[songListGiven.length];
+    	LocalSong[] songList = new LocalSong[songListGiven.size()];
+    	LocalArtist[] artistList = new LocalArtist[artistListGiven.size()];
+    	LocalGenre[] genreList = new LocalGenre[genreListGiven.size()];
+    	System.out.println("Before songListGiven");
+    	int counter = 0;
+    	for(Song song : songListGiven) {
+    		LocalSong localSong = new LocalSong();
+    		localSong.setSongName(song.getSongName());
+    		localSong.setSongID(song.getSongID());
+    		songList[counter] = localSong;
+    		counter++;
+    	}
+    	
+    	counter = 0;
+    	System.out.println("before ArtistListGiven");
+    	for(Artist artist : artistListGiven) {
+    		System.out.println("items: " + artist.getArtistName());
+    		LocalArtist localArtist = new LocalArtist();
+    		localArtist.setArtistName(artist.getArtistName());
+    		localArtist.setArtistID(artist.getArtistID());
+    		localArtist.setArtistBio(artist.getArtistBio());
+    		artistList[counter] = localArtist;
+    		counter++;
+    	}
+    	
+    	counter = 0;
+    	for(Genre genre : genreListGiven) {
+    		LocalGenre localGenre = new LocalGenre();
+    		localGenre.setGenreName(genre.getGenreName());
+    		localGenre.setGenreID(genre.getGenreID());
+    		genreList[counter] = localGenre;
+    		counter++;
+    	}
+    	for(LocalArtist localArtist : artistList) {
+    		System.out.println(localArtist.getArtistName());
+    	}
     	newAlbum.setAlbumName(albumName);
     	newAlbum.setAlbumYear(albumYear);
-    	localDAO.createAlbum(newAlbum, songList);
+    	newAlbum.setAlbumID(albumID);
+    	System.out.println("before localDAO.createAlbum ");
+    	localDAO.createAlbum(newAlbum, songList, artistList, genreList);
     }
     
     public Album getAlbum(int albumID) {
     	return remoteDAO.readAlbum(albumID);
     }
     public List<Artist> getAlbumArtistList(int albumID) {
-    	return remoteDAO.albumArtistList(albumID);
+    	List<Artist> list = remoteDAO.albumArtistList(albumID);
+    	if(list != null) {
+    		
+    		System.out.println("Lista artisteista" + list.size());
+    	} else {
+    		System.out.println("Ei ole null???");
+    	}
+    	return list;
+//    	return remoteDAO.albumArtistList(albumID);
     }
     public List<Genre> getAlbumGenreList(int albumID){
     	return remoteDAO.albumGenreList(albumID);
