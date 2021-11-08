@@ -56,6 +56,7 @@ public class Album {
 	private List<Song> albumSongs;
 	
 	public List<Artist> getAlbumArtists(){
+		System.out.println("album artists " + this.albumArtists);
 		return albumArtists;
 	}
 	public void setAlbumArtists(List<Artist> albumArtists) {
@@ -68,6 +69,7 @@ public class Album {
 		albumArtists.add(artist);
 	}	
 	public List<Genre> getAlbumGenres(){
+		System.out.println("album genres " + this.albumGenres);
 		return albumGenres;
 	}
 	public void setAlbumGenres(List<Genre> albumGenres) {
@@ -90,6 +92,7 @@ public class Album {
 		albumSongs.add(song);
 	}
 	public List<Song> getAlbumSongs() {
+		System.out.println("album songs " + this.albumSongs);
 		return albumSongs;
 	}
 	public Album() {}

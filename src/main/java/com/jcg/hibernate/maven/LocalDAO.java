@@ -303,7 +303,7 @@ public class LocalDAO {
 	
 	
 	//Still not sure how to handle the song list here :/
-	public boolean createAlbum(LocalAlbum localAlbum, LocalSong[] songs) throws Exception {
+	public boolean createAlbum(LocalAlbum localAlbum, LocalSong[] songs, LocalArtist[] artists, LocalGenre[] genres) throws Exception {
 		LocalAlbum[] albumSearch = readAlbums();		
 		//First loop to check whether a given genre is already found within the database
 		for(int i = 0; i < albumSearch.length; i++) {			
@@ -318,7 +318,16 @@ public class LocalDAO {
 			
 			for(LocalSong localSong : songs) {
 				localSong.addAlbum(localAlbum);
+				
 				session.saveOrUpdate(localSong);
+			}
+			for(LocalArtist localArtist : artists) {
+				localArtist.addAlbum(localAlbum);
+				session.saveOrUpdate(localArtist);
+			}
+			for(LocalGenre localGenre : genres) {
+				localGenre.addAlbum(localAlbum);
+				session.saveOrUpdate(localGenre);
 			}
 			
 //			session.saveOrUpdate(localAlbum);			
