@@ -63,6 +63,7 @@ public class AlbumPageController {
 		this.songs = this.controller.getAlbumSong(id);
 	}
 	
+	
 	@FXML
 	protected void initialize() {
 		System.out.println("Frontpage id=" + this.id);
@@ -80,7 +81,12 @@ public class AlbumPageController {
 	    void addToCollection(ActionEvent event) throws Exception {
 		   
 		   this.controller.createLocalAlbum(this.id, album.getAlbumName(), this.songs, album.getAlbumYear(), this.genres, this.artists );
-	    }	
+	    }
+	   
+	   @FXML
+       void addToWishList(ActionEvent event) {
+           controller.addToWishlist(this.id);
+       }
 	
 	
 }
