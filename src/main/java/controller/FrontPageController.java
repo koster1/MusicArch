@@ -105,6 +105,7 @@ public class FrontPageController {
 				}
 			} else {
 				System.out.println("Nothing found ");
+				FrontPageGrid.getChildren().clear();
 			}
 			
   

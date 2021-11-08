@@ -56,6 +56,8 @@ public class Album {
 	private List<Song> albumSongs;
 	
 	public List<Artist> getAlbumArtists(){
+		// Do not remove the print below or you will get:
+		//"failed to lazily initialize a collection of role: com.jcg.hibernate.maven.Album.albumArtists, could not initialize proxy - no Session" in the AlbumPage
 		System.out.println("album artists " + this.albumArtists);
 		return albumArtists;
 	}
@@ -69,6 +71,8 @@ public class Album {
 		albumArtists.add(artist);
 	}	
 	public List<Genre> getAlbumGenres(){
+		// Do not remove the print below or you will get:
+		//"failed to lazily initialize a collection of role: com.jcg.hibernate.maven.Album.albumGenres, could not initialize proxy - no Session" in the AlbumPage
 		System.out.println("album genres " + this.albumGenres);
 		return albumGenres;
 	}

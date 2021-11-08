@@ -340,4 +340,11 @@ public class Controller {
     public List<LocalSong> getLocalAlbumSongs(int albumID) {
     	return localDAO.localAlbumSongs(albumID);
     }
+    
+    public boolean addToWishlist(int albumID) {
+    	
+    	localDAO.addToWishlist(albumID);
+    	return true;
+    }
+    
 }
