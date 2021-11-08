@@ -24,6 +24,9 @@ public class HelpController {
 	
 	@FXML
 	protected void initialize() throws FileNotFoundException {
+		
+//		test
+		
 //		helptext.setText("muutettu teksti");
 //		if(helptext == null) {
 //			System.out.println("Null");
