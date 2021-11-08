@@ -66,14 +66,25 @@ public class AlbumPageController {
 	
 	@FXML
 	protected void initialize() {
-		System.out.println("Frontpage id=" + this.id);
+//		System.out.println("Frontpage id=" + this.id);
+//		
+//		System.out.println("Albuminimi: " + album.getAlbumName());
+//		System.out.println("artisti?? " +  artists);
 		
-		System.out.println("Albuminimi: " + album.getAlbumName());
-		System.out.println("artisti?? " +  artists);
-		AlbumName.setText(album.getAlbumName());
-		AlbumYear.setText(String.valueOf(album.getAlbumYear()));
-		AlbumArtist.setText(artists.get(0).getArtistName());
-		AlbumGenre.setText(genres.get(0).getGenreName());
+		String artistString = "";
+		String genreString = "";
+		
+		for (Artist artist: artists) {
+			artistString = artistString + artist.getArtistName() + " ";
+		}
+		for (Genre genre: genres) {
+			genreString = genreString + genre.getGenreName() + " ";
+		}
+		
+		AlbumName.setText("Albumi: " +album.getAlbumName());
+		AlbumYear.setText("Vuosi: " + String.valueOf(album.getAlbumYear()));
+		AlbumArtist.setText("Artisti(t): " + artistString);
+		AlbumGenre.setText("Genret: " + genreString);
 		
 	}
 	
