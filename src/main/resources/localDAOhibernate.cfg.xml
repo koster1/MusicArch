@@ -22,5 +22,6 @@
         <mapping class="model.LocalArtist" />
         <mapping class="model.LocalAlbum" ></mapping>
         <mapping class="model.LocalSong" />
+        <mapping class="model.WishList" />
     </session-factory>
 </hibernate-configuration>

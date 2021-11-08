@@ -11,6 +11,7 @@ import model.LocalArtist;
 import model.LocalGenre;
 import model.LocalAlbum;
 import model.LocalSong;
+import model.WishList;
 
 public class LocalDAO {
 	
@@ -322,12 +323,30 @@ public class LocalDAO {
 				session.saveOrUpdate(localSong);
 			}
 			for(LocalArtist localArtist : artists) {
-				localArtist.addAlbum(localAlbum);
-				session.saveOrUpdate(localArtist);
+				// try catch
+				try {
+					LocalArtist localArtis = (LocalArtist)session.load(LocalArtist.class, localArtist.getArtistID());
+					localArtis.addAlbum(localAlbum);
+					session.update(localArtis);
+					
+				} catch (Exception e){
+					System.out.println(e.getMessage());
+					localArtist.addAlbum(localAlbum);
+					session.save(localArtist);					
+				}
+				
 			}
 			for(LocalGenre localGenre : genres) {
-				localGenre.addAlbum(localAlbum);
-				session.saveOrUpdate(localGenre);
+				try {
+					LocalGenre localGenr = (LocalGenre)session.load(LocalGenre.class, localGenre.getGenreID());
+					localGenr.addAlbum(localAlbum);
+					session.update(localGenr);					
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					localGenre.addAlbum(localAlbum);
+					session.save(localGenre);					
+				}
+				
 			}
 			
 //			session.saveOrUpdate(localAlbum);			
@@ -496,6 +515,58 @@ public class LocalDAO {
 			System.out.println("albumgenre5");
 			if(transAct != null)
 				transAct.rollback();
+			throw e;
+		}
+	}
+	
+	@SuppressWarnings("deprecation")
+	public boolean searchWishlist(int albumID) {
+
+		
+		
+		Transaction transAct = null;
+		
+		try(Session session = sessionFactory.openSession()) {
+			transAct = session.beginTransaction();
+//			WishList wishList = (WishList) session.createQuery("FROM WishList where id = :albumID");
+			Query query = session.createQuery("FROM WishList WHERE albumID = :albumID");
+			query.setParameter("albumID", albumID);
+			List results = query.list();
+			if(results.size() == 0) {
+				System.out.println("Could not find item");
+				return false;
+			}
+			System.out.println("Found item: " + results);
+			transAct.commit();
+			session.close();
+			return true;
+		} catch (Exception e) {
+			if(transAct != null) {
+				System.out.println("searchWishlist exception");
+				transAct.rollback();
+				return false;
+			}
+		}
+		return false;
+	}
+	
+	public boolean addToWishlist(int albumID) {
+		if(searchWishlist(albumID) == true) {
+			return false;
+		}
+		Transaction transAct = null;
+		try(Session session = sessionFactory.openSession()) {
+			transAct = session.beginTransaction();
+			WishList wishList = new WishList();
+			wishList.setAlbumID(albumID);
+			session.save(wishList);
+			transAct.commit();
+			session.close();
+			return true;
+		} catch (Exception e) {
+			if(transAct != null) {
+				transAct.rollback();
+			}
 			throw e;
 		}
 	}
