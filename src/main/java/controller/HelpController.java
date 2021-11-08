@@ -19,28 +19,28 @@ public class HelpController {
 	private AnchorPane helpPage;
 	
 	@FXML
-	private Label helptext;
+	private Text helptext;
 	
 	
 	@FXML
-	 protected void initialize() { 
-	}
-	 
-	public static void main(String[] args) throws IOException {
-		
+	protected void initialize() throws FileNotFoundException {
+//		helptext.setText("muutettu teksti");
+//		if(helptext == null) {
+//			System.out.println("Null");
+//		} else {
 		try {
-			File file = new File("/src/main/resources/helpfin.txt");
+			File file = new File("MusicArch/src/main/resources/helpfin");
 			Scanner myReader = new Scanner(file);
 			while (myReader.hasNextLine()) {
 				String data = myReader.nextLine();					
+//				helptext.setText(data);
 				System.out.println(data);
 			}
 			myReader.close();
 		} catch(FileNotFoundException e) {
 		    throw new FileNotFoundException("HelpPage not found");
 		}
-		
 	}
-	
+//	}
 }
 
