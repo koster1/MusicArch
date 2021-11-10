@@ -19,7 +19,7 @@
                   <Button fx:id="UserCollection" layoutX="159.0" layoutY="16.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#goUserCollection" prefHeight="26.0" prefWidth="105.0" text="Kokoelma" />
                   <Button fx:id="Requests" layoutX="289.0" layoutY="16.0" maxWidth="150.0" minHeight="-Infinity" minWidth="100.0" mnemonicParsing="false" onAction="#ShowRequests" text="Lisäyspyynnöt" />
                 <Button fx:id="Help" layoutX="411.0" layoutY="16.0" maxWidth="150.0" minHeight="-Infinity" minWidth="100.0" mnemonicParsing="false" onAction="#GoHelpPage" text="Ohje" />
-                  <TextField fx:id="SearchBox" layoutX="791.0" layoutY="15.0" onKeyTyped="#refreshSearchList" onMouseClicked="#getSearchable" prefHeight="26.0" prefWidth="268.0" AnchorPane.rightAnchor="131.0">
+                  <TextField fx:id="SearchBox" accessibleText="Hakukenttä" layoutX="791.0" layoutY="15.0" onKeyTyped="#refreshSearchList" onMouseClicked="#getSearchable" prefHeight="26.0" prefWidth="268.0" AnchorPane.rightAnchor="131.0">
                      <contextMenu>
                         <ContextMenu fx:id="searchContext" />
                      </contextMenu></TextField>

@@ -26,6 +26,11 @@ import view.View;
 public class RequestFormsController {
 	private Controller controller;
 	private View view;
+	private Genre genreResults;
+	private Artist artistResults;
+	private Album albumResults;
+	private Song songResults;
+	List<String> everyGenre;
 
 	@FXML
 	private AnchorPane RequestCategories;
@@ -68,16 +73,22 @@ public class RequestFormsController {
 	@FXML
 	private VBox root2;
 	
+	//Error-window labels
+    @FXML
+    private Label errorTitle;
+    @FXML
+    private Label errorText;
+
 	@FXML
 	protected void initialize() {
 
 	}
-	
+
 	public RequestFormsController(Controller controller) {
 		this.controller = controller;
 	}
-	
-	//Dropdownlists mouseevents
+
+	// Dropdownlists mouseevents
 	@FXML
 	void Album(MouseEvent event) {
 	}
@@ -90,7 +101,8 @@ public class RequestFormsController {
 	void Genre(MouseEvent event) {
 	}
 
-	// GenreFormButton, AlbumFromButton and ArtistFromButton sends request to view to change forms in requests.fxml
+	// GenreFormButton, AlbumFromButton and ArtistFromButton sends request to view
+	// to change forms in requests.fxml
 	@FXML
 	void GenreFormButton(ActionEvent event) throws IOException {
 		view.showGenreForm();
@@ -106,8 +118,8 @@ public class RequestFormsController {
 		view.showArtistForm();
 	}
 
-	
-	//The Newgenre button, NewSong button, and NewArtist button create new textfields in the album form.
+	// The Newgenre button, NewSong button, and NewArtist button create new
+	// textfields in the album form.
 	List<Artist> ArtistList = new ArrayList<Artist>();
 	ArrayList<TextField> artistList = new ArrayList<TextField>();
 	int counter = 0;
@@ -175,13 +187,16 @@ public class RequestFormsController {
 		parent.getChildren().setAll(field, button);
 		root1.getChildren().add(parent);
 	}
-	
+
 	// SendGenreButton sends textfield data to controller
-	//The Error window pops up if GenreAddTxtField textfield is empty.
+	// The Error window pops up if GenreAddTxtField textfield is empty.
+	String olemassa;
 
 	@FXML
 	void SendGenreButton(ActionEvent event) throws IOException {
+
 		String genreName = GenreAddTxtField.getText();
+
 		if (genreName.isEmpty()) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Virhe!");
@@ -196,15 +211,23 @@ public class RequestFormsController {
 
 			Optional<ButtonType> result = alert.showAndWait();
 			if (result.get() == ButtonType.OK) {
-				controller.createGenre(genreName);
-				GenreAddTxtField.clear();
+				try {
+					controller.createGenre(genreName);
+					GenreAddTxtField.clear();
 
+				} catch (Exception e) {
+					Alert alert2 = new Alert(AlertType.ERROR);
+					alert2.setTitle("Virhe!");
+					alert2.setHeaderText("Tarkista genren nimi. Genre " + genreName + " on jo olemassa");
+					alert2.showAndWait();
+					e.printStackTrace();
+				}
 			}
 		}
 	}
 
 	// SendArtistButton sends textfield data to controller
-	//The Error window pops up if ArtistsName textfield is empty.
+	// The Error window pops up if ArtistsName textfield is empty.
 	@FXML
 	void SendArtistButton(ActionEvent event) throws IOException {
 		System.out.print(" Artistin nimi: " + ArtistsName.getText() + " Artistin bio: " + Biografia.getText() + " ");
@@ -229,16 +252,26 @@ public class RequestFormsController {
 			Optional<ButtonType> result = alert.showAndWait();
 
 			if (result.get() == ButtonType.OK) {
-				controller.createArtist(artistName, artistBio);
-				ArtistsName.clear();
-				Biografia.clear();
+				try {
+					controller.createArtist(artistName, artistBio);
+					ArtistsName.clear();
+					Biografia.clear();
+
+				} catch (Exception e) {
+					Alert alert2 = new Alert(AlertType.ERROR);
+					alert2.setTitle("Virhe!");
+					alert2.setHeaderText("Tarkista artistin nimi. Artisti " + artistName + " on jo olemassa");
+					alert2.showAndWait();
+					e.printStackTrace();
+
+				}
 			}
 		}
 
 	};
-	
+
 	// SendAlbumButton sends textfield data to controller
-	//The Error window pops up if AlbumName textfield is empty.
+	// The Error window pops up if AlbumName textfield is empty.
 
 	@FXML
 	void SendAlbumButton(ActionEvent event) {
@@ -258,39 +291,81 @@ public class RequestFormsController {
 			Optional<ButtonType> result = alert.showAndWait();
 
 			if (result.get() == ButtonType.OK) {
+				try {
+					String[] genreListGiven = new String[genreList.size()];
+					int k = 0;
+					for (TextField textfield : genreList) {
+						System.out.println("Testataan listaa " + textfield.getId());
+						System.out.println(textfield.getText());
+						genreListGiven[k] = textfield.getText();
+						k++;
+					}
 
-				String[] genreListGiven = new String[genreList.size()];
-				int k = 0;
-				for (TextField textfield : genreList) {
-					System.out.println("Testataan listaa " + textfield.getId());
-					System.out.println(textfield.getText());
-					genreListGiven[k] = textfield.getText();
-					k++;
+					String[] artistName = new String[artistList.size()];
+					int j = 0;
+
+					for (TextField textfield : artistList) {
+						System.out.println("Testataan listaa " + textfield.getId());
+						System.out.println(textfield.getText());
+						artistName[j] = textfield.getText();
+						j++;
+					}
+
+					String[] songListGiven = new String[songList.size()];
+
+					int h = 0;
+					for (TextField textfield : songList) {
+						System.out.println("Testataan listaa " + textfield.getId());
+						System.out.println(textfield.getText());
+						songListGiven[h] = textfield.getText();
+						h++;
+					}
+
+					controller.createAlbum(AlbumName.getText(), Integer.parseInt(Released.getText()), genreListGiven,
+							artistName, songListGiven);
+
+				} catch (Exception e) {
+					Alert alert2 = new Alert(AlertType.ERROR);
+					alert2.setTitle("Virhe!");
+					alert2.setHeaderText("Tarkista albumin nimi. Albumi " + AlbumName.getText() + " on jo olemassa");
+					alert2.showAndWait();
+					e.printStackTrace();
+
 				}
-
-				String[] artistName = new String[artistList.size()];
-				int j = 0;
-
-				for (TextField textfield : artistList) {
-					System.out.println("Testataan listaa " + textfield.getId());
-					System.out.println(textfield.getText());
-					artistName[j] = textfield.getText();
-					j++;
-				}
-
-				String[] songListGiven = new String[songList.size()];
-
-				int h = 0;
-				for (TextField textfield : songList) {
-					System.out.println("Testataan listaa " + textfield.getId());
-					System.out.println(textfield.getText());
-					songListGiven[h] = textfield.getText();
-					h++;
-				}
-
-				controller.createAlbum(AlbumName.getText(), Integer.parseInt(Released.getText()), genreListGiven,
-						artistName, songListGiven);
 			}
 		}
+	}
+	// ----Search results from controller------
+
+	public void setGenreResults(Genre genre) {
+		this.genreResults = genre;
+	}
+
+	public Genre getGenreResults() {
+		return genreResults;
+	}
+
+	public void setArtistResults(Artist artistResults) {
+		this.artistResults = artistResults;
+	}
+
+	public Artist getArtistResults() {
+		return artistResults;
+	}
+
+	public void setAlbumResults(Album album) {
+		this.albumResults = album;
+	}
+
+	public Album getAlbumResults() {
+		return albumResults;
+	}
+
+	public void setSongResults(Song song) {
+		this.songResults = song;
+	}
+
+	public Song getSongResults() {
+		return songResults;
 	}
 }
