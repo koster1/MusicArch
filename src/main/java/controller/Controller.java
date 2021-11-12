@@ -125,21 +125,7 @@ public class Controller {
     	newAlbum.setAlbumYear(albumYear);
     	localDAO.createAlbum(newAlbum, songList);
     }
-    
-    //Tallennus etätietokantaan.
-    
-//    public void saveGenre(int genreID) {
-//    	Genre saveGenre = new Genre();
-//    	saveGenre = remoteDAO.readGenre(genreID);
-//    }
-//    public void saveArtist(int artistID) {
-//    	Artist saveArtist = new Artist();
-//    	saveArtist = remoteDAO.readArtist(artistID);
-//    }
-//    public void saveAlbum(int albumID) {
-//    	Album saveAlbum = new Album();
-//    	saveAlbum = remoteDAO.readAlbum(albumID);
-//    }
+
     public Album getAlbum(int albumID) {
     	return remoteDAO.readAlbum(albumID);
     }
@@ -149,6 +135,7 @@ public class Controller {
     public List<Genre> getAlbumGenreList(int albumID){
     	return remoteDAO.albumGenreList(albumID);
     }
+    
     //Tallennus paikalliseen tietokantaan
     public void saveLocalGenre(int genreID) {
     	LocalGenre saveLocalGenre = new LocalGenre();
@@ -164,19 +151,17 @@ public class Controller {
     	saveLocalAlbum = localDAO.readAlbum(albumID);
     }
     
-    //Etätietokannan muokkaus
+    //Etätietokannan muokkaus -> These should probably take an integer instead of Strings for the ID
     public void editGenre(String genreID, String genreName) {
     	Genre editGenre = new Genre();
-    	int editID = Integer.parseInt(genreID);
     	editGenre.setGenreName(genreName);
-    	remoteDAO.editGenre(editGenre, editID);
+    	remoteDAO.editGenre(editGenre, Integer.parseInt(genreID));
     }
     public void editArtist(String artistID, String artistName, String artistBio) {
     	Artist editArtist = new Artist();
-    	int editID = Integer.parseInt(artistID);
     	editArtist.setArtistName(artistName);
     	editArtist.setArtistBio(artistBio);
-    	remoteDAO.editArtist(editArtist, editID);
+    	remoteDAO.editArtist(editArtist, Integer.parseInt(artistID));
     }
     //Still WIP
     public void editAlbum(String albumID, String albumName, int albumYear, String[] artistListEdit, String[] genreListEdit, String[] songListEdit) {

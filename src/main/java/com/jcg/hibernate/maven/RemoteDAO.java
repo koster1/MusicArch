@@ -236,8 +236,10 @@ public class RemoteDAO {
 		Transaction transAct = null;		
 		try(Session session = sessionFactory.openSession()){
 		transAct = session.beginTransaction();		
-		Artist editArtist = (Artist)session.load(Artist.class, id);		
-		session.saveOrUpdate(editArtist);
+		Artist editArtist = (Artist)session.load(Artist.class, id);
+		editArtist.setArtistName(artistEdit.getArtistName());
+		editArtist.setArtistBio(artistEdit.getArtistBio());
+		session.update(editArtist);
 		transAct.commit();
 		return true;
 		
