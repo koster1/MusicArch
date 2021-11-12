@@ -360,7 +360,7 @@ public class LocalDAO {
 		}
 	}
 	
-	public LocalAlbum readAlbum(int id) {
+	public LocalAlbum readAlbum(int id) throws Exception {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		LocalAlbum album = (LocalAlbum)session.get(LocalAlbum.class, id);

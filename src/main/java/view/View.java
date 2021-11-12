@@ -6,6 +6,7 @@ import com.sun.glass.ui.Window;
 import controller.Controller;
 import controller.FrontPageController;
 import controller.GUIController;
+import controller.HelpController;
 import controller.SearchController;
 import controller.UserCollectionController;
 import controller.RequestFormsController;
@@ -81,6 +82,7 @@ public class View extends Application {
 	public static void showHelpPage() throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(View.class.getResource("/view/fxmlFiles/helpPage.fxml"));
+		loader.setControllerFactory(HelpController -> new HelpController(controller));
 		AnchorPane Frontpage = (AnchorPane) loader.load();
 		rootLayout.setCenter(Frontpage);
 

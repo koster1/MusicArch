@@ -66,14 +66,32 @@ public class AlbumPageController {
 	
 	@FXML
 	protected void initialize() {
-		System.out.println("Frontpage id=" + this.id);
+//		System.out.println("Frontpage id=" + this.id);
+//		
+//		System.out.println("Albuminimi: " + album.getAlbumName());
+//		System.out.println("artisti?? " +  artists);
 		
-		System.out.println("Albuminimi: " + album.getAlbumName());
-		System.out.println("artisti?? " +  artists);
+		try {
+			controller.readLocalAlbum(id);
+			CollectionAdd.setDisable(true);
+		} catch (Exception e) {
+			e.getMessage();
+		}
+		
+		String artistString = "";
+		String genreString = "";
+		
+		for (Artist artist: artists) {
+			artistString = artistString + artist.getArtistName() + " ";
+		}
+		for (Genre genre: genres) {
+			genreString = genreString + genre.getGenreName() + " ";
+		}
+		
 		AlbumName.setText(album.getAlbumName());
 		AlbumYear.setText(String.valueOf(album.getAlbumYear()));
-		AlbumArtist.setText(artists.get(0).getArtistName());
-		AlbumGenre.setText(genres.get(0).getGenreName());
+		AlbumArtist.setText(artistString);
+		AlbumGenre.setText(genreString);
 		
 	}
 	

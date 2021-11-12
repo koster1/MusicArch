@@ -177,7 +177,7 @@ public class Controller {
      * saveLocalAlbum will fetch an album from the remoteDAO based on the album's ID, and then save it and it's related data into the local database.
      * This is currently still a heavy work in progress and has not been implemented in code.
      */
-    public void saveLocalAlbum(int albumID) {
+    public void saveLocalAlbum(int albumID) throws Exception {
     	LocalAlbum saveLocalAlbum = new LocalAlbum();
     	Album readAlbum = remoteDAO.readAlbum(albumID);
 
@@ -306,7 +306,7 @@ public class Controller {
     	return localDAO.readArtists();
     }
     
-    public LocalAlbum readLocalAlbum(int id) {
+    public LocalAlbum readLocalAlbum(int id) throws Exception {
     	return localDAO.readAlbum(id);
     }
     
