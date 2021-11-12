@@ -7,7 +7,6 @@ import java.util.List;
 import org.hibernate.*;
 import org.hibernate.cfg.Configuration;
 
-import model.LocalSong;
 
 public class RemoteDAO {
 	static Session session;
@@ -55,7 +54,7 @@ public class RemoteDAO {
 		Genre genre = (Genre) session.get(Genre.class, id);
 		System.out.println("Found this thing -> \"" + genre.getGenreName() + "\"");
 		session.getTransaction().commit();
-		session.close();
+//		session.close();
 		return genre;
 	}
 	/*
@@ -72,7 +71,7 @@ public class RemoteDAO {
 			transAct.commit();
 
 			Genre[] array = new Genre[result.size()];
-			session.close();
+//			session.close();
 			return (Genre[]) result.toArray(array);
 		} catch (Exception e) {
 			if (transAct != null)
@@ -95,7 +94,7 @@ public class RemoteDAO {
 			}
 			
 			transAct.commit();
-			session.close();
+			//session.close();
 			return genreList.get(0);
 
 		} catch (Exception e) {
@@ -176,7 +175,7 @@ public class RemoteDAO {
 		Artist artist = (Artist) session.get(Artist.class, id);
 		System.out.println("Found this thing -> " + artist.getArtistName());
 		session.getTransaction().commit();
-		session.close();
+		//session.close();
 		return artist;
 	}
 
@@ -194,7 +193,7 @@ public class RemoteDAO {
 			transAct.commit();
 			Artist[] array = new Artist[result.size()];
 
-			session.close();
+			//session.close();
 			return (Artist[]) result.toArray(array);
 		} catch (Exception e) {
 			if (transAct != null)
@@ -217,7 +216,7 @@ public class RemoteDAO {
 				throw new Exception("Nothing found!");
 			}
 			transAct.commit();
-			session.close();
+			//session.close();
 			
 			return artistList.get(0);
 		}catch(Exception e){
@@ -316,7 +315,7 @@ public class RemoteDAO {
 				session.update(song2);
 			}
 			transAct.commit();
-			session.close();
+			//session.close();
 			return true;
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
@@ -337,7 +336,7 @@ public class RemoteDAO {
 			session.saveOrUpdate(genre);
 			transAct.commit();
 			System.out.println("After Commit");
-			session.close();
+			//session.close();
 			return true;
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
@@ -355,7 +354,7 @@ public class RemoteDAO {
 		Album album = (Album)session.get(Album.class, id);
 		System.out.println("Found this thing -> "+album.getAlbumName());
 		session.getTransaction().commit();
-		session.close();
+		//session.close();
 		return album;	
 	}
 	/*
@@ -372,7 +371,7 @@ public class RemoteDAO {
 			transAct.commit();
 			Album[] array = new Album[result.size()];
 			
-			 return (Album[])result.toArray(array);
+			return (Album[])result.toArray(array);
 		} catch (Exception e) {
 			if (transAct != null)
 				transAct.rollback();
@@ -390,7 +389,7 @@ public class RemoteDAO {
 			List<Album> albumList = query.setParameter("name", albumSearch).list();
 			
 			transAct.commit();
-			session.close();
+			//session.close();
 			
 			if (albumList.size() == 0) {
 				throw new Exception("Nothing found!");
@@ -478,7 +477,7 @@ public class RemoteDAO {
 		Song song = (Song)session.get(Song.class, id);
 		System.out.println("Found this thing -> "+song.getSongName());
 		session.getTransaction().commit();
-		session.close();
+		//session.close();
 		return song;	
 	}
 	
@@ -513,7 +512,7 @@ public class RemoteDAO {
 			List<Song> songList = query.setParameter("name", songSearch).list();
 			
 			transAct.commit();
-			session.close();
+			//session.close();
 			
 			if (songList.size() == 0) {
 				throw new Exception("Nothing found!");
@@ -573,7 +572,7 @@ public class RemoteDAO {
 			SQLQuery query = session.createSQLQuery(sql);
 			List<String> results = query.list();
 			transAct.commit();
-			session.close();
+			//session.close();
 			return results;
 		}catch(Exception e) {
 			if(transAct != null)
@@ -666,7 +665,7 @@ public class RemoteDAO {
 			Genre genre = (Genre) session.load(Genre.class, genreID);
 			List<Album> array = genre.getGenreAlbums();
 			transAct.commit();
-			session.close();
+			//session.close();
 			return array;
 		} catch (Exception e) {
 			if (transAct != null)
@@ -686,7 +685,7 @@ public class RemoteDAO {
 			Artist artist = (Artist) session.load(Artist.class, artistID);
 			List<Album> array = artist.getArtistAlbums();
 			transAct.commit();
-			session.close();
+//			session.close();
 			return array;
 		} catch (Exception e) {
 			if (transAct != null)
@@ -705,7 +704,7 @@ public class RemoteDAO {
 			Album album = (Album) session.load(Album.class, albumID);
 			List<Song> array = album.getAlbumSongs();
 			transAct.commit();
-			session.close();
+//			session.close();
 			return array;
 		}catch(Exception e) {
 			if(transAct != null)
@@ -724,7 +723,7 @@ public class RemoteDAO {
 			Album album = (Album) session.load(Album.class, albumID);
 			List<Artist> array = album.getAlbumArtists();
 			transAct.commit();
-			session.close();
+//			session.close();
 			return array;
 		}catch(Exception e) {
 			if(transAct != null)
@@ -743,7 +742,7 @@ public class RemoteDAO {
 			Album album = (Album) session.load(Album.class, albumID);
 			List<Genre> array = album.getAlbumGenres();
 			transAct.commit();
-			session.close();
+//			session.close();
 			return array;
 		}catch(Exception e) {
 			if(transAct != null)
