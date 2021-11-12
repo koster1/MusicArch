@@ -19,7 +19,6 @@ public class GenreTest {
 	private String givenGenre = "TestGenre";
 	
 	@Test
-	@Order(3)
 	@DisplayName("Delete a specific Genre from database")
 	public void deleteGenre() throws Exception{
 		System.out.println("NOW DOING THE DELETION TEST");
@@ -34,7 +33,6 @@ public class GenreTest {
 	}
 	
     @Test
-    @Order(2)
 	@DisplayName("Searching a specific Genre from database")
 	public void searchGenre() throws Exception {
 		System.out.println("NOW DOING THE SEARCH TEST");
@@ -46,7 +44,6 @@ public class GenreTest {
     }
 	
 	@Test
-	@Order(1)
 	@DisplayName("Add Genre into database")
 	public void createGenre() throws Exception {
 		System.out.println("NOW DOING THE CREATION TEST");
