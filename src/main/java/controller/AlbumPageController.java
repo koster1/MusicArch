@@ -71,6 +71,13 @@ public class AlbumPageController {
 //		System.out.println("Albuminimi: " + album.getAlbumName());
 //		System.out.println("artisti?? " +  artists);
 		
+		try {
+			controller.readLocalAlbum(id);
+			CollectionAdd.setDisable(true);
+		} catch (Exception e) {
+			e.getMessage();
+		}
+		
 		String artistString = "";
 		String genreString = "";
 		
@@ -81,10 +88,10 @@ public class AlbumPageController {
 			genreString = genreString + genre.getGenreName() + " ";
 		}
 		
-		AlbumName.setText("Albumi: " +album.getAlbumName());
-		AlbumYear.setText("Vuosi: " + String.valueOf(album.getAlbumYear()));
-		AlbumArtist.setText("Artisti(t): " + artistString);
-		AlbumGenre.setText("Genret: " + genreString);
+		AlbumName.setText(album.getAlbumName());
+		AlbumYear.setText(String.valueOf(album.getAlbumYear()));
+		AlbumArtist.setText(artistString);
+		AlbumGenre.setText(genreString);
 		
 	}
 	
