@@ -2,12 +2,9 @@ package controller;
 
 import java.io.IOException;
 import java.util.List;
-
 import com.jcg.hibernate.maven.Album;
 import com.jcg.hibernate.maven.Artist;
 import com.jcg.hibernate.maven.Genre;
-import com.jcg.hibernate.maven.Song;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,17 +12,11 @@ import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.Text;
-import model.LocalAlbum;
-import model.LocalArtist;
-import model.LocalGenre;
-import model.LocalSong;
 import view.View;
 
 public class FrontPageController {
@@ -59,7 +50,7 @@ public class FrontPageController {
 	}
 	
 	/**
-	 * This method is for setting up the frontpage views list. 
+	 * This method is for setting up the frontpage list. 
 	 * It also adds eventlisteners to all list items
 	 * **/
 	@FXML
@@ -114,6 +105,7 @@ public class FrontPageController {
 				}
 			} else {
 				System.out.println("Nothing found ");
+				FrontPageGrid.getChildren().clear();
 			}
 			
   

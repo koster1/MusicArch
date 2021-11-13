@@ -2,13 +2,9 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import com.jcg.hibernate.maven.*;
-
-import com.jcg.hibernate.maven.Album;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -16,13 +12,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
-import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -36,52 +29,36 @@ public class RequestFormsController {
 
 	@FXML
 	private AnchorPane RequestCategories;
-
 	@FXML
 	private TitledPane ArtistDrop;
-
 	@FXML
 	private TitledPane GenreDrop;
-
 	@FXML
 	private TitledPane AlbumDrop;
-
 	@FXML
 	private TextField GenreAddTxtField;
-
 	@FXML
 	private Label GenreAddLabel;
-
 	@FXML
 	private Button SendGenre;
-
 	@FXML
 	private Label GenreAddTitle;
-
 	@FXML
 	private TextField ArtistsName;
-
 	@FXML
 	private TextArea Biografia;
-
 	@FXML
 	private TextField Released;
-
 	@FXML
 	private Label Year;
-
 	@FXML
 	private Label AlbumTitle;
-
 	@FXML
 	private TextField AlbumName;
-
 	@FXML
 	private TextField ArtistName;
-
 	@FXML
 	private TextField Songs;
-
 	@FXML
 	private TextField GenreName;
 	@FXML
@@ -90,33 +67,30 @@ public class RequestFormsController {
 	private VBox root1;
 	@FXML
 	private VBox root2;
-
+	
 	@FXML
 	protected void initialize() {
 
 	}
-
-	// Dropdownlists
+	
+	public RequestFormsController(Controller controller) {
+		this.controller = controller;
+	}
+	
+	//Dropdownlists mouseevents
 	@FXML
 	void Album(MouseEvent event) {
-
 	}
 
 	@FXML
 	void Artist(MouseEvent event) {
-
 	}
 
 	@FXML
 	void Genre(MouseEvent event) {
-
 	}
 
-	public RequestFormsController(Controller controller) {
-		this.controller = controller;
-	}
-
-	// Switch forms in requests.fxml
+	// GenreFormButton, AlbumFromButton and ArtistFromButton sends request to view to change forms in requests.fxml
 	@FXML
 	void GenreFormButton(ActionEvent event) throws IOException {
 		view.showGenreForm();
@@ -132,20 +106,20 @@ public class RequestFormsController {
 		view.showArtistForm();
 	}
 
+	
+	//The Newgenre button, NewSong button, and NewArtist button create new textfields in the album form.
 	List<Artist> ArtistList = new ArrayList<Artist>();
 	ArrayList<TextField> artistList = new ArrayList<TextField>();
 	int counter = 0;
 
 	@FXML
 	void NewArtist(ActionEvent event) {
-		// String.valueOf(counter++);
 		TextField field = new TextField();
 		final HBox parent = new HBox(5.0);
 		field.setId(String.valueOf(counter++));
 		System.out.print(field.getId());
 		artistList.add(field);
 		System.out.println(field.getId());
-		// ArtistList.add(field.getId());
 		Button button = new Button("-");
 		field.setAlignment(Pos.CENTER_LEFT);
 		button.setAlignment(Pos.CENTER_RIGHT);
@@ -169,7 +143,6 @@ public class RequestFormsController {
 		System.out.print(field.getId());
 		genreList.add(field);
 		System.out.println(field.getId());
-		// ArtistList.add(field.getId());
 		Button button = new Button("-");
 		field.setAlignment(Pos.CENTER_LEFT);
 		button.setAlignment(Pos.CENTER_RIGHT);
@@ -202,6 +175,9 @@ public class RequestFormsController {
 		parent.getChildren().setAll(field, button);
 		root1.getChildren().add(parent);
 	}
+	
+	// SendGenreButton sends textfield data to controller
+	//The Error window pops up if GenreAddTxtField textfield is empty.
 
 	@FXML
 	void SendGenreButton(ActionEvent event) throws IOException {
@@ -227,9 +203,8 @@ public class RequestFormsController {
 		}
 	}
 
-	// SendArtistButton lähettää Artist-lomakkeen tiedot controlleriin.
-	// Virhe-ikkuna ponnautetaan jos kentät ovat tyhjiä
-	// Täytyy lisätä muitakin ehtoja
+	// SendArtistButton sends textfield data to controller
+	//The Error window pops up if ArtistsName textfield is empty.
 	@FXML
 	void SendArtistButton(ActionEvent event) throws IOException {
 		System.out.print(" Artistin nimi: " + ArtistsName.getText() + " Artistin bio: " + Biografia.getText() + " ");
@@ -251,9 +226,6 @@ public class RequestFormsController {
 			alert.setContentText("Haluatko lähettää pyynnön lisätä artistin " + artistName
 					+ " ja artistille biografian: " + artistBio + "?");
 
-/*			DialogPane dialogPane = alert.getDialogPane();
-			dialogPane.getStylesheets().add(getClass().getResource("/java/view/style.css").toExternalForm());
-			dialogPane.getStyleClass().add("myDialog");*/
 			Optional<ButtonType> result = alert.showAndWait();
 
 			if (result.get() == ButtonType.OK) {
@@ -264,6 +236,9 @@ public class RequestFormsController {
 		}
 
 	};
+	
+	// SendAlbumButton sends textfield data to controller
+	//The Error window pops up if AlbumName textfield is empty.
 
 	@FXML
 	void SendAlbumButton(ActionEvent event) {

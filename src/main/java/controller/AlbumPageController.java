@@ -1,5 +1,13 @@
 package controller;
 
+import java.util.List;
+
+import com.jcg.hibernate.maven.Album;
+import com.jcg.hibernate.maven.Artist;
+import com.jcg.hibernate.maven.Genre;
+import com.jcg.hibernate.maven.Song;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -7,20 +15,11 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
 import view.View;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import com.jcg.hibernate.maven.Album;
-import com.jcg.hibernate.maven.Artist;
-import com.jcg.hibernate.maven.Genre;
-import com.jcg.hibernate.maven.RemoteDAO;
 
 public class AlbumPageController {
 
 	private Controller controller;
 	private View view;
-	private RemoteDAO rDAO;
 	
 	   @FXML
 	    private GridPane AlbumInfo;
@@ -49,60 +48,63 @@ public class AlbumPageController {
 	    @FXML
 	    private ListView<?> AlbumPageListView;
 	    
-	    int id;
+	    private int id;
+	    private Album album;
+	    private List<Artist> artists;
+	    private List<Genre> genres;
+	    private List<Song> songs;
 	
 	public AlbumPageController(Controller controller, int id) {
 		this.controller = controller;
 		this.id = id;
+		this.album = this.controller.getAlbum(this.id);
+		this.artists = this.controller.getAlbumArtistList(id);
+		this.genres = this.controller.getAlbumGenreList(id);
+		this.songs = this.controller.getAlbumSong(id);
 	}
+	
 	
 	@FXML
 	protected void initialize() {
-		// Build the listview
-		System.out.println("You are in Album page");
-		
-//		Album album = controller.getAlbum(id);
-		
-		
-
-		
-//		//tekee artistilistasta stringin
-//	
-//		StringBuilder strbul=new StringBuilder();
-//        for(Artist artist : albumArtistlist)
-//        {
-//            strbul.append(artist.getArtistName());
-//            //for adding comma between elements
-//            strbul.append(",");
-//        }
-//        String artists=strbul.toString();
-//       
+//		System.out.println("Frontpage id=" + this.id);
 //		
-//		//genreistä string
-//		
-//		StringBuilder strbul2=new StringBuilder();
-//        for(Genre genre : albumGenreList)
-//        {
-//            strbul2.append(genre.getGenreName());
-//            //for adding comma between elements
-//            strbul2.append(",");
-//        }
-//        String genres=strbul2.toString();
-//       
-	
+//		System.out.println("Albuminimi: " + album.getAlbumName());
+//		System.out.println("artisti?? " +  artists);
 		
-//		AlbumArtist.setText(artists);
-//		AlbumGenre.setText(genres);
-
-		AlbumName.setText("Wish You Were Here");
-		AlbumYear.setText(String.valueOf(1975));
-		AlbumArtist.setText("Pink Floyd");
-		AlbumGenre.setText("Progressive Rock");
-
+		try {
+			controller.readLocalAlbum(id);
+			CollectionAdd.setDisable(true);
+		} catch (Exception e) {
+			e.getMessage();
+		}
 		
-		//AlbumPageListView.setAccessibleText(album.getAlbumSongs());
+		String artistString = "";
+		String genreString = "";
+		
+		for (Artist artist: artists) {
+			artistString = artistString + artist.getArtistName() + " ";
+		}
+		for (Genre genre: genres) {
+			genreString = genreString + genre.getGenreName() + " ";
+		}
+		
+		AlbumName.setText(album.getAlbumName());
+		AlbumYear.setText(String.valueOf(album.getAlbumYear()));
+		AlbumArtist.setText(artistString);
+		AlbumGenre.setText(genreString);
 		
 	}
+	
+	   @FXML
+	    void addToCollection(ActionEvent event) throws Exception {
+		   
+		   this.controller.createLocalAlbum(this.id, album.getAlbumName(), this.songs, album.getAlbumYear(), this.genres, this.artists );
+	    }
+	   
+	   @FXML
+       void addToWishList(ActionEvent event) {
+           controller.addToWishlist(this.id);
+       }
 	
 	
 }
