@@ -405,8 +405,9 @@ public class RemoteDAO {
 	 * editAlbum() will update a given Album based on its ID. This is used to find the Album from the database, which will then be 
 	 * updated based on a given Album-object
 	 * Editing the song-list is trickier. Currently not implemented.
+	 * Also, how about the linking? With the way we've done this, we now need to recursively check for which artists, genres and songs are linked to this, to remove those links and update the right ones :/
 	 */
-	public boolean editAlbum(Album albumEdit, int id) {
+	public boolean editAlbum(int id, Album albumEdit) {
 		Transaction transAct = null;
 		try (Session session = sessionFactory.openSession()) {
 			transAct = session.beginTransaction();
@@ -416,7 +417,6 @@ public class RemoteDAO {
 			session.update(editAlbum);
 			transAct.commit();
 			return true;
-
 		} catch (Exception e) {
 			if (transAct != null)
 				transAct.rollback();

@@ -55,7 +55,6 @@ public class Controller {
     	List<Genre> linkGenre = new ArrayList<>();
     	List<Song> linkSong = new ArrayList<>();
 
-    	
     	if(genreListGiven.length != 0 || artistListGiven.length != 0) {
     		for(int i = 0; i<genreListGiven.length; i++) {
 				try {			
@@ -159,6 +158,7 @@ public class Controller {
     public Album getAlbum(int albumID) {
     	return remoteDAO.readAlbum(albumID);
     }
+    
     public List<Artist> getAlbumArtistList(int albumID) {
     	List<Artist> list = remoteDAO.albumArtistList(albumID);
     	if(list != null) {
@@ -173,59 +173,64 @@ public class Controller {
     public List<Genre> getAlbumGenreList(int albumID){
     	return remoteDAO.albumGenreList(albumID);
     }
-
     
-    //Tallennus paikalliseen tietokantaan
-    public void saveLocalGenre(int genreID) {
-    	LocalGenre saveLocalGenre = new LocalGenre();
-    	
-    	saveLocalGenre = localDAO.readGenre(genreID);
-    }
-    public void saveLocalArtist(int artistID) {
-    	LocalArtist saveLocalArtist = new LocalArtist();
-    	saveLocalArtist = localDAO.readArtist(artistID);
-    }
-    /*
-     * saveLocalAlbum will fetch an album from the remoteDAO based on the album's ID, and then save it and it's related data into the local database.
-     * This is currently still a heavy work in progress and has not been implemented in code.
-     */
-    public void saveLocalAlbum(int albumID) throws Exception {
-    	LocalAlbum saveLocalAlbum = new LocalAlbum();
-    	Album readAlbum = remoteDAO.readAlbum(albumID);
-
-    	saveLocalAlbum = localDAO.readAlbum(albumID);
-    }
-
-    public void editGenre(String genreID, String genreName) {
+    //This works with the assumption that the calling methods check that the corresponding fields aren't empty!
+    public void editGenre(int genreID, String genreName) {
     	Genre editGenre = new Genre();
     	editGenre.setGenreName(genreName);
-    	remoteDAO.editGenre(editGenre, Integer.parseInt(genreID));
+    	remoteDAO.editGenre(editGenre, genreID);
     }
-    public void editArtist(String artistID, String artistName, String artistBio) {
+    //This works with the assumption that the calling methods check that the corresponding fields aren't empty!
+    public void editArtist(int artistID, String artistName, String artistBio) {
     	Artist editArtist = new Artist();
     	editArtist.setArtistName(artistName);
     	editArtist.setArtistBio(artistBio);
-    	remoteDAO.editArtist(editArtist, Integer.parseInt(artistID));
+    	remoteDAO.editArtist(editArtist, artistID);
     }
     //Still WIP
-    public void editAlbum(String albumID, String albumName, int albumYear, String[] artistListEdit, String[] genreListEdit, String[] songListEdit) {
+    public void editAlbum(int albumID, String albumName, int albumYear, String[] artistListEdit, String[] genreListEdit, String[] songListEdit) {
     	Album editAlbum = new Album();
-    	int editID = Integer.parseInt(albumID);
+    	
     	editAlbum.setAlbumName(albumName);
     	editAlbum.setAlbumYear(albumYear);
     	
-    	//Maybe check if the genre/artist/song doesn't exist in the database, throw an error?    	
-    	if(artistListEdit.length != 0) {
-    		//This is where the addition should happen! How do we handle an edit-situation where an artist doesn't exist? Do we make a blank default artist with the artist's name, or just throw an error like before?
-    	}
-    	if(genreListEdit.length != 0) {
-    		//This is where the addition should happen!
-    	}
-    	if(songListEdit.length != 0) {
-    		//This is where the addition should happen!
-    	}
+    	List<Genre> editGenre = new ArrayList<>();
+    	List<Artist> editArtist = new ArrayList<>();
+    	List<Song> editSong = new ArrayList<>(); 	
     	
-    	remoteDAO.editAlbum(editAlbum, editID);
+    	if(genreListEdit.length != 0 || artistListEdit.length != 0 || songListEdit.length != 0) {
+    		for(int i = 0; i < genreListEdit.length; i++) {
+    			try {
+    				Genre genre = (Genre)remoteDAO.searchGenre(genreListEdit[i]);
+    				if(genre != null) {
+    					editGenre.add(genre);
+    				}
+    			}catch(Exception e) {
+    				System.out.println("Failed to add a genre to the editable list! (in Controller's editAlbum() method! Error message -> "+e.getMessage());
+    			}
+    		}
+    		for(int i = 0; i < genreListEdit.length; i++) {
+    			try {
+    				Artist artist = (Artist)remoteDAO.searchArtist(artistListEdit[i]);
+    				if(artist != null) {
+    					editArtist.add(artist);
+    				}
+    			}catch(Exception e) {
+    				System.out.println("Failed to add an artist to the editable list! (In Controller's editAlbum() method! Error message -> "+e.getMessage());
+    			}
+    		}
+    		for(int i = 0; i < songListEdit.length; i++) {
+    			try {
+    				Song song = (Song)remoteDAO.searchSong(artistListEdit[i]);
+    				if(song != null) {
+    					editSong.add(song);
+    				}
+    			}catch(Exception e) {
+    				System.out.println("Failed to add an artist to the editable list! (In Controller's editAlbum() method! Error message -> "+e.getMessage());
+    			}
+    		}
+    	}
+    	remoteDAO.editAlbum(albumID, editAlbum);
     }
 
     public void editLocalGenre(String genreID, String genreName) {
@@ -270,7 +275,6 @@ public class Controller {
     
     public Genre searchGenre(String genreName) throws Exception {
 			 return remoteDAO.searchGenre(genreName);
-	
     }
     public Artist searchArtist(String artistName) throws Exception { 	
     		return remoteDAO.searchArtist(artistName);
@@ -281,7 +285,6 @@ public class Controller {
     }
     private Song searchSongs(String songName) throws Exception {
 			return remoteDAO.searchSong(songName);
-
     }
     public Genre[] getGenres() {
     	return remoteDAO.readGenres();
