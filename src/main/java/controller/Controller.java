@@ -58,7 +58,7 @@ public class Controller {
     	
     	if(genreListGiven.length != 0 || artistListGiven.length != 0) {
     		for(int i = 0; i<genreListGiven.length; i++) {
-				try {
+				try {			
 					genre = (Genre) remoteDAO.searchGenre(genreListGiven[i]);
 					if(genre != null) {
 						linkGenre.add(genre);
@@ -155,7 +155,7 @@ public class Controller {
     	System.out.println("before localDAO.createAlbum ");
     	localDAO.createAlbum(newAlbum, songList, artistList, genreList);
     }
-    
+
     public Album getAlbum(int albumID) {
     	return remoteDAO.readAlbum(albumID);
     }
@@ -173,6 +173,18 @@ public class Controller {
     public List<Genre> getAlbumGenreList(int albumID){
     	return remoteDAO.albumGenreList(albumID);
     }
+
+    
+    //Tallennus paikalliseen tietokantaan
+    public void saveLocalGenre(int genreID) {
+    	LocalGenre saveLocalGenre = new LocalGenre();
+    	
+    	saveLocalGenre = localDAO.readGenre(genreID);
+    }
+    public void saveLocalArtist(int artistID) {
+    	LocalArtist saveLocalArtist = new LocalArtist();
+    	saveLocalArtist = localDAO.readArtist(artistID);
+    }
     /*
      * saveLocalAlbum will fetch an album from the remoteDAO based on the album's ID, and then save it and it's related data into the local database.
      * This is currently still a heavy work in progress and has not been implemented in code.
@@ -186,16 +198,14 @@ public class Controller {
 
     public void editGenre(String genreID, String genreName) {
     	Genre editGenre = new Genre();
-    	int editID = Integer.parseInt(genreID);
     	editGenre.setGenreName(genreName);
-    	remoteDAO.editGenre(editGenre, editID);
+    	remoteDAO.editGenre(editGenre, Integer.parseInt(genreID));
     }
     public void editArtist(String artistID, String artistName, String artistBio) {
     	Artist editArtist = new Artist();
-    	int editID = Integer.parseInt(artistID);
     	editArtist.setArtistName(artistName);
     	editArtist.setArtistBio(artistBio);
-    	remoteDAO.editArtist(editArtist, editID);
+    	remoteDAO.editArtist(editArtist, Integer.parseInt(artistID));
     }
     //Still WIP
     public void editAlbum(String albumID, String albumName, int albumYear, String[] artistListEdit, String[] genreListEdit, String[] songListEdit) {
@@ -204,6 +214,7 @@ public class Controller {
     	editAlbum.setAlbumName(albumName);
     	editAlbum.setAlbumYear(albumYear);
     	
+    	//Maybe check if the genre/artist/song doesn't exist in the database, throw an error?    	
     	if(artistListEdit.length != 0) {
     		//This is where the addition should happen! How do we handle an edit-situation where an artist doesn't exist? Do we make a blank default artist with the artist's name, or just throw an error like before?
     	}
