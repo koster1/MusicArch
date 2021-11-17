@@ -571,6 +571,39 @@ public class LocalDAO {
 		}
 	}
 	
+	public boolean editLocalAlbumDescription(LocalAlbum localAlbum) {
+		Transaction transAct = null;
+		try(Session session = sessionFactory.openSession()) {
+			transAct = session.beginTransaction();
+			System.out.println(localAlbum.getAlbumID() + " ");
+			session.update(localAlbum);
+			transAct.commit();
+			session.close();
+			return true;
+		} catch (Exception e) {
+			if(transAct != null) {
+				transAct.rollback();
+			}
+			throw e;
+		}
+	}
+	
+	public String getLocalAlbumDescription(int id) {
+		Transaction transAct = null;
+		try(Session session = sessionFactory.openSession()) {
+			transAct = session.beginTransaction();
+			LocalAlbum localAlbum = session.get(LocalAlbum.class, id);
+			transAct.commit();
+			session.close();
+			return localAlbum.getAlbumDescription();
+		} catch (Exception e) {
+			if(transAct != null) {
+				transAct.rollback();
+			}
+			throw e;
+		}
+	}
+	
 	public void finalize() {
 		try {
 			if(sessionFactory != null)
