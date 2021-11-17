@@ -2,12 +2,15 @@ package controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TitledPane;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -60,6 +63,12 @@ public class UserCollectionController {
     @FXML
     private Label AlbumGenreLabel;
     
+    @FXML
+    private TextArea AlbumTextArea;
+    
+    @FXML
+    private Text InputText;
+    
     public UserCollectionController(Controller controller) {
 
     	this.controller = controller;
@@ -110,6 +119,8 @@ public class UserCollectionController {
     			} else {
     				AlbumArtistLabel.setText("Ei löytynyt artisteja");
     			}
+    			AlbumTextArea.setText(controller.getLocalAlbumDescription(listLocalAlbum.getAlbumID()));
+    			InputText.setText("" + AlbumTextArea.getText().length() + "/" + "1000");
     			List<LocalSong> localSongs = controller.getLocalAlbumSongs(listLocalAlbum.getAlbumID());
     			ObservableList<LocalSong> observableSongs = FXCollections.observableArrayList(localSongs);
     			
@@ -155,5 +166,20 @@ public class UserCollectionController {
     	}
     }
 
+    @FXML
+    void saveDescription(ActionEvent event) {
+    	LocalAlbum localAlbum = GridListView.getSelectionModel().getSelectedItem();
+    	localAlbum.setAlbumDescription(AlbumTextArea.getText());
+    	controller.editLocalAlbumDescription(localAlbum);
+    	InputText.setText("Kuvaus tallennettu");
+    }
+    
+    @FXML
+    void charLimit(KeyEvent event) {
+    	InputText.setText("" + AlbumTextArea.getText().length() + "/" + "1000");
+    	if(AlbumTextArea.getText().length() > 1000) {
+    		InputText.setText("Poista " + (AlbumTextArea.getText().length() - 1000) + " merkkiä");
+    	}
+    }
 
 }

@@ -151,6 +151,7 @@ public class Controller {
     	newAlbum.setAlbumName(albumName);
     	newAlbum.setAlbumYear(albumYear);
     	newAlbum.setAlbumID(albumID);
+    	newAlbum.setAlbumDescription("");
     	System.out.println("before localDAO.createAlbum ");
     	localDAO.createAlbum(newAlbum, songList, artistList, genreList);
     }
@@ -252,6 +253,15 @@ public class Controller {
     	editLocalAlbum.setAlbumName(albumName);
     	editLocalAlbum.setAlbumYear(albumYear);
     	localDAO.editAlbum(editLocalAlbum, null, editID);
+    }
+    
+    public void editLocalAlbumDescription(LocalAlbum localAlbum) {
+    	localDAO.editLocalAlbumDescription(localAlbum);
+    }
+    
+    public String getLocalAlbumDescription(int id) {
+    	return localDAO.getLocalAlbumDescription(id);
+    	
     }
     
     public void removeGenre(int genreID) {
