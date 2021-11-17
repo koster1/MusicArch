@@ -194,26 +194,22 @@ public class Controller {
     	editAlbum.setAlbumName(albumName);
     	editAlbum.setAlbumYear(albumYear);
     	
-    	List<Genre> editGenre = new ArrayList<>();
-    	List<Artist> editArtist = new ArrayList<>();
-    	List<Song> editSong = new ArrayList<>(); 	
-    	
     	if(genreListEdit.length != 0 || artistListEdit.length != 0 || songListEdit.length != 0) {
     		for(int i = 0; i < genreListEdit.length; i++) {
     			try {
-    				Genre genre = (Genre)remoteDAO.searchGenre(genreListEdit[i]);
+    				Genre genre = remoteDAO.searchGenre(genreListEdit[i]);
     				if(genre != null) {
-    					editGenre.add(genre);
+    					editAlbum.addGenre(genre);
     				}
     			}catch(Exception e) {
     				System.out.println("Failed to add a genre to the editable list! (in Controller's editAlbum() method! Error message -> "+e.getMessage());
     			}
     		}
-    		for(int i = 0; i < genreListEdit.length; i++) {
+    		for(int i = 0; i < artistListEdit.length; i++) {
     			try {
-    				Artist artist = (Artist)remoteDAO.searchArtist(artistListEdit[i]);
+    				Artist artist = remoteDAO.searchArtist(artistListEdit[i]);
     				if(artist != null) {
-    					editArtist.add(artist);
+    					editAlbum.addArtist(artist);
     				}
     			}catch(Exception e) {
     				System.out.println("Failed to add an artist to the editable list! (In Controller's editAlbum() method! Error message -> "+e.getMessage());
@@ -221,9 +217,9 @@ public class Controller {
     		}
     		for(int i = 0; i < songListEdit.length; i++) {
     			try {
-    				Song song = (Song)remoteDAO.searchSong(artistListEdit[i]);
+    				Song song = remoteDAO.searchSong(songListEdit[i]);
     				if(song != null) {
-    					editSong.add(song);
+    					editAlbum.addSong(song);
     				}
     			}catch(Exception e) {
     				System.out.println("Failed to add an artist to the editable list! (In Controller's editAlbum() method! Error message -> "+e.getMessage());
@@ -233,7 +229,6 @@ public class Controller {
     	try {
 			remoteDAO.editAlbum(albumID, editAlbum);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			System.out.println("Whoops");
 			e.printStackTrace();
 		}
