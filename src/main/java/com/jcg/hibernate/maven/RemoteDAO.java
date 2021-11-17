@@ -293,7 +293,7 @@ public class RemoteDAO {
 	 * album that already exists. 
 	 * Additionally, it will also add the genres and artists to a the album.
 	 */
-	public boolean createAlbum(Album album, List<Artist> artistList, List<Genre> genreList, List<Song> songList) throws Exception {
+	public boolean createAlbum(Album album, Set<Artist> artistList, Set<Genre> genreList, Set<Song> songList) throws Exception {
 		Album[] albumSearch = readAlbums();	
 		List<Song> newSongs = new ArrayList<Song>();
 		//This is placeholder code, just for testing-purposes, for now. Could maybe place the adding inside this loop, if adding the song here works?
@@ -317,9 +317,8 @@ public class RemoteDAO {
 		Transaction transAct = null;	
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();
-			for(Artist artist : artistList) {
-				
-			Artist artist2 = (Artist)session.load(Artist.class, artist.getArtistID());
+			for(Artist artist : artistList) {				
+				Artist artist2 = (Artist)session.load(Artist.class, artist.getArtistID());
 				artist2.addAlbum(album);
 				session.update(artist2);
 			}
@@ -430,20 +429,59 @@ public class RemoteDAO {
 	 * Editing the song-list is trickier. Currently not implemented.
 	 * Also, how about the linking? With the way we've done this, we now need to recursively check for which artists, genres and songs are linked to this, to remove those links and update the right ones :/
 	 */
-	public boolean editAlbum(int id, Album albumEdit) {
-		Transaction transAct = null;
-		try (Session session = sessionFactory.openSession()) {
+	public boolean editAlbum(int id, Album albumEdit) throws Exception {
+		
+		Set<Song> songList = albumEdit.getAlbumSongs();
+		Set<Genre> genreList = albumEdit.getAlbumGenres();
+		Set<Artist> artistList = albumEdit.getAlbumArtists();
+		List<Song> newSongs = new ArrayList<Song>();
+		
+//		Album editable = (Album)session.load(Album.class, id);
+		
+		//This is placeholder code, just for testing-purposes, for now. Could maybe place the adding inside this loop, if adding the song here works?
+		for(Song song : songList) {
+			if(!existingSongs().contains(song.getSongName())) {
+				System.out.println("This song doesn't exist! So now we're making a song with the title: "+song.getSongName());
+				createSong(song);
+				newSongs.add(searchSong(song.getSongName())); //This'd be making a list of songs that have now been created? 
+			}else {
+				newSongs.add(searchSong(song.getSongName()));
+				System.out.println("This song"+song.getSongName()+" DID exist! Adding it to the reference list! Moving on!");
+			}
+			
+		}
+		
+		Transaction transAct = null;	
+		try(Session session = sessionFactory.openSession()){
+			Album editable = (Album)session.load(Album.class, id);
+			editable.setAlbumName(albumEdit.getAlbumName());
+			editable.setAlbumYear(albumEdit.getAlbumYear());
+			
 			transAct = session.beginTransaction();
-			Album editAlbum = (Album) session.load(Album.class, id);
-			albumEdit.setAlbumID(editAlbum.getAlbumID());
-			editAlbum.setAlbumName(albumEdit.getAlbumName());
-			session.update(editAlbum);
+			for(Artist artist : artistList) {
+				Artist artist2 = (Artist)session.load(Artist.class, artist.getArtistID());
+				editable.addArtist(artist2);
+				session.update(editable);
+			}
+			for(Genre genre : genreList) {
+				Genre genre2 = (Genre)session.load(Genre.class, genre.getGenreID());
+				editable.addGenre(genre2);
+				session.update(editable);	
+			}			
+			//This'd be adding songs, but it requires the song to already exist, so...
+			for(Song song : newSongs) {
+				Song song2 = (Song)session.load(Song.class, song.getSongID());
+				editable.addSong(song2);
+				session.update(editable);
+			}
 			transAct.commit();
+			//session.close();
 			return true;
-		} catch (Exception e) {
-			if (transAct != null)
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			if(transAct != null) 
 				transAct.rollback();
-			throw e;
+			throw e;			
 		}
 	}
 	/*
