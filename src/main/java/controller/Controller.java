@@ -51,9 +51,9 @@ public class Controller {
     	
     	Genre genre = new Genre();
     	Artist artist = new Artist();
-    	List<Artist> linkArtist = new ArrayList<>();
-    	List<Genre> linkGenre = new ArrayList<>();
-    	List<Song> linkSong = new ArrayList<>();
+    	Set<Artist> linkArtist = new HashSet<>();
+    	Set<Genre> linkGenre = new HashSet<>();
+    	Set<Song> linkSong = new HashSet<>();
 
     	if(genreListGiven.length != 0 || artistListGiven.length != 0) {
     		for(int i = 0; i<genreListGiven.length; i++) {
@@ -67,6 +67,7 @@ public class Controller {
 					System.out.println(e.getMessage());
 				}
         	}
+    		
     		for(int i = 0; i<artistListGiven.length; i++) {
 				try {
 					artist = (Artist) remoteDAO.searchArtist(artistListGiven[i]);
@@ -88,7 +89,6 @@ public class Controller {
     		}
     		try {
     			remoteDAO.createAlbum(newAlbum, linkArtist, linkGenre, linkSong);	
-    			
 			} catch (Exception e) {
 				System.out.println("Failed to create an Album!");
 				e.printStackTrace();
@@ -230,7 +230,13 @@ public class Controller {
     			}
     		}
     	}
-    	remoteDAO.editAlbum(albumID, editAlbum);
+    	try {
+			remoteDAO.editAlbum(albumID, editAlbum);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("Whoops");
+			e.printStackTrace();
+		}
     }
 
     public void editLocalGenre(String genreID, String genreName) {
