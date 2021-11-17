@@ -7,12 +7,16 @@ import com.jcg.hibernate.maven.Artist;
 import com.jcg.hibernate.maven.Genre;
 import com.jcg.hibernate.maven.Song;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
+import model.LocalSong;
 import view.View;
 
 
@@ -46,7 +50,7 @@ public class AlbumPageController {
 	    private Button BackButton;
 
 	    @FXML
-	    private ListView<?> AlbumPageListView;
+	    private ListView<Song> SongListView;
 	    
 	    private int id;
 	    private Album album;
@@ -92,6 +96,18 @@ public class AlbumPageController {
 		AlbumYear.setText(String.valueOf(album.getAlbumYear()));
 		AlbumArtist.setText(artistString);
 		AlbumGenre.setText(genreString);
+		
+		ObservableList<Song> observableSongs = FXCollections.observableArrayList(songs);
+		
+		SongListView.setCellFactory(lv -> new ListCell<Song>() {
+			@Override
+			protected void updateItem(Song song, boolean empty) {
+				super.updateItem(song, empty);
+				setText(empty || song == null || songs.size() == 0 ? "" : song.getSongName());
+			}
+		});	
+		
+		SongListView.setItems(observableSongs);
 		
 	}
 	
