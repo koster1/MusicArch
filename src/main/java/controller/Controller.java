@@ -110,7 +110,7 @@ public class Controller {
 
     	localDAO.createArtist(localArtist);
     }
-    public void createLocalAlbum(int albumID, String albumName, List<Song> songListGiven, int albumYear, List<Genre> genreListGiven, List<Artist> artistListGiven ) throws Exception {
+    public void createLocalAlbum(int albumID, String albumName, Set<Song> songListGiven, int albumYear, Set<Genre> genreListGiven, Set<Artist> artistListGiven ) throws Exception {
     	LocalAlbum newAlbum = new LocalAlbum();
     	LocalSong[] songList = new LocalSong[songListGiven.size()];
     	LocalArtist[] artistList = new LocalArtist[artistListGiven.size()];

@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.List;
+import java.util.Set;
 
 import com.jcg.hibernate.maven.Album;
 import com.jcg.hibernate.maven.Artist;
@@ -50,17 +51,17 @@ public class AlbumPageController {
 	    
 	    private int id;
 	    private Album album;
-	    private List<Artist> artists;
-	    private List<Genre> genres;
-	    private List<Song> songs;
+	    private Set<Artist> artists;
+	    private Set<Genre> genres;
+	    private Set<Song> songs;
 	
 	public AlbumPageController(Controller controller, int id) {
 		this.controller = controller;
 		this.id = id;
-//		this.album = this.controller.getAlbum(this.id);
-//		this.artists = this.controller.getAlbumArtistList(id);
-//		this.genres = this.controller.getAlbumGenreList(id);
-//		this.songs = this.controller.getAlbumSong(id);
+		this.album = this.controller.getAlbum(this.id);
+		this.artists = this.controller.getAlbumArtistList(id);
+		this.genres = this.controller.getAlbumGenreList(id);
+		this.songs = this.controller.getAlbumSong(id);
 	}
 	
 	
@@ -91,7 +92,7 @@ public class AlbumPageController {
 		AlbumName.setText(album.getAlbumName());
 		AlbumYear.setText(String.valueOf(album.getAlbumYear()));
 		AlbumArtist.setText(artistString);
-		AlbumGenre.setText(genreString);
+		AlbumGenre.setText(genreString); 
 		
 	}
 	
