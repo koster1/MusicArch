@@ -75,14 +75,17 @@
                                        <children>
                                           <Label text="Kuvaus" GridPane.halignment="CENTER" />
                                           <Text fx:id="InputText" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                                          <Button fx:id="AddDescriptionButton" mnemonicParsing="false" onAction="#saveDescription" prefHeight="50.0" prefWidth="87.0" text="Lisää kuvaus" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="3" GridPane.vgrow="NEVER" />
-                                          <TextArea fx:id="AlbumTextArea" maxWidth="300.0" onKeyTyped="#charLimit" prefHeight="200.0" prefWidth="300.0" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="NEVER" />
+                                          <Button fx:id="AddDescriptionButton" mnemonicParsing="false" onAction="#saveDescription" prefHeight="50.0" prefWidth="87.0" text="Lisää kuvaus" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="3" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
+                                             <GridPane.margin>
+                                                <Insets top="10.0" />
+                                             </GridPane.margin></Button>
+                                          <TextArea fx:id="AlbumTextArea" maxWidth="300.0" onKeyTyped="#charLimit" prefHeight="200.0" prefWidth="300.0" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
                                        </children>
                                        <rowConstraints>
                                           <RowConstraints />
                                           <RowConstraints maxHeight="24.800018310546875" minHeight="4.800018310546875" prefHeight="24.800018310546875" />
-                                          <RowConstraints maxHeight="112.80002441406252" minHeight="1.5999816894531236" prefHeight="112.80002441406252" />
-                                          <RowConstraints maxHeight="104.0" minHeight="12.19997329711913" prefHeight="85.5999755859375" />
+                                          <RowConstraints minHeight="1.5999816894531236" prefHeight="112.80002441406252" />
+                                          <RowConstraints minHeight="12.19997329711913" prefHeight="85.5999755859375" />
                                           <RowConstraints maxHeight="103.8" minHeight="0.0" prefHeight="3.5999999999999943" vgrow="SOMETIMES" />
                                        </rowConstraints>
                                     </GridPane>
