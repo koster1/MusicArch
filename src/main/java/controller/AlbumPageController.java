@@ -96,7 +96,7 @@ public class AlbumPageController {
 		AlbumName.setText(album.getAlbumName());
 		AlbumYear.setText(String.valueOf(album.getAlbumYear()));
 		AlbumArtist.setText(artistString);
-		AlbumGenre.setText(genreString);
+		AlbumGenre.setText(genreString); 
 		
 		ObservableList<Song> observableSongs = FXCollections.observableArrayList(songs);
 		

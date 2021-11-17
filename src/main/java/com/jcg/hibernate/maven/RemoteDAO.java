@@ -317,21 +317,20 @@ public class RemoteDAO {
 		Transaction transAct = null;	
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();
+			session.save(album);
 			for(Artist artist : artistList) {				
-				Artist artist2 = (Artist)session.load(Artist.class, artist.getArtistID());
-				artist2.addAlbum(album);
-				session.update(artist2);
+				album.addArtist(artist);
+				session.saveOrUpdate(artist);
+//				session.update(artist2);
 			}
 			for(Genre genre : genreList) {
-				Genre genre2 = (Genre)session.load(Genre.class, genre.getGenreID());
-				genre2.addAlbum(album);
-				session.update(genre2);	
+				album.addGenre(genre);
+				session.saveOrUpdate(genre);	
 			}			
 			//This'd be adding songs, but it requires the song to already exist, so...
 			for(Song song : newSongs) {
-				Song song2 = (Song)session.load(Song.class, song.getSongID());
-				song2.addAlbum(album);
-				session.update(song2);
+				album.addSong(song);
+				session.saveOrUpdate(song);
 			}
 			transAct.commit();
 			//session.close();
@@ -430,11 +429,18 @@ public class RemoteDAO {
 	 * Also, how about the linking? With the way we've done this, we now need to recursively check for which artists, genres and songs are linked to this, to remove those links and update the right ones :/
 	 */
 	public boolean editAlbum(int id, Album albumEdit) throws Exception {
-		
+		Album[] albumSearch = readAlbums();
 		Set<Song> songList = albumEdit.getAlbumSongs();
 		Set<Genre> genreList = albumEdit.getAlbumGenres();
 		Set<Artist> artistList = albumEdit.getAlbumArtists();
 		List<Song> newSongs = new ArrayList<Song>();
+		
+		for(int i = 0; i < albumSearch.length; i++) {
+			if(albumSearch[i].getAlbumName().equals(albumEdit.getAlbumName())) {
+				session.close();
+				throw new Exception("This Album already exists!");
+			}
+		}
 		
 //		Album editable = (Album)session.load(Album.class, id);
 		
