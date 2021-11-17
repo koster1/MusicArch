@@ -16,12 +16,11 @@ import com.jcg.hibernate.maven.RemoteDAO;
 
 public class GenreTest {
 
-	private RemoteDAO rDAO = new RemoteDAO();
+	private RemoteDAO rDAO = RemoteDAO.getInstance();
 	private String givenGenre = "TestGenre";
 	
 	@BeforeEach
 	public void beforeEach()  {
-		RemoteDAO rDAO = new RemoteDAO();
 		System.out.println("In the before each");
 		try{
 			int id = rDAO.searchGenre(givenGenre).getGenreID();
@@ -34,7 +33,6 @@ public class GenreTest {
 	@Test
 	@DisplayName("Delete a specific Genre from database")
 	public void deleteGenre() throws Exception{
-		RemoteDAO rDAO = new RemoteDAO();
 		System.out.println("NOW DOING THE DELETION TEST");
 		Genre testGenre = new Genre();
 		testGenre.setGenreName(givenGenre);
@@ -49,7 +47,6 @@ public class GenreTest {
     @Test
 	@DisplayName("Searching a specific Genre from database")
 	public void searchGenre() throws Exception {
-    	RemoteDAO rDAO = new RemoteDAO();
 		System.out.println("NOW DOING THE SEARCH TEST");
 		Genre testGenre = new Genre();
 		testGenre.setGenreName("TestGenre");
@@ -61,7 +58,6 @@ public class GenreTest {
 	@Test
 	@DisplayName("Add Genre into database")
 	public void createGenre() throws Exception {
-		RemoteDAO rDAO = new RemoteDAO();
 		System.out.println("NOW DOING THE CREATION TEST");
 		Genre testGenre = new Genre();
 		testGenre.setGenreName("TestGenre");
@@ -73,7 +69,6 @@ public class GenreTest {
 	@Test
 	@DisplayName("Editing a genre within the database")
 	public void editGenre() throws Exception {
-		RemoteDAO rDAO = new RemoteDAO();
 		System.out.println("NOW DOING THE EDITING TEST");
 		Genre testGenre = new Genre();
 		testGenre.setGenreName(givenGenre);

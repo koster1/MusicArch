@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.List;
+import java.util.Set;
 
 import com.jcg.hibernate.maven.Album;
 import com.jcg.hibernate.maven.Artist;
@@ -54,9 +55,9 @@ public class AlbumPageController {
 	    
 	    private int id;
 	    private Album album;
-	    private List<Artist> artists;
-	    private List<Genre> genres;
-	    private List<Song> songs;
+	    private Set<Artist> artists;
+	    private Set<Genre> genres;
+	    private Set<Song> songs;
 	
 	public AlbumPageController(Controller controller, int id) {
 		this.controller = controller;
