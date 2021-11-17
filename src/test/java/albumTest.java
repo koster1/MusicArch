@@ -23,13 +23,12 @@ public class albumTest {
 	private String artistName = "Jenkins Artist";
 	private String artistBio = "Jenkins' personal little artist!";
 	private String genreName = "A really cool Jenkins Genre!";
+	private Controller controller = new Controller();
 	
 	@BeforeEach
 	public void beforeEach() {
-		RemoteDAO rDAO = new RemoteDAO();
 		try {
-			int id = rDAO.searchAlbum(givenAlbumTitle).getAlbumID();
-			rDAO.removeAlbum(id);
+			controller.removeAlbum(controller.searchAlbum(givenAlbumTitle).getAlbumID());
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -38,9 +37,6 @@ public class albumTest {
 	@Test
 	@DisplayName("Adding an album to the database")
 	public void createAlbum() throws Exception {
-		RemoteDAO rDAO = new RemoteDAO();
-		Controller controller = new Controller();
-		
 		controller.createArtist(artistName, artistBio);
 		controller.createGenre(genreName);
 		
@@ -52,16 +48,13 @@ public class albumTest {
 		testAlbum.setAlbumYear(1234);
 		
 		controller.createAlbum(givenAlbumTitle, 1234, testGenreList, testArtistList, testArtistList);
-		assertEquals(givenAlbumTitle, rDAO.searchAlbum(givenAlbumTitle).getAlbumName(), "Expected to find Test Album");	
-		rDAO.removeAlbum(rDAO.searchAlbum(givenAlbumTitle).getAlbumID());
+		assertEquals(givenAlbumTitle, controller.searchAlbum(givenAlbumTitle).getAlbumName(), "Expected to find Test Album");	
+		controller.removeAlbum(controller.searchAlbum(givenAlbumTitle).getAlbumID());
 	}
 	
 	@Test
 	@DisplayName("Searching for a specific album from the database")
 	public void searchAlbum() throws Exception{
-		RemoteDAO rDAO = new RemoteDAO();
-		Controller controller = new Controller();
-		
 		controller.createArtist(artistName, artistBio);
 		controller.createGenre(genreName);
 		
@@ -73,16 +66,13 @@ public class albumTest {
 		testAlbum.setAlbumYear(1234);
 		
 		controller.createAlbum(givenAlbumTitle, 1234, testGenreList, testArtistList, testArtistList);
-		assertEquals(givenAlbumTitle, rDAO.searchAlbum(givenAlbumTitle).getAlbumName(), "Expected to find Test Album");
-		rDAO.removeAlbum(rDAO.searchAlbum(givenAlbumTitle).getAlbumID());
+		assertEquals(givenAlbumTitle, controller.searchAlbum(givenAlbumTitle).getAlbumName(), "Expected to find Test Album");
+		controller.removeAlbum(controller.searchAlbum(givenAlbumTitle).getAlbumID());
 	}
 	
 	@Test
 	@DisplayName("Deleting a specific album from the database")
 	public void deleteArtist() throws Exception {
-		RemoteDAO rDAO = new RemoteDAO();
-		Controller controller = new Controller();
-		
 		controller.createArtist(artistName, artistBio);
 		controller.createGenre(genreName);
 		
@@ -94,10 +84,9 @@ public class albumTest {
 		testAlbum.setAlbumYear(1234);
 		
 		controller.createAlbum(givenAlbumTitle, 1234, testGenreList, testArtistList, testArtistList);
-		System.out.println("This is the Album we are deleting -> "+rDAO.searchAlbum(givenAlbumTitle).getAlbumName());
-		rDAO.removeAlbum(rDAO.searchAlbum(givenAlbumTitle).getAlbumID());
+		controller.removeAlbum(controller.searchAlbum(givenAlbumTitle).getAlbumID());
 		assertThrows(Exception.class, () -> {
-			rDAO.searchAlbum(givenAlbumTitle).getAlbumName();
+			controller.searchAlbum(givenAlbumTitle).getAlbumName();
 		});
 	}
 

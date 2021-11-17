@@ -15,7 +15,7 @@ import model.*;
  */
 public class Controller {
 
-	private RemoteDAO remoteDAO = new RemoteDAO();
+	private RemoteDAO remoteDAO = RemoteDAO.getInstance();
 	private LocalDAO localDAO = new LocalDAO();
 	private GUIController GUIController = new GUIController();
 
@@ -159,8 +159,8 @@ public class Controller {
     	return remoteDAO.readAlbum(albumID);
     }
     
-    public List<Artist> getAlbumArtistList(int albumID) {
-    	List<Artist> list = remoteDAO.albumArtistList(albumID);
+    public Set<Artist> getAlbumArtistList(int albumID) {
+    	Set<Artist> list = remoteDAO.albumArtistList(albumID);
     	if(list != null) {
     		
     		System.out.println("Lista artisteista" + list.size());
@@ -170,7 +170,7 @@ public class Controller {
     	return list;
 //    	return remoteDAO.albumArtistList(albumID);
     }
-    public List<Genre> getAlbumGenreList(int albumID){
+    public Set<Genre> getAlbumGenreList(int albumID){
     	return remoteDAO.albumGenreList(albumID);
     }
     
@@ -334,7 +334,7 @@ public class Controller {
     public List<Album> getArtistAlbums(int artistID){
     	return remoteDAO.artistAlbums(artistID);
     }
-    public List<Song> getAlbumSong(int albumID){
+    public Set<Song> getAlbumSong(int albumID){
     	return remoteDAO.albumSongs(albumID);
     }
     

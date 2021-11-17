@@ -11,7 +11,7 @@ import com.jcg.hibernate.maven.Artist;
 import com.jcg.hibernate.maven.RemoteDAO;
 
 public class ArtistTest {
-	private RemoteDAO rDAO = new RemoteDAO();
+	private RemoteDAO rDAO = RemoteDAO.getInstance();
 	private String givenArtist = "Test Artist";
 	
 	@Test

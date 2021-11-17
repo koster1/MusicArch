@@ -57,10 +57,10 @@ public class AlbumPageController {
 	public AlbumPageController(Controller controller, int id) {
 		this.controller = controller;
 		this.id = id;
-		this.album = this.controller.getAlbum(this.id);
-		this.artists = this.controller.getAlbumArtistList(id);
-		this.genres = this.controller.getAlbumGenreList(id);
-		this.songs = this.controller.getAlbumSong(id);
+//		this.album = this.controller.getAlbum(this.id);
+//		this.artists = this.controller.getAlbumArtistList(id);
+//		this.genres = this.controller.getAlbumGenreList(id);
+//		this.songs = this.controller.getAlbumSong(id);
 	}
 	
 	

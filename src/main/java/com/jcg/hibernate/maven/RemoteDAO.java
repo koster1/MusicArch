@@ -2,7 +2,9 @@ package com.jcg.hibernate.maven;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.criteria.CriteriaBuilder;
 
 import org.hibernate.*;
 import org.hibernate.cfg.Configuration;
@@ -11,8 +13,16 @@ import org.hibernate.cfg.Configuration;
 public class RemoteDAO {
 	static Session session;
 	static SessionFactory sessionFactory;
-
-	public RemoteDAO() {
+	private static RemoteDAO rDAO;
+	
+	public static RemoteDAO getInstance() {
+		if(rDAO == null) {
+			rDAO = new RemoteDAO();
+		}
+		return rDAO;
+	}
+	
+	private RemoteDAO() {
 		try {
 			sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
 		} catch (Exception e) {
@@ -89,11 +99,16 @@ public class RemoteDAO {
 			Query query = session.createQuery("From Genre where genreName =:name");
 			List<Genre> genreList = query.setParameter("name", genreSearch).list();
 			System.out.println("The genre search result was -> "+genreList.get(0).getGenreName());
+			
+
+			transAct.commit();
+			
 			if (genreList.size() == 0) {
-				throw new Exception("Nothing found!");
+				session.close();
+				throw new Exception("Nothing found!"); // Is this the problem? We might not be handling the errors correctly!
+				
 			}
 			
-			transAct.commit();
 			//session.close();
 			return genreList.get(0);
 
@@ -150,6 +165,7 @@ public class RemoteDAO {
 		Artist[] artistSearch = readArtists();
 		for (int i = 0; i < artistSearch.length; i++) {
 			if (artistSearch[i].getArtistName().equals(artist.getArtistName())) {
+				session.close();
 				throw new Exception("This Artist already exists!");
 			}
 		}
@@ -211,11 +227,14 @@ public class RemoteDAO {
 			Query query = session.createQuery("From Artist where ArtistName =:name");
 			List<Artist> artistList = query.setParameter("name", artistSearch).list();
 			
+			transAct.commit();
+			
 			if (artistList.size() == 0) {
 				System.out.println("Nothing found!");
+				session.close();
 				throw new Exception("Nothing found!");
 			}
-			transAct.commit();
+			
 			//session.close();
 			
 			return artistList.get(0);
@@ -291,6 +310,7 @@ public class RemoteDAO {
 		}
 		for(int i = 0; i < albumSearch.length; i++) {
 			if(albumSearch[i].getAlbumName().equals(album.getAlbumName())) {
+				session.close();
 				throw new Exception("This Album already exists!");
 			}
 		}
@@ -384,14 +404,17 @@ public class RemoteDAO {
 	public Album searchAlbum(String albumSearch) throws Exception{
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
-			transAct = session.beginTransaction();	
+//			transAct = session.beginTransaction();	
 			Query query = session.createQuery("From Album where albumName like:name");
 			List<Album> albumList = query.setParameter("name", albumSearch).list();
+
 			
-			transAct.commit();
+//			transAct.commit();
 			//session.close();
 			
 			if (albumList.size() == 0) {
+				System.out.println("Nothing found in the albums with this search -> "+albumSearch); //This is the one that bugs out! Jumps over to the catch -> "Cannot rollback transaction in current status [COMMITTED]
+				session.close();
 				throw new Exception("Nothing found!");
 			}
 			return albumList.get(0);
@@ -515,6 +538,7 @@ public class RemoteDAO {
 			//session.close();
 			
 			if (songList.size() == 0) {
+				session.close();
 				throw new Exception("Nothing found!");
 			}
 			return songList.get(0);
@@ -697,12 +721,12 @@ public class RemoteDAO {
 	 * Method takes in an album's ID and then opens a session with it. During the session, a song-list can be created based on the instance
 	 * After loading the list, the session is closed and the method returns a list of Songs based on the album.
 	 */
-	public List<Song> albumSongs(int albumID){
+	public Set<Song> albumSongs(int albumID){
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();
 			Album album = (Album) session.load(Album.class, albumID);
-			List<Song> array = album.getAlbumSongs();
+			Set<Song> array = album.getAlbumSongs();
 			transAct.commit();
 //			session.close();
 			return array;
@@ -716,12 +740,12 @@ public class RemoteDAO {
 	 * Method takes in an album's ID and then opens a session using it. A list of artists is created based on the Album, 
 	 * and the method thus returns a list of Artists related to the given album
 	 */
-	public List<Artist> albumArtistList(int albumID){
+	public Set<Artist> albumArtistList(int albumID){
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();
 			Album album = (Album) session.load(Album.class, albumID);
-			List<Artist> array = album.getAlbumArtists();
+			Set<Artist> array = album.getAlbumArtists();
 			
 			transAct.commit();
 //			session.close();
@@ -736,12 +760,12 @@ public class RemoteDAO {
 	 * Method takes in an album's ID and then opens a session using it. A list of genres is created based on the Album,
 	 * and the method thus returns a list of Genres related to the given album
 	 */
-	public List<Genre> albumGenreList(int albumID){
+	public Set<Genre> albumGenreList(int albumID){
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
 			transAct = session.beginTransaction();
 			Album album = (Album) session.load(Album.class, albumID);
-			List<Genre> array = album.getAlbumGenres();
+			Set<Genre> array = album.getAlbumGenres();
 			transAct.commit();
 //			session.close();
 			return array;
