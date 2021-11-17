@@ -103,12 +103,12 @@ public class UserCollectionController {
     				AlbumGenreLabel.setText(localGenre.get(0).getGenreName());
     				System.out.println(listLocalAlbum.getAlbumName());
     			} else {
-    				AlbumGenreLabel.setText("Ei löytynyt");
+    				AlbumGenreLabel.setText("Ei löytynyt genrejä");
     			}
     			if(localArtist.size() > 0) {
     				AlbumArtistLabel.setText(localArtist.get(0).getArtistName());
     			} else {
-    				AlbumArtistLabel.setText("Ei löytynyt");
+    				AlbumArtistLabel.setText("Ei löytynyt artisteja");
     			}
     			List<LocalSong> localSongs = controller.getLocalAlbumSongs(listLocalAlbum.getAlbumID());
     			ObservableList<LocalSong> observableSongs = FXCollections.observableArrayList(localSongs);
