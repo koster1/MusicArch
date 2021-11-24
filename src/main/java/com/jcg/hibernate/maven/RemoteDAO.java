@@ -434,9 +434,6 @@ public class RemoteDAO {
 		Set<Artist> artistList = albumEdit.getAlbumArtists();
 		List<Song> newSongs = new ArrayList<Song>();
 		
-		
-//		Album editable = (Album)session.load(Album.class, id);
-		
 		//This is placeholder code, just for testing-purposes, for now. Could maybe place the adding inside this loop, if adding the song here works?
 		for(Song song : songList) {
 			if(!existingSongs().contains(song.getSongName())) {
