@@ -27,7 +27,9 @@ public class Genre  {
 	@Column(name = "GenreName")
 	private String genreName;
 	
-	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	@ManyToMany(fetch = FetchType.EAGER, 
+			cascade = {CascadeType.PERSIST, CascadeType.MERGE, 
+			CascadeType.DETACH, CascadeType.REFRESH})
 	@JoinTable(name = "AlbumGenres", joinColumns = { 
 			@JoinColumn(name = "GenreID") }, inverseJoinColumns = {
 			@JoinColumn(name = "AlbumID") })

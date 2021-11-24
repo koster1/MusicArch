@@ -429,20 +429,10 @@ public class RemoteDAO {
 	 * Also, how about the linking? With the way we've done this, we now need to recursively check for which artists, genres and songs are linked to this, to remove those links and update the right ones :/
 	 */
 	public boolean editAlbum(int id, Album albumEdit) throws Exception {
-		Album[] albumSearch = readAlbums();
 		Set<Song> songList = albumEdit.getAlbumSongs();
 		Set<Genre> genreList = albumEdit.getAlbumGenres();
 		Set<Artist> artistList = albumEdit.getAlbumArtists();
 		List<Song> newSongs = new ArrayList<Song>();
-		
-		for(int i = 0; i < albumSearch.length; i++) {
-			if(albumSearch[i].getAlbumName().equals(albumEdit.getAlbumName())) {
-				session.close();
-				throw new Exception("This Album already exists!");
-			}
-		}
-		
-//		Album editable = (Album)session.load(Album.class, id);
 		
 		//This is placeholder code, just for testing-purposes, for now. Could maybe place the adding inside this loop, if adding the song here works?
 		for(Song song : songList) {
@@ -457,11 +447,14 @@ public class RemoteDAO {
 			
 		}
 		
-		Transaction transAct = null;	
+		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
 			Album editable = (Album)session.load(Album.class, id);
 			editable.setAlbumName(albumEdit.getAlbumName());
 			editable.setAlbumYear(albumEdit.getAlbumYear());
+			
+			editable.clearAlbum();
+			session.update(editable);
 			
 			transAct = session.beginTransaction();
 			for(Artist artist : artistList) {
