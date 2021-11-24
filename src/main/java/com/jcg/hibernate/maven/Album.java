@@ -34,7 +34,8 @@ public class Album {
 	private int albumYear;
 
 	@ManyToMany(fetch=FetchType.LAZY,
-			cascade={CascadeType.ALL})
+			cascade={CascadeType.PERSIST, CascadeType.MERGE, 
+					CascadeType.DETACH, CascadeType.REFRESH})
 	@JoinTable(
 			name="AlbumGenres",
 			joinColumns={@JoinColumn(name="AlbumID")},
@@ -43,7 +44,8 @@ public class Album {
 	private Set<Genre> albumGenres = new HashSet<Genre>();
 	
 	@ManyToMany(fetch=FetchType.LAZY,
-			cascade={CascadeType.ALL})
+			cascade={CascadeType.PERSIST, CascadeType.MERGE, 
+					CascadeType.DETACH, CascadeType.REFRESH})
 	@JoinTable(
 			name="AlbumArtists",
 			joinColumns={@JoinColumn(name="AlbumID")},
@@ -51,7 +53,8 @@ public class Album {
 	private Set<Artist> albumArtists = new HashSet<Artist>();
 	
 	@ManyToMany(fetch=FetchType.LAZY,
-			cascade= {CascadeType.ALL})
+			cascade= {CascadeType.PERSIST, CascadeType.MERGE, 
+					CascadeType.DETACH, CascadeType.REFRESH})
 	@JoinTable(
 			name="AlbumSongs",
 			joinColumns= {@JoinColumn(name="AlbumID")},
@@ -73,6 +76,12 @@ public class Album {
 		}
 		albumArtists.add(artist);
 	}	
+	public void removeArtist(Artist artist) {
+		albumArtists.remove(artist);
+	}
+	public void removeArtists() {
+		albumArtists.clear();
+	}
 	public Set<Genre> getAlbumGenres(){
 		// Do not remove the print below or you will get:
 		//"failed to lazily initialize a collection of role: com.jcg.hibernate.maven.Album.albumGenres, could not initialize proxy - no Session" in the AlbumPage
@@ -89,6 +98,12 @@ public class Album {
 		}
 		albumGenres.add(genre);
 	}
+	public void removeGenre(Genre genre) {
+		albumGenres.remove(genre);
+	}
+	public void removeGenres() {
+		albumGenres.clear();
+	}
 	public void setAlbumSongs(Set<Song> albumSongs) {
 		this.albumSongs = albumSongs;
 	}
@@ -97,6 +112,12 @@ public class Album {
 			albumSongs = new HashSet<>();
 		}
 		albumSongs.add(song);
+	}
+	public void removeSong(Song song) {
+		albumSongs.remove(song);
+	}
+	public void removeSongs() {
+		albumSongs.clear();
 	}
 	public Set<Song> getAlbumSongs() {
 		System.out.println("album songs " + this.albumSongs);
@@ -121,6 +142,11 @@ public class Album {
 	}
 	public void setAlbumYear(int albumYear) {
 		this.albumYear = albumYear;
+	}
+	public void clearAlbum() {
+		albumGenres.clear();
+		albumArtists.clear();
+		albumSongs.clear();
 	}
 	
 	
