@@ -1,7 +1,10 @@
 package com.jcg.hibernate.maven;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,72 +34,93 @@ public class Album {
 	private int albumYear;
 
 	@ManyToMany(fetch=FetchType.LAZY,
-			cascade={CascadeType.ALL})
+			cascade={CascadeType.PERSIST, CascadeType.MERGE, 
+					CascadeType.DETACH, CascadeType.REFRESH})
 	@JoinTable(
 			name="AlbumGenres",
 			joinColumns={@JoinColumn(name="AlbumID")},
 			inverseJoinColumns={@JoinColumn(name="GenreID")}
 			)
-	private List<Genre> albumGenres;
+	private Set<Genre> albumGenres = new HashSet<Genre>();
 	
 	@ManyToMany(fetch=FetchType.LAZY,
-			cascade={CascadeType.ALL})
+			cascade={CascadeType.PERSIST, CascadeType.MERGE, 
+					CascadeType.DETACH, CascadeType.REFRESH})
 	@JoinTable(
 			name="AlbumArtists",
 			joinColumns={@JoinColumn(name="AlbumID")},
 			inverseJoinColumns={@JoinColumn(name="ArtistID")})
-	private List<Artist> albumArtists;
+	private Set<Artist> albumArtists = new HashSet<Artist>();
 	
 	@ManyToMany(fetch=FetchType.LAZY,
-			cascade= {CascadeType.ALL})
+			cascade= {CascadeType.PERSIST, CascadeType.MERGE, 
+					CascadeType.DETACH, CascadeType.REFRESH})
 	@JoinTable(
 			name="AlbumSongs",
 			joinColumns= {@JoinColumn(name="AlbumID")},
 			inverseJoinColumns= {@JoinColumn(name="SongID")})
-	private List<Song> albumSongs;
+	private Set<Song> albumSongs = new HashSet<Song>();
 	
-	public List<Artist> getAlbumArtists(){
+	public Set<Artist> getAlbumArtists(){
 		// Do not remove the print below or you will get:
 		//"failed to lazily initialize a collection of role: com.jcg.hibernate.maven.Album.albumArtists, could not initialize proxy - no Session" in the AlbumPage
-		System.out.println("album artists " + this.albumArtists.get(0).getArtistName());
+		System.out.println("album artists " + this.albumArtists.toString());
 		
 		return this.albumArtists;
 	}
-	public void setAlbumArtists(List<Artist> albumArtists) {
+	public void setAlbumArtists(Set<Artist> albumArtists) {
 		this.albumArtists = albumArtists;
 	}
 	public void addArtist(Artist artist) {
 		if(albumArtists == null) {
-			albumArtists = new ArrayList<>();
+			albumArtists = new HashSet<Artist>();
 		}
 		albumArtists.add(artist);
 	}	
-	public List<Genre> getAlbumGenres(){
+	public void removeArtist(Artist artist) {
+		albumArtists.remove(artist);
+	}
+	public void removeArtists() {
+		albumArtists.clear();
+	}
+	public Set<Genre> getAlbumGenres(){
 		// Do not remove the print below or you will get:
 		//"failed to lazily initialize a collection of role: com.jcg.hibernate.maven.Album.albumGenres, could not initialize proxy - no Session" in the AlbumPage
-		System.out.println("album genres " + this.albumGenres.get(0).getGenreName());
+		System.out.println("album genres " +this.albumGenres.toString());
 		return this.albumGenres;
 	}
-	public void setAlbumGenres(List<Genre> albumGenres) {
+	public void setAlbumGenres(Set<Genre> albumGenres) {
 		this.albumGenres = albumGenres;
 	}
 	public void addGenre(Genre genre) {
 		System.out.println("genre = " + genre.getGenreName());
 		if(albumGenres == null) {
-			albumGenres = new ArrayList<>();
+			albumGenres = new HashSet<Genre>();
 		}
 		albumGenres.add(genre);
 	}
-	public void setAlbumSongs(List<Song> albumSongs) {
+	public void removeGenre(Genre genre) {
+		albumGenres.remove(genre);
+	}
+	public void removeGenres() {
+		albumGenres.clear();
+	}
+	public void setAlbumSongs(Set<Song> albumSongs) {
 		this.albumSongs = albumSongs;
 	}
 	public void addSong(Song song) {
 		if(albumSongs == null) {
-			albumSongs = new ArrayList<>();
+			albumSongs = new HashSet<>();
 		}
 		albumSongs.add(song);
 	}
-	public List<Song> getAlbumSongs() {
+	public void removeSong(Song song) {
+		albumSongs.remove(song);
+	}
+	public void removeSongs() {
+		albumSongs.clear();
+	}
+	public Set<Song> getAlbumSongs() {
 		System.out.println("album songs " + this.albumSongs);
 		return albumSongs;
 	}
@@ -119,6 +143,11 @@ public class Album {
 	}
 	public void setAlbumYear(int albumYear) {
 		this.albumYear = albumYear;
+	}
+	public void clearAlbum() {
+		albumGenres.clear();
+		albumArtists.clear();
+		albumSongs.clear();
 	}
 	
 	
