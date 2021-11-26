@@ -128,3 +128,7 @@ Text {
 -fx-background-color:orange;
 
  }
+ 
+ .collectionGrid {
+-fx-border-color: #404040;
+ }

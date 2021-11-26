@@ -66,7 +66,16 @@ public class GUIController {
 	public GUIController(View view, Controller controller) {
 		this.view = view;
 		this.controller = controller;
+		
 	}
+	
+	@FXML
+	protected void initialize() {
+		SearchBox.focusedProperty().addListener(even -> {
+			getSearchable2();			
+		});
+	}
+	
 	@FXML
 	void SearchTxt(ActionEvent event) {
 
@@ -106,10 +115,19 @@ public class GUIController {
 	 * Upon clicking the search bar, this method is triggered, and will fetch
 	 * all names found within the database.
 	 */
+	
+	@FXML
+	void getSearchable(MouseEvent event) {
+		if(everythingFound == null) {
+			 everythingFound = new ArrayList<>();
+		 }
+		 everythingFound = controller.getSearchable();
+		 System.out.println("Fetched all the searchable values");
+	}
 
 	
 	 @FXML
-	 void getSearchable(MouseEvent event) {
+	 void getSearchable2() {
 		 if(everythingFound == null) {
 			 everythingFound = new ArrayList<>();
 		 }
@@ -130,22 +148,20 @@ public class GUIController {
 		int menuCounter = 0;
 		List<String> strippedList = new ArrayList<String>();
 		SearchBox.setContextMenu(searchContext);	
-		searchContext.show(SearchBox, null, pauseDuration, 50);	
+		searchContext.show(SearchBox, null, 0, 50);	
 		
+		searchContext.getItems().clear();
 		for(int i = 0; i<everythingFound.size(); i++) {		
 			if(everythingFound.get(i).toLowerCase().contains(SearchBox.getText().toLowerCase())) {
 				strippedList.add(everythingFound.get(i));
 				menuCounter++;
 			}
 		}
-		searchContext.getItems().clear();
 		if(menuCounter > 5) {
 			menuCounter = 4;
 		}
+		System.out.println(menuCounter + " menucounter");
 		for(int i = 0; i<menuCounter; i++) {
-			if(SearchBox.getText().isEmpty()) {
-				break;
-			}
 			String testString = strippedList.get(i);
 			MenuItem searchItem = new MenuItem(testString);
 			searchItem.setOnAction(new EventHandler<ActionEvent>() {
