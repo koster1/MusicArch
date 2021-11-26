@@ -26,7 +26,7 @@
                     </rowConstraints>
                      <children>
                         <Button fx:id="WishlistAdd" alignment="CENTER" mnemonicParsing="false" onAction="#addToWishList" prefHeight="25.0" prefWidth="140.0" text="Lisää toivelistalle" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                        <Button fx:id="CollectionAdd1" alignment="CENTER" mnemonicParsing="false" onAction="#addToCollection" prefHeight="25.0" prefWidth="140.0" text="Poista kokoelmasta" GridPane.halignment="CENTER" />
+                        <Button fx:id="CollectionRemove" alignment="CENTER" mnemonicParsing="false" onAction="#addToCollection" prefHeight="25.0" prefWidth="140.0" text="Poista kokoelmasta" GridPane.halignment="CENTER" />
                         <Button fx:id="CollectionAdd" alignment="CENTER" mnemonicParsing="false" onAction="#addToCollection" prefHeight="25.0" prefWidth="140.0" text="Lisää kokoelmaan" GridPane.halignment="CENTER" />
                      </children>
                   </GridPane>
