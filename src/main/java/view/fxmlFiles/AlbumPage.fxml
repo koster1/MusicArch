@@ -30,37 +30,37 @@
                         <RowConstraints maxHeight="47.19998168945315" minHeight="10.0" prefHeight="33.79997558593752" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label id="labels" fx:id="AlbumName" alignment="CENTER" prefHeight="22.0" prefWidth="190.0" text="Albumi" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                        <Label id="labels" fx:id="AlbumName" alignment="CENTER" prefHeight="22.0" prefWidth="190.0" text="%AlbumNameLabel" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                            <padding>
                               <Insets bottom="5.0" />
                            </padding>
                         </Label>
-                        <Label id="labels" fx:id="AlbumYear" alignment="CENTER" prefHeight="22.0" prefWidth="257.0" text="Julkaisuvuosi" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                        <Label id="labels" fx:id="AlbumYear" alignment="CENTER" prefHeight="22.0" prefWidth="257.0" text="%AlbumYearlabel" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                            <padding>
                               <Insets bottom="5.0" />
                            </padding>
                         </Label>
-                        <Label id="labels" fx:id="AlbumArtist" alignment="CENTER" minHeight="10.0" minWidth="10.0" prefHeight="29.0" prefWidth="296.0" text="Artisti" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+                        <Label id="labels" fx:id="AlbumArtist" alignment="CENTER" minHeight="10.0" minWidth="10.0" prefHeight="29.0" prefWidth="296.0" text="%AlbumArtistLabel" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                            <padding>
                               <Insets bottom="5.0" />
                            </padding>
                         </Label>
-                        <Label id="labels" fx:id="AlbumGenre" alignment="CENTER" contentDisplay="CENTER" minHeight="10.0" minWidth="10.0" prefHeight="24.0" prefWidth="292.0" text="Genre" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-                        <Button fx:id="WishlistAdd" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="115.0" text="Lisää toivelistalle" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
-                        <Button fx:id="CollectionAdd" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="115.0" text="Lisää kokoelmaan" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
-                        <Label id="labels" alignment="CENTER" prefHeight="30.0" prefWidth="140.0" text="Albumin tiedot" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                        <Label id="labels" fx:id="AlbumGenre" alignment="CENTER" contentDisplay="CENTER" minHeight="10.0" minWidth="10.0" prefHeight="24.0" prefWidth="292.0" text="%AlbumGenreLabel" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+                        <Button fx:id="WishlistAdd" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="115.0" text="%AddToWishListButton" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+                        <Button fx:id="CollectionAdd" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="115.0" text="%AddToCollectionButton" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+                        <Label id="labels" alignment="CENTER" prefHeight="30.0" prefWidth="140.0" text="%AlbumInfoLabel" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                            <padding>
                               <Insets bottom="5.0" />
                            </padding>
                         </Label>
                      </children>
                   </GridPane>
-                  <Button fx:id="BackButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="44.0" text="Back" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <Button fx:id="BackButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="44.0" text="%BackButton" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="345.0" prefWidth="349.0">
                <children>
-                  <ListView fx:id="AlbumPageListView" layoutY="2.0" prefHeight="498.0" prefWidth="546.0" AnchorPane.bottomAnchor="-2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="2.0" />
+                  <ListView fx:id="SongListView" layoutY="2.0" prefHeight="498.0" prefWidth="546.0" AnchorPane.bottomAnchor="-2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="2.0" />
                </children>
             </AnchorPane>
         </items>
