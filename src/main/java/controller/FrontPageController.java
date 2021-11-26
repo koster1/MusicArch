@@ -68,47 +68,49 @@ public class FrontPageController {
 			}
 		});
 		FrontGenreListView.setItems(genreObservable);
-		
+		FrontGenreListView.setOnKeyPressed(event -> {
+			updateGenreList();
+		});
 		FrontGenreListView.setOnMouseClicked(me -> {
-			
-			Genre listGenre = FrontGenreListView.getSelectionModel().getSelectedItem();
-			List<Album> genreAlbums = controller.getGenreAlbums(listGenre.getGenreID());
-			
-
-
-			if(genreAlbums.size() > 0) {
-				FrontPageGrid.getChildren().clear();
-				
-				int counter = 0;
-				for(int i = 0; i < FrontPageGrid.getColumnCount(); i++) {
-					for(int j = 0; j < FrontPageGrid.getRowCount(); j++) {	
-						
-						if(counter >= genreAlbums.size()) {
-							break;
-						}
-						Button button = new Button(genreAlbums.get(counter).getAlbumName());
-						button.setId(String.valueOf(genreAlbums.get(counter).getAlbumID()));
-						button.addEventHandler(EventType.ROOT, (event) -> {
-							if(event.getEventType() == ActionEvent.ACTION) {
-								try {
-									
-									view.showAlbumPage(Integer.valueOf(button.getId()));
-								} catch (IOException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-							}
-						});
-						FrontPageGrid.add(button, i, j);
-						counter++;
-					}
-				}
-			} else {
-				System.out.println("Nothing found ");
-				FrontPageGrid.getChildren().clear();
-			}
-			
-  
+			updateGenreList();
+//			Genre listGenre = FrontGenreListView.getSelectionModel().getSelectedItem();
+//			List<Album> genreAlbums = controller.getGenreAlbums(listGenre.getGenreID());
+//			
+//
+//
+//			if(genreAlbums.size() > 0) {
+//				FrontPageGrid.getChildren().clear();
+//				
+//				int counter = 0;
+//				for(int i = 0; i < FrontPageGrid.getColumnCount(); i++) {
+//					for(int j = 0; j < FrontPageGrid.getRowCount(); j++) {	
+//						
+//						if(counter >= genreAlbums.size()) {
+//							break;
+//						}
+//						Button button = new Button(genreAlbums.get(counter).getAlbumName());
+//						button.setId(String.valueOf(genreAlbums.get(counter).getAlbumID()));
+//						button.addEventHandler(EventType.ROOT, (event) -> {
+//							if(event.getEventType() == ActionEvent.ACTION) {
+//								try {
+//									
+//									view.showAlbumPage(Integer.valueOf(button.getId()));
+//								} catch (IOException e) {
+//									// TODO Auto-generated catch block
+//									e.printStackTrace();
+//								}
+//							}
+//						});
+//						FrontPageGrid.add(button, i, j);
+//						counter++;
+//					}
+//				}
+//			} else {
+//				System.out.println("Nothing found ");
+//				FrontPageGrid.getChildren().clear();
+//			}
+//			
+//  
 		});
 		
 		FrontArtistListView.setCellFactory(lv -> new ListCell<Artist>() {
@@ -119,48 +121,123 @@ public class FrontPageController {
 			}
 		});			
 		FrontArtistListView.setItems(choices);
-		
+		FrontArtistListView.setOnKeyPressed(event -> {
+			updateArtistList();
+		});
 		FrontArtistListView.setOnMouseClicked(me -> {
-			
-			Artist listArtist = FrontArtistListView.getSelectionModel().getSelectedItem();
-			List<Album> artistAlbums = controller.getArtistAlbums(listArtist.getArtistID());
-			if(artistAlbums.size() > 0) {
-				FrontPageGrid.getChildren().clear();
-				
-				int counter = 0;
-				for(int i = 0; i < FrontPageGrid.getColumnCount(); i++) {
-					for(int j = 0; j < FrontPageGrid.getRowCount(); j++) {	
-						
-						if(counter >= artistAlbums.size()) {
-							break;
-						}
-						Button button = new Button(artistAlbums.get(counter).getAlbumName());
-						button.setId(String.valueOf(artistAlbums.get(counter).getAlbumID()));
-						button.addEventHandler(EventType.ROOT, (event) -> {
-							if(event.getEventType() == ActionEvent.ACTION) {
-								try {
-									
-									view.showAlbumPage(Integer.valueOf(button.getId()));
-								} catch (IOException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-							}
-						});
-						FrontPageGrid.add(button, i, j);
-						counter++;
-					}
-				}
-			} else {
-				System.out.println("Nothing found ");
-				FrontPageGrid.getChildren().clear();
-			}
+			updateArtistList();
+//			Artist listArtist = FrontArtistListView.getSelectionModel().getSelectedItem();
+//			List<Album> artistAlbums = controller.getArtistAlbums(listArtist.getArtistID());
+//			if(artistAlbums.size() > 0) {
+//				FrontPageGrid.getChildren().clear();
+//				
+//				int counter = 0;
+//				for(int i = 0; i < FrontPageGrid.getColumnCount(); i++) {
+//					for(int j = 0; j < FrontPageGrid.getRowCount(); j++) {	
+//						
+//						if(counter >= artistAlbums.size()) {
+//							break;
+//						}
+//						Button button = new Button(artistAlbums.get(counter).getAlbumName());
+//						button.setId(String.valueOf(artistAlbums.get(counter).getAlbumID()));
+//						button.addEventHandler(EventType.ROOT, (event) -> {
+//							if(event.getEventType() == ActionEvent.ACTION) {
+//								try {
+//									
+//									view.showAlbumPage(Integer.valueOf(button.getId()));
+//								} catch (IOException e) {
+//									// TODO Auto-generated catch block
+//									e.printStackTrace();
+//								}
+//							}
+//						});
+//						FrontPageGrid.add(button, i, j);
+//						counter++;
+//					}
+//				}
+//			} else {
+//				System.out.println("Nothing found ");
+//				FrontPageGrid.getChildren().clear();
+//			}
 		});
 		
 		
 		
 	}
 	
+	public void updateGenreList() {
+		Genre listGenre = FrontGenreListView.getSelectionModel().getSelectedItem();
+		List<Album> genreAlbums = controller.getGenreAlbums(listGenre.getGenreID());
+		
+
+
+		if(genreAlbums.size() > 0) {
+			FrontPageGrid.getChildren().clear();
+			
+			int counter = 0;
+			for(int i = 0; i < FrontPageGrid.getColumnCount(); i++) {
+				for(int j = 0; j < FrontPageGrid.getRowCount(); j++) {	
+					
+					if(counter >= genreAlbums.size()) {
+						break;
+					}
+					Button button = new Button(genreAlbums.get(counter).getAlbumName());
+					button.setId(String.valueOf(genreAlbums.get(counter).getAlbumID()));
+					button.addEventHandler(EventType.ROOT, (event) -> {
+						if(event.getEventType() == ActionEvent.ACTION) {
+							try {
+								
+								view.showAlbumPage(Integer.valueOf(button.getId()));
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+					});
+					FrontPageGrid.add(button, i, j);
+					counter++;
+				}
+			}
+		} else {
+			System.out.println("Nothing found ");
+			FrontPageGrid.getChildren().clear();
+		}
+	}
 	
+	public void updateArtistList() {
+		Artist listArtist = FrontArtistListView.getSelectionModel().getSelectedItem();
+		List<Album> artistAlbums = controller.getArtistAlbums(listArtist.getArtistID());
+		if(artistAlbums.size() > 0) {
+			FrontPageGrid.getChildren().clear();
+			
+			int counter = 0;
+			for(int i = 0; i < FrontPageGrid.getColumnCount(); i++) {
+				for(int j = 0; j < FrontPageGrid.getRowCount(); j++) {	
+					
+					if(counter >= artistAlbums.size()) {
+						break;
+					}
+					Button button = new Button(artistAlbums.get(counter).getAlbumName());
+					button.setId(String.valueOf(artistAlbums.get(counter).getAlbumID()));
+					button.addEventHandler(EventType.ROOT, (event) -> {
+						if(event.getEventType() == ActionEvent.ACTION) {
+							try {
+								
+								view.showAlbumPage(Integer.valueOf(button.getId()));
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+					});
+					FrontPageGrid.add(button, i, j);
+					counter++;
+				}
+			}
+		} else {
+			System.out.println("Nothing found ");
+			FrontPageGrid.getChildren().clear();
+		}
+	}
 
 }
