@@ -18,6 +18,26 @@
 -fx-accent: orange;
 -fx-focus-color: orange;
 }
+#frontPageSearchBox {
+-fx-border-color: transparent;
+
+}
+#frontPageSearchBox:hover {
+-fx-border-color: transparent;
+
+}
+
+#frontPageSearchBox:focused {
+-fx-faint-focus-color: orange;
+-fx-focus-color: transparent;
+}
+
+/*RootLayout search */
+.context-menu {
+-fx-pref-width: 268.0px; 
+-fx-border-color: transparent;
+
+}
 
 #Buttonbarbuttons {
 -fx-text-fill: orange;

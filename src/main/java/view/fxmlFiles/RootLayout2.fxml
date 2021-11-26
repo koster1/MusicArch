@@ -4,8 +4,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ContextMenu?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -17,20 +15,15 @@
             <AnchorPane id="root" nodeOrientation="LEFT_TO_RIGHT" prefHeight="68.0" prefWidth="9000.0">
                <children>
                   <Button fx:id="FrontPage" layoutX="35.0" layoutY="16.0" maxWidth="150.0" minHeight="-Infinity" minWidth="100.0" mnemonicParsing="false" onAction="#goFrontPage" text="Etusivu" />
+                  <Button id="root" fx:id="SearchButton" layoutX="1083.0" layoutY="11.0" mnemonicParsing="false" onAction="#SearchTxt" text="Hae" AnchorPane.rightAnchor="52.20000000000009" />
                   <Button fx:id="UserCollection" layoutX="159.0" layoutY="16.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#goUserCollection" prefHeight="26.0" prefWidth="105.0" text="Kokoelma" />
                   <Button fx:id="Requests" layoutX="289.0" layoutY="16.0" maxWidth="150.0" minHeight="-Infinity" minWidth="100.0" mnemonicParsing="false" onAction="#ShowRequests" text="Lisäyspyynnöt" />
                 <Button fx:id="Help" layoutX="411.0" layoutY="16.0" maxWidth="150.0" minHeight="-Infinity" minWidth="100.0" mnemonicParsing="false" onAction="#GoHelpPage" text="Ohje" />
-                  <TextField fx:id="SearchBox" accessibleText="Hakukenttä" layoutX="752.0" layoutY="15.0" onKeyTyped="#refreshSearchList" onMouseClicked="#getSearchable" prefHeight="26.0" prefWidth="268.0" AnchorPane.rightAnchor="170.4000000000001">
+                  <TextField id="frontPageSearchBox" fx:id="SearchBox" accessibleText="Hakukenttä" layoutX="791.0" layoutY="15.0" onKeyTyped="#refreshSearchList" onMouseClicked="#getSearchable" prefWidth="268.0" AnchorPane.rightAnchor="131.0">
                      <contextMenu>
                         <ContextMenu fx:id="searchContext" />
                      </contextMenu></TextField>
-                  <Button fx:id="SearchButton" layoutX="1041.0" layoutY="16.0" mnemonicParsing="false" onAction="#goSearchPage" prefHeight="26.0" prefWidth="77.0" text="Hae" AnchorPane.rightAnchor="71.80000000000018" />
-                  <MenuButton layoutX="1137.0" layoutY="16.0" mnemonicParsing="false">
-                    <items>
-                      <MenuItem mnemonicParsing="false" text="English" />
-                      <MenuItem mnemonicParsing="false" text="Suomi" />
-                    </items>
-                  </MenuButton>
+                  <Button fx:id="SearchButton" layoutX="1081.0" layoutY="16.0" mnemonicParsing="false" onAction="#goSearchPage" prefHeight="26.0" prefWidth="77.0" text="Hae" AnchorPane.rightAnchor="32.0" />
                </children>
             </AnchorPane>
         </buttons>
