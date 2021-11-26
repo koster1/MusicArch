@@ -3,6 +3,7 @@ package controller;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Side;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -24,7 +25,6 @@ import view.*;
 public class GUIController {
 	private static Controller controller;
 	private View view;
-	private double pauseDuration = 0.2;
 	private Genre genreResults;
 	private Artist artistResults;
 	private Album albumResults;
@@ -148,7 +148,7 @@ public class GUIController {
 		int menuCounter = 0;
 		List<String> strippedList = new ArrayList<String>();
 		SearchBox.setContextMenu(searchContext);	
-		searchContext.show(SearchBox, null, 0, 50);	
+		searchContext.show(SearchBox, Side.BOTTOM, 0, 0);	
 		
 		searchContext.getItems().clear();
 		for(int i = 0; i<everythingFound.size(); i++) {		

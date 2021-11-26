@@ -9,14 +9,35 @@
 #root {
 -fx-background-color: #404040;
 -fx-text-fill: orange;
--fx-accent: red;
--fx-focus-color: orange;
--fx-faint-focus-color: orange;
+/*-fx-accent: red;*/
+/*-fx-focus-color: orange;
+-fx-faint-focus-color: orange;*/
 }
 
 .root {
 -fx-accent: orange;
 -fx-focus-color: orange;
+}
+
+#frontPageSearchBox {
+-fx-border-color: transparent;
+
+}
+#frontPageSearchBox:hover {
+-fx-border-color: transparent;
+
+}
+
+#frontPageSearchBox:focused {
+-fx-faint-focus-color: transparent;
+-fx-focus-color: transparent;
+}
+
+/*RootLayout search */
+.context-menu {
+-fx-pref-width: 268.0px; 
+-fx-border-color: transparent;
+
 }
 
 #Buttonbarbuttons {
@@ -38,13 +59,13 @@
 
 .text-area {
 -fx-border-color: #404040;
--fx-border-radius:1.0%;	
+/*-fx-border-radius:1.0%;	*/
 }
 
 /* All textfields*/
 .text-field {
 -fx-border-color: #404040;
--fx-border-radius:1.0%;
+/*-fx-border-radius:1.0%;*/
 }
 
 .text-field:focused {
@@ -53,7 +74,7 @@
 }
 
 .text-area:focused {
-	-fx-focus-color: orange;
+-fx-focus-color: orange;
 -fx-faint-focus-color: orange;
 }
 
@@ -127,8 +148,4 @@ Text {
 .dialog-pane .button:hover{     
 -fx-background-color:orange;
 
- }
- 
- .collectionGrid {
--fx-border-color: #404040;
  }
