@@ -19,16 +19,16 @@
                   <Button fx:id="FrontPage" layoutX="35.0" layoutY="16.0" maxWidth="150.0" minHeight="-Infinity" minWidth="100.0" mnemonicParsing="false" onAction="#goFrontPage" text="%FrontPageButton" />
                   <Button fx:id="UserCollection" layoutX="159.0" layoutY="16.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#goUserCollection" prefHeight="26.0" prefWidth="105.0" text="%UserCollectionButton" />
                   <Button fx:id="Requests" layoutX="289.0" layoutY="16.0" maxWidth="150.0" minHeight="-Infinity" minWidth="100.0" mnemonicParsing="false" onAction="#ShowRequests" text="%RequestsButton" />
-                <Button fx:id="Help" layoutX="411.0" layoutY="16.0" maxWidth="150.0" minHeight="-Infinity" minWidth="100.0" mnemonicParsing="false" onAction="#GoHelpPage" text="Ohje" />
-                  <TextField id="frontPageSearchBox" fx:id="SearchBox" accessibleText="Hakukenttä" layoutX="752.0" layoutY="15.0" onKeyTyped="#refreshSearchList" onMouseClicked="#getSearchable" prefHeight="26.0" prefWidth="268.0" AnchorPane.rightAnchor="170.4000000000001">
+                <Button fx:id="Help" layoutX="411.0" layoutY="16.0" maxWidth="150.0" minHeight="-Infinity" minWidth="100.0" mnemonicParsing="false" onAction="#GoHelpPage" text="%HelpButton" />
+                  <TextField id="frontPageSearchBox" fx:id="SearchBox" accessibleText="%SearchBoxTextField" layoutX="752.0" layoutY="15.0" onKeyTyped="#refreshSearchList" onMouseClicked="#getSearchable" prefHeight="26.0" prefWidth="268.0" AnchorPane.rightAnchor="170.4000000000001">
                      <contextMenu>
                         <ContextMenu fx:id="searchContext" />
                      </contextMenu></TextField>
                   <Button fx:id="SearchButton" layoutX="1041.0" layoutY="16.0" mnemonicParsing="false" onAction="#goSearchPage" prefHeight="26.0" prefWidth="77.0" text="%SearchButton" AnchorPane.rightAnchor="71.80000000000018" />
                   <MenuButton layoutX="1137.0" layoutY="16.0" mnemonicParsing="false">
                     <items>
-                      <MenuItem mnemonicParsing="false" text="English" />
-                      <MenuItem mnemonicParsing="false" text="Suomi" />
+                      <MenuItem mnemonicParsing="false" text="%EnglishItem" />
+                      <MenuItem mnemonicParsing="false" text="%FinnishItem" />
                     </items>
                   </MenuButton>
                </children>
