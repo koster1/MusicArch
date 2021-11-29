@@ -3,6 +3,7 @@ package controller;
 import java.util.List;
 import java.util.Set;
 
+
 import com.jcg.hibernate.maven.Album;
 import com.jcg.hibernate.maven.Artist;
 import com.jcg.hibernate.maven.Genre;
@@ -10,10 +11,18 @@ import com.jcg.hibernate.maven.Song;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import view.View;
 
 
@@ -49,6 +58,9 @@ public class AlbumPageController {
 	    @FXML
 	    private ListView<?> AlbumPageListView;
 	    
+	    @FXML
+	    private GridPane artistGrid;
+	    
 	    private int id;
 	    private Album album;
 	    private Set<Artist> artists;
@@ -81,17 +93,41 @@ public class AlbumPageController {
 		
 		String artistString = "";
 		String genreString = "";
+		Artist[] artistTest = artists.toArray(new Artist[artists.size()]);
 		
-		for (Artist artist: artists) {
-			artistString = artistString + artist.getArtistName() + " ";
+		
+		artistGrid.getChildren().clear();
+		artistGrid.setMaxWidth(200.0);
+
+		
+		for (int i = 0; i<artistTest.length; i++) {
+			
+			TextField artistField = new TextField();
+			
+			artistField.setText(artistTest[i].getArtistName());
+			
+			artistGrid.add(artistField, i, 0);
+			artistGrid.setMargin(artistField, new Insets(3.0));
+			artistField.setVisible(true);
 		}
+		
+		for(int i = 0; i<artistTest.length; i++) {
+			Label artistLabel = new Label();
+			
+			artistLabel.setText(artistTest[i].getArtistName());
+			
+			
+			artistGrid.add(artistLabel, i, 0);
+			artistLabel.setVisible(false);
+		}
+		
 		for (Genre genre: genres) {
 			genreString = genreString + genre.getGenreName() + " ";
 		}
 		
 		AlbumName.setText(album.getAlbumName());
 		AlbumYear.setText(String.valueOf(album.getAlbumYear()));
-		AlbumArtist.setText(artistString);
+		
 		AlbumGenre.setText(genreString); 
 		
 	}

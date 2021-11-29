@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane stylesheets="@../style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AlbumPageController">
+<AnchorPane stylesheets="@../style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AlbumPageController">
    <children>
       <SplitPane dividerPositions="0.5" layoutX="-1.0" prefHeight="500.0" prefWidth="1100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -52,16 +52,19 @@
                               <Insets bottom="5.0" />
                            </padding>
                         </Label>
-                        <Label id="labels" fx:id="AlbumArtist" alignment="TOP_LEFT" prefHeight="22.0" prefWidth="359.0" text="artist" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
-                           <padding>
-                              <Insets bottom="5.0" />
-                           </padding>
-                        </Label>
                         <Label id="labels" fx:id="AlbumGenre" alignment="TOP_LEFT" prefHeight="22.0" prefWidth="359.0" text="genre" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
                         <Label alignment="TOP_LEFT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="137.0" text="Albumi" textFill="#7f7e7e" />
                         <Label alignment="TOP_LEFT" prefHeight="17.0" prefWidth="85.0" text="Julkaisuvuosi" textFill="#7f7e7e" GridPane.rowIndex="1" />
                         <Label alignment="TOP_LEFT" prefHeight="17.0" prefWidth="81.0" text="Artisti" textFill="#7f7e7e" GridPane.rowIndex="2" />
                         <Label alignment="TOP_LEFT" prefHeight="17.0" prefWidth="82.0" text="Genre" textFill="#7f7e7e" GridPane.rowIndex="3" />
+                        <GridPane fx:id="artistGrid" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
                      </children>
                   </GridPane>
                </children>
