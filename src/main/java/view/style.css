@@ -1,4 +1,5 @@
 
+
 /*Elementeistä on tehty ryhmiä, joita voidaan muokata täällä. */
 /*Uudet elementtiryhmät voidaan luoda SB:ssä */
 /*Osalla eri Stagejen elementtiryhmistä voi olla sama ID sillä 
@@ -6,6 +7,11 @@
  */
 
 /*Päänäkymän elementtejä */
+
+.text {
+-fx-font-size: 14.0px;
+}
+
 #root {
 -fx-background-color: #404040;
 -fx-text-fill: orange;
@@ -31,7 +37,9 @@
 -fx-faint-focus-color: orange;
 -fx-focus-color: transparent;
 }
-
+.sheet {
+	-fx-background-color:black;
+}
 /*RootLayout search */
 .context-menu {
 -fx-pref-width: 268.0px; 
@@ -148,3 +156,69 @@ Text {
 -fx-background-color:orange;
 
  }
+ 
+ /* These elements are in frontpage (tabpane) */
+ .tab-pane {
+ }
+ .tab-header-background {
+-fx-background-color: none;
+ 	
+ }
+ .tab-content-area {
+-fx-background-color: #404040;
+-fx-border-color: #404040; 
+
+ }
+ .tab:top {
+-fx-background-color: #bebebe;
+-fx-text-fill: white;
+-fx-pref-width: 150.0px;
+-fx-pref-height: 30.0px;
+-fx-translate-y: 1.0px;
+-fx-translate-x: 1.0px;
+
+ }
+ .tab:top:selected {
+ -fx-background-color: #404040;
+ 	
+ }
+ .tab-label {
+-fx-font-weight: bold;
+-fx-text-fill:orange;
+ }
+  .tab-label:selected {
+-fx-font-weight: bold;
+-fx-text-fill: orange;
+ 	
+ }
+.tab-pane:top {
+-fx-text-fill: orange;
+}
+
+/*Frontpage listview elements */
+.list-view {
+-fx-background-color: white;
+-fx-font-size: 14.0px;
+-fx-border-color: transparent;
+-fx-text-fill: orange;
+
+
+}
+.list-cell {
+-fx-background-color: white;
+-fx-hover-color: orange;
+}
+.list-cell:selected {
+-fx-background-color: orange;
+}
+
+.list-cell:even {
+-fx-background-color: #FAFAFA;
+}
+.list-cell:even:selected {
+-fx-background-color: orange;
+}
+#frontPageScrollPane {
+-fx-border-color: #404040;
+-fx-border-weight: 5.0px;	
+}
