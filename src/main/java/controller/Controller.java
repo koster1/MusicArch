@@ -222,7 +222,7 @@ public class Controller {
     					editAlbum.addSong(song);
     				}
     			}catch(Exception e) {
-    				System.out.println("Failed to add an artist to the editable list! (In Controller's editAlbum() method! Error message -> "+e.getMessage());
+    				System.out.println("Failed to add a song to the editable list! (In Controller's editAlbum() method! Error message -> "+e.getMessage());
     			}
     		}
     	}
