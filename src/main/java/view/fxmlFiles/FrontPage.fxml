@@ -13,7 +13,7 @@
    <children>
             <TabPane fx:id="FrontPageTabPane" layoutY="1.0" prefHeight="481.0" prefWidth="420.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="1.0">
               <tabs>
-                <Tab fx:id="FrontPageGenreTab" text="Genret">
+                <Tab fx:id="FrontPageGenreTab" text="%GenreTab">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="452.0" prefWidth="324.0">
                     <children>
@@ -22,7 +22,7 @@
                   </AnchorPane>
                   </content>
                 </Tab>
-                <Tab fx:id="FrontPageArtistTab" text="Artistit">
+                <Tab fx:id="FrontPageArtistTab" text="%ArtistTab">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
 	                    <children>
