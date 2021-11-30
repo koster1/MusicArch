@@ -48,6 +48,9 @@ public class AlbumPageController {
 	    private Button CollectionAdd;
 	    
 	    @FXML
+	    private Button CollectionRemove;
+	    
+	    @FXML
 	    private Button BackButton;
 
 	    @FXML
@@ -80,6 +83,7 @@ public class AlbumPageController {
 			controller.readLocalAlbum(id);
 			CollectionAdd.setDisable(true);
 		} catch (Exception e) {
+			controller.removeLocalAlbum(id);
 			e.getMessage();
 		}
 		
@@ -111,12 +115,20 @@ public class AlbumPageController {
 		SongListView.setItems(observableSongs);
 		
 	}
-	
+//		void back (ActionEvent event) throws Exception{
+//			}
+//		void removeFromWishlist() {
+//		}
 	   @FXML
 	    void addToCollection(ActionEvent event) throws Exception {
 		   
 		   this.controller.createLocalAlbum(this.id, album.getAlbumName(), this.songs, album.getAlbumYear(), this.genres, this.artists );
 	    }
+	   @FXML
+	   void removeFromCollection(ActionEvent event) throws Exception {
+		   this.controller.removeLocalAlbum(this.id);
+	   }
+	   
 	   
 	   @FXML
        void addToWishList(ActionEvent event) {
