@@ -1,0 +1,42 @@
+Welcome to MusicArch!
+
+MusicArch is a collection management application
+which allows you to create your own album collection and search for the information about the music you like.
+
+You can search for albums to add in your collection on the MusicArch home page or with the applications search function.
+
+The maintenance of the application is responsible for the information there, ie
+if no genre, artist or album is found, you can send a request to add it.
+
+
+Instructions for using the application
+
+Generally:
+When you start the application, you are on the home page.
+There you can view genres, artists and albums.
+From the top bar you can access the application collection window,
+from which you can view the albums in your collection.
+
+
+For the administrator:
+
+As an administrator, you can add genres, artists and albums to the application in the Requests window
+
+Adding a genre to an application
+1. Click the add (+) button on the genre request bar.
+2. Enter the name of the genre in the text field and press the submit button.
+3. Confirm the request.
+
+Add an artist to the app
+1.Click the add (+) button on the artist request bar.
+2.Enter the artist's name in the text field and press the submit button.
+3.Confirm the request.
+
+ 
+Add an album to the app
+1. Click the add (+) button on the album request bar.
+2. Enter the album name and release year in the appropriate fields.
+3. Enter the name of the artist and genre.
+(if there are multiple artists or genres, they can be added).
+4. Press the submit button.
+5. Confirm the request.
