@@ -17,10 +17,13 @@
  
         <!-- Specifying Session Context -->
         <property name="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</property>
+        <property name ="hbm2ddl.auto">validate</property>
+        
         <!-- Mapping With Model Class Containing Annotations -->
         <mapping class="model.LocalGenre" />
         <mapping class="model.LocalArtist" />
         <mapping class="model.LocalAlbum" ></mapping>
         <mapping class="model.LocalSong" />
+        <mapping class="model.WishList" />
     </session-factory>
 </hibernate-configuration>

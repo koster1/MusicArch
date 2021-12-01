@@ -222,3 +222,7 @@ Text {
 -fx-border-color: #404040;
 -fx-border-weight: 5.0px;	
 }
+
+ .collectionGrid {
+-fx-border-color: #404040;
+ }

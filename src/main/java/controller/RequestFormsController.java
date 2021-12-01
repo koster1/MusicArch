@@ -270,8 +270,6 @@ public class RequestFormsController {
 
 	};
 
-	// SendAlbumButton sends textfield data to controller
-	// The Error window pops up if AlbumName textfield is empty.
 
 	@FXML
 	void SendAlbumButton(ActionEvent event) {

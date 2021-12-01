@@ -2,12 +2,16 @@ package controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TitledPane;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -60,6 +64,19 @@ public class UserCollectionController {
     @FXML
     private Label AlbumGenreLabel;
     
+    @FXML
+    private TextArea AlbumTextArea;
+    
+    @FXML
+    private Text InputText;
+    
+    private boolean allowed;
+    
+    private String tempText = "";
+    
+    @FXML
+    private Button AddDescriptionButton;
+    
     public UserCollectionController(Controller controller) {
 
     	this.controller = controller;
@@ -92,7 +109,8 @@ public class UserCollectionController {
     		GridListView.setItems(choices);
     		
     		GridListView.setOnMouseClicked(me -> {
-    			
+    			AddDescriptionButton.setDisable(true);
+    			this.allowed = false;
     			LocalAlbum listLocalAlbum = GridListView.getSelectionModel().getSelectedItem();
     			List<LocalGenre> localGenre = controller.getLocalAlbumGenres(listLocalAlbum.getAlbumID());
     			List<LocalArtist> localArtist = controller.getLocalAlbumArtists(listLocalAlbum.getAlbumID());
@@ -103,13 +121,16 @@ public class UserCollectionController {
     				AlbumGenreLabel.setText(localGenre.get(0).getGenreName());
     				System.out.println(listLocalAlbum.getAlbumName());
     			} else {
-    				AlbumGenreLabel.setText("Ei löytynyt");
+    				AlbumGenreLabel.setText("Ei löytynyt genrejä");
     			}
     			if(localArtist.size() > 0) {
     				AlbumArtistLabel.setText(localArtist.get(0).getArtistName());
     			} else {
-    				AlbumArtistLabel.setText("Ei löytynyt");
+    				AlbumArtistLabel.setText("Ei löytynyt artisteja");
     			}
+    			this.tempText = controller.getLocalAlbumDescription(listLocalAlbum.getAlbumID());
+    			AlbumTextArea.setText(this.tempText);
+    			InputText.setText("" + AlbumTextArea.getText().length() + "/" + "1000");
     			List<LocalSong> localSongs = controller.getLocalAlbumSongs(listLocalAlbum.getAlbumID());
     			ObservableList<LocalSong> observableSongs = FXCollections.observableArrayList(localSongs);
     			
@@ -155,5 +176,32 @@ public class UserCollectionController {
     	}
     }
 
+    @FXML
+    void saveDescription(ActionEvent event) {
+    	if(allowed) {
+    		this.tempText = AlbumTextArea.getText();
+    		LocalAlbum localAlbum = GridListView.getSelectionModel().getSelectedItem();
+    		localAlbum.setAlbumDescription(this.tempText);
+    		controller.editLocalAlbumDescription(localAlbum);
+    		InputText.setText("Kuvaus tallennettu");
+    		AddDescriptionButton.setDisable(true);
+    	}
+    }
+    
+    @FXML
+    void charLimit(KeyEvent event) {
+    	InputText.setText("" + AlbumTextArea.getText().length() + "/" + "1000");
+    	if(this.tempText.equals(AlbumTextArea.getText())) {
+    		AddDescriptionButton.setDisable(true);
+    	} else {
+    		AddDescriptionButton.setDisable(false);
+    	}
+    	allowed = true;
+    	if(AlbumTextArea.getText().length() > 1000) {
+    		InputText.setText("Poista " + (AlbumTextArea.getText().length() - 1000) + " merkkiä");
+    		this.allowed = false;
+    		AddDescriptionButton.setDisable(!this.allowed);
+    	}
+    }
 
 }

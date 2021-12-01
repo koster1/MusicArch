@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
-public class SearchController{
+public class SearchController {
 	
 	private String search;
 	private Controller controller;

@@ -27,6 +27,9 @@ public class LocalAlbum {
 	@Column(name = "AlbumYear")
 	private int albumYear;
 	
+	@Column(name = "AlbumDescription")
+	private String albumDescription;
+	
 	@ManyToMany(fetch=FetchType.LAZY,
 			cascade={CascadeType.ALL})
 	@JoinTable(
@@ -113,4 +116,10 @@ public class LocalAlbum {
 	public void setAlbumYear(int albumYear) {
 		this.albumYear = albumYear;
 	}	
+	public String getAlbumDescription() {
+		return albumDescription;
+	}
+	public void setAlbumDescription(String albumDescription) {
+		this.albumDescription = albumDescription;
+	}
 }
