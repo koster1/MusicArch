@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -118,7 +119,6 @@ public class AlbumPageController {
 			artistLabel.setVisible(true);
 		}
 		
-		
 		for(int i = 0; i<genreArray.length; i++) {
 			TextField genreField = new TextField();
 			genreField.setText(genreArray[i].getGenreName());
@@ -153,48 +153,56 @@ public class AlbumPageController {
 		@FXML
 		void editContent(ActionEvent event) {
 			if(!editing) {
-				flipChildren(genreGrid.getChildren());
-				flipChildren(artistGrid.getChildren());
-				editButton.setText("Save");
 				editing = true;	
-				System.out.println("In edit mode!");
-			}else {
 				flipChildren(genreGrid.getChildren());
 				flipChildren(artistGrid.getChildren());
 				
-			editButton.setText("Edit");
-			System.out.println("Clicked save!");
-			editing = false;
-			
-			List<String> genreList = new ArrayList<>();
-			List<String> artistList = new ArrayList<>();
-
-			for(Node n : artistGrid.getChildren()) {
-				if(n instanceof TextField) {
-					artistList.add(((TextField)n).getText());
+				editButton.setText("Save");
+				System.out.println("In edit mode!");
+			}else {
+				editing = false;
+				flipChildren(genreGrid.getChildren());
+				flipChildren(artistGrid.getChildren());
+	
+				editButton.setText("Edit");
+				System.out.println("Clicked save!");
+				
+				List<String> genreList = new ArrayList<>();
+				List<String> artistList = new ArrayList<>();
+				List<String> songList = new ArrayList<>();
+	
+				for(Node n : artistGrid.getChildren()) {
+					if(n instanceof TextField) {
+						artistList.add(((TextField)n).getText());
+					}
 				}
-			}
-			for(Node n : genreGrid.getChildren()) {
-				if(n instanceof TextField) {
-					genreList.add(((TextField)n).getText());
+				for(Node n : genreGrid.getChildren()) {
+					if(n instanceof TextField) {
+						genreList.add(((TextField)n).getText());
+					}
 				}
-			}
-			
-			String[] genreListTest = genreList.toArray(new String[genreList.size()]);
-			String[] artistListTest = artistList.toArray(new String[artistList.size()]);
-			String[] songListTest = {"First song", "Second song"};
-			
-			//These are for testing purposes
-			for(String s : genreList) {
-				System.out.println(s);
-			}
-			for(String s : artistList) {
-				System.out.println(s);
-			}
-			
-			int test = Integer.parseInt(this.AlbumYear.getText());
-			controller.editAlbum(id, this.AlbumName.getText(), test , artistListTest, genreListTest, songListTest);
-			}
+				
+				String[] genreListTest = genreList.toArray(new String[genreList.size()]);
+				String[] artistListTest = artistList.toArray(new String[artistList.size()]);
+				String[] songListTest = {"First song", "Second song"};
+				
+				//These are for testing purposes
+				for(String s : genreList) {
+					System.out.println(s);
+				}
+				for(String s : artistList) {
+					System.out.println(s);
+				}
+				
+				int test = Integer.parseInt(this.AlbumYear.getText());
+				controller.editAlbum(id, this.AlbumName.getText(), test , artistListTest, genreListTest, songListTest);
+				try {
+					view.showAlbumPage(this.id);
+				} catch (IOException e) {
+					System.out.println("Failed to refresh album page");
+					e.printStackTrace();
+				}
+				}
 		}
 		
 		private void flipChildren(ObservableList<Node> list) {
