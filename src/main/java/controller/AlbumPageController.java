@@ -89,10 +89,8 @@ public class AlbumPageController {
 	@FXML
 	protected void initialize() {
 //		System.out.println("Frontpage id=" + this.id);
-//		
 //		System.out.println("Albuminimi: " + album.getAlbumName());
 //		System.out.println("artisti?? " +  artists);
-		
 		try {
 			controller.readLocalAlbum(id);
 			CollectionAdd.setDisable(true);
@@ -109,7 +107,6 @@ public class AlbumPageController {
 		artistGrid.setMaxWidth(250.0);
 		genreGrid.getChildren().clear();
 		genreGrid.setMaxWidth(250.0);
-
 		
 		for (int i = 0; i<artistArray.length; i++) {
 			TextField artistField = new TextField();
@@ -142,9 +139,7 @@ public class AlbumPageController {
 		
 		
 		AlbumName.setText(album.getAlbumName());
-		AlbumYear.setText(String.valueOf(album.getAlbumYear()));
-		
-		
+		AlbumYear.setText(String.valueOf(album.getAlbumYear()));		
 	}
 		@FXML
 		void editContent(ActionEvent event) {
