@@ -98,7 +98,6 @@ public class AlbumPageController {
 			e.getMessage();
 		}
 		
-//		String genreString = "";
 		Artist[] artistArray = artists.toArray(new Artist[artists.size()]);
 		Genre[] genreArray = genres.toArray(new Genre[genres.size()]);
 		
@@ -112,31 +111,27 @@ public class AlbumPageController {
 			TextField artistField = new TextField();
 			artistField.setText(artistArray[i].getArtistName());
 			artistGrid.add(artistField, i, 0);
-			artistGrid.setMargin(artistField, new Insets(3.0));
+//			artistGrid.setMargin(artistField, new Insets(3.0));
 			artistField.setVisible(false);
-		}
-		
-		for(int i = 0; i<artistArray.length; i++) {
+			
 			Label artistLabel = new Label();
 			artistLabel.setText(artistArray[i].getArtistName());
 			artistGrid.add(artistLabel, i, 0);
 			artistLabel.setVisible(true);
 		}
 		
+		
 		for(int i = 0; i<genreArray.length; i++) {
 			TextField genreField = new TextField();
 			genreField.setText(genreArray[i].getGenreName());
 			genreGrid.add(genreField, i, 0);
 			genreField.setVisible(false);
-		}
-		
-		for(int i = 0; i<genreArray.length; i++) {
+			
 			Label genreLabel = new Label();
 			genreLabel.setText(genreArray[i].getGenreName());
 			genreGrid.add(genreLabel, i, 0);
 			genreLabel.setVisible(true);
-		}
-		
+		}		
 		
 		AlbumName.setText(album.getAlbumName());
 		AlbumYear.setText(String.valueOf(album.getAlbumYear()));		
