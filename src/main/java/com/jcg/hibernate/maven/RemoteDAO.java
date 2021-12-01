@@ -434,12 +434,11 @@ public class RemoteDAO {
 		Set<Artist> artistList = albumEdit.getAlbumArtists();
 		List<Song> newSongs = new ArrayList<Song>();
 		
-		//This is placeholder code, just for testing-purposes, for now. Could maybe place the adding inside this loop, if adding the song here works?
 		for(Song song : songList) {
 			if(!existingSongs().contains(song.getSongName())) {
 				System.out.println("This song doesn't exist! So now we're making a song with the title: "+song.getSongName());
 				createSong(song);
-				newSongs.add(searchSong(song.getSongName())); //This'd be making a list of songs that have now been created? 
+				newSongs.add(searchSong(song.getSongName())); 
 			}else {
 				newSongs.add(searchSong(song.getSongName()));
 				System.out.println("This song"+song.getSongName()+" DID exist! Adding it to the reference list! Moving on!");
