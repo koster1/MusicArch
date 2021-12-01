@@ -114,7 +114,7 @@ public class AlbumPageController {
 			
 			Label artistLabel = new Label();
 			artistLabel.setText(artistArray[i].getArtistName());
-			artistGrid.add(artistLabel, i, 0);
+			artistGrid.add(artistLabel, i, 0); 
 			artistLabel.setVisible(true);
 		}
 		
