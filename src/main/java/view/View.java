@@ -1,7 +1,12 @@
 package view;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
+import java.util.Properties;
+import java.util.ResourceBundle;
+
 import com.sun.glass.ui.Window;
 import controller.Controller;
 import controller.FrontPageController;
@@ -18,7 +23,9 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+
 import javafx.stage.StageStyle;
+
 
 public class View extends Application {
 
@@ -28,6 +35,7 @@ public class View extends Application {
 	private static AnchorPane userRoot;
 	private static GUIController guiController;
 	private static Controller controller;
+
 
 	public void init() {
 		controller = new Controller();
