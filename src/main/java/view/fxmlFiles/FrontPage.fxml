@@ -11,13 +11,13 @@
 
 <AnchorPane minHeight="-Infinity" minWidth="1200.0" prefHeight="481.0" prefWidth="1200.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FrontPageController">
    <children>
-            <TabPane fx:id="FrontPageTabPane" layoutY="1.0" prefHeight="481.0" prefWidth="420.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="1.0">
+            <TabPane fx:id="FrontPageTabPane" layoutY="1.0" prefHeight="481.0" prefWidth="420.0" stylesheets="@../style.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="1.0">
               <tabs>
                 <Tab fx:id="FrontPageGenreTab" text="%GenreTabTitle">
                   <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="452.0" prefWidth="324.0">
+                    <AnchorPane id="tabPaneBackground" minHeight="0.0" minWidth="0.0" prefHeight="452.0" prefWidth="324.0">
                     <children>
-                       <ListView fx:id="FrontGenreListView" layoutX="7.0" layoutY="14.0" prefHeight="432.0" prefWidth="413.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="7.0" AnchorPane.topAnchor="14.0" />
+                       <ListView fx:id="FrontGenreListView" layoutX="7.0" layoutY="14.0" prefHeight="432.0" prefWidth="413.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="14.0" />
                     </children>
                   </AnchorPane>
                   </content>
@@ -26,7 +26,7 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
 	                    <children>
-	                    	<ListView fx:id="FrontArtistListView" layoutX="7.0" layoutY="14.0" prefHeight="432.0" prefWidth="413.0" AnchorPane.bottomAnchor="7.0" AnchorPane.topAnchor="14.0" />
+	                    	<ListView fx:id="FrontArtistListView" layoutX="7.0" layoutY="14.0" prefHeight="432.0" prefWidth="413.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="14.0" />
 	                    </children>
                     </AnchorPane>
                   </content>
@@ -43,7 +43,7 @@
          <children>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                <children>
-                  <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="431.0" prefWidth="770.0" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <ScrollPane id="frontPageScrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="431.0" prefWidth="770.0" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <content>
                       <AnchorPane prefHeight="434.0" prefWidth="753.0">
                            <children>

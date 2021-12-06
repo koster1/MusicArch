@@ -1,23 +1,28 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
 
 import com.jcg.hibernate.maven.Album;
 import com.jcg.hibernate.maven.Artist;
 import com.jcg.hibernate.maven.Genre;
 import com.jcg.hibernate.maven.Song;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import model.LocalSong;
 import view.View;
 
 
@@ -25,6 +30,7 @@ public class AlbumPageController {
 
 	private Controller controller;
 	private View view;
+	private boolean editing = false;
 	
 	   @FXML
 	    private GridPane AlbumInfo;
@@ -49,9 +55,18 @@ public class AlbumPageController {
 	    
 	    @FXML
 	    private Button BackButton;
+	    
+	    @FXML
+	    private Button editButton;
 
 	    @FXML
 	    private ListView<Song> SongListView;
+	    
+	    @FXML
+	    private GridPane artistGrid;
+	    
+	    @FXML
+	    private GridPane genreGrid;
 	    
 	    private int id;
 	    private Album album;
@@ -72,10 +87,8 @@ public class AlbumPageController {
 	@FXML
 	protected void initialize() {
 //		System.out.println("Frontpage id=" + this.id);
-//		
 //		System.out.println("Albuminimi: " + album.getAlbumName());
 //		System.out.println("artisti?? " +  artists);
-		
 		try {
 			controller.readLocalAlbum(id);
 			CollectionAdd.setDisable(true);
@@ -83,20 +96,45 @@ public class AlbumPageController {
 			e.getMessage();
 		}
 		
-		String artistString = "";
-		String genreString = "";
+		Artist[] artistArray = artists.toArray(new Artist[artists.size()]);
+		Genre[] genreArray = genres.toArray(new Genre[genres.size()]);
 		
-		for (Artist artist: artists) {
-			artistString = artistString + artist.getArtistName() + " ";
+		
+		artistGrid.getChildren().clear();
+		artistGrid.setMaxWidth(250.0);
+		genreGrid.getChildren().clear();
+		genreGrid.setMaxWidth(250.0);
+		
+		for (int i = 0; i<artistArray.length; i++) {
+			TextField artistField = new TextField();
+			artistField.setText(artistArray[i].getArtistName());
+			artistGrid.add(artistField, i, 0);
+//			artistGrid.setMargin(artistField, new Insets(3.0));
+			artistField.setVisible(false);
+			
+			Label artistLabel = new Label();
+			artistLabel.setText(artistArray[i].getArtistName());
+			artistGrid.add(artistLabel, i, 0); 
+			artistLabel.setVisible(true);
 		}
-		for (Genre genre: genres) {
-			genreString = genreString + genre.getGenreName() + " ";
-		}
+		
+		
+		for(int i = 0; i<genreArray.length; i++) {
+			TextField genreField = new TextField();
+			genreField.setText(genreArray[i].getGenreName());
+			genreGrid.add(genreField, i, 0);
+			genreField.setVisible(false);
+			
+			Label genreLabel = new Label();
+			genreLabel.setText(genreArray[i].getGenreName());
+			genreGrid.add(genreLabel, i, 0);
+			genreLabel.setVisible(true);
+		}		
 		
 		AlbumName.setText(album.getAlbumName());
 		AlbumYear.setText(String.valueOf(album.getAlbumYear()));
-		AlbumArtist.setText(artistString);
-		AlbumGenre.setText(genreString); 
+//		AlbumArtist.setText(artistString);
+//		AlbumGenre.setText(genreString); 
 		
 		ObservableList<Song> observableSongs = FXCollections.observableArrayList(songs);
 		
@@ -110,7 +148,64 @@ public class AlbumPageController {
 		
 		SongListView.setItems(observableSongs);
 		
+		AlbumYear.setText(String.valueOf(album.getAlbumYear()));	
 	}
+		@FXML
+		void editContent(ActionEvent event) {
+			if(!editing) {
+				flipChildren(genreGrid.getChildren());
+				flipChildren(artistGrid.getChildren());
+				editButton.setText("Save");
+				editing = true;	
+				System.out.println("In edit mode!");
+			}else {
+				flipChildren(genreGrid.getChildren());
+				flipChildren(artistGrid.getChildren());
+				
+			editButton.setText("Edit");
+			System.out.println("Clicked save!");
+			editing = false;
+			
+			List<String> genreList = new ArrayList<>();
+			List<String> artistList = new ArrayList<>();
+
+			for(Node n : artistGrid.getChildren()) {
+				if(n instanceof TextField) {
+					artistList.add(((TextField)n).getText());
+				}
+			}
+			for(Node n : genreGrid.getChildren()) {
+				if(n instanceof TextField) {
+					genreList.add(((TextField)n).getText());
+				}
+			}
+			
+			String[] genreListTest = genreList.toArray(new String[genreList.size()]);
+			String[] artistListTest = artistList.toArray(new String[artistList.size()]);
+			String[] songListTest = {"First song", "Second song"};
+			
+			//These are for testing purposes
+			for(String s : genreList) {
+				System.out.println(s);
+			}
+			for(String s : artistList) {
+				System.out.println(s);
+			}
+			
+			int test = Integer.parseInt(this.AlbumYear.getText());
+			controller.editAlbum(id, this.AlbumName.getText(), test , artistListTest, genreListTest, songListTest);
+			}
+		}
+		
+		private void flipChildren(ObservableList<Node> list) {
+			for(Node n : list) {
+				if(n.isVisible()) {
+					n.setVisible(false);
+				}else {
+					n.setVisible(true);
+				}
+			}
+		}
 	
 	   @FXML
 	    void addToCollection(ActionEvent event) throws Exception {
@@ -122,6 +217,5 @@ public class AlbumPageController {
        void addToWishList(ActionEvent event) {
            controller.addToWishlist(this.id);
        }
-	
 	
 }

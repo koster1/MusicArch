@@ -58,7 +58,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="60.0" vgrow="NEVER" />
                                 </rowConstraints>
                                  <children>
-                                    <Label id="labels" text="AlbumInfoLabel" underline="true" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                                    <Label id="labels" fx:id="UserCollectionTitle" text="UserCollectionTitle" underline="true" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                                        <GridPane.margin>
                                           <Insets top="2.0" />
                                        </GridPane.margin>

@@ -16,6 +16,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
+import model.Language;
 import model.LocalAlbum;
 import model.LocalArtist;
 import model.LocalGenre;
@@ -26,6 +27,8 @@ import view.View;
 import com.jcg.hibernate.maven.Genre;
 
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 
 public class UserCollectionController {
@@ -63,6 +66,9 @@ public class UserCollectionController {
 
     @FXML
     private Label AlbumGenreLabel;
+
+    @FXML
+    private Label UserCollectionTitle;
     
     @FXML
     private TextArea AlbumTextArea;
@@ -76,6 +82,7 @@ public class UserCollectionController {
     
     @FXML
     private Button AddDescriptionButton;
+
     
     public UserCollectionController(Controller controller) {
 
@@ -89,8 +96,13 @@ public class UserCollectionController {
     @FXML
     protected void initialize() {
     	
+
     	LocalAlbum[] albumList;
     	try {
+//    		ResourceBundle bundle = ResourceBundle.getBundle("",)
+//    		System.out.println();
+    		Language lang = Language.getInstance();
+    		System.out.println("Tässä testataan kielioliota = " + lang.getBundle().getString("AlbumNameLabel"));
     		
     		albumList = controller.getLocalAlbums();
     		ObservableList<LocalAlbum> choices = FXCollections.observableArrayList(albumList);
