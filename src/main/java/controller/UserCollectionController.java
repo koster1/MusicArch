@@ -27,8 +27,6 @@ import view.View;
 import com.jcg.hibernate.maven.Genre;
 
 import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 
 public class UserCollectionController {
