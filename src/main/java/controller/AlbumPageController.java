@@ -70,6 +70,12 @@ public class AlbumPageController {
 	    private GridPane genreGrid;
 	    
 	    @FXML
+	    private GridPane albumNameGrid;
+	    
+	    @FXML
+	    private GridPane albumYearGrid;
+	    
+	    @FXML
 	    private TextField albumNameField;
 
 	    @FXML
@@ -116,22 +122,32 @@ public class AlbumPageController {
 		artistGrid.setMaxWidth(250.0);
 		genreGrid.getChildren().clear();
 		genreGrid.setMaxWidth(250.0);
-		
-		
-		
+		albumNameGrid.getChildren().clear();
+		albumNameGrid.setMaxWidth(250.0);
+		albumYearGrid.getChildren().clear();
+		albumYearGrid.setMaxWidth(250.0);
+				
 		TextField albumNameField = new TextField();
 		albumNameField.setText(album.getAlbumName());
+		albumNameGrid.add(albumNameField, 0, 0);
 		albumNameField.setVisible(false);
-		AlbumInfo.add(albumNameField, 1, 0);
 		
 		Label albumNameLabel = new Label();
 		albumNameLabel.setText(album.getAlbumName());
-		albumNameField.setVisible(true);
-		AlbumInfo.add(albumNameLabel, 1, 0);
+		albumNameGrid.add(albumNameLabel, 0, 0);
+		albumNameLabel.setVisible(true);
 		
 		TextField albumYearField = new TextField();
 		albumYearField.setText(String.valueOf(album.getAlbumYear()));
 		
+		albumYearGrid.add(albumYearField, 0, 0);
+		albumYearField.setVisible(false);
+		
+		Label albumYearLabel = new Label();
+		albumYearLabel.setText(String.valueOf(album.getAlbumYear()));
+		
+		albumYearGrid.add(albumYearLabel, 0, 0);
+		albumYearLabel.setVisible(true);
 		for (int i = 0; i<artistArray.length; i++) {
 			TextField artistField = new TextField();
 			artistField.setText(artistArray[i].getArtistName());
@@ -156,8 +172,8 @@ public class AlbumPageController {
 			genreLabel.setVisible(true);
 		}		
 		
-		AlbumName.setText(album.getAlbumName());
-		AlbumYear.setText(String.valueOf(album.getAlbumYear()));
+//		AlbumName.setText(album.getAlbumName());
+//		AlbumYear.setText(String.valueOf(album.getAlbumYear()));
 //		AlbumArtist.setText(artistString);
 //		AlbumGenre.setText(genreString); 
 		
@@ -174,7 +190,7 @@ public class AlbumPageController {
 		
 		SongListView.setItems(observableSongs);
 		
-		AlbumYear.setText(String.valueOf(album.getAlbumYear()));	
+//		AlbumYear.setText(String.valueOf(album.getAlbumYear()));	
 	}
 		@FXML
 		void editContent(ActionEvent event) {
@@ -182,6 +198,8 @@ public class AlbumPageController {
 				editing = true;	
 				flipChildren(genreGrid.getChildren());
 				flipChildren(artistGrid.getChildren());
+				flipChildren(albumYearGrid.getChildren());
+				flipChildren(albumNameGrid.getChildren());
 				
 				editButton.setText("Save");
 				System.out.println("In edit mode!");
@@ -189,13 +207,16 @@ public class AlbumPageController {
 				editing = false;
 				flipChildren(genreGrid.getChildren());
 				flipChildren(artistGrid.getChildren());
+				flipChildren(albumYearGrid.getChildren());
+				flipChildren(albumNameGrid.getChildren());
 	
 				editButton.setText("Edit");
 				System.out.println("Clicked save!");
 				
 				List<String> genreList = new ArrayList<>();
 				List<String> artistList = new ArrayList<>();
-				List<String> songList = new ArrayList<>();
+				String newName = new String();
+				int newYear = this.album.getAlbumYear();
 	
 				for(Node n : artistGrid.getChildren()) {
 					if(n instanceof TextField) {
@@ -207,10 +228,24 @@ public class AlbumPageController {
 						genreList.add(((TextField)n).getText());
 					}
 				}
+				for(Node n : albumNameGrid.getChildren()) {
+					if(n instanceof TextField) {
+						newName = ((TextField) n).getText();
+					}
+				}
+				for(Node n : albumYearGrid.getChildren()) {
+					if(n instanceof TextField) {
+						try {
+						newYear = Integer.parseInt(((TextField)n).getText());
+						}
+						catch(Exception e) {
+							System.out.println(e.getMessage());
+						}
+					}
+				}
 				
 				String[] genreListTest = genreList.toArray(new String[genreList.size()]);
 				String[] artistListTest = artistList.toArray(new String[artistList.size()]);
-				String[] songListTest = {"First song", "Second song"};
 				
 				//These are for testing purposes
 				for(String s : genreList) {
@@ -227,7 +262,7 @@ public class AlbumPageController {
 					test = this.album.getAlbumYear();
 				}
 				
-				controller.editAlbum(id, this.AlbumName.getText(), test , artistListTest, genreListTest, songListTest);
+				controller.editAlbum(id, newName, newYear, artistListTest, genreListTest);
 				try {
 					view.showAlbumPage(this.id);
 				} catch (IOException e) {

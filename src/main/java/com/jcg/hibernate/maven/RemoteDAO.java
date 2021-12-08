@@ -433,19 +433,19 @@ public class RemoteDAO {
 		Set<Song> songList = albumEdit.getAlbumSongs();
 		Set<Genre> genreList = albumEdit.getAlbumGenres();
 		Set<Artist> artistList = albumEdit.getAlbumArtists();
-		List<Song> newSongs = new ArrayList<Song>();
+//		List<Song> newSongs = new ArrayList<Song>();
 		
-		for(Song song : songList) {
-			if(!existingSongs().contains(song.getSongName())) {
-				System.out.println("This song doesn't exist! So now we're making a song with the title: "+song.getSongName());
-				createSong(song);
-				newSongs.add(searchSong(song.getSongName())); 
-			}else {
-				newSongs.add(searchSong(song.getSongName()));
-				System.out.println("This song"+song.getSongName()+" DID exist! Adding it to the reference list! Moving on!");
-			}
-			
-		}
+//		for(Song song : songList) {
+//			if(!existingSongs().contains(song.getSongName())) {
+//				System.out.println("This song doesn't exist! So now we're making a song with the title: "+song.getSongName());
+//				createSong(song);
+//				newSongs.add(searchSong(song.getSongName())); 
+//			}else {
+//				newSongs.add(searchSong(song.getSongName()));
+//				System.out.println("This song"+song.getSongName()+" DID exist! Adding it to the reference list! Moving on!");
+//			}
+//			
+//		}
 		
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
@@ -468,11 +468,11 @@ public class RemoteDAO {
 				session.update(editable);	
 			}			
 			//This'd be adding songs, but it requires the song to already exist, so...
-			for(Song song : newSongs) {
-				Song song2 = (Song)session.load(Song.class, song.getSongID());
-				editable.addSong(song2);
-				session.update(editable);
-			}
+//			for(Song song : newSongs) {
+//				Song song2 = (Song)session.load(Song.class, song.getSongID());
+//				editable.addSong(song2);
+//				session.update(editable);
+//			}
 			transAct.commit();
 			//session.close();
 			return true;

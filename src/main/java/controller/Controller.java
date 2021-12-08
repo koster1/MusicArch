@@ -193,13 +193,13 @@ public class Controller {
     	remoteDAO.editArtist(editArtist, artistID);
     }
     //Still WIP
-    public void editAlbum(int albumID, String albumName, int albumYear, String[] artistListEdit, String[] genreListEdit, String[] songListEdit) {
+    public void editAlbum(int albumID, String albumName, int albumYear, String[] artistListEdit, String[] genreListEdit) {
     	Album editAlbum = new Album();
     	
     	editAlbum.setAlbumName(albumName);
     	editAlbum.setAlbumYear(albumYear);
     	
-    	if(genreListEdit.length != 0 || artistListEdit.length != 0 || songListEdit.length != 0) {
+    	if(genreListEdit.length != 0 || artistListEdit.length != 0) {
     		for(int i = 0; i < genreListEdit.length; i++) {
     			try {
     				Genre genre = remoteDAO.searchGenre(genreListEdit[i]);
@@ -220,16 +220,8 @@ public class Controller {
     				System.out.println("Failed to add an artist to the editable list! (In Controller's editAlbum() method! Error message -> "+e.getMessage());
     			}
     		}
-    		for(int i = 0; i < songListEdit.length; i++) {
-    			try {
-    				Song song = remoteDAO.searchSong(songListEdit[i]);
-    				if(song != null) {
-    					editAlbum.addSong(song);
-    				}
-    			}catch(Exception e) {
-    				System.out.println("Failed to add a song to the editable list! (In Controller's editAlbum() method! Error message -> "+e.getMessage());
-    			}
-    		}
+    		
+    		
     	}
     	try {
 			remoteDAO.editAlbum(albumID, editAlbum);
