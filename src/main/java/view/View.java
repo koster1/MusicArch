@@ -129,20 +129,19 @@ public class View extends Application {
 		System.out.println("User collection!!!");
 		List<Window> windows = Window.getWindows();
 		System.out.println(windows);
-		boolean test = true;
+		boolean userWindowExists = true;
 		try {
 			for (int i = 0; i < windows.size(); i++) {
 				System.out.println(windows.get(i).getTitle());
 				if (windows.get(i).getTitle().contains("User")) {
-					System.out.println("Truee");
-					test = false;
+					userWindowExists = false;
 					break;
 				}
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		if (test) {
+		if (userWindowExists) {
 			FXMLLoader fxmlLoader = new FXMLLoader();
 			fxmlLoader.setLocation(View.class.getResource("/view/fxmlFiles/UserCollection.fxml"));
 			fxmlLoader.setResources(Language.getInstance().getBundle());
@@ -167,20 +166,20 @@ public class View extends Application {
 			
 			List<Window> windows = Window.getWindows();
 			System.out.println(windows);
-			boolean test = true;
+			boolean requestWindowExists = true;
 			try {
 				for(int i = 0; i < windows.size(); i++) {
 					System.out.println(windows.get(i).getTitle());
 					if(windows.get(i).getTitle().contains("Request")) {
 						System.out.println("True");
-						test = false;
+						requestWindowExists = false;
 						break;
 					}
 				}
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
-			if(test) {
+			if(requestWindowExists) {
 				FXMLLoader fxmlLoader = new FXMLLoader();
 				fxmlLoader.setLocation(View.class.getResource("/view/fxmlFiles/Requests.fxml"));
 				fxmlLoader.setControllerFactory(RequestFormsController -> new RequestFormsController(controller));
