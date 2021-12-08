@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -44,12 +45,12 @@
                         <RowConstraints maxHeight="80.99997253417968" minHeight="10.0" prefHeight="41.199975585937494" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label id="labels" fx:id="AlbumName" alignment="TOP_LEFT" prefHeight="20.0" prefWidth="359.0" text="name" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                        <Label id="labels" fx:id="albumNameLabel" alignment="TOP_LEFT" prefHeight="20.0" prefWidth="359.0" text="name" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                            <padding>
                               <Insets bottom="5.0" />
                            </padding>
                         </Label>
-                        <Label id="labels" fx:id="AlbumYear" alignment="TOP_LEFT" prefHeight="20.0" prefWidth="359.0" text="year" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                        <Label id="labels" fx:id="albumYearLabel" alignment="TOP_LEFT" prefHeight="20.0" prefWidth="359.0" text="year" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                            <padding>
                               <Insets bottom="5.0" />
                            </padding>
@@ -74,6 +75,8 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                         </GridPane>
+                        <TextField fx:id="albumNameField" GridPane.columnIndex="1" />
+                        <TextField fx:id="albumYearField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
                </children>

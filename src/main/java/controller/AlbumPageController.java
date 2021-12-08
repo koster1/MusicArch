@@ -69,6 +69,18 @@ public class AlbumPageController {
 	    @FXML
 	    private GridPane genreGrid;
 	    
+	    @FXML
+	    private TextField albumNameField;
+
+	    @FXML
+	    private Label albumNameLabel;
+
+	    @FXML
+	    private TextField albumYearField;
+
+	    @FXML
+	    private Label albumYearLabel;
+	    
 	    private int id;
 	    private Album album;
 	    private Set<Artist> artists;
@@ -87,9 +99,7 @@ public class AlbumPageController {
 	
 	@FXML
 	protected void initialize() {
-//		System.out.println("Frontpage id=" + this.id);
-//		System.out.println("Albuminimi: " + album.getAlbumName());
-//		System.out.println("artisti?? " +  artists);
+		
 		try {
 			controller.readLocalAlbum(id);
 			CollectionAdd.setDisable(true);
@@ -101,16 +111,31 @@ public class AlbumPageController {
 		Genre[] genreArray = genres.toArray(new Genre[genres.size()]);
 		
 		
+		
 		artistGrid.getChildren().clear();
 		artistGrid.setMaxWidth(250.0);
 		genreGrid.getChildren().clear();
 		genreGrid.setMaxWidth(250.0);
 		
+		
+		
+		TextField albumNameField = new TextField();
+		albumNameField.setText(album.getAlbumName());
+		albumNameField.setVisible(false);
+		AlbumInfo.add(albumNameField, 1, 0);
+		
+		Label albumNameLabel = new Label();
+		albumNameLabel.setText(album.getAlbumName());
+		albumNameField.setVisible(true);
+		AlbumInfo.add(albumNameLabel, 1, 0);
+		
+		TextField albumYearField = new TextField();
+		albumYearField.setText(String.valueOf(album.getAlbumYear()));
+		
 		for (int i = 0; i<artistArray.length; i++) {
 			TextField artistField = new TextField();
 			artistField.setText(artistArray[i].getArtistName());
 			artistGrid.add(artistField, i, 0);
-//			artistGrid.setMargin(artistField, new Insets(3.0));
 			artistField.setVisible(false);
 			
 			Label artistLabel = new Label();
@@ -137,6 +162,7 @@ public class AlbumPageController {
 //		AlbumGenre.setText(genreString); 
 		
 		ObservableList<Song> observableSongs = FXCollections.observableArrayList(songs);
+		
 		
 		SongListView.setCellFactory(lv -> new ListCell<Song>() {
 			@Override
@@ -193,15 +219,21 @@ public class AlbumPageController {
 				for(String s : artistList) {
 					System.out.println(s);
 				}
+				int test = 0;
+				try {
+					test = Integer.parseInt(this.AlbumYear.getText());
+				}catch(Exception e) {
+					System.out.println("User tried to input a number! Using the original album year -> "+this.album.getAlbumYear());
+					test = this.album.getAlbumYear();
+				}
 				
-				int test = Integer.parseInt(this.AlbumYear.getText());
 				controller.editAlbum(id, this.AlbumName.getText(), test , artistListTest, genreListTest, songListTest);
 				try {
 					view.showAlbumPage(this.id);
 				} catch (IOException e) {
 					System.out.println("Failed to refresh album page");
 					e.printStackTrace();
-				}
+					}
 				}
 		}
 		

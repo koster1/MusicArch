@@ -67,8 +67,9 @@ public class RemoteDAO {
 //		session.close();
 		return genre;
 	}
-	/*
-	 * readGenres() will return a list of all Genres found within the database
+	/**
+	 * readGenres() will return a list of all Genres found within the database.
+	 * @return Genre[] returns the results in table form.
 	 */
 	public Genre[] readGenres() {
 		Transaction transAct = null;
@@ -89,7 +90,7 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
-	/*
+	/**
 	 * searchGenre() will return a single Genre-object based on a simple String input, used to search the database for the Genre
 	 */
 	public Genre searchGenre(String genreSearch) throws Exception {
