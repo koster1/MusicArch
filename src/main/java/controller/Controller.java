@@ -376,10 +376,14 @@ public class Controller {
     	return localDAO.localAlbumSongs(albumID);
     }
     
-    public boolean addToWishlist(int albumID) {
+    public boolean addToWishlist(int albumID, String albumName, int albumYear) {
     	
-    	localDAO.addToWishlist(albumID);
+    	localDAO.addToWishlist(albumID, albumName, albumYear);
     	return true;
+    }
+    
+    public List<WishList> readWishList() {
+    	return localDAO.readWishList();
     }
     
 }
