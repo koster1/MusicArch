@@ -192,6 +192,7 @@ public class AlbumPageController {
 		});	
 		
 		SongListView.setItems(observableSongs);
+		deleteButton.setVisible(false);
 		
 //		AlbumYear.setText(String.valueOf(album.getAlbumYear()));	
 	}
@@ -205,6 +206,7 @@ public class AlbumPageController {
 				flipChildren(albumNameGrid.getChildren());
 				
 				editButton.setText("Save");
+				deleteButton.setVisible(true);
 				System.out.println("In edit mode!");
 			}else {
 				editing = false;
@@ -212,7 +214,8 @@ public class AlbumPageController {
 				flipChildren(artistGrid.getChildren());
 				flipChildren(albumYearGrid.getChildren());
 				flipChildren(albumNameGrid.getChildren());
-	
+				
+				deleteButton.setVisible(false);
 				editButton.setText("Edit");
 				System.out.println("Clicked save!");
 				
@@ -256,13 +259,6 @@ public class AlbumPageController {
 				}
 				for(String s : artistList) {
 					System.out.println(s);
-				}
-				int test = 0;
-				try {
-					test = Integer.parseInt(this.AlbumYear.getText());
-				}catch(Exception e) {
-					System.out.println("User tried to input a number! Using the original album year -> "+this.album.getAlbumYear());
-					test = this.album.getAlbumYear();
 				}
 				
 				controller.editAlbum(id, newName, newYear, artistListTest, genreListTest);
