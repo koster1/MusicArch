@@ -37,6 +37,15 @@
                               </AnchorPane>
                         </content>
                       </Tab>
+                      <Tab fx:id="WishlistTab" text="%wishlistTab">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="415.0" prefWidth="510.0">
+                                 <children>
+                                    <ListView id="listView" fx:id="GridWishListView" layoutX="6.0" layoutY="-4.0" prefHeight="398.0" prefWidth="519.0" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="-3.0" AnchorPane.rightAnchor="-6.0" AnchorPane.topAnchor="-4.0" />
+                                 </children>
+                              </AnchorPane>
+                        </content>
+                      </Tab>
                     </tabs>
                   </TabPane>
                </children>
@@ -60,7 +69,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="102.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Label id="labels" fx:id="UserCollectionTitle" text="UserTitle" underline="true" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                                    <Label id="labels" fx:id="UserCollectionTitle" text="%UserCollectionTitle" underline="true" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                                        <GridPane.margin>
                                           <Insets top="2.0" />
                                        </GridPane.margin>
@@ -73,7 +82,7 @@
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                       </columnConstraints>
                                        <children>
-                                          <Label text="unspecified" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="TOP" />
+                                          <Label fx:id="InfoText" text="%SaveText" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="TOP" />
                                           <Label text="Kuvaus" GridPane.halignment="CENTER" />
                                           <Text fx:id="InputText" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                                           <Button fx:id="AddDescriptionButton" mnemonicParsing="false" onAction="#saveDescription" prefHeight="50.0" prefWidth="87.0" text="Lisää kuvaus" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="3" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
