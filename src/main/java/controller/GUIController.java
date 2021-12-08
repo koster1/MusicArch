@@ -5,6 +5,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Side;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
@@ -12,7 +13,10 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import model.Language;
+
 import com.jcg.hibernate.maven.Artist;
 import com.jcg.hibernate.maven.Album;
 import com.jcg.hibernate.maven.Genre;
@@ -59,6 +63,10 @@ public class GUIController {
 	private Button FrontPage;
 	@FXML
 	private Button UserCollection;
+	@FXML
+	private BorderPane mainPane;
+	@FXML
+	private ButtonBar Buttonbar;
 
 	
 	public GUIController() {}
@@ -72,8 +80,11 @@ public class GUIController {
 	@FXML
 	protected void initialize() {
 		SearchBox.focusedProperty().addListener(even -> {
-			getSearchable2();			
+			getSearchable2();
 		});
+		FrontPage.setText(Language.getInstance().getBundle().getString("FrontPageButton"));
+		SearchButton.setText(Language.getInstance().getBundle().getString("SearchButton"));
+		
 	}
 	
 	@FXML
@@ -134,7 +145,7 @@ public class GUIController {
 		 everythingFound = controller.getSearchable();
 		 System.out.println("Fetched all the searchable values");
     }
-	/*
+	/**
 	 * refreshSearchList-method is triggered by keypresses in the search-bar.
 	 * Each time a new key is pressed, the method will compare the user's input
 	 * against a list of all names in the database. 

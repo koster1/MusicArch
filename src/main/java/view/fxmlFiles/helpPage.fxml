@@ -27,7 +27,7 @@
                            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                         </padding>
                         <children>
-                           <Text id="helptext" fx:id="HelpText" strokeType="OUTSIDE" strokeWidth="0.0" text="%HelpText"/>
+                           <Text id="helptext" fx:id="HelpText" strokeType="OUTSIDE" strokeWidth="0.0" text="HelpText"/>
                         </children>
                         <opaqueInsets>
                            <Insets />
@@ -43,3 +43,5 @@
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
    </padding>
 </AnchorPane>
+
+

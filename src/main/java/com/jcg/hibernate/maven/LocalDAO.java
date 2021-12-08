@@ -31,7 +31,7 @@ public class LocalDAO {
 	
 	
 	
-	public boolean createGenre(LocalGenre genre, LocalAlbum localAlbum) throws Exception {
+	public boolean createGenre(LocalGenre genre) throws Exception {
 		LocalGenre[] genreSearch;
 		genreSearch = readGenres();
 		
@@ -48,7 +48,7 @@ public class LocalDAO {
 			transAct = session.beginTransaction();
 			
 			
-			genre.addAlbum(localAlbum);
+//			genre.addAlbum(localAlbum);
 			session.saveOrUpdate(genre);
 			
 //			session.saveOrUpdate(genre);
@@ -388,6 +388,30 @@ public class LocalDAO {
 		}
 	}
 	
+	public LocalAlbum searchAlbum(String albumSearch) throws Exception{
+		Transaction transAct = null;
+		try(Session session = sessionFactory.openSession()){
+//			transAct = session.beginTransaction();	
+			Query query = session.createQuery("From Album where albumName like:name");
+			List<LocalAlbum> albumList = query.setParameter("name", albumSearch).list();
+
+			
+//			transAct.commit();
+			//session.close();
+			
+			if (albumList.size() == 0) {
+				System.out.println("Nothing found in the albums with this search -> "+albumSearch); //This is the one that bugs out! Jumps over to the catch -> "Cannot rollback transaction in current status [COMMITTED]
+				session.close();
+				throw new Exception("Nothing found!");
+			}
+			return albumList.get(0);
+		}catch(Exception e){
+			if(transAct != null)
+				transAct.rollback();
+			throw e;
+		}
+	}
+	
 	//To be tested! Still not sure how to handle the song list here :/
 	public boolean editAlbum(LocalAlbum albumEdit, LocalSong[] songEdit, int id) {
 		Transaction transAct = null;		
@@ -550,7 +574,7 @@ public class LocalDAO {
 		return false;
 	}
 	
-	public boolean addToWishlist(int albumID) {
+	public boolean addToWishlist(int albumID, String albumName, int albumYear) {
 		if(searchWishlist(albumID) == true) {
 			return false;
 		}
@@ -559,6 +583,8 @@ public class LocalDAO {
 			transAct = session.beginTransaction();
 			WishList wishList = new WishList();
 			wishList.setAlbumID(albumID);
+			wishList.setAlbumName(albumName);
+			wishList.setAlbumYear(albumYear);
 			session.save(wishList);
 			transAct.commit();
 			session.close();
@@ -600,6 +626,23 @@ public class LocalDAO {
 			if(transAct != null) {
 				transAct.rollback();
 			}
+			throw e;
+		}
+	}
+	
+	public List<WishList> readWishList() {
+		Transaction transAct = null;
+		try(Session session = sessionFactory.openSession()){
+			transAct = session.beginTransaction();
+			System.out.println("wishlist1");
+			@SuppressWarnings("unchecked")
+			List<WishList> result = (List<WishList>) session.createQuery("from WishList order by AlbumName").list();
+			System.out.println("wishlist2");
+			transAct.commit();
+			return result;
+		}catch (Exception e) {
+			if (transAct != null)
+				transAct.rollback();
 			throw e;
 		}
 	}

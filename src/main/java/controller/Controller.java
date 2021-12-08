@@ -114,6 +114,16 @@ public class Controller {
 
     	localDAO.createArtist(localArtist);
     }
+    public void createLocalGenre(int genreID, String genreName) throws Exception {
+    	LocalGenre localGenre = new LocalGenre();
+    	LocalGenre remoteGenre = localDAO.searchGenre(genreName);
+    	
+    	localGenre.setGenreID(genreID);
+    	localGenre.setGenreName(genreName);
+
+    	
+    	localDAO.createGenre(localGenre);
+    }
     public void createLocalAlbum(int albumID, String albumName, Set<Song> songListGiven, int albumYear, Set<Genre> genreListGiven, Set<Artist> artistListGiven ) throws Exception {
     	LocalAlbum newAlbum = new LocalAlbum();
     	LocalSong[] songList = new LocalSong[songListGiven.size()];
@@ -193,13 +203,13 @@ public class Controller {
     	remoteDAO.editArtist(editArtist, artistID);
     }
     //Still WIP
-    public void editAlbum(int albumID, String albumName, int albumYear, String[] artistListEdit, String[] genreListEdit, String[] songListEdit) {
+    public void editAlbum(int albumID, String albumName, int albumYear, String[] artistListEdit, String[] genreListEdit) {
     	Album editAlbum = new Album();
     	
     	editAlbum.setAlbumName(albumName);
     	editAlbum.setAlbumYear(albumYear);
     	
-    	if(genreListEdit.length != 0 || artistListEdit.length != 0 || songListEdit.length != 0) {
+    	if(genreListEdit.length != 0 || artistListEdit.length != 0) {
     		for(int i = 0; i < genreListEdit.length; i++) {
     			try {
     				Genre genre = remoteDAO.searchGenre(genreListEdit[i]);
@@ -220,16 +230,8 @@ public class Controller {
     				System.out.println("Failed to add an artist to the editable list! (In Controller's editAlbum() method! Error message -> "+e.getMessage());
     			}
     		}
-    		for(int i = 0; i < songListEdit.length; i++) {
-    			try {
-    				Song song = remoteDAO.searchSong(songListEdit[i]);
-    				if(song != null) {
-    					editAlbum.addSong(song);
-    				}
-    			}catch(Exception e) {
-    				System.out.println("Failed to add a song to the editable list! (In Controller's editAlbum() method! Error message -> "+e.getMessage());
-    			}
-    		}
+    		
+    		
     	}
     	try {
 			remoteDAO.editAlbum(albumID, editAlbum);
@@ -323,6 +325,10 @@ public class Controller {
     	return localDAO.existingArtists();
     }
     
+    public LocalAlbum searchLocalAlbum(String albumName) throws Exception {
+		return localDAO.searchAlbum(albumName);
+}
+    
     public LocalGenre[] getLocalGenres() {
     	return localDAO.readGenres();
     }
@@ -370,10 +376,14 @@ public class Controller {
     	return localDAO.localAlbumSongs(albumID);
     }
     
-    public boolean addToWishlist(int albumID) {
+    public boolean addToWishlist(int albumID, String albumName, int albumYear) {
     	
-    	localDAO.addToWishlist(albumID);
+    	localDAO.addToWishlist(albumID, albumName, albumYear);
     	return true;
+    }
+    
+    public List<WishList> readWishList() {
+    	return localDAO.readWishList();
     }
     
 }

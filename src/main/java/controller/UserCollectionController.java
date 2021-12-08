@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TitledPane;
@@ -21,14 +22,13 @@ import model.LocalAlbum;
 import model.LocalArtist;
 import model.LocalGenre;
 import model.LocalSong;
+import model.WishList;
 import view.View;
 
 
 import com.jcg.hibernate.maven.Genre;
 
 import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 
 public class UserCollectionController {
@@ -76,6 +76,15 @@ public class UserCollectionController {
     @FXML
     private Text InputText;
     
+    @FXML
+    private Tab WishListTab;
+    
+    @FXML
+    private ListView<WishList> GridWishListView;
+    
+    @FXML
+    private Label InfoText;
+    
     private boolean allowed;
     
     private String tempText = "";
@@ -87,6 +96,7 @@ public class UserCollectionController {
     public UserCollectionController(Controller controller) {
 
     	this.controller = controller;
+    	
     }
     
     /**
@@ -95,8 +105,6 @@ public class UserCollectionController {
 	 * **/
     @FXML
     protected void initialize() {
-    	
-
     	LocalAlbum[] albumList;
     	try {
 //    		ResourceBundle bundle = ResourceBundle.getBundle("",)
@@ -160,6 +168,67 @@ public class UserCollectionController {
     	} catch(Exception e) {
     		System.out.println(e.getMessage() + " usercollection init");
     	}
+    	List<WishList> wishList;
+		try {
+   		
+    		wishList = controller.readWishList();
+    		ObservableList<WishList> choices = FXCollections.observableArrayList(wishList);
+    		for(WishList wish : wishList) {
+    			System.out.println(wish);
+    		}
+    		
+    		GridWishListView.setCellFactory(lv -> new ListCell<WishList>() {
+    			@Override
+    			protected void updateItem(WishList localAlbum, boolean empty) {
+    				super.updateItem(localAlbum, empty);
+    				setText(empty || localAlbum == null || wishList.size() == 0 ? "" : localAlbum.getAlbumName());
+    			}
+    		});			
+    		
+    		GridWishListView.setItems(choices);
+    		
+    		// Still needs implementation on how to present the wishlist data in the middle part:
+    		
+//    		GridWishListView.setOnMouseClicked(me -> {
+//    			AddDescriptionButton.setDisable(true);
+//    			this.allowed = false;
+//    			LocalAlbum listLocalAlbum = GridWishListView.getSelectionModel().getSelectedItem();
+//    			List<LocalGenre> localGenre = controller.getLocalAlbumGenres(listLocalAlbum.getAlbumID());
+//    			List<LocalArtist> localArtist = controller.getLocalAlbumArtists(listLocalAlbum.getAlbumID());
+//    			if(listLocalAlbum != null) {
+//    				AlbumNameLabel.setText(listLocalAlbum.getAlbumName()); 				
+//    			}
+//    			if(localGenre.size() > 0) {
+//    				AlbumGenreLabel.setText(localGenre.get(0).getGenreName());
+//    				System.out.println(listLocalAlbum.getAlbumName());
+//    			} else {
+//    				AlbumGenreLabel.setText("Ei löytynyt genrejä");
+//    			}
+//    			if(localArtist.size() > 0) {
+//    				AlbumArtistLabel.setText(localArtist.get(0).getArtistName());
+//    			} else {
+//    				AlbumArtistLabel.setText("Ei löytynyt artisteja");
+//    			}
+//    			this.tempText = controller.getLocalAlbumDescription(listLocalAlbum.getAlbumID());
+//    			AlbumTextArea.setText(this.tempText);
+//    			InputText.setText("" + AlbumTextArea.getText().length() + "/" + "1000");
+//    			List<LocalSong> localSongs = controller.getLocalAlbumSongs(listLocalAlbum.getAlbumID());
+//    			ObservableList<LocalSong> observableSongs = FXCollections.observableArrayList(localSongs);
+//    			
+//        		SongListView.setCellFactory(lv -> new ListCell<LocalSong>() {
+//        			@Override
+//        			protected void updateItem(LocalSong localSong, boolean empty) {
+//        				super.updateItem(localSong, empty);
+//        				setText(empty || localSong == null || localSongs.size() == 0 ? "" : localSong.getSongName());
+//        			}
+//        		});		
+//    			SongListView.setItems(observableSongs);
+//    		});
+    		
+    		
+    	} catch(Exception e) {
+    		System.out.println(e.getMessage() + " usercollection init");
+    	}
 
     }
     @FXML
@@ -193,10 +262,12 @@ public class UserCollectionController {
     	if(allowed) {
     		this.tempText = AlbumTextArea.getText();
     		LocalAlbum localAlbum = GridListView.getSelectionModel().getSelectedItem();
-    		localAlbum.setAlbumDescription(this.tempText);
-    		controller.editLocalAlbumDescription(localAlbum);
-    		InputText.setText("Kuvaus tallennettu");
-    		AddDescriptionButton.setDisable(true);
+    		if(localAlbum != null) {
+    			localAlbum.setAlbumDescription(this.tempText);
+    			controller.editLocalAlbumDescription(localAlbum);
+    			InfoText.setText(Language.getInstance().getBundle().getString("SavedText"));
+    			AddDescriptionButton.setDisable(true);
+    		}
     	}
     }
     
@@ -204,16 +275,19 @@ public class UserCollectionController {
     void charLimit(KeyEvent event) {
     	InputText.setText("" + AlbumTextArea.getText().length() + "/" + "1000");
     	if(this.tempText.equals(AlbumTextArea.getText())) {
+    		InfoText.setText(Language.getInstance().getBundle().getString("SaveText"));
     		AddDescriptionButton.setDisable(true);
     	} else {
+    		InfoText.setText(Language.getInstance().getBundle().getString("SaveText"));
     		AddDescriptionButton.setDisable(false);
     	}
     	allowed = true;
     	if(AlbumTextArea.getText().length() > 1000) {
-    		InputText.setText("Poista " + (AlbumTextArea.getText().length() - 1000) + " merkkiä");
+    		InputText.setText((AlbumTextArea.getText().length() - 1000) + Language.getInstance().getBundle().getString("CharOver"));
     		this.allowed = false;
     		AddDescriptionButton.setDisable(!this.allowed);
     	}
     }
+    
 
 }
