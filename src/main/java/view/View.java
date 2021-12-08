@@ -46,6 +46,7 @@ public class View extends Application {
 	@Override
 	public void start(Stage primaryStage) throws IOException {
 		Language.getInstance().setLocale("en", "FI");
+		
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("M U S I C A R C H");
 		this.primaryStage.initStyle(StageStyle.DECORATED);
@@ -61,7 +62,7 @@ public class View extends Application {
 		// Load root layout from fxml file.
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(View.class.getResource("/view/fxmlFiles/RootLayout2.fxml"));
-
+		loader.setResources(Language.getInstance().getBundle());
 		rootLayout = (BorderPane) loader.load();
 		Scene scene = new Scene(rootLayout);
 		String css = this.getClass().getResource("/view/style.css").toExternalForm();
@@ -80,6 +81,7 @@ public class View extends Application {
 
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(View.class.getResource("/view/fxmlFiles/FrontPage.fxml"));
+		loader.setResources(Language.getInstance().getBundle());
 		loader.setControllerFactory(FrontPageController -> new FrontPageController(controller));
 		try {
 			System.out.println("lataaja " + loader);
@@ -95,6 +97,7 @@ public class View extends Application {
 	public static void showHelpPage() throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(View.class.getResource("/view/fxmlFiles/helpPage.fxml"));
+		loader.setResources(Language.getInstance().getBundle());
 		loader.setControllerFactory(HelpController -> new HelpController(controller));
 		AnchorPane Frontpage = (AnchorPane) loader.load();
 		rootLayout.setCenter(Frontpage);
@@ -105,6 +108,7 @@ public class View extends Application {
 	public static void showSearchPage(String searchText) throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(View.class.getResource("/view/fxmlFiles/SearchPage.fxml"));
+		loader.setResources(Language.getInstance().getBundle());
 		loader.setControllerFactory(SearchController -> new SearchController(searchText, controller));
 		AnchorPane Frontpage = (AnchorPane) loader.load();
 		rootLayout.setCenter(Frontpage);
@@ -114,6 +118,7 @@ public class View extends Application {
 	public static void showAlbumPage(int id) throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(View.class.getResource("/view/fxmlFiles/AlbumPage.fxml"));
+		loader.setResources(Language.getInstance().getBundle());
 		loader.setControllerFactory(AlbumPageController -> new AlbumPageController(controller, id));
 		AnchorPane Frontpage = (AnchorPane) loader.load();
 		rootLayout.setCenter(Frontpage);
@@ -140,6 +145,7 @@ public class View extends Application {
 		if (test) {
 			FXMLLoader fxmlLoader = new FXMLLoader();
 			fxmlLoader.setLocation(View.class.getResource("/view/fxmlFiles/UserCollection.fxml"));
+			fxmlLoader.setResources(Language.getInstance().getBundle());
 			fxmlLoader.setControllerFactory(UserCollectionController -> new UserCollectionController(controller));
 			userRoot = (AnchorPane) fxmlLoader.load();
 			Scene scene = new Scene(userRoot);
@@ -197,6 +203,7 @@ public class View extends Application {
 
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(View.class.getResource("/view/fxmlFiles/GenreForm.fxml"));
+		loader.setResources(Language.getInstance().getBundle());
 		loader.setControllerFactory(RequestFormsController -> new RequestFormsController(controller));
 		AnchorPane genre = (AnchorPane) loader.load();
 		anotherRoot.setCenter(genre);
@@ -205,6 +212,7 @@ public class View extends Application {
 	public static void showAlbumForm() throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(View.class.getResource("/view/fxmlFiles/AlbumForm.fxml"));
+		loader.setResources(Language.getInstance().getBundle());
 		loader.setControllerFactory(RequestFormsController -> new RequestFormsController(controller));
 		AnchorPane album = (AnchorPane) loader.load();
 		anotherRoot.setCenter(album);
@@ -213,6 +221,7 @@ public class View extends Application {
 	public static void showArtistForm() throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(View.class.getResource("/view/fxmlFiles/ArtistForm.fxml"));
+		loader.setResources(Language.getInstance().getBundle());
 		loader.setControllerFactory(RequestFormsController -> new RequestFormsController(controller));
 		AnchorPane artist = (AnchorPane) loader.load();
 		anotherRoot.setCenter(artist);
