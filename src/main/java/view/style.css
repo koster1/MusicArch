@@ -8,8 +8,11 @@
 
 /*Päänäkymän elementtejä */
 
+.albumGenreText{
+-fx-font-size: 23.0px;
+}
 .text {
--fx-font-size: 14.0px;
+-fx-font-size: 16.0px;
 }
 
 #root {
@@ -227,3 +230,4 @@ Text {
  .collectionGrid {
 -fx-border-color: #404040;
  }
+

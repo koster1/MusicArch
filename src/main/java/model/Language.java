@@ -6,7 +6,7 @@ import java.util.Properties;
 import java.util.ResourceBundle;
 
 public class Language {
-	ResourceBundle bundle;
+	private ResourceBundle bundle;
 	private static Language INSTANCE = null;
 	private Properties properties = new Properties();
 	private Locale currentLocale;
@@ -55,7 +55,7 @@ public class Language {
 	}
 	
 	public void setDefault(Locale language) {
-		this.bundle = ResourceBundle.getBundle("languageBundle_fi");
+		this.bundle = ResourceBundle.getBundle("TextResources_en_FI");
 	}
 	
 	public ResourceBundle getBundle() {
