@@ -25,6 +25,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import javafx.stage.StageStyle;
+import model.Language;
 
 
 public class View extends Application {
@@ -44,7 +45,7 @@ public class View extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws IOException {
-
+		Language.getInstance().setLocale("en", "FI");
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("M U S I C A R C H");
 		this.primaryStage.initStyle(StageStyle.DECORATED);

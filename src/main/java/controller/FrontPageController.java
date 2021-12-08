@@ -12,11 +12,14 @@ import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import view.View;
 
 public class FrontPageController {
@@ -44,6 +47,9 @@ public class FrontPageController {
 
     @FXML
     private ButtonBar BreadCrumbBar;
+    
+    @FXML
+    private Label ArtistOrGenreLabel;
 	
 	public FrontPageController(Controller controller) {
 		this.controller = controller;
@@ -97,7 +103,7 @@ public class FrontPageController {
 	public void updateGenreList() {
 		Genre listGenre = FrontGenreListView.getSelectionModel().getSelectedItem();
 		List<Album> genreAlbums = controller.getGenreAlbums(listGenre.getGenreID());
-		
+		ArtistOrGenreLabel.setText(listGenre.getGenreName());
 
 
 		if(genreAlbums.size() > 0) {
@@ -110,20 +116,26 @@ public class FrontPageController {
 					if(counter >= genreAlbums.size()) {
 						break;
 					}
+					Text text2 = new Text("Release year: " + String.valueOf(genreAlbums.get(counter).getAlbumYear()));
+					text2.setFont(new Font(15));
 					Button button = new Button(genreAlbums.get(counter).getAlbumName());
 					button.setId(String.valueOf(genreAlbums.get(counter).getAlbumID()));
+					button.setMinWidth(150);
+					GridPane grid = new GridPane();
+					grid.add(text2, 0, 1);
+					grid.add(button, 0, 2);
 					button.addEventHandler(EventType.ROOT, (event) -> {
 						if(event.getEventType() == ActionEvent.ACTION) {
 							try {
 								
 								view.showAlbumPage(Integer.valueOf(button.getId()));
 							} catch (IOException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 						}
 					});
-					FrontPageGrid.add(button, i, j);
+					FrontPageGrid.add(grid, i, j);
+//					FrontPageGrid.add(button, i, j);
 					counter++;
 				}
 			}
@@ -136,6 +148,7 @@ public class FrontPageController {
 	public void updateArtistList() {
 		Artist listArtist = FrontArtistListView.getSelectionModel().getSelectedItem();
 		List<Album> artistAlbums = controller.getArtistAlbums(listArtist.getArtistID());
+		ArtistOrGenreLabel.setText(listArtist.getArtistName());
 		if(artistAlbums.size() > 0) {
 			FrontPageGrid.getChildren().clear();
 			
@@ -146,20 +159,28 @@ public class FrontPageController {
 					if(counter >= artistAlbums.size()) {
 						break;
 					}
+					GridPane grid = new GridPane();
+					Text text2 = new Text("Release Year: " + String.valueOf(artistAlbums.get(counter).getAlbumYear()));
+					text2.setFont(new Font(15));
 					Button button = new Button(artistAlbums.get(counter).getAlbumName());
+					button.setMinWidth(150);
 					button.setId(String.valueOf(artistAlbums.get(counter).getAlbumID()));
+					grid.add(text2, 0, 1);
+					grid.add(button, 0, 2);
+					
+//					grid.setGridLinesVisible(true);
 					button.addEventHandler(EventType.ROOT, (event) -> {
 						if(event.getEventType() == ActionEvent.ACTION) {
 							try {
 								
 								view.showAlbumPage(Integer.valueOf(button.getId()));
 							} catch (IOException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 						}
 					});
-					FrontPageGrid.add(button, i, j);
+					FrontPageGrid.add(grid, i, j);
+//					FrontPageGrid.add(button, i, j);
 					counter++;
 				}
 			}

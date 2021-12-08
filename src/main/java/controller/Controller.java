@@ -114,6 +114,16 @@ public class Controller {
 
     	localDAO.createArtist(localArtist);
     }
+    public void createLocalGenre(int genreID, String genreName) throws Exception {
+    	LocalGenre localGenre = new LocalGenre();
+    	LocalGenre remoteGenre = localDAO.searchGenre(genreName);
+    	
+    	localGenre.setGenreID(genreID);
+    	localGenre.setGenreName(genreName);
+
+    	
+    	localDAO.createGenre(localGenre);
+    }
     public void createLocalAlbum(int albumID, String albumName, Set<Song> songListGiven, int albumYear, Set<Genre> genreListGiven, Set<Artist> artistListGiven ) throws Exception {
     	LocalAlbum newAlbum = new LocalAlbum();
     	LocalSong[] songList = new LocalSong[songListGiven.size()];
@@ -314,6 +324,10 @@ public class Controller {
     public List<String> existinLocalArtists() {
     	return localDAO.existingArtists();
     }
+    
+    public LocalAlbum searchLocalAlbum(String albumName) throws Exception {
+		return localDAO.searchAlbum(albumName);
+}
     
     public LocalGenre[] getLocalGenres() {
     	return localDAO.readGenres();
