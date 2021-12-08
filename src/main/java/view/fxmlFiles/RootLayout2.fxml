@@ -15,7 +15,7 @@
    <top>
       <ButtonBar fx:id="Buttonbar" nodeOrientation="RIGHT_TO_LEFT" prefHeight="58.0" prefWidth="9000" styleClass="Buttonbar" stylesheets="@../style.css" BorderPane.alignment="CENTER">
         <buttons>
-            <AnchorPane id="root" nodeOrientation="LEFT_TO_RIGHT" prefHeight="67.0" prefWidth="1190.0">
+            <AnchorPane id="root" nodeOrientation="LEFT_TO_RIGHT" prefHeight="67.0" prefWidth="9000.0">
                <children>
                   <Button fx:id="FrontPage" layoutX="14.0" layoutY="16.0" maxWidth="150.0" minHeight="-Infinity" minWidth="100.0" mnemonicParsing="false" onAction="#goFrontPage" text="FrontPageButton" />
                   <Button id="root" fx:id="SearchButton" layoutX="1083.0" layoutY="11.0" mnemonicParsing="false" onAction="#SearchTxt" text="SearchButton" AnchorPane.rightAnchor="52.20000000000009" />

@@ -23,6 +23,7 @@ public class albumTest {
 	private String artistName = "Jenkins Artist";
 	private String artistBio = "Jenkins' personal little artist!";
 	private String genreName = "A really cool Jenkins Genre!";
+	private String[] songNames = {"Song 1", "Song 2", "Song 3"};
 	private Controller controller = new Controller();
 	
 	@BeforeEach
@@ -47,7 +48,7 @@ public class albumTest {
 		testAlbum.setAlbumName(givenAlbumTitle);
 		testAlbum.setAlbumYear(1234);
 		
-		controller.createAlbum(givenAlbumTitle, 1234, testGenreList, testArtistList, testArtistList);
+		controller.createAlbum(givenAlbumTitle, 1234, testGenreList, testArtistList, songNames);
 		assertEquals(givenAlbumTitle, controller.searchAlbum(givenAlbumTitle).getAlbumName(), "Expected to find Test Album");	
 		controller.removeAlbum(controller.searchAlbum(givenAlbumTitle).getAlbumID());
 	}
@@ -65,7 +66,7 @@ public class albumTest {
 		testAlbum.setAlbumName(givenAlbumTitle);
 		testAlbum.setAlbumYear(1234);
 		
-		controller.createAlbum(givenAlbumTitle, 1234, testGenreList, testArtistList, testArtistList);
+		controller.createAlbum(givenAlbumTitle, 1234, testGenreList, testArtistList, songNames);
 		assertEquals(givenAlbumTitle, controller.searchAlbum(givenAlbumTitle).getAlbumName(), "Expected to find Test Album");
 		controller.removeAlbum(controller.searchAlbum(givenAlbumTitle).getAlbumID());
 	}
@@ -83,7 +84,7 @@ public class albumTest {
 		testAlbum.setAlbumName(givenAlbumTitle);
 		testAlbum.setAlbumYear(1234);
 		
-		controller.createAlbum(givenAlbumTitle, 1234, testGenreList, testArtistList, testArtistList);
+		controller.createAlbum(givenAlbumTitle, 1234, testGenreList, testArtistList, songNames);
 		controller.removeAlbum(controller.searchAlbum(givenAlbumTitle).getAlbumID());
 		assertThrows(Exception.class, () -> {
 			controller.searchAlbum(givenAlbumTitle).getAlbumName();

@@ -31,7 +31,7 @@ public class LocalDAO {
 	
 	
 	
-	public boolean createGenre(LocalGenre genre, LocalAlbum localAlbum) throws Exception {
+	public boolean createGenre(LocalGenre genre) throws Exception {
 		LocalGenre[] genreSearch;
 		genreSearch = readGenres();
 		
@@ -48,7 +48,7 @@ public class LocalDAO {
 			transAct = session.beginTransaction();
 			
 			
-			genre.addAlbum(localAlbum);
+//			genre.addAlbum(localAlbum);
 			session.saveOrUpdate(genre);
 			
 //			session.saveOrUpdate(genre);
@@ -383,6 +383,30 @@ public class LocalDAO {
 			return (LocalAlbum[]) result.toArray(array);
 		}catch (Exception e) {
 			if (transAct != null)
+				transAct.rollback();
+			throw e;
+		}
+	}
+	
+	public LocalAlbum searchAlbum(String albumSearch) throws Exception{
+		Transaction transAct = null;
+		try(Session session = sessionFactory.openSession()){
+//			transAct = session.beginTransaction();	
+			Query query = session.createQuery("From Album where albumName like:name");
+			List<LocalAlbum> albumList = query.setParameter("name", albumSearch).list();
+
+			
+//			transAct.commit();
+			//session.close();
+			
+			if (albumList.size() == 0) {
+				System.out.println("Nothing found in the albums with this search -> "+albumSearch); //This is the one that bugs out! Jumps over to the catch -> "Cannot rollback transaction in current status [COMMITTED]
+				session.close();
+				throw new Exception("Nothing found!");
+			}
+			return albumList.get(0);
+		}catch(Exception e){
+			if(transAct != null)
 				transAct.rollback();
 			throw e;
 		}

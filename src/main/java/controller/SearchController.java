@@ -66,8 +66,6 @@ public class SearchController {
 			SearchGrid.add(new Text("Albumia " + this.search + " ei löytynyt"), 0, 2);
 			System.out.println(e.getMessage());
 		}
-		
-		
 	}
 
 

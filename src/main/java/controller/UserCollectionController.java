@@ -27,8 +27,6 @@ import view.View;
 import com.jcg.hibernate.maven.Genre;
 
 import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 
 public class UserCollectionController {
@@ -87,6 +85,7 @@ public class UserCollectionController {
     public UserCollectionController(Controller controller) {
 
     	this.controller = controller;
+    	
     }
     
     /**
@@ -95,8 +94,7 @@ public class UserCollectionController {
 	 * **/
     @FXML
     protected void initialize() {
-    	
-
+    	UserCollectionTitle.setText(Language.getInstance().getBundle().getString("UserCollectionTitle"));
     	LocalAlbum[] albumList;
     	try {
 //    		ResourceBundle bundle = ResourceBundle.getBundle("",)

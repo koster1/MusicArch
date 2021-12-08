@@ -145,7 +145,7 @@ public class GUIController {
 		 everythingFound = controller.getSearchable();
 		 System.out.println("Fetched all the searchable values");
     }
-	/*
+	/**
 	 * refreshSearchList-method is triggered by keypresses in the search-bar.
 	 * Each time a new key is pressed, the method will compare the user's input
 	 * against a list of all names in the database. 

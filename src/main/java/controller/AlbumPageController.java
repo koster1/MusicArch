@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -58,6 +59,9 @@ public class AlbumPageController {
 	    
 	    @FXML
 	    private Button editButton;
+	    
+	    @FXML
+	    private Button deleteButton;
 
 	    @FXML
 	    private ListView<Song> SongListView;
@@ -67,6 +71,24 @@ public class AlbumPageController {
 	    
 	    @FXML
 	    private GridPane genreGrid;
+	    
+	    @FXML
+	    private GridPane albumNameGrid;
+	    
+	    @FXML
+	    private GridPane albumYearGrid;
+	    
+	    @FXML
+	    private TextField albumNameField;
+
+	    @FXML
+	    private Label albumNameLabel;
+
+	    @FXML
+	    private TextField albumYearField;
+
+	    @FXML
+	    private Label albumYearLabel;
 	    
 	    private int id;
 	    private Album album;
@@ -86,9 +108,7 @@ public class AlbumPageController {
 	
 	@FXML
 	protected void initialize() {
-//		System.out.println("Frontpage id=" + this.id);
-//		System.out.println("Albuminimi: " + album.getAlbumName());
-//		System.out.println("artisti?? " +  artists);
+		
 		try {
 			controller.readLocalAlbum(id);
 			CollectionAdd.setDisable(true);
@@ -100,16 +120,41 @@ public class AlbumPageController {
 		Genre[] genreArray = genres.toArray(new Genre[genres.size()]);
 		
 		
+		
 		artistGrid.getChildren().clear();
 		artistGrid.setMaxWidth(250.0);
 		genreGrid.getChildren().clear();
 		genreGrid.setMaxWidth(250.0);
+		albumNameGrid.getChildren().clear();
+		albumNameGrid.setMaxWidth(250.0);
+		albumYearGrid.getChildren().clear();
+		albumYearGrid.setMaxWidth(250.0);
+				
+		TextField albumNameField = new TextField();
+		albumNameField.setText(album.getAlbumName());
+		albumNameGrid.add(albumNameField, 0, 0);
+		albumNameField.setVisible(false);
 		
+		Label albumNameLabel = new Label();
+		albumNameLabel.setText(album.getAlbumName());
+		albumNameGrid.add(albumNameLabel, 0, 0);
+		albumNameLabel.setVisible(true);
+		
+		TextField albumYearField = new TextField();
+		albumYearField.setText(String.valueOf(album.getAlbumYear()));
+		
+		albumYearGrid.add(albumYearField, 0, 0);
+		albumYearField.setVisible(false);
+		
+		Label albumYearLabel = new Label();
+		albumYearLabel.setText(String.valueOf(album.getAlbumYear()));
+		
+		albumYearGrid.add(albumYearLabel, 0, 0);
+		albumYearLabel.setVisible(true);
 		for (int i = 0; i<artistArray.length; i++) {
 			TextField artistField = new TextField();
 			artistField.setText(artistArray[i].getArtistName());
 			artistGrid.add(artistField, i, 0);
-//			artistGrid.setMargin(artistField, new Insets(3.0));
 			artistField.setVisible(false);
 			
 			Label artistLabel = new Label();
@@ -117,7 +162,6 @@ public class AlbumPageController {
 			artistGrid.add(artistLabel, i, 0); 
 			artistLabel.setVisible(true);
 		}
-		
 		
 		for(int i = 0; i<genreArray.length; i++) {
 			TextField genreField = new TextField();
@@ -131,12 +175,13 @@ public class AlbumPageController {
 			genreLabel.setVisible(true);
 		}		
 		
-		AlbumName.setText(album.getAlbumName());
-		AlbumYear.setText(String.valueOf(album.getAlbumYear()));
+//		AlbumName.setText(album.getAlbumName());
+//		AlbumYear.setText(String.valueOf(album.getAlbumYear()));
 //		AlbumArtist.setText(artistString);
 //		AlbumGenre.setText(genreString); 
 		
 		ObservableList<Song> observableSongs = FXCollections.observableArrayList(songs);
+		
 		
 		SongListView.setCellFactory(lv -> new ListCell<Song>() {
 			@Override
@@ -147,54 +192,83 @@ public class AlbumPageController {
 		});	
 		
 		SongListView.setItems(observableSongs);
+		deleteButton.setVisible(false);
 		
-		AlbumYear.setText(String.valueOf(album.getAlbumYear()));	
+//		AlbumYear.setText(String.valueOf(album.getAlbumYear()));	
 	}
 		@FXML
 		void editContent(ActionEvent event) {
 			if(!editing) {
+				editing = true;	
 				flipChildren(genreGrid.getChildren());
 				flipChildren(artistGrid.getChildren());
+				flipChildren(albumYearGrid.getChildren());
+				flipChildren(albumNameGrid.getChildren());
+				
 				editButton.setText("Save");
-				editing = true;	
+				deleteButton.setVisible(true);
 				System.out.println("In edit mode!");
 			}else {
+				editing = false;
 				flipChildren(genreGrid.getChildren());
 				flipChildren(artistGrid.getChildren());
+				flipChildren(albumYearGrid.getChildren());
+				flipChildren(albumNameGrid.getChildren());
 				
-			editButton.setText("Edit");
-			System.out.println("Clicked save!");
-			editing = false;
-			
-			List<String> genreList = new ArrayList<>();
-			List<String> artistList = new ArrayList<>();
-
-			for(Node n : artistGrid.getChildren()) {
-				if(n instanceof TextField) {
-					artistList.add(((TextField)n).getText());
+				deleteButton.setVisible(false);
+				editButton.setText("Edit");
+				System.out.println("Clicked save!");
+				
+				List<String> genreList = new ArrayList<>();
+				List<String> artistList = new ArrayList<>();
+				String newName = new String();
+				int newYear = this.album.getAlbumYear();
+	
+				for(Node n : artistGrid.getChildren()) {
+					if(n instanceof TextField) {
+						artistList.add(((TextField)n).getText());
+					}
 				}
-			}
-			for(Node n : genreGrid.getChildren()) {
-				if(n instanceof TextField) {
-					genreList.add(((TextField)n).getText());
+				for(Node n : genreGrid.getChildren()) {
+					if(n instanceof TextField) {
+						genreList.add(((TextField)n).getText());
+					}
 				}
-			}
-			
-			String[] genreListTest = genreList.toArray(new String[genreList.size()]);
-			String[] artistListTest = artistList.toArray(new String[artistList.size()]);
-			String[] songListTest = {"First song", "Second song"};
-			
-			//These are for testing purposes
-			for(String s : genreList) {
-				System.out.println(s);
-			}
-			for(String s : artistList) {
-				System.out.println(s);
-			}
-			
-			int test = Integer.parseInt(this.AlbumYear.getText());
-			controller.editAlbum(id, this.AlbumName.getText(), test , artistListTest, genreListTest, songListTest);
-			}
+				for(Node n : albumNameGrid.getChildren()) {
+					if(n instanceof TextField) {
+						newName = ((TextField) n).getText();
+					}
+				}
+				for(Node n : albumYearGrid.getChildren()) {
+					if(n instanceof TextField) {
+						try {
+						newYear = Integer.parseInt(((TextField)n).getText());
+						}
+						catch(Exception e) {
+							System.out.println(e.getMessage());
+						}
+					}
+				}
+				
+				String[] genreListTest = genreList.toArray(new String[genreList.size()]);
+				String[] artistListTest = artistList.toArray(new String[artistList.size()]);
+				
+				//These are for testing purposes
+				for(String s : genreList) {
+					System.out.println(s);
+				}
+				for(String s : artistList) {
+					System.out.println(s);
+				}
+				
+				controller.editAlbum(id, newName, newYear, artistListTest, genreListTest);
+				try {
+					view.showAlbumPage(this.id);
+				} catch (IOException e) {
+					System.out.println("Failed to refresh album page");
+					e.printStackTrace();
+					}
+				}
 		}
 		
 		private void flipChildren(ObservableList<Node> list) {
@@ -206,6 +280,17 @@ public class AlbumPageController {
 				}
 			}
 		}
+		
+	  @FXML
+	  void deleteAlbum(ActionEvent event) {
+		controller.removeAlbum(this.id); 
+		try {
+			view.showFrontPage();
+		}catch(IOException e) {
+			System.out.println("Failed to refresh album page");
+			e.printStackTrace();
+		}
+	   }
 	
 	   @FXML
 	    void addToCollection(ActionEvent event) throws Exception {
