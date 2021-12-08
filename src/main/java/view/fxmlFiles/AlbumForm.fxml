@@ -29,19 +29,19 @@
          </content>
       </ScrollPane>
       <Label layoutX="118.0" layoutY="387.0" text="%SongListLabel" AnchorPane.leftAnchor="118.0" />
-      <Button id="PlusButtons" layoutX="356.0" layoutY="411.0" mnemonicParsing="false" onAction="#NewSong" prefHeight="30.0" prefWidth="30.0" text="%+" />
+      <Button id="PlusButtons" layoutX="356.0" layoutY="411.0" mnemonicParsing="false" onAction="#NewSong" prefHeight="30.0" prefWidth="30.0" text="+" />
       <ScrollPane id="scroll" layoutX="119.0" layoutY="411.0" prefHeight="90.0" prefWidth="220.0">
          <content>
             <VBox id="scroll" fx:id="root1" prefHeight="98.0" prefWidth="194.0" />
          </content>
       </ScrollPane>
-      <Button id="Send" layoutX="302.0" layoutY="535.0" maxWidth="80.0" mnemonicParsing="false" onAction="#SendAlbumButton" prefHeight="20.0" prefWidth="80.0" text="%SendButtonTitle" />
+      <Button id="Send" layoutX="302.0" layoutY="535.0" maxWidth="80.0" mnemonicParsing="false" onAction="#SendAlbumButton" prefHeight="20.0" prefWidth="80.0" text="%AlbumFomSendButtonTitle" />
       <ScrollPane id="scroll" layoutX="120.0" layoutY="160.0" prefHeight="90.0" prefWidth="220.0">
          <content>
             <VBox id="scroll" fx:id="root2" prefHeight="94.0" prefWidth="200.0" />
          </content>
       </ScrollPane>
-      <Button id="PlusButtons" layoutX="356.0" layoutY="160.0" mnemonicParsing="false" onAction="#NewGenre" prefHeight="30.0" prefWidth="30.0" text="%+" />
+      <Button id="PlusButtons" layoutX="356.0" layoutY="160.0" mnemonicParsing="false" onAction="#NewGenre" prefHeight="30.0" prefWidth="30.0" text="+" />
    </children>
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
