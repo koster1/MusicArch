@@ -60,7 +60,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="102.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Label id="labels" text="Albumin Tiedot" underline="true" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                                    <Label id="labels" fx:id="UserCollectionTitle" text="UserCollectionTitle" underline="true" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                                        <GridPane.margin>
                                           <Insets top="2.0" />
                                        </GridPane.margin>

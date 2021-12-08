@@ -21,7 +21,7 @@ public class Controller {
 
     public Controller() {}
     
-    public void createGenre(String genreName) {
+    public void createGenre(String genreName) throws Exception {
     	Genre newGenre = new Genre();
     	newGenre.setGenreName(genreName);
     	try {
@@ -29,9 +29,11 @@ public class Controller {
 		} catch (Exception e) {
 			System.out.println("Failed to create a genre! ");
 			e.printStackTrace();
+			throw e;
+
 		}
     }
-    public void createArtist(String artistName, String artistBio) {
+    public void createArtist(String artistName, String artistBio) throws Exception {
     	Artist newArtist = new Artist();
     	newArtist.setArtistName(artistName);
     	newArtist.setArtistBio(artistBio);
@@ -40,10 +42,11 @@ public class Controller {
 		} catch (Exception e) {
 			System.out.println("Failed to create an artist! ");
 			e.printStackTrace();
+			throw e;
 		}
     }
     //SongListGiven removed for testing purposes!
-    public void createAlbum(String albumName, int albumYear, String[] genreListGiven, String[] artistListGiven, String[] songListGiven) {
+    public void createAlbum(String albumName, int albumYear, String[] genreListGiven, String[] artistListGiven, String[] songListGiven) throws Exception {
     	
     	Album newAlbum = new Album();
     	newAlbum.setAlbumName(albumName);
@@ -92,6 +95,7 @@ public class Controller {
 			} catch (Exception e) {
 				System.out.println("Failed to create an Album!");
 				e.printStackTrace();
+				throw e;
 			}
     	}
     	else {

@@ -1,7 +1,12 @@
 package view;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
+import java.util.Properties;
+import java.util.ResourceBundle;
+
 import com.sun.glass.ui.Window;
 import controller.Controller;
 import controller.FrontPageController;
@@ -14,9 +19,13 @@ import controller.AlbumPageController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.ToolBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+
+import javafx.stage.StageStyle;
+
 
 public class View extends Application {
 
@@ -27,6 +36,7 @@ public class View extends Application {
 	private static GUIController guiController;
 	private static Controller controller;
 
+
 	public void init() {
 		controller = new Controller();
 		guiController = new GUIController(this, controller);
@@ -36,7 +46,9 @@ public class View extends Application {
 	public void start(Stage primaryStage) throws IOException {
 
 		this.primaryStage = primaryStage;
-		this.primaryStage.setTitle("MusicArch");
+		this.primaryStage.setTitle("M U S I C A R C H");
+		this.primaryStage.initStyle(StageStyle.DECORATED);
+	//	ToolBar toolBar = new ToolBar();
 		showHome();
 
 		showFrontPage();
