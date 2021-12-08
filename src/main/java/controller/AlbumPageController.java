@@ -59,6 +59,9 @@ public class AlbumPageController {
 	    
 	    @FXML
 	    private Button editButton;
+	    
+	    @FXML
+	    private Button deleteButton;
 
 	    @FXML
 	    private ListView<Song> SongListView;
@@ -281,6 +284,17 @@ public class AlbumPageController {
 				}
 			}
 		}
+		
+	  @FXML
+	  void deleteAlbum(ActionEvent event) {
+		controller.removeAlbum(this.id); 
+		try {
+			view.showFrontPage();
+		}catch(IOException e) {
+			System.out.println("Failed to refresh album page");
+			e.printStackTrace();
+		}
+	   }
 	
 	   @FXML
 	    void addToCollection(ActionEvent event) throws Exception {
