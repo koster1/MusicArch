@@ -85,6 +85,7 @@ public class UserCollectionController {
     public UserCollectionController(Controller controller) {
 
     	this.controller = controller;
+    	
     }
     
     /**
@@ -93,8 +94,7 @@ public class UserCollectionController {
 	 * **/
     @FXML
     protected void initialize() {
-    	
-
+    	UserCollectionTitle.setText(Language.getInstance().getBundle().getString("UserCollectionTitle"));
     	LocalAlbum[] albumList;
     	try {
 //    		ResourceBundle bundle = ResourceBundle.getBundle("",)
