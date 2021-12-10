@@ -88,7 +88,8 @@ public class Controller {
     		for(int i = 0; i<songListGiven.length; i++) {
 					Song song = new Song();
 					song.setSongName(songListGiven[i]);
-					linkSong.add(song);    			
+					linkSong.add(song);    		
+					System.out.println("Added song IN ORDER > "+song.getSongName());
     		}
     		try {
     			remoteDAO.createAlbum(newAlbum, linkArtist, linkGenre, linkSong);	
