@@ -282,9 +282,12 @@ public class AlbumPageController {
 			}
 		}
 		
+		
+
+		
 	  @FXML
 	  void deleteAlbum(ActionEvent event) {
-		controller.removeAlbum(this.id); 
+		  controller.removeAlbum(this.id); 
 		try {
 			view.showFrontPage();
 		}catch(IOException e) {

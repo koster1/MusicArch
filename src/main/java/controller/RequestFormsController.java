@@ -170,7 +170,6 @@ public class RequestFormsController {
 
 	@FXML
 	void NewSong(ActionEvent event) {
-
 		TextField field = new TextField();
 		final HBox parent = new HBox(5.0);
 		field.setId(String.valueOf(counter3++));
@@ -186,6 +185,7 @@ public class RequestFormsController {
 		HBox.setHgrow(button, Priority.NEVER);
 		parent.getChildren().setAll(field, button);
 		root1.getChildren().add(parent);
+		field.requestFocus();
 	}
 
 	// SendGenreButton sends textfield data to controller
