@@ -82,6 +82,13 @@
 -fx-focus-color: orange;
 -fx-faint-focus-color: orange;
 }
+ .text-area {
+
+-fx-text-box-border: transparent;
+-fx-background-insets: 0;
+
+}
+
 
 .text-area:focused {
 	-fx-focus-color: orange;
