@@ -25,6 +25,7 @@ public class Language {
 			properties.load(new FileInputStream("src/main/resources/MusicArch.properties"));
 			String language = properties.getProperty("language");
 			String country = properties.getProperty("country");
+			
 			currentLocale = new Locale(language, country);
 			Locale.setDefault(currentLocale);
 		} catch (Exception e) {
@@ -52,6 +53,9 @@ public class Language {
 				System.out.println(e.getMessage());
 			}
 			
+	}
+	public Locale getLocale() {
+		return this.currentLocale;
 	}
 	
 	public void setDefault(Locale language) {

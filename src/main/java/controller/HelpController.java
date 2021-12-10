@@ -1,16 +1,20 @@
 package controller;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Locale;
+import java.util.Properties;
 import java.util.Scanner;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import model.Language;
 import view.View;
 
 
@@ -34,10 +38,23 @@ public class HelpController {
 	
 	@FXML
 	protected void initialize() throws FileNotFoundException {
-
-
+		
+	Properties properties = new Properties();
+	
+	String helpLanguage = new String();
+	
+	try {
+		properties.load(new FileInputStream("src/main/resources/help.properties"));
+		helpLanguage = properties.getProperty(Locale.getDefault().toString());
+	} catch (FileNotFoundException e1) {
+		e1.printStackTrace();
+	} catch (IOException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	}
 	char[] buffer = null;
-	File file = new File("src/main/resources/helpfin.txt");
+	
+	File file = new File("src/main/resources/" + helpLanguage );
 	try(FileReader reader = new FileReader(file)){
 		buffer = new char[(int) file.length()];
 		reader.read(buffer);
