@@ -378,6 +378,7 @@ public class RequestFormsController {
 		TextField field = new TextField();
 		final HBox parent = new HBox(5.0);
 		field.setId(String.valueOf(counter3++));
+		field.setFocusTraversable(true);
 		System.out.print(field.getId());
 		songList.add(field);
 		System.out.println(field.getId());

@@ -239,7 +239,16 @@ public class View extends Application {
 		stage.setScene(error);
 		stage.show();
 	}
-
+	//Requestform for peruskäyttäjä
+	public void showRequestForm() throws IOException {
+		// TODO Auto-generated method stub
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(View.class.getResource("/view/fxmlFiles/requestForm.fxml"));
+		loader.setControllerFactory(SearchController -> new SearchController(controller));
+		AnchorPane requestFormAnchor = (AnchorPane) loader.load();
+		anotherRoot.setCenter(requestFormAnchor);
+	}
+	
 	public Stage getPrimaryStage() {
 		return primaryStage;
 	}
@@ -248,4 +257,6 @@ public class View extends Application {
 		launch(args);
 
 	}
+
+
 }

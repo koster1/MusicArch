@@ -1,15 +1,23 @@
 package controller;
 
+import java.io.IOException;
+
 import com.jcg.hibernate.maven.Album;
 import com.jcg.hibernate.maven.Artist;
 import com.jcg.hibernate.maven.Genre;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
+import view.View;
 
 public class SearchController {
-	
+	private View view;
+
 	private String search;
 	private Controller controller;
 	
@@ -27,13 +35,25 @@ public class SearchController {
 
     @FXML
     private Label AlbumLabel;
+    
+    @FXML
+    private Button requestFormButton;
+
+    @FXML
+    private AnchorPane requestFormAnchor;
 	
-	public SearchController (String search, Controller controller) {
+	public SearchController (String search,Controller controller) {
 		this.search = search;
 		this.controller = controller;
 	}
 	
 	
+	public SearchController(Controller controller2) {
+		// TODO Auto-generated constructor stub
+		this.controller = controller2;
+	}
+
+
 	/**
 	 * This initialize is for setting up the SearchPage with the search results
 	 * **/
@@ -69,6 +89,13 @@ public class SearchController {
 		
 		
 	}
+
+    @FXML
+    void openRequestForm(ActionEvent event) throws IOException {
+    	view.showRequestForm();
+    }
+	
+	
 
 
 }
