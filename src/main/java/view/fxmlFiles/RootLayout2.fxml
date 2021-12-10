@@ -17,8 +17,7 @@
         <buttons>
             <AnchorPane id="root" nodeOrientation="LEFT_TO_RIGHT" prefHeight="67.0" prefWidth="9000.0">
                <children>
-                  <Button fx:id="FrontPage" layoutX="14.0" layoutY="16.0" maxWidth="150.0" minHeight="-Infinity" minWidth="100.0" mnemonicParsing="false" onAction="#goFrontPage" text="Etusivu" />
-                  <Button id="root" fx:id="SearchButton" layoutX="1083.0" layoutY="11.0" mnemonicParsing="false" onAction="#SearchTxt" text="Hae" AnchorPane.rightAnchor="52.20000000000009" />
+                  <Button fx:id="FrontPage" layoutX="14.0" layoutY="16.0" maxWidth="150.0" minHeight="-Infinity" minWidth="100.0" mnemonicParsing="false" onAction="#goFrontPage" text="%FrontPageButton" />
                   <Button fx:id="UserCollection" layoutX="138.0" layoutY="16.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#goUserCollection" prefHeight="26.0" prefWidth="105.0" text="%UserCollectionButton" />
                   <Button fx:id="Requests" layoutX="268.0" layoutY="16.0" maxWidth="150.0" minHeight="-Infinity" minWidth="100.0" mnemonicParsing="false" onAction="#ShowRequests" text="%RequestsButton" />
                 <Button fx:id="Help" layoutX="390.0" layoutY="16.0" maxWidth="150.0" minHeight="-Infinity" minWidth="100.0" mnemonicParsing="false" onAction="#GoHelpPage" text="%HelpButton">
@@ -29,11 +28,11 @@
                      <contextMenu>
                         <ContextMenu fx:id="searchContext" />
                      </contextMenu></TextField>
-                  <Button fx:id="SearchButton" layoutX="925.0" layoutY="11.0" mnemonicParsing="false" onAction="#goSearchPage" prefHeight="26.0" prefWidth="77.0" text="Hae" AnchorPane.rightAnchor="187.80000000000007" />
-                  <MenuButton layoutX="1055.0" layoutY="12.0" mnemonicParsing="false" text="%LanguageButton" AnchorPane.rightAnchor="14.600000000000094" AnchorPane.topAnchor="12.0">
+                  <Button fx:id="SearchButton" layoutX="925.0" layoutY="11.0" mnemonicParsing="false" onAction="#goSearchPage" prefHeight="26.0" prefWidth="77.0" text="%SearchButton" AnchorPane.rightAnchor="187.80000000000007" />
+                  <MenuButton fx:id="RootMenuButton" layoutX="1088.0" layoutY="11.0" mnemonicParsing="false" style="-fx-background-color: #404040;" text="%LanguageButton" textFill="ORANGE" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="11.0">
                     <items>
-                      <MenuItem mnemonicParsing="false" text="English" />
-                      <MenuItem mnemonicParsing="false" text="Suomi" />
+                      <MenuItem fx:id="EnglishMenuItem" mnemonicParsing="false" onAction="#changeToEnglish" text="English" />
+                      <MenuItem fx:id="FinnishMenuItem" mnemonicParsing="false" onAction="#changeToFinnish" text="Suomi" />
                     </items>
                   </MenuButton>
                </children>

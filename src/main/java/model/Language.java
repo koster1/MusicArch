@@ -60,6 +60,7 @@ public class Language {
 	public void setLocale(String language, String country) {
 		try {
 			Locale.setDefault(new Locale(language, country));
+			bundle = ResourceBundle.getBundle("TextResources_" + language + "_" + country);
 			}catch (Exception e) {
 				System.out.println(e.getMessage());
 			}

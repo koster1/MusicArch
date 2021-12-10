@@ -30,7 +30,7 @@ import model.Language;
 
 public class View extends Application {
 
-	private Stage primaryStage;
+	private static Stage primaryStage;
 	private static BorderPane rootLayout;
 	private static BorderPane anotherRoot;
 	private static AnchorPane userRoot;
@@ -47,9 +47,9 @@ public class View extends Application {
 	public void start(Stage primaryStage) throws IOException {
 		Language.getInstance().setLocale("en", "FI");
 		
-		this.primaryStage = primaryStage;
-		this.primaryStage.setTitle("M U S I C A R C H");
-		this.primaryStage.initStyle(StageStyle.DECORATED);
+		View.primaryStage = primaryStage;
+		View.primaryStage.setTitle("M U S I C A R C H");
+		View.primaryStage.initStyle(StageStyle.DECORATED);
 	//	ToolBar toolBar = new ToolBar();
 		showHome();
 
@@ -225,6 +225,24 @@ public class View extends Application {
 		loader.setControllerFactory(RequestFormsController -> new RequestFormsController(controller));
 		AnchorPane artist = (AnchorPane) loader.load();
 		anotherRoot.setCenter(artist);
+	}
+	
+	public static void refreshUserCollection() throws IOException {
+		
+		FXMLLoader fxmlLoader = new FXMLLoader();
+		fxmlLoader.setLocation(View.class.getResource("/view/fxmlFiles/UserCollection.fxml"));
+		fxmlLoader.setResources(Language.getInstance().getBundle());
+		fxmlLoader.setControllerFactory(UserCollectionController -> new UserCollectionController(controller));
+		userRoot = (AnchorPane) fxmlLoader.load();
+		Scene scene = new Scene(userRoot);
+		scene.getWindow();
+		scene.getStylesheets().add("/view/style.css");
+		Stage stage2 = new Stage();
+		stage2.setMinWidth(1200);
+		stage2.setMinHeight(500);
+		stage2.setTitle("User");
+		stage2.setScene(scene);
+		stage2.show();
 	}
 
 	public Stage getPrimaryStage() {

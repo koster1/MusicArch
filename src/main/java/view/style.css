@@ -259,3 +259,9 @@ Text {
  .collectionGrid {
 -fx-border-color: #404040;
  }
+ 
+ #MenuButton {
+-fx-text-fill: orange !important;
+-fx-faint-focus-color: orange;
+-fx-focus-color:orange;
+ }
