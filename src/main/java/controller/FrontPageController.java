@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import com.jcg.hibernate.maven.Album;
 import com.jcg.hibernate.maven.Artist;
@@ -104,7 +105,9 @@ public class FrontPageController {
 		Genre listGenre = FrontGenreListView.getSelectionModel().getSelectedItem();
 		List<Album> genreAlbums = controller.getGenreAlbums(listGenre.getGenreID());
 		ArtistOrGenreLabel.setText(listGenre.getGenreName());
-
+		Collections.sort(genreAlbums, (x, y) -> {
+            return Integer.compare(x.getAlbumYear(), y.getAlbumYear());
+        });
 
 		if(genreAlbums.size() > 0) {
 			FrontPageGrid.getChildren().clear();
@@ -149,6 +152,9 @@ public class FrontPageController {
 		Artist listArtist = FrontArtistListView.getSelectionModel().getSelectedItem();
 		List<Album> artistAlbums = controller.getArtistAlbums(listArtist.getArtistID());
 		ArtistOrGenreLabel.setText(listArtist.getArtistName());
+		Collections.sort(artistAlbums, (x, y) -> {
+            return Integer.compare(x.getAlbumYear(), y.getAlbumYear());
+        });
 		if(artistAlbums.size() > 0) {
 			FrontPageGrid.getChildren().clear();
 			
