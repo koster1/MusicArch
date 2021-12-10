@@ -120,15 +120,15 @@ public class AlbumPageController {
 		Genre[] genreArray = genres.toArray(new Genre[genres.size()]);
 		
 		
-		
-		artistGrid.getChildren().clear();
-		artistGrid.setMaxWidth(250.0);
-		genreGrid.getChildren().clear();
-		genreGrid.setMaxWidth(250.0);
-		albumNameGrid.getChildren().clear();
-		albumNameGrid.setMaxWidth(250.0);
-		albumYearGrid.getChildren().clear();
-		albumYearGrid.setMaxWidth(250.0);
+//		
+//		artistGrid.getChildren().clear();
+//		artistGrid.setMaxWidth(250.0);
+//		genreGrid.getChildren().clear();
+//		genreGrid.setMaxWidth(250.0);
+//		albumNameGrid.getChildren().clear();
+//		albumNameGrid.setMaxWidth(250.0);
+//		albumYearGrid.getChildren().clear();
+//		albumYearGrid.setMaxWidth(250.0);
 				
 		TextField albumNameField = new TextField();
 		albumNameField.setText(album.getAlbumName());
