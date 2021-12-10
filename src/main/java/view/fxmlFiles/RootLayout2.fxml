@@ -20,9 +20,9 @@
                <children>
                   <Button fx:id="FrontPage" layoutX="14.0" layoutY="16.0" maxWidth="150.0" minHeight="-Infinity" minWidth="100.0" mnemonicParsing="false" onAction="#goFrontPage" text="Etusivu" />
                   <Button id="root" fx:id="SearchButton" layoutX="1083.0" layoutY="11.0" mnemonicParsing="false" onAction="#SearchTxt" text="Hae" AnchorPane.rightAnchor="52.20000000000009" />
-                  <Button fx:id="UserCollection" layoutX="138.0" layoutY="16.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#goUserCollection" prefHeight="26.0" prefWidth="105.0" text="Kokoelma" />
-                  <Button fx:id="Requests" layoutX="268.0" layoutY="16.0" maxWidth="150.0" minHeight="-Infinity" minWidth="100.0" mnemonicParsing="false" onAction="#ShowRequests" text="Lisäyspyynnöt" />
-                <Button fx:id="Help" layoutX="390.0" layoutY="16.0" maxWidth="150.0" minHeight="-Infinity" minWidth="100.0" mnemonicParsing="false" onAction="#GoHelpPage" text="Ohje">
+                  <Button fx:id="UserCollection" layoutX="138.0" layoutY="16.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#goUserCollection" prefHeight="26.0" prefWidth="105.0" text="%UserCollectionButton" />
+                  <Button fx:id="Requests" layoutX="268.0" layoutY="16.0" maxWidth="150.0" minHeight="-Infinity" minWidth="100.0" mnemonicParsing="false" onAction="#ShowRequests" text="%RequestsButton" />
+                <Button fx:id="Help" layoutX="390.0" layoutY="16.0" maxWidth="150.0" minHeight="-Infinity" minWidth="100.0" mnemonicParsing="false" onAction="#GoHelpPage" text="%HelpButton">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font></Button>
