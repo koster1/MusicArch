@@ -312,11 +312,15 @@ public class RequestFormsController {
 					String[] songListGiven = new String[songList.size()];
 
 					int h = 0;
-					for (TextField textfield : songList) {
-						System.out.println("Testataan listaa " + textfield.getId());
-						System.out.println(textfield.getText());
-						songListGiven[h] = textfield.getText();
-						h++;
+					
+					for(int i = 0; i < songList.size(); i++) {
+						System.out.println("Testing list ->"+songList.get(i).getId());
+						System.out.println(songList.get(i).getText());
+						songListGiven[i] = songList.get(i).getText();
+					}
+					
+					for(String s : songListGiven) {
+						System.out.println(s); 
 					}
 
 					controller.createAlbum(AlbumName.getText(), Integer.parseInt(Released.getText()), genreListGiven,

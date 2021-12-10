@@ -2,6 +2,8 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
@@ -64,7 +66,7 @@ public class AlbumPageController {
 	    private Button deleteButton;
 
 	    @FXML
-	    private ListView<Song> SongListView;
+	    private ListView<String> SongListView;
 	    
 	    @FXML
 	    private GridPane artistGrid;
@@ -180,16 +182,15 @@ public class AlbumPageController {
 //		AlbumArtist.setText(artistString);
 //		AlbumGenre.setText(genreString); 
 		
-		ObservableList<Song> observableSongs = FXCollections.observableArrayList(songs);
+		List<String> songList = new ArrayList<>();
 		
+		for(Song s : songs) {
+			songList.add(s.getSongName());
+		}
 		
-		SongListView.setCellFactory(lv -> new ListCell<Song>() {
-			@Override
-			protected void updateItem(Song song, boolean empty) {
-				super.updateItem(song, empty);
-				setText(empty || song == null || songs.size() == 0 ? "" : song.getSongName());
-			}
-		});	
+		Collections.sort(songList);
+		
+		ObservableList<String> observableSongs = FXCollections.observableArrayList(songList);
 		
 		SongListView.setItems(observableSongs);
 		deleteButton.setVisible(false);

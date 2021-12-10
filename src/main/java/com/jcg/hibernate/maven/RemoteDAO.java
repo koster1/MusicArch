@@ -430,7 +430,7 @@ public class RemoteDAO {
 	 * Also, how about the linking? With the way we've done this, we now need to recursively check for which artists, genres and songs are linked to this, to remove those links and update the right ones :/
 	 */
 	public boolean editAlbum(int id, Album albumEdit) throws Exception {
-		Set<Song> songList = albumEdit.getAlbumSongs();
+//		Set<Song> songList = albumEdit.getAlbumSongs();
 		Set<Genre> genreList = albumEdit.getAlbumGenres();
 		Set<Artist> artistList = albumEdit.getAlbumArtists();
 //		List<Song> newSongs = new ArrayList<Song>();
