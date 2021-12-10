@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="500.0" prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUIController">
    <top>
       <ButtonBar fx:id="Buttonbar" nodeOrientation="RIGHT_TO_LEFT" prefHeight="58.0" prefWidth="9000" styleClass="Buttonbar" stylesheets="@../style.css" BorderPane.alignment="CENTER">
@@ -26,11 +25,11 @@
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font></Button>
-                  <TextField id="frontPageSearchBox" fx:id="SearchBox" accessibleText="%SearchBoxTextField" layoutX="791.0" layoutY="15.0" onKeyTyped="#refreshSearchList" onMouseClicked="#getSearchable" prefWidth="268.0" AnchorPane.rightAnchor="131.0">
+                  <TextField id="frontPageSearchBox" fx:id="SearchBox" accessibleText="%SearchBoxTextField" layoutX="647.0" layoutY="15.0" onKeyTyped="#refreshSearchList" onMouseClicked="#getSearchable" prefWidth="268.0" AnchorPane.rightAnchor="275.4000000000001">
                      <contextMenu>
                         <ContextMenu fx:id="searchContext" />
                      </contextMenu></TextField>
-                  <Button fx:id="SearchButton" layoutX="977.0" layoutY="12.0" mnemonicParsing="false" onAction="#goSearchPage" prefHeight="26.0" prefWidth="77.0" text="Hae" AnchorPane.rightAnchor="135.80000000000018" />
+                  <Button fx:id="SearchButton" layoutX="925.0" layoutY="11.0" mnemonicParsing="false" onAction="#goSearchPage" prefHeight="26.0" prefWidth="77.0" text="Hae" AnchorPane.rightAnchor="187.80000000000007" />
                   <MenuButton layoutX="1055.0" layoutY="12.0" mnemonicParsing="false" text="%LanguageButton" AnchorPane.rightAnchor="14.600000000000094" AnchorPane.topAnchor="12.0">
                     <items>
                       <MenuItem mnemonicParsing="false" text="English" />
