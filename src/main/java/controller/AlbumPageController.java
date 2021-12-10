@@ -300,7 +300,7 @@ public class AlbumPageController {
 	   
 	   @FXML
        void addToWishList(ActionEvent event) {
-           controller.addToWishlist(this.id);
+           controller.addToWishlist(this.id, album.getAlbumName(), album.getAlbumYear());
        }
 	
 }

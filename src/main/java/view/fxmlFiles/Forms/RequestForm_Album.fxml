@@ -11,7 +11,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="583.0" prefWidth="500.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RequestFormsController">
    <children>
-      <Label layoutX="116.0" prefHeight="27.0" prefWidth="171.0" text="%AddAlbumFormTitle" AnchorPane.topAnchor="0.0">
+      <Label layoutX="116.0" prefHeight="27.0" prefWidth="171.0" text="%AlbumRequestFormTitle" AnchorPane.topAnchor="0.0">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -21,7 +21,7 @@
       <Label fx:id="Year" layoutX="108.0" layoutY="88.0" prefHeight="18.0" prefWidth="122.0" text="%AlbumYearLabel" AnchorPane.leftAnchor="108.0" />
       <TextField fx:id="Released" layoutX="108.0" layoutY="106.0" prefHeight="30.0" prefWidth="222.0" AnchorPane.leftAnchor="108.0" />
       <Label layoutX="110.0" layoutY="142.0" text="%GenreListLabel" AnchorPane.leftAnchor="110.0" />
-      <Label layoutX="108.0" layoutY="260.0" prefHeight="18.0" prefWidth="90.0" text="%ArtistNameLabel" AnchorPane.leftAnchor="108.0" />
+      <Label layoutX="108.0" layoutY="260.0" prefHeight="18.0" prefWidth="90.0" text="%ArtistListLabel" AnchorPane.leftAnchor="108.0" />
       <Button id="PlusButtons" layoutX="356.0" layoutY="285.0" mnemonicParsing="false" onAction="#NewArtist" prefHeight="30.0" prefWidth="30.0" text="+" />
       <ScrollPane id="scroll" layoutX="121.0" layoutY="285.0" prefHeight="90.0" prefWidth="220.0">
          <content>
@@ -35,7 +35,7 @@
             <VBox id="scroll" fx:id="root1" prefHeight="98.0" prefWidth="194.0" />
          </content>
       </ScrollPane>
-      <Button id="Send" layoutX="302.0" layoutY="535.0" maxWidth="80.0" mnemonicParsing="false" onAction="#SendAlbumButton" prefHeight="20.0" prefWidth="80.0" text="%AlbumFomSendButtonTitle" />
+      <Button id="Send" layoutX="302.0" layoutY="535.0" maxWidth="80.0" mnemonicParsing="false" onAction="#SendAlbumButton" prefHeight="20.0" prefWidth="80.0" text="%SendButtonTitle" />
       <ScrollPane id="scroll" layoutX="120.0" layoutY="160.0" prefHeight="90.0" prefWidth="220.0">
          <content>
             <VBox id="scroll" fx:id="root2" prefHeight="94.0" prefWidth="200.0" />

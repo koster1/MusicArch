@@ -16,6 +16,29 @@ public class WishList {
 	@Column(name = "albumID")
 	private int albumID;
 	
+	@Column(name = "AlbumName")
+	private String albumName;
+	
+	
+	@Column(name = "AlbumYear")
+	private int albumYear;
+	
+	public String getAlbumName() {
+		return albumName;
+	}
+
+	public void setAlbumName(String albumName2) {
+		this.albumName = albumName2;
+	}
+
+	public int getAlbumYear() {
+		return albumYear;
+	}
+
+	public void setAlbumYear(int albumYear) {
+		this.albumYear = albumYear;
+	}
+	
 	public int getWishListID() {
 		return this.wishListID;
 	}
@@ -31,5 +54,7 @@ public class WishList {
 	public void setAlbumID(int id) {
 		this.albumID = id;
 	}
+	
+	
 	
 }
