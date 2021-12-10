@@ -14,11 +14,13 @@ import controller.AlbumPageController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
 
 public class View extends Application {
 
@@ -28,6 +30,9 @@ public class View extends Application {
 	private static AnchorPane userRoot;
 	private static GUIController guiController;
 	private static Controller controller;
+	private static AnchorPane test;
+	private static DialogPane dialog;
+
 
 	public void init() {
 		controller = new Controller();
@@ -45,6 +50,9 @@ public class View extends Application {
 
 		showFrontPage();
 
+	}
+	public void slidinurDMs() {
+		
 	}
 	
 	// Places the rootLayout.fxml file on top of the primaryStage
@@ -207,6 +215,29 @@ public class View extends Application {
 		loader.setControllerFactory(RequestFormsController -> new RequestFormsController(controller));
 		AnchorPane artist = (AnchorPane) loader.load();
 		anotherRoot.setCenter(artist);
+	}
+	
+	public static void showError() throws IOException {
+		FXMLLoader fxmlLoader = new FXMLLoader();
+		fxmlLoader.setLocation(View.class.getResource("/view/fxmlFiles/Error.fxml"));
+		test = (AnchorPane) fxmlLoader.load();
+		Scene error = new Scene(test);
+		error.getStylesheets().add("/view/style.css");
+		Stage stage = new Stage();
+		stage.setTitle("Error Window");
+		stage.setScene(error);
+		stage.show();
+	}
+	public static void showConf() throws IOException {
+		FXMLLoader fxmlLoader = new FXMLLoader();
+		fxmlLoader.setLocation(View.class.getResource("/view/fxmlFiles/conf.fxml"));
+		dialog = (DialogPane) fxmlLoader.load();
+		Scene error = new Scene(dialog);
+		error.getStylesheets().add("/view/style.css");
+		Stage stage = new Stage();
+		stage.setTitle("Error Window");
+		stage.setScene(error);
+		stage.show();
 	}
 
 	public Stage getPrimaryStage() {

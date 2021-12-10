@@ -149,7 +149,7 @@ public class GUIController {
 		List<String> strippedList = new ArrayList<String>();
 		SearchBox.setContextMenu(searchContext);	
 
-		searchContext.show(SearchBox, null, 0, 50);	
+		searchContext.show(SearchBox, Side.BOTTOM, 0, 0);	
 		
 		searchContext.getItems().clear();
 		for(int i = 0; i<everythingFound.size(); i++) {		

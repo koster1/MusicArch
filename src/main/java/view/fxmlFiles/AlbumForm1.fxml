@@ -2,14 +2,10 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -25,11 +21,13 @@
       <Label fx:id="Year" layoutX="108.0" layoutY="88.0" prefHeight="18.0" prefWidth="122.0" text="Julkaisuvuosi" AnchorPane.leftAnchor="108.0" />
       <TextField fx:id="Released" layoutX="108.0" layoutY="106.0" prefHeight="30.0" prefWidth="222.0" AnchorPane.leftAnchor="108.0" />
       <Label layoutX="110.0" layoutY="142.0" text="Genret" AnchorPane.leftAnchor="110.0" />
-      <TextField fx:id="addGenres2Album" layoutX="118.0" layoutY="162.0" onKeyTyped="#refreshGenreList" onMouseClicked="#getAlbumGenresSearchable" prefHeight="30.0" prefWidth="222.0">
-         <contextMenu>
-            <ContextMenu fx:id="searchContext" />
-         </contextMenu></TextField>
       <Label layoutX="108.0" layoutY="260.0" prefHeight="18.0" prefWidth="90.0" text="Artistin nimi" AnchorPane.leftAnchor="108.0" />
+      <Button id="PlusButtons" layoutX="356.0" layoutY="285.0" mnemonicParsing="false" onAction="#NewArtist" prefHeight="30.0" prefWidth="30.0" text="+" />
+      <ScrollPane id="scroll" layoutX="121.0" layoutY="285.0" prefHeight="90.0" prefWidth="220.0">
+         <content>
+            <VBox id="scroll" fx:id="root" prefHeight="108.0" prefWidth="198.0" />
+         </content>
+      </ScrollPane>
       <Label layoutX="118.0" layoutY="387.0" text="Kappaleet" AnchorPane.leftAnchor="118.0" />
       <Button id="PlusButtons" layoutX="356.0" layoutY="411.0" mnemonicParsing="false" onAction="#NewSong" prefHeight="30.0" prefWidth="30.0" text="+" />
       <ScrollPane id="scroll" layoutX="119.0" layoutY="411.0" prefHeight="90.0" prefWidth="220.0">
@@ -38,33 +36,12 @@
          </content>
       </ScrollPane>
       <Button id="Send" layoutX="302.0" layoutY="535.0" maxWidth="80.0" mnemonicParsing="false" onAction="#SendAlbumButton" prefHeight="20.0" prefWidth="80.0" text="Lähetä" />
-      <GridPane fx:id="ankkuri" layoutX="118.0" layoutY="192.0" prefHeight="46.0" prefWidth="220.0">
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="112.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="112.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="91.200048828125" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints vgrow="SOMETIMES" />
-            <RowConstraints vgrow="SOMETIMES" />
-         </rowConstraints>
-      </GridPane>
-      <TextField fx:id="addArtists2Album" layoutX="116.0" layoutY="280.0" onKeyTyped="#refreshArtistList" onMouseClicked="#getAlbumArtistsSearchable" prefHeight="30.0" prefWidth="222.0">
-         <contextMenu>
-            <ContextMenu fx:id="searchContextArtist" />
-         </contextMenu>
-      </TextField>
-      <GridPane fx:id="artistTags" layoutX="117.0" layoutY="310.0" prefHeight="46.0" prefWidth="220.0">
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="112.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="112.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="91.200048828125" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints vgrow="SOMETIMES" />
-            <RowConstraints vgrow="SOMETIMES" />
-         </rowConstraints>
-      </GridPane>
+      <ScrollPane id="scroll" layoutX="120.0" layoutY="160.0" prefHeight="90.0" prefWidth="220.0">
+         <content>
+            <VBox id="scroll" fx:id="root2" prefHeight="94.0" prefWidth="200.0" />
+         </content>
+      </ScrollPane>
+      <Button id="PlusButtons" layoutX="356.0" layoutY="160.0" mnemonicParsing="false" onAction="#NewGenre" prefHeight="30.0" prefWidth="30.0" text="+" />
    </children>
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
