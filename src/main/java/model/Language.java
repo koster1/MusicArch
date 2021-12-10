@@ -5,6 +5,12 @@ import java.util.Locale;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
+/**
+ * Purpose of this class is to set the language of the application
+ * @author Kalle
+ *
+ */
+
 public class Language {
 	private ResourceBundle bundle;
 	private static Language INSTANCE = null;
@@ -45,6 +51,11 @@ public class Language {
 //	public ResourceBundle getDefault() {
 //		return this.bundle;
 //	}
+	/**
+	 * Setting the country and the language of the application.
+	 * @param language Language of the application
+	 * @param country Country of the application
+	 */
 	
 	public void setLocale(String language, String country) {
 		try {
@@ -52,11 +63,19 @@ public class Language {
 			}catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
-			
 	}
+	/**
+	 * Returning the locale
+	 * @return Locale
+	 */
 	public Locale getLocale() {
 		return this.currentLocale;
 	}
+	
+	/**
+	 * Setting the default language
+	 * @param language
+	 */
 	
 	public void setDefault(Locale language) {
 		this.bundle = ResourceBundle.getBundle("TextResources_fi_FI");
