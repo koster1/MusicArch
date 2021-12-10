@@ -183,6 +183,7 @@ public class View extends Application {
 				FXMLLoader fxmlLoader = new FXMLLoader();
 				fxmlLoader.setLocation(View.class.getResource("/view/fxmlFiles/Requests.fxml"));
 				fxmlLoader.setControllerFactory(RequestFormsController -> new RequestFormsController(controller));
+				fxmlLoader.setResources(Language.getInstance().getBundle());
 				anotherRoot = (BorderPane) fxmlLoader.load();
 
 				Scene scene = new Scene(anotherRoot);

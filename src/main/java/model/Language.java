@@ -56,6 +56,7 @@ public class Language {
 	
 	public void setDefault(Locale language) {
 		this.bundle = ResourceBundle.getBundle("TextResources_en_FI");
+
 	}
 	
 	public ResourceBundle getBundle() {

@@ -9,12 +9,12 @@
     <header>
       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="320.0">
          <children>
-            <Label fx:id="errorTitle" layoutX="215.0" layoutY="26.0" text="Otsikko">
+            <Label fx:id="errorTitle" layoutX="215.0" layoutY="26.0" text="%errorTitleLabel">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label fx:id="errorText" layoutX="224.0" layoutY="100.0" text="Teksti" />
+            <Label fx:id="errorText" layoutX="224.0" layoutY="100.0" text="%errorTextLabel" />
          </children></AnchorPane>
     </header>
     <content>
