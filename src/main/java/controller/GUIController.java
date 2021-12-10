@@ -7,6 +7,7 @@ import javafx.geometry.Side;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
@@ -24,6 +25,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import com.jcg.hibernate.maven.Song;
+import com.sun.glass.ui.Window;
+
 import view.*;
 
 public class GUIController {
@@ -67,6 +70,15 @@ public class GUIController {
 	private BorderPane mainPane;
 	@FXML
 	private ButtonBar Buttonbar;
+	
+    @FXML
+    private MenuButton RootMenuButton;
+
+    @FXML
+    private MenuItem EnglishMenuItem;
+
+    @FXML
+    private MenuItem FinnishMenuItem;
 
 	
 	public GUIController() {}
@@ -82,8 +94,6 @@ public class GUIController {
 		SearchBox.focusedProperty().addListener(even -> {
 			getSearchable2();
 		});
-		FrontPage.setText(Language.getInstance().getBundle().getString("FrontPageButton"));
-		SearchButton.setText(Language.getInstance().getBundle().getString("SearchButton"));
 		
 	}
 	
@@ -220,6 +230,60 @@ public class GUIController {
 	public Song getSongResults(){
 		return songResults;
 	}
+    @FXML
+    void changeToEnglish(ActionEvent event) {
+    	System.out.println("Changing to English");
+//    	Language.getInstance().setDefault(null);
+    	Language.getInstance().setLocale("en", "FI");
+    	windowHelper();
+
+    	try {
+			view.showFrontPage();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    	FrontPage.setText(Language.getInstance().getBundle().getString("FrontPageButton"));
+    	UserCollection.setText(Language.getInstance().getBundle().getString("UserCollectionButton"));
+    	Help.setText(Language.getInstance().getBundle().getString("HelpButton"));
+    	Requests.setText(Language.getInstance().getBundle().getString("RequestsButton"));
+    	SearchBox.setText(Language.getInstance().getBundle().getString("SearchBoxTextField"));
+    	SearchButton.setText(Language.getInstance().getBundle().getString("SearchButton"));
+    	RootMenuButton.setText(Language.getInstance().getBundle().getString("LanguageButton"));
+    }
+
+    @FXML
+    void changeToFinnish(ActionEvent event) {
+    	System.out.println("Changing to Finnish");
+    	Language.getInstance().setLocale("fi", "FI");
+    	windowHelper();
+    	try {
+			view.showFrontPage();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    	FrontPage.setText(Language.getInstance().getBundle().getString("FrontPageButton"));
+    	UserCollection.setText(Language.getInstance().getBundle().getString("UserCollectionButton"));
+    	Help.setText(Language.getInstance().getBundle().getString("HelpButton"));
+    	Requests.setText(Language.getInstance().getBundle().getString("RequestsButton"));
+    	SearchBox.setText(Language.getInstance().getBundle().getString("SearchBoxTextField"));
+    	SearchButton.setText(Language.getInstance().getBundle().getString("SearchButton"));
+    	RootMenuButton.setText(Language.getInstance().getBundle().getString("LanguageButton"));
+    	
+    }
+    void windowHelper() {
+    	List<Window> windows = Window.getWindows();
+    	for(Window window : windows) {
+    		System.out.println("Ikkuna " + window.getTitle());
+    		if(window.getTitle().contains("User")) {
+    			try {
+    				window.close();
+					view.refreshUserCollection();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+    		}
+    	}
+    }
  
 }
 

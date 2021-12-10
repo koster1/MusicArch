@@ -6,6 +6,8 @@ import java.util.List;
 import com.jcg.hibernate.maven.Album;
 import com.jcg.hibernate.maven.Artist;
 import com.jcg.hibernate.maven.Genre;
+
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -62,6 +64,7 @@ public class FrontPageController {
 	 * **/
 	@FXML
 	protected void initialize() {
+		Platform.runLater(() -> {
 		Genre[] genreList = controller.getGenres();
 		Artist[] artistList = controller.getArtists();
 		ObservableList<Artist> choices = FXCollections.observableArrayList(artistList);
@@ -96,7 +99,7 @@ public class FrontPageController {
 		FrontArtistListView.setOnMouseClicked(me -> {
 			updateArtistList();
 		});
-		
+		});
 		
 		
 	}

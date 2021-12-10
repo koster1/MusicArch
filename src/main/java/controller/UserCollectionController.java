@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -105,69 +106,73 @@ public class UserCollectionController {
 	 * **/
     @FXML
     protected void initialize() {
-    	LocalAlbum[] albumList;
     	try {
 //    		ResourceBundle bundle = ResourceBundle.getBundle("",)
 //    		System.out.println();
     		Language lang = Language.getInstance();
     		System.out.println("Tässä testataan kielioliota = " + lang.getBundle().getString("AlbumNameLabel"));
     		
-    		albumList = controller.getLocalAlbums();
-    		ObservableList<LocalAlbum> choices = FXCollections.observableArrayList(albumList);
-    		for(LocalAlbum album : albumList) {
-    			System.out.println(album);
-    		}
-    		
-    		GridListView.setCellFactory(lv -> new ListCell<LocalAlbum>() {
-    			@Override
-    			protected void updateItem(LocalAlbum localAlbum, boolean empty) {
-    				super.updateItem(localAlbum, empty);
-    				setText(empty || localAlbum == null || albumList.length == 0 ? "" : localAlbum.getAlbumName());
-    			}
-    		});			
-    		
-    		GridListView.setItems(choices);
-    		
-    		GridListView.setOnMouseClicked(me -> {
-    			AddDescriptionButton.setDisable(true);
-    			this.allowed = false;
-    			LocalAlbum listLocalAlbum = GridListView.getSelectionModel().getSelectedItem();
-    			List<LocalGenre> localGenre = controller.getLocalAlbumGenres(listLocalAlbum.getAlbumID());
-    			List<LocalArtist> localArtist = controller.getLocalAlbumArtists(listLocalAlbum.getAlbumID());
-    			if(listLocalAlbum != null) {
-    				AlbumNameLabel.setText(listLocalAlbum.getAlbumName()); 				
-    			}
-    			if(localGenre.size() > 0) {
-    				AlbumGenreLabel.setText(localGenre.get(0).getGenreName());
-    				System.out.println(listLocalAlbum.getAlbumName());
-    			} else {
-    				AlbumGenreLabel.setText("Ei löytynyt genrejä");
-    			}
-    			if(localArtist.size() > 0) {
-    				AlbumArtistLabel.setText(localArtist.get(0).getArtistName());
-    			} else {
-    				AlbumArtistLabel.setText("Ei löytynyt artisteja");
-    			}
-    			this.tempText = controller.getLocalAlbumDescription(listLocalAlbum.getAlbumID());
-    			AlbumTextArea.setText(this.tempText);
-    			InputText.setText("" + AlbumTextArea.getText().length() + "/" + "1000");
-    			List<LocalSong> localSongs = controller.getLocalAlbumSongs(listLocalAlbum.getAlbumID());
-    			ObservableList<LocalSong> observableSongs = FXCollections.observableArrayList(localSongs);
+    		Platform.runLater(() -> {
+    			LocalAlbum[] albumList;
     			
-        		SongListView.setCellFactory(lv -> new ListCell<LocalSong>() {
-        			@Override
-        			protected void updateItem(LocalSong localSong, boolean empty) {
-        				super.updateItem(localSong, empty);
-        				setText(empty || localSong == null || localSongs.size() == 0 ? "" : localSong.getSongName());
-        			}
-        		});		
-    			SongListView.setItems(observableSongs);
+    			albumList = controller.getLocalAlbums();
+    			ObservableList<LocalAlbum> choices = FXCollections.observableArrayList(albumList);
+    			for(LocalAlbum album : albumList) {
+    				System.out.println(album);
+    			}
+    			
+    			GridListView.setCellFactory(lv -> new ListCell<LocalAlbum>() {
+    				@Override
+    				protected void updateItem(LocalAlbum localAlbum, boolean empty) {
+    					super.updateItem(localAlbum, empty);
+    					setText(empty || localAlbum == null || albumList.length == 0 ? "" : localAlbum.getAlbumName());
+    				}
+    			});			
+    			
+    			GridListView.setItems(choices);
+    			
+    			GridListView.setOnMouseClicked(me -> {
+    				AddDescriptionButton.setDisable(true);
+    				this.allowed = false;
+    				LocalAlbum listLocalAlbum = GridListView.getSelectionModel().getSelectedItem();
+    				List<LocalGenre> localGenre = controller.getLocalAlbumGenres(listLocalAlbum.getAlbumID());
+    				List<LocalArtist> localArtist = controller.getLocalAlbumArtists(listLocalAlbum.getAlbumID());
+    				if(listLocalAlbum != null) {
+    					AlbumNameLabel.setText(listLocalAlbum.getAlbumName()); 				
+    				}
+    				if(localGenre.size() > 0) {
+    					AlbumGenreLabel.setText(localGenre.get(0).getGenreName());
+    					System.out.println(listLocalAlbum.getAlbumName());
+    				} else {
+    					AlbumGenreLabel.setText("Ei löytynyt genrejä");
+    				}
+    				if(localArtist.size() > 0) {
+    					AlbumArtistLabel.setText(localArtist.get(0).getArtistName());
+    				} else {
+    					AlbumArtistLabel.setText("Ei löytynyt artisteja");
+    				}
+    				this.tempText = controller.getLocalAlbumDescription(listLocalAlbum.getAlbumID());
+    				AlbumTextArea.setText(this.tempText);
+    				InputText.setText("" + AlbumTextArea.getText().length() + "/" + "1000");
+    				List<LocalSong> localSongs = controller.getLocalAlbumSongs(listLocalAlbum.getAlbumID());
+    				ObservableList<LocalSong> observableSongs = FXCollections.observableArrayList(localSongs);
+    				
+    				SongListView.setCellFactory(lv -> new ListCell<LocalSong>() {
+    					@Override
+    					protected void updateItem(LocalSong localSong, boolean empty) {
+    						super.updateItem(localSong, empty);
+    						setText(empty || localSong == null || localSongs.size() == 0 ? "" : localSong.getSongName());
+    					}
+    				});		
+    				SongListView.setItems(observableSongs);
+    			});
     		});
     		
     		
     	} catch(Exception e) {
     		System.out.println(e.getMessage() + " usercollection init");
     	}
+    	Platform.runLater(() -> {
     	List<WishList> wishList;
 		try {
    		
@@ -186,7 +191,7 @@ public class UserCollectionController {
     		});			
     		
     		GridWishListView.setItems(choices);
-    		
+		
     		// Still needs implementation on how to present the wishlist data in the middle part:
     		
 //    		GridWishListView.setOnMouseClicked(me -> {
@@ -229,6 +234,8 @@ public class UserCollectionController {
     	} catch(Exception e) {
     		System.out.println(e.getMessage() + " usercollection init");
     	}
+    	});
+		
 
     }
     @FXML
