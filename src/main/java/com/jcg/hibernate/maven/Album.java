@@ -147,7 +147,7 @@ public class Album {
 	public void clearAlbum() {
 		albumGenres.clear();
 		albumArtists.clear();
-		albumSongs.clear();
+//		albumSongs.clear();
 	}
 	
 	

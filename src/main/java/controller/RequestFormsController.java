@@ -13,6 +13,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
@@ -72,6 +73,9 @@ public class RequestFormsController {
 	private VBox root1;
 	@FXML
 	private VBox root2;
+	
+	@FXML
+    private ScrollPane scrollPane;
 	
 	//Error-window labels
     @FXML
@@ -170,7 +174,7 @@ public class RequestFormsController {
 
 	@FXML
 	void NewSong(ActionEvent event) {
-
+		
 		TextField field = new TextField();
 		final HBox parent = new HBox(5.0);
 		field.setId(String.valueOf(counter3++));
@@ -186,6 +190,9 @@ public class RequestFormsController {
 		HBox.setHgrow(button, Priority.NEVER);
 		parent.getChildren().setAll(field, button);
 		root1.getChildren().add(parent);
+		field.requestFocus();
+		root1.heightProperty().addListener(observable -> scrollPane.setVvalue(1D));
+		
 	}
 
 	// SendGenreButton sends textfield data to controller
@@ -312,11 +319,15 @@ public class RequestFormsController {
 					String[] songListGiven = new String[songList.size()];
 
 					int h = 0;
-					for (TextField textfield : songList) {
-						System.out.println("Testataan listaa " + textfield.getId());
-						System.out.println(textfield.getText());
-						songListGiven[h] = textfield.getText();
-						h++;
+					
+					for(int i = 0; i < songList.size(); i++) {
+						System.out.println("Testing list ->"+songList.get(i).getId());
+						System.out.println(songList.get(i).getText());
+						songListGiven[i] = songList.get(i).getText();
+					}
+					
+					for(String s : songListGiven) {
+						System.out.println(s); 
 					}
 
 					controller.createAlbum(AlbumName.getText(), Integer.parseInt(Released.getText()), genreListGiven,
