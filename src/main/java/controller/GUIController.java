@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -235,7 +236,10 @@ public class GUIController {
     	System.out.println("Changing to English");
 //    	Language.getInstance().setDefault(null);
     	Language.getInstance().setLocale("en", "FI");
-    	windowHelper();
+    	Platform.runLater(() -> {
+    		windowHelper();
+    		Language.getInstance().saveLocale("en", "FI");
+    	});
 
     	try {
 			view.showFrontPage();
@@ -255,7 +259,10 @@ public class GUIController {
     void changeToFinnish(ActionEvent event) {
     	System.out.println("Changing to Finnish");
     	Language.getInstance().setLocale("fi", "FI");
-    	windowHelper();
+    	Platform.runLater(() -> {
+    		windowHelper();
+    		Language.getInstance().saveLocale("fi", "FI");
+    	});
     	try {
 			view.showFrontPage();
 		} catch (IOException e) {

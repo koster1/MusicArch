@@ -1,6 +1,11 @@
 package model;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.io.StringWriter;
 import java.util.Locale;
 import java.util.Properties;
 import java.util.ResourceBundle;
@@ -26,19 +31,18 @@ public class Language {
 	}
 	
 	private Language() {
-		
+
 		try {
-			properties.load(new FileInputStream("src/main/resources/MusicArch.properties"));
-			properties.remove("language");
-			properties.remove("country");
-			properties.put("language", "fi");
-			properties.put("country", "FI"); 
-			properties.store(System.out, "jotain");
+			FileInputStream configStream = new FileInputStream("src/main/resources/MusicArch.properties");
+			properties.load(configStream);
+			configStream.close();
+			
 			String language = properties.getProperty("language");
 			String country = properties.getProperty("country");
 			
 			currentLocale = new Locale(language, country);
 			Locale.setDefault(currentLocale);
+			System.out.println(Locale.getDefault() + " default locale");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -90,6 +94,35 @@ public class Language {
 	
 	public ResourceBundle getBundle() {
 		return this.bundle;
+	}
+	
+	public void saveLocale(String language, String country) {
+		FileInputStream configStream;
+		try {
+			configStream = new FileInputStream("src/main/resources/MusicArch.properties");
+			properties.load(configStream);
+			configStream.close();
+			properties.setProperty("language", language);
+			properties.setProperty("country", country);
+			
+			
+			currentLocale = new Locale(language, country);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try (FileOutputStream output = new FileOutputStream("src/main/resources/MusicArch.properties");
+				ObjectOutputStream tiedosto = new ObjectOutputStream(output); )
+			{
+				properties.store(output, "Description to header");
+			
+				
+				// Kirjoita HashMap objektivirtaan
+				
+				
+				
+			} catch (Exception ex) {
+				System.out.println("saveLocale -> Fail");
+			}
 	}
 
 }

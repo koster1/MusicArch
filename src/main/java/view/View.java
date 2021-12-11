@@ -45,7 +45,6 @@ public class View extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws IOException {
-		Language.getInstance().setLocale("en", "FI");
 		
 		View.primaryStage = primaryStage;
 		View.primaryStage.setTitle("M U S I C A R C H");
@@ -81,6 +80,7 @@ public class View extends Application {
 
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(View.class.getResource("/view/fxmlFiles/FrontPage.fxml"));
+		System.out.println("front " + Language.getInstance().getBundle().getString("AlbumYearLabel"));
 		loader.setResources(Language.getInstance().getBundle());
 		loader.setControllerFactory(FrontPageController -> new FrontPageController(controller));
 		try {
