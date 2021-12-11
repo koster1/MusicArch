@@ -22,7 +22,7 @@
           <RowConstraints maxHeight="116.0" minHeight="10.0" prefHeight="101.99998168945311" valignment="CENTER" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <AnchorPane prefHeight="109.0" prefWidth="544.0" GridPane.rowIndex="3">
+            <AnchorPane fx:id="requestFormAnchor" prefHeight="109.0" prefWidth="544.0" GridPane.rowIndex="3">
                <children>
                   <Button fx:id="requestFormButton" layoutX="191.0" layoutY="51.0" mnemonicParsing="false" onAction="#openRequestForm" text="Avaa pyyntölomake" />
                   <Label layoutX="133.0" layoutY="21.0" prefHeight="20.0" prefWidth="264.0" stylesheets="@../style.css" text="Puuttuko etsimäsi genre, artisti tai albumi?">
