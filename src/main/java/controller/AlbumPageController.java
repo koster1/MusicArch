@@ -28,6 +28,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import view.View;
 
+/**
+ * This controller brings the information about the album (name, year, artists, genres and songs) to the view.
+ * @author Kalle
+ *
+ */
 
 public class AlbumPageController {
 
@@ -281,10 +286,7 @@ public class AlbumPageController {
 				}
 			}
 		}
-		
-		
 
-		
 	  @FXML
 	  void deleteAlbum(ActionEvent event) {
 		  controller.removeAlbum(this.id); 
@@ -295,7 +297,6 @@ public class AlbumPageController {
 			e.printStackTrace();
 		}
 	   }
-	
 	   @FXML
 	    void addToCollection(ActionEvent event) throws Exception {
 		   
