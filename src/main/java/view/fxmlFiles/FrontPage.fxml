@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.effect.Shadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.text.Font?>
 
 <AnchorPane minHeight="-Infinity" minWidth="1200.0" prefHeight="481.0" prefWidth="1200.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FrontPageController">
    <children>
@@ -37,7 +34,7 @@
                 </Tab>
               </tabs>
             </TabPane>
-      <GridPane alignment="CENTER" layoutX="429.0" layoutY="46.0" prefHeight="431.0" prefWidth="770.0" AnchorPane.bottomAnchor="3.8000000000000114" AnchorPane.leftAnchor="429.0" AnchorPane.rightAnchor="0.6000000000000227" AnchorPane.topAnchor="46.0">
+      <GridPane alignment="CENTER" layoutX="429.0" layoutY="53.0" prefHeight="424.0" prefWidth="770.0" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="429.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="53.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
@@ -45,13 +42,13 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+            <AnchorPane prefHeight="417.0" prefWidth="770.0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                <children>
-                  <ScrollPane id="frontPageScrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="431.0" prefWidth="770.0" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <ScrollPane id="frontPageScrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="424.0" prefWidth="770.0" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <content>
-                      <AnchorPane prefHeight="434.0" prefWidth="753.0">
+                      <AnchorPane prefHeight="326.0" prefWidth="753.0">
                            <children>
-                              <GridPane fx:id="FrontPageGrid" alignment="CENTER" layoutX="3.0" layoutY="34.0" prefHeight="379.0" prefWidth="742.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="34.0">
+                              <GridPane fx:id="FrontPageGrid" alignment="CENTER" layoutX="3.0" layoutY="75.0" prefHeight="338.0" prefWidth="742.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="34.0">
                                 <columnConstraints>
                                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -72,17 +69,19 @@
             </AnchorPane>
          </children>
       </GridPane>
-      <Label fx:id="ArtistOrGenreLabel" layoutX="429.0" layoutY="14.0" prefHeight="25.0" prefWidth="741.0" styleClass="albumGenreText" text="Artist/Genre" underline="true" AnchorPane.leftAnchor="429.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="14.0">
-         <effect>
-            <Shadow height="7.21" radius="1.6775000000000002" width="1.5">
-               <color>
-                  <Color red="0.2368421107530594" green="0.19627192616462708" blue="0.19627192616462708" />
-               </color>
-            </Shadow>
-         </effect>
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Label>
+      <GridPane fx:id="ArtistOrGenreGrid" layoutX="429.0" layoutY="-1.0" prefHeight="30.0" prefWidth="383.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="187.0" minWidth="10.0" prefWidth="181.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="90.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="90.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button fx:id="EditButton" mnemonicParsing="false" onAction="#editContent" text="Edit" GridPane.columnIndex="1" />
+            <Button fx:id="DeleteButton" mnemonicParsing="false" onAction="#deleteButton" text="Delete" GridPane.columnIndex="2" />
+         </children>
+      </GridPane>
    </children>
 </AnchorPane>

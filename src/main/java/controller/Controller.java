@@ -197,10 +197,9 @@ public class Controller {
     	remoteDAO.editGenre(editGenre, genreID);
     }
     //This works with the assumption that the calling methods check that the corresponding fields aren't empty!
-    public void editArtist(int artistID, String artistName, String artistBio) {
+    public void editArtist(int artistID, String artistName) {
     	Artist editArtist = new Artist();
     	editArtist.setArtistName(artistName);
-    	editArtist.setArtistBio(artistBio);
     	remoteDAO.editArtist(editArtist, artistID);
     }
     //Still WIP

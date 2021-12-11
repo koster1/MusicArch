@@ -101,15 +101,14 @@ public class RemoteDAO {
 			List<Genre> genreList = query.setParameter("name", genreSearch).list();
 			System.out.println("The genre search result was -> "+genreList.get(0).getGenreName());
 			
-
 			transAct.commit();
 			
 			if (genreList.size() == 0) {
+				System.out.println("Genrelist size == 0");
 				session.close();
 				throw new Exception("Nothing found!"); // Is this the problem? We might not be handling the errors correctly!
 				
 			}
-			
 			//session.close();
 			return genreList.get(0);
 
@@ -257,7 +256,7 @@ public class RemoteDAO {
 		transAct = session.beginTransaction();		
 		Artist editArtist = (Artist)session.load(Artist.class, id);
 		editArtist.setArtistName(artistEdit.getArtistName());
-		editArtist.setArtistBio(artistEdit.getArtistBio());
+		editArtist.setArtistBio(editArtist.getArtistBio());
 		session.update(editArtist);
 		transAct.commit();
 		return true;

@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.Label;
@@ -20,6 +21,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -39,6 +41,9 @@ public class FrontPageController {
 	private GridPane FrontPageGrid;
 	
 	@FXML
+    private GridPane ArtistOrGenreGrid;
+	
+	@FXML
     private TabPane FrontPageTabPane;
 
     @FXML
@@ -52,7 +57,23 @@ public class FrontPageController {
     private ButtonBar BreadCrumbBar;
     
     @FXML
+    private Button EditButton;
+
+    @FXML
+    private Button DeleteButton;
+    
+    @FXML
     private Label ArtistOrGenreLabel;
+    
+    private boolean editing = false;
+    
+    /**
+     * This bit of code is so spaghetti it comes with meatballs. 
+     * Basically, 0 means we're just in default. 1 is an artist, and 2 is genre.
+     * It's to keep track of which one we're actually dealing with. If there's an elegant solution to this,
+     * please fix it.
+     */
+    private int artistOrGenre = 0; 
 	
 	public FrontPageController(Controller controller) {
 		this.controller = controller;
@@ -100,14 +121,34 @@ public class FrontPageController {
 			updateArtistList();
 		});
 		});
-		
-		
 	}
 	
 	public void updateGenreList() {
+		artistOrGenre = 2;
 		Genre listGenre = FrontGenreListView.getSelectionModel().getSelectedItem();
 		List<Album> genreAlbums = controller.getGenreAlbums(listGenre.getGenreID());
-		ArtistOrGenreLabel.setText(listGenre.getGenreName());
+		
+		for(Node n : ArtistOrGenreGrid.getChildren()) {
+			if(n instanceof TextField ) {
+				((TextField) n).clear();
+			}else if(n instanceof Label) {
+				((Label)n).setText(null);
+			}
+		}
+		
+		for(int i = 0; i < 2; i++) {
+			TextField artistOrGenreField = new TextField();
+			artistOrGenreField.setText(listGenre.getGenreName());
+			artistOrGenreField.setVisible(false);
+			ArtistOrGenreGrid.add(artistOrGenreField, 0, 0);
+			
+			Label artistOrGenreLabel = new Label();
+			artistOrGenreLabel.setText(listGenre.getGenreName());
+			artistOrGenreLabel.setVisible(true);
+			ArtistOrGenreGrid.add(artistOrGenreLabel, 0, 0);
+		}
+		
+//		ArtistOrGenreLabel.setText(listGenre.getGenreName()); //UPDATE THIS
 		Collections.sort(genreAlbums, (x, y) -> {
             return Integer.compare(x.getAlbumYear(), y.getAlbumYear());
         });
@@ -152,9 +193,31 @@ public class FrontPageController {
 	}
 	
 	public void updateArtistList() {
+		artistOrGenre = 1;
 		Artist listArtist = FrontArtistListView.getSelectionModel().getSelectedItem();
 		List<Album> artistAlbums = controller.getArtistAlbums(listArtist.getArtistID());
-		ArtistOrGenreLabel.setText(listArtist.getArtistName());
+
+
+		for(Node n : ArtistOrGenreGrid.getChildren()) {
+			if(n instanceof TextField ) {
+				((TextField) n).clear();
+			}else if(n instanceof Label) {
+				((Label)n).setText(null);
+			}
+		}
+		
+		for(int i = 0; i < 2; i++) {
+			TextField artistOrGenreField = new TextField();
+			artistOrGenreField.setText(listArtist.getArtistName());
+			artistOrGenreField.setVisible(false);
+			ArtistOrGenreGrid.add(artistOrGenreField, 0, 0);
+			
+			Label artistOrGenreLabel = new Label();
+			artistOrGenreLabel.setText(listArtist.getArtistName());
+			artistOrGenreLabel.setVisible(true);
+			ArtistOrGenreGrid.add(artistOrGenreLabel, 0, 0);
+		}
+		
 		Collections.sort(artistAlbums, (x, y) -> {
             return Integer.compare(x.getAlbumYear(), y.getAlbumYear());
         });
@@ -198,5 +261,132 @@ public class FrontPageController {
 			FrontPageGrid.getChildren().clear();
 		}
 	}
+	
+	@FXML
+    void editContent(ActionEvent event) {
+		if(!editing) {
+			editing = true;
+			flipChildren(ArtistOrGenreGrid.getChildren());
+			EditButton.setText("Save");
+			System.out.println("In edit mode!");
+		}else {
+			editing = false;
+			flipChildren(ArtistOrGenreGrid.getChildren());
+			EditButton.setText("Edit");
+			
+			String newArtistOrGenre = new String();
+			for(Node n : ArtistOrGenreGrid.getChildren()) {
+				if(n instanceof TextField) {
+					String testName = ((TextField)n).getText();
+					if(testName.isBlank() || testName.isEmpty()) {
+						System.out.println("Empty string detected, using original");
+						for(Node m : ArtistOrGenreGrid.getChildren()) {
+							if(m instanceof Label) {
+								newArtistOrGenre = ((Label) m).getText();
+							}
+						}
+					}else {
+						newArtistOrGenre = ((TextField)n).getText();
+					}
+				}
+			}
+			
+			switch(artistOrGenre) {
+			case 1:
+				try {
+					String originalArtist = new String();
+					for(Node n : ArtistOrGenreGrid.getChildren()) {
+						if(n instanceof Label) {
+							originalArtist = ((Label) n).getText();
+						}
+					}
+					int artistID = controller.searchArtist(originalArtist).getArtistID();
+					controller.editArtist(artistID, newArtistOrGenre);
+					}catch(Exception e) {
+						System.out.println("Something went wrong -> "+e.getMessage());
+					}
+				break;
+			case 2:
+				try {
+					String originalGenre = new String();
+					for(Node n : ArtistOrGenreGrid.getChildren()) {
+						if(n instanceof Label) {
+							originalGenre = ((Label)n).getText();
+						}
+					}
+					int genreID = controller.searchGenre(originalGenre).getGenreID();
+					System.out.println("The genre's id was -> "+genreID);
+					controller.editGenre(genreID, newArtistOrGenre);
+					}catch(Exception e) {
+						System.out.println("Something went wrong -> "+e.getMessage());
+					}
+				break;
+				
+			}
+			try {
+				view.showFrontPage();
+			}catch(Exception e) {
+				System.out.println("Failed to refresh front page");
+				e.printStackTrace();
+			}
+		}
+		DeleteButton.setVisible(editing);
+		
+    }
+	
+	@FXML
+    void deleteButton(ActionEvent event) {
+		switch(artistOrGenre) {
+			case 1:
+				try {
+					String originalArtist = new String();
+					for(Node n : ArtistOrGenreGrid.getChildren()) {
+						if(n instanceof Label) {
+							originalArtist = ((Label) n).getText();
+						}
+					}
+					int artistID = controller.searchArtist(originalArtist).getArtistID();
+					controller.removeArtist(artistID);
+					}catch(Exception e) {
+						System.out.println("Something went wrong -> "+e.getMessage());
+					}
+				break;
+			case 2:
+				try {
+					String originalGenre = new String();
+					for(Node n : ArtistOrGenreGrid.getChildren()) {
+						if(n instanceof Label) {
+							originalGenre = ((Label)n).getText();
+						}
+					}
+					int genreID = controller.searchGenre(originalGenre).getGenreID();
+					System.out.println("The genre's id was -> "+genreID);
+					controller.removeGenre(genreID);
+					}catch(Exception e) {
+						System.out.println("Something went wrong -> "+e.getMessage());
+					}
+				break;
+			
+		}
+		try {
+			view.showFrontPage();
+		}catch(Exception e) {
+			System.out.println("Failed to refresh front page");
+			e.printStackTrace();
+		}
+    }
+	
+	private void flipChildren(ObservableList<Node> list) {
+		for(Node n : list) {
+			if(n.isVisible() && !(n instanceof Button)) {
+				n.setVisible(false);
+			}else {
+				n.setVisible(true);
+			}
+			
+		}
+	}
+
+    
 
 }
