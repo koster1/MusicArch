@@ -12,6 +12,8 @@ import com.jcg.hibernate.maven.Album;
 import com.jcg.hibernate.maven.Artist;
 import com.jcg.hibernate.maven.Genre;
 import com.jcg.hibernate.maven.Song;
+import com.mysql.jdbc.StringUtils;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -119,9 +121,7 @@ public class AlbumPageController {
 		}
 		
 		Artist[] artistArray = artists.toArray(new Artist[artists.size()]);
-		Genre[] genreArray = genres.toArray(new Genre[genres.size()]);
-		
-		
+		Genre[] genreArray = genres.toArray(new Genre[genres.size()]); 
 //		
 //		artistGrid.getChildren().clear();
 //		artistGrid.setMaxWidth(250.0);
@@ -237,16 +237,26 @@ public class AlbumPageController {
 				}
 				for(Node n : albumNameGrid.getChildren()) {
 					if(n instanceof TextField) {
-						newName = ((TextField) n).getText();
+						String testName = ((TextField)n).getText();
+						if(testName.isBlank() || testName.isEmpty()) {
+							System.out.println("Empty string detected. Using original name : "+album.getAlbumName());
+							testName = album.getAlbumName();
+						}
+						newName = testName;
 					}
 				}
 				for(Node n : albumYearGrid.getChildren()) {
 					if(n instanceof TextField) {
-						try {
-						newYear = Integer.parseInt(((TextField)n).getText());
+						String testYear = ((TextField)n).getText();
+						if(testYear.isBlank() || testYear.isEmpty()) {
+							System.out.println("Empty string detected. Using original year : "+album.getAlbumYear());
+							newYear = album.getAlbumYear();
 						}
-						catch(Exception e) {
-							System.out.println(e.getMessage());
+						try {
+							newYear = Integer.parseInt(testYear);
+						}catch(Exception e) {
+							System.out.println("Could not parse integer. Using original year : "+album.getAlbumYear());
+							newYear = album.getAlbumYear();
 						}
 					}
 				}
@@ -254,15 +264,9 @@ public class AlbumPageController {
 				String[] genreListTest = genreList.toArray(new String[genreList.size()]);
 				String[] artistListTest = artistList.toArray(new String[artistList.size()]);
 				
-				//These are for testing purposes
-				for(String s : genreList) {
-					System.out.println(s);
+				if(!listEmpty(genreListTest) && !listEmpty(artistListTest)) {
+					controller.editAlbum(id, newName, newYear, artistListTest, genreListTest);
 				}
-				for(String s : artistList) {
-					System.out.println(s);
-				}
-				
-				controller.editAlbum(id, newName, newYear, artistListTest, genreListTest);
 				try {
 					view.showAlbumPage(this.id);
 				} catch (IOException e) {
@@ -282,9 +286,6 @@ public class AlbumPageController {
 			}
 		}
 		
-		
-
-		
 	  @FXML
 	  void deleteAlbum(ActionEvent event) {
 		  controller.removeAlbum(this.id); 
@@ -295,6 +296,15 @@ public class AlbumPageController {
 			e.printStackTrace();
 		}
 	   }
+	  private boolean listEmpty(String[] list) {
+		  boolean listEmpty = true;
+		  for(String s : list) {
+			  if(!s.isEmpty() || !s.isBlank()) {
+				  listEmpty = false;
+			  }
+		  }
+		  return listEmpty;
+	  }
 	
 	   @FXML
 	    void addToCollection(ActionEvent event) throws Exception {
