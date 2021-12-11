@@ -147,15 +147,16 @@ public class View extends Application {
 			fxmlLoader.setResources(Language.getInstance().getBundle());
 			fxmlLoader.setControllerFactory(UserCollectionController -> new UserCollectionController(controller));
 			userRoot = (AnchorPane) fxmlLoader.load();
-			Scene scene = new Scene(userRoot);
-			scene.getWindow();
-			scene.getStylesheets().add("/view/style.css");
-			Stage stage2 = new Stage();
-			stage2.setMinWidth(1200);
-			stage2.setMinHeight(500);
-			stage2.setTitle("User");
-			stage2.setScene(scene);
-			stage2.show();
+			rootLayout.setCenter(userRoot);
+//			Scene scene = new Scene(userRoot);
+//			scene.getWindow();
+//			scene.getStylesheets().add("/view/style.css");
+//			Stage stage2 = new Stage();
+//			stage2.setMinWidth(1200);
+//			stage2.setMinHeight(500);
+//			stage2.setTitle("User");
+//			stage2.setScene(scene);
+//			stage2.show();
 		}
 	}
 

@@ -23,6 +23,11 @@ public class Language {
 		
 		try {
 			properties.load(new FileInputStream("src/main/resources/MusicArch.properties"));
+			properties.remove("language");
+			properties.remove("country");
+			properties.put("language", "fi");
+			properties.put("country", "FI"); 
+			properties.store(System.out, "jotain");
 			String language = properties.getProperty("language");
 			String country = properties.getProperty("country");
 			currentLocale = new Locale(language, country);
