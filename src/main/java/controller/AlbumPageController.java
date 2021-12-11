@@ -3,7 +3,6 @@ package controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
@@ -12,25 +11,22 @@ import com.jcg.hibernate.maven.Album;
 import com.jcg.hibernate.maven.Artist;
 import com.jcg.hibernate.maven.Genre;
 import com.jcg.hibernate.maven.Song;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import view.View;
 
 /**
- * This controller brings the information about the album (name, year, artists, genres and songs) to the view.
- * @author Kalle
+ * This controller displays the Album's information to the user. Additionally, it is used to control both editing and deleting an Album from the database by a system administrator.
+ * @author Alex, Kalle
  *
  */
 
@@ -112,7 +108,10 @@ public class AlbumPageController {
 		this.songs = this.controller.getAlbumSong(id);
 	}
 	
-	
+	/**
+	 * Method initializes the Album Page View with appropriate text fields and labels to show the user a given album's information.
+	 * @author Alex
+	 */
 	@FXML
 	protected void initialize() {
 		
@@ -125,9 +124,7 @@ public class AlbumPageController {
 		
 		Artist[] artistArray = artists.toArray(new Artist[artists.size()]);
 		Genre[] genreArray = genres.toArray(new Genre[genres.size()]);
-		
-		
-//		
+
 //		artistGrid.getChildren().clear();
 //		artistGrid.setMaxWidth(250.0);
 //		genreGrid.getChildren().clear();
@@ -200,8 +197,14 @@ public class AlbumPageController {
 		SongListView.setItems(observableSongs);
 		deleteButton.setVisible(false);
 		
-//		AlbumYear.setText(String.valueOf(album.getAlbumYear()));	
 	}
+	/**
+	 * When the Edit Button is pressed, this method flips the visibility each child of the Album Information's grid to engage in edit-mode.
+	 * When in edit mode, Edit Button will now function as a Save Button, which when pressed will check if each TextField has received valid inputs (IE, not blank or empty Strings). 
+	 * If tests are passed, the new data will be sent over to the Controller, to save the information into the Remote Database.
+	 * @param event
+	 * @author Alex
+	 */
 		@FXML
 		void editContent(ActionEvent event) {
 			if(!editing) {
@@ -242,16 +245,26 @@ public class AlbumPageController {
 				}
 				for(Node n : albumNameGrid.getChildren()) {
 					if(n instanceof TextField) {
-						newName = ((TextField) n).getText();
+						String testName = ((TextField)n).getText();
+						if(testName.isBlank() || testName.isEmpty()) {
+							System.out.println("Empty string detected. Using original name : "+album.getAlbumName());
+							testName = album.getAlbumName();
+						}
+						newName = testName;
 					}
 				}
 				for(Node n : albumYearGrid.getChildren()) {
 					if(n instanceof TextField) {
-						try {
-						newYear = Integer.parseInt(((TextField)n).getText());
+						String testYear = ((TextField)n).getText();
+						if(testYear.isBlank() || testYear.isEmpty()) {
+							System.out.println("Empty string detected. Using original year : "+album.getAlbumYear());
+							newYear = album.getAlbumYear();
 						}
-						catch(Exception e) {
-							System.out.println(e.getMessage());
+						try {
+							newYear = Integer.parseInt(testYear);
+						}catch(Exception e) {
+							System.out.println("Could not parse integer. Using original year : "+album.getAlbumYear());
+							newYear = album.getAlbumYear();
 						}
 					}
 				}
@@ -259,15 +272,9 @@ public class AlbumPageController {
 				String[] genreListTest = genreList.toArray(new String[genreList.size()]);
 				String[] artistListTest = artistList.toArray(new String[artistList.size()]);
 				
-				//These are for testing purposes
-				for(String s : genreList) {
-					System.out.println(s);
+				if(!listEmpty(genreListTest) && !listEmpty(artistListTest)) {
+					controller.editAlbum(id, newName, newYear, artistListTest, genreListTest);
 				}
-				for(String s : artistList) {
-					System.out.println(s);
-				}
-				
-				controller.editAlbum(id, newName, newYear, artistListTest, genreListTest);
 				try {
 					view.showAlbumPage(this.id);
 				} catch (IOException e) {
@@ -276,7 +283,11 @@ public class AlbumPageController {
 					}
 				}
 		}
-		
+		/**
+		 * flipChildren()'s purpose is to receive an ObservableList, and it will flip the visibility of each node given.
+		 * @param list Given list that has its children flipped.
+		 * @author Alex
+		 */
 		private void flipChildren(ObservableList<Node> list) {
 			for(Node n : list) {
 				if(n.isVisible()) {
@@ -286,7 +297,12 @@ public class AlbumPageController {
 				}
 			}
 		}
-
+		
+		/**
+		 * A Button event that attempts to remove an album from the Remote Database, based on an Album's ID. (Probably not the best, given that this does it without an alert?)
+		 * @param event A Button click event.
+		 * @author Alex
+		 */
 	  @FXML
 	  void deleteAlbum(ActionEvent event) {
 		  controller.removeAlbum(this.id); 
@@ -297,12 +313,41 @@ public class AlbumPageController {
 			e.printStackTrace();
 		}
 	   }
+	  /**
+	   * An assistive method used to check if a given list is completely empty. Will check for both empty and blank strings. 
+	   * @param list A list to check.
+	   * @return listEmpty A variable that is used to determine if a list is empty.
+	   * @author Alex
+	   */
+	  private boolean listEmpty(String[] list) {
+		  boolean listEmpty = true;
+		  for(String s : list) {
+			  if(!s.isEmpty() || !s.isBlank()) {
+				  listEmpty = false;
+			  }
+		  }
+		  return listEmpty;
+	  }
+	  /**
+	   * A method used to add this given Album's information into the user's local collection.
+	   * @param event A Button click event.
+	   * @throws Exception An exception will be thrown if controller fails to add it to the local collection.
+	   * @author Kalle
+	   */
 	   @FXML
-	    void addToCollection(ActionEvent event) throws Exception {
+	    void addToCollection(ActionEvent event) {
+		   try {
+			   this.controller.createLocalAlbum(this.id, album.getAlbumName(), this.songs, album.getAlbumYear(), this.genres, this.artists );
+		   }catch(Exception e) {
+			   System.out.println("Failed to add Album to local collection : "+e.getMessage());
+		   }
 		   
-		   this.controller.createLocalAlbum(this.id, album.getAlbumName(), this.songs, album.getAlbumYear(), this.genres, this.artists );
 	    }
-	   
+	   /**
+	    * A method used to add this given Album into the user's own wish list.
+	    * @param event A Button click event.
+	    * @author Kalle
+	    */
 	   @FXML
        void addToWishList(ActionEvent event) {
            controller.addToWishlist(this.id, album.getAlbumName(), album.getAlbumYear());
