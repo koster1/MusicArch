@@ -25,7 +25,8 @@ public class LocalSong {
 	private String songName;
 	
 	@ManyToMany(fetch=FetchType.EAGER,
-			cascade={CascadeType.ALL})
+			cascade={CascadeType.PERSIST, CascadeType.MERGE, 
+					CascadeType.DETACH, CascadeType.REFRESH})
 	@JoinTable(
 			name="AlbumSongs",
 			joinColumns={@JoinColumn(name="SongID")},

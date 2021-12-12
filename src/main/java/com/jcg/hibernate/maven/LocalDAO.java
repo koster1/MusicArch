@@ -431,6 +431,7 @@ public class LocalDAO {
 		
 	//To be tested!
 	public boolean removeAlbum(int id) {
+		
 		Transaction transAct = null;		
 		try(Session session = sessionFactory.openSession()){
 		transAct = session.beginTransaction();		

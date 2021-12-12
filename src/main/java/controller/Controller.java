@@ -281,13 +281,13 @@ public class Controller {
     	remoteDAO.removeAlbum(albumID);
     }
     public void removeLocalGenre(int genreID) {
-    	remoteDAO.removeGenre(genreID);
+    	localDAO.removeGenre(genreID);
     }
     public void removeLocalArtist(int artistID) {
-    	remoteDAO.removeArtist(artistID);
+    	localDAO.removeArtist(artistID);
     }
     public void removeLocalAlbum(int albumID) {
-    	remoteDAO.removeAlbum(albumID);
+    	localDAO.removeAlbum(albumID);
     }
     
     public Genre searchGenre(String genreName) throws Exception {

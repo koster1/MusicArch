@@ -1,6 +1,9 @@
 package controller;
 
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -9,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
@@ -29,6 +33,7 @@ import view.View;
 
 import com.jcg.hibernate.maven.Genre;
 
+import java.io.IOException;
 import java.util.List;
 
 
@@ -86,13 +91,24 @@ public class UserCollectionController {
     @FXML
     private Label InfoText;
     
+    @FXML
+    private Button AddDescriptionButton;
+    
+    @FXML
+    private AnchorPane ParentAnchor;
+    
+    @FXML
+    private SplitPane UserSplitPane;
+    
+    @FXML
+    private GridPane CollectionGridPane;
+
     private boolean allowed;
     
     private String tempText = "";
     
-    @FXML
-    private Button AddDescriptionButton;
-
+    
+    private DoubleProperty fontSize = new SimpleDoubleProperty(20);
     
     public UserCollectionController(Controller controller) {
 
@@ -101,16 +117,17 @@ public class UserCollectionController {
     }
     
     /**
-	 * This initialize method is for setting up the OmaKokoelma2 with data from then local database.
+	 * This initialize method is for setting up the UserCollection with data from then local database.
 	 * It also gives all the list items clickEvenetListeners for album info.
 	 * **/
     @FXML
     protected void initialize() {
     	try {
-//    		ResourceBundle bundle = ResourceBundle.getBundle("",)
-//    		System.out.println();
-    		Language lang = Language.getInstance();
-    		System.out.println("Tässä testataan kielioliota = " + lang.getBundle().getString("AlbumNameLabel"));
+    		fontSize.bind(ParentAnchor.widthProperty().add(ParentAnchor.heightProperty()).divide(135).add(2));
+    		GridListView.styleProperty().bind(Bindings.concat("-fx-font-size: ", fontSize.asString(), ";"));
+    		SongListView.styleProperty().bind(Bindings.concat("-fx-font-size: ", fontSize.asString(), ";"));
+    		UserSplitPane.styleProperty().bind(Bindings.concat("-fx-font-size: ", fontSize.asString(), ";"));
+    		AddDescriptionButton.prefWidthProperty().bind(CollectionGridPane.widthProperty().divide(2));
     		
     		Platform.runLater(() -> {
     			LocalAlbum[] albumList;
@@ -144,12 +161,12 @@ public class UserCollectionController {
     					AlbumGenreLabel.setText(localGenre.get(0).getGenreName());
     					System.out.println(listLocalAlbum.getAlbumName());
     				} else {
-    					AlbumGenreLabel.setText("Ei löytynyt genrejä");
+    					AlbumGenreLabel.setText(Language.getInstance().getBundle().getString("AlbumGenreLabelFail"));
     				}
     				if(localArtist.size() > 0) {
     					AlbumArtistLabel.setText(localArtist.get(0).getArtistName());
     				} else {
-    					AlbumArtistLabel.setText("Ei löytynyt artisteja");
+    					AlbumArtistLabel.setText(Language.getInstance().getBundle().getString("AlbumArtistLabelFail"));
     				}
     				this.tempText = controller.getLocalAlbumDescription(listLocalAlbum.getAlbumID());
     				AlbumTextArea.setText(this.tempText);
@@ -246,7 +263,6 @@ public class UserCollectionController {
 
     @FXML
     void Album(MouseEvent event) {
-	UserLabel.setText("Muutu");
     	
     	try {
     		UserGrid.getChildren().clear();
@@ -263,7 +279,10 @@ public class UserCollectionController {
     		System.out.println("Miksiiii" + e.getMessage());
     	}
     }
-
+    /**
+	 * Action event for button that saves the changes in the description TextArea
+	 * 
+	 * **/
     @FXML
     void saveDescription(ActionEvent event) {
     	if(allowed) {
@@ -277,7 +296,9 @@ public class UserCollectionController {
     		}
     	}
     }
-    
+    /**
+	 * Checks if the TextArea char count is within allowed amount
+	 * **/
     @FXML
     void charLimit(KeyEvent event) {
     	InputText.setText("" + AlbumTextArea.getText().length() + "/" + "1000");
@@ -294,6 +315,28 @@ public class UserCollectionController {
     		this.allowed = false;
     		AddDescriptionButton.setDisable(!this.allowed);
     	}
+    } 
+    /**
+	 * Button event that deletes an album from user collection
+	 * **/
+    @FXML
+    void deleteAlbum(ActionEvent event) {
+    	try {
+    		int albumChoice = GridListView.getSelectionModel().getSelectedItem().getAlbumID();
+    		controller.removeLocalAlbum(albumChoice);
+    		
+    	} catch (Exception ex) {
+    		System.out.println(ex.getMessage() + " tried to remove null album");
+    		return;
+    	}
+    		
+		try {
+			View.showUserCollectionPage();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    	
+    	
     }
     
 
