@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+
+<GridPane fx:id="requestGrid" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="176.0" minWidth="10.0" prefWidth="176.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="176.0" minWidth="10.0" prefWidth="176.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="80.00003852844239" minWidth="0.0" prefWidth="0.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints maxHeight="187.9999813079834" minHeight="10.0" prefHeight="156.60001220703126" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="264.8000263214111" minHeight="10.0" prefHeight="127.79998779296872" vgrow="SOMETIMES" />
+   </rowConstraints>
+   
+</GridPane>
+

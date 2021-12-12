@@ -170,9 +170,9 @@ public class GUIController {
 		 
 		int menuCounter = 0;
 		List<String> strippedList = new ArrayList<String>();
-		SearchBox.setContextMenu(searchContext);	
+		SearchBox.setContextMenu(searchContext);
+		searchContext.show(SearchBox, Side.BOTTOM, 0, 0);	
 
-		searchContext.show(SearchBox, null, 0, 50);	
 		
 		searchContext.getItems().clear();
 		for(int i = 0; i<albumsFound.size(); i++) {		
