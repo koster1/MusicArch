@@ -205,7 +205,7 @@ Text {
 -fx-background-color: #bebebe;
 -fx-text-fill: white;
 -fx-pref-width: 150.0px;
--fx-pref-height: 30.0px;
+-fx-pref-height: 2em;
 -fx-translate-y: 1.0px;
 -fx-translate-x: 1.0px;
 
