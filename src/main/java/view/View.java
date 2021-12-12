@@ -18,6 +18,7 @@ import javafx.scene.control.DialogPane;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -32,7 +33,9 @@ public class View extends Application {
 	private static Controller controller;
 	private static AnchorPane test;
 	private static DialogPane dialog;
+	private static AnchorPane searchPage;
 
+    private static GridPane SearchGrid;
 
 	public void init() {
 		controller = new Controller();
@@ -240,13 +243,18 @@ public class View extends Application {
 		stage.show();
 	}
 	//Requestform for peruskäyttäjä
-	public void showRequestForm() throws IOException {
+	public void showRequestForm(String searchText) throws IOException {
 		// TODO Auto-generated method stub
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(View.class.getResource("/view/fxmlFiles/requestForm.fxml"));
-		loader.setControllerFactory(SearchController -> new SearchController(controller));
-		AnchorPane requestFormAnchor = (AnchorPane) loader.load();
-		anotherRoot.setCenter(requestFormAnchor);
+		loader.setControllerFactory(SearchController -> new SearchController(searchText, controller));
+		AnchorPane joku = (AnchorPane) loader.load();
+		searchPage.getChildren().addAll(joku);
+	/*	FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(View.class.getResource("/view/fxmlFiles/requestForm.fxml"));
+		//loader.setControllerFactory(SearchController);
+		GridPane requestFormAnchor = (GridPane) loader.load();
+		SearchGrid.add(requestFormAnchor, 3, 0);*/
 	}
 	
 	public Stage getPrimaryStage() {
