@@ -8,6 +8,8 @@ import com.jcg.hibernate.maven.Genre;
 import com.jcg.hibernate.maven.LocalDAO;
 import com.jcg.hibernate.maven.RemoteDAO;
 import com.jcg.hibernate.maven.Song;
+import com.jcg.hibernate.maven.UserRequests;
+
 import model.*;
 
 /**
@@ -396,6 +398,30 @@ public class Controller {
     
     public List<WishList> readWishList() {
     	return localDAO.readWishList();
+    }
+    
+    public void createRequest(String rTitle, String rContents) {
+    	UserRequests newRequest = new UserRequests();
+    	newRequest.setRequestTitle(rTitle);
+    	newRequest.setRequestContents(rContents);
+    	try {
+    		remoteDAO.createRequest(newRequest);
+    	}catch(Exception e) {
+    		System.out.println("Failed to create a user request!");
+    		e.printStackTrace();
+    	}
+    }
+    public UserRequests getRequest(int id) {
+    	return remoteDAO.readRequest(id);
+    }
+    public UserRequests[] getRequests() {
+    	return remoteDAO.readRequests();
+    }
+    public UserRequests searchRequestTitle(String rTitle) throws Exception {
+    	return remoteDAO.searchRequestTitle(rTitle);
+    }
+    public boolean removeRequest(int id) {
+    	return remoteDAO.removeRequest(id);
     }
     
 }

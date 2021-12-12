@@ -165,7 +165,6 @@ public class RemoteDAO {
 		Artist[] artistSearch = readArtists();
 		for (int i = 0; i < artistSearch.length; i++) {
 			if (artistSearch[i].getArtistName().equals(artist.getArtistName())) {
-				session.close();
 				throw new Exception("This Artist already exists!");
 			}
 		}
@@ -807,6 +806,86 @@ public class RemoteDAO {
 			return array;
 		}catch(Exception e) {
 			if(transAct != null)
+				transAct.rollback();
+			throw e;
+		}
+	}
+	
+	public boolean createRequest(UserRequests request) throws Exception {
+		Transaction transAct = null;
+		System.out.println("Got a create request for requests");
+		try (Session session = sessionFactory.openSession()) {
+			System.out.println("Inside the try block");
+			transAct = session.beginTransaction();
+			System.out.println("Right after session.beginTransaction()");
+			session.saveOrUpdate(request);
+			System.out.println("Creating a user request!");
+			transAct.commit();
+			return true;
+		} catch (Exception e) {
+			if (transAct != null)
+				transAct.rollback();
+			throw e;
+		}
+	}
+	public UserRequests readRequest(int id) {
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		UserRequests returnable = (UserRequests)session.get(UserRequests.class, id);
+		System.out.println("Found title -> "+returnable.getRequestTitle());
+		session.getTransaction().commit();
+		//session.close();
+		return returnable;	
+	}
+	public UserRequests[] readRequests() {
+		Transaction transAct = null;
+		try (Session session = sessionFactory.openSession()) {
+			transAct = session.beginTransaction();
+
+			@SuppressWarnings("unchecked")
+			List<UserRequests> result = (List<UserRequests>) session.createQuery("from UserRequests order by RequestID").list();
+
+			transAct.commit();
+			UserRequests[] array = new UserRequests[result.size()];
+			return (UserRequests[]) result.toArray(array);
+		} catch (Exception e) {
+			if (transAct != null)
+				transAct.rollback();
+			throw e;
+		}
+	}
+	public UserRequests searchRequestTitle(String rTitle) throws Exception {
+		Transaction transAct = null;
+		try(Session session = sessionFactory.openSession()){
+			transAct = session.beginTransaction();	
+			Query query = session.createQuery("From UserRequests where RequestTitle like:name");
+			List<UserRequests> requestList = query.setParameter("name", rTitle).list();
+			
+			transAct.commit();
+			//session.close();
+			
+			if (requestList.size() == 0) {
+				session.close();
+				throw new Exception("Nothing found!");
+			}
+			return requestList.get(0);
+		}catch(Exception e){
+			if(transAct != null)
+				transAct.rollback();
+			throw e;
+		}
+	}
+	public boolean removeRequest(int id) {
+		Transaction transAct = null;
+		try (Session session = sessionFactory.openSession()) {
+			transAct = session.beginTransaction();
+			UserRequests removable = (UserRequests) session.load(UserRequests.class, id);
+			session.delete(removable);
+			transAct.commit();
+			return true;
+
+		} catch (Exception e) {
+			if (transAct != null)
 				transAct.rollback();
 			throw e;
 		}
