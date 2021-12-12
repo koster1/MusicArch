@@ -25,6 +25,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import model.Language;
 import view.View;
 
 public class FrontPageController {
@@ -163,7 +164,7 @@ public class FrontPageController {
 					if(counter >= genreAlbums.size()) {
 						break;
 					}
-					Text text2 = new Text("Release year: " + String.valueOf(genreAlbums.get(counter).getAlbumYear()));
+					Text text2 = new Text(Language.getInstance().getBundle().getString("AlbumYearHeaderLabel") + " " + String.valueOf(genreAlbums.get(counter).getAlbumYear()));
 					text2.setFont(new Font(15));
 					Button button = new Button(genreAlbums.get(counter).getAlbumName());
 					button.setId(String.valueOf(genreAlbums.get(counter).getAlbumID()));
@@ -232,7 +233,7 @@ public class FrontPageController {
 						break;
 					}
 					GridPane grid = new GridPane();
-					Text text2 = new Text("Release Year: " + String.valueOf(artistAlbums.get(counter).getAlbumYear()));
+					Text text2 = new Text(Language.getInstance().getBundle().getString("EditButton") + String.valueOf(artistAlbums.get(counter).getAlbumYear()));
 					text2.setFont(new Font(15));
 					Button button = new Button(artistAlbums.get(counter).getAlbumName());
 					button.setMinWidth(150);
@@ -267,12 +268,12 @@ public class FrontPageController {
 		if(!editing) {
 			editing = true;
 			flipChildren(ArtistOrGenreGrid.getChildren());
-			EditButton.setText("Save");
+			EditButton.setText(Language.getInstance().getBundle().getString("SaveButton"));
 			System.out.println("In edit mode!");
 		}else {
 			editing = false;
 			flipChildren(ArtistOrGenreGrid.getChildren());
-			EditButton.setText("Edit");
+			EditButton.setText(Language.getInstance().getBundle().getString("EditButton"));
 			
 			String newArtistOrGenre = new String();
 			for(Node n : ArtistOrGenreGrid.getChildren()) {
