@@ -3,6 +3,7 @@ package main;
 import com.jcg.hibernate.maven.Album;
 import com.jcg.hibernate.maven.Artist;
 import com.jcg.hibernate.maven.Genre;
+import com.jcg.hibernate.maven.UserRequests;
 
 import controller.Controller;
 import view.*;
