@@ -29,7 +29,7 @@
                         <Button fx:id="WishlistAdd" alignment="CENTER" mnemonicParsing="false" onAction="#addToWishList" prefHeight="25.0" prefWidth="118.0" text="%AddToWishlistButton" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                         <Button fx:id="CollectionAdd" alignment="CENTER" mnemonicParsing="false" onAction="#addToCollection" prefHeight="25.0" prefWidth="117.0" text="%AddToCollectionButton" GridPane.halignment="CENTER" />
                         <Button fx:id="editButton" alignment="CENTER" mnemonicParsing="false" onAction="#editContent" prefHeight="25.0" prefWidth="118.0" text="%EditAlbumButton" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-                        <Button fx:id="deleteButton" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="\%DeleteAlbumButton" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+                        <Button fx:id="deleteButton" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="%DeleteAlbumButton" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>
                   <Button fx:id="BackButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" text="%BackButton" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
