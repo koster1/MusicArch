@@ -17,10 +17,10 @@
         <buttons>
             <AnchorPane id="root" nodeOrientation="LEFT_TO_RIGHT" prefHeight="67.0" prefWidth="9000.0">
                <children>
-                  <Button fx:id="FrontPage" layoutX="14.0" layoutY="16.0" maxWidth="150.0" minHeight="-Infinity" minWidth="100.0" mnemonicParsing="false" onAction="#goFrontPage" text="%FrontPageButton" />
-                  <Button fx:id="UserCollection" layoutX="138.0" layoutY="16.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#goUserCollection" prefHeight="26.0" prefWidth="105.0" text="%UserCollectionButton" />
-                  <Button fx:id="Requests" layoutX="268.0" layoutY="16.0" maxWidth="150.0" minHeight="-Infinity" minWidth="100.0" mnemonicParsing="false" onAction="#ShowRequests" text="%RequestsButton" />
-                <Button fx:id="Help" layoutX="390.0" layoutY="16.0" maxWidth="150.0" minHeight="-Infinity" minWidth="100.0" mnemonicParsing="false" onAction="#GoHelpPage" text="%HelpButton">
+                  <Button fx:id="FrontPage" layoutX="14.0" layoutY="12.0" maxWidth="150.0" minHeight="-Infinity" minWidth="100.0" mnemonicParsing="false" onAction="#goFrontPage" text="%FrontPageButton" />
+                  <Button fx:id="UserCollection" layoutX="164.0" layoutY="12.0" maxWidth="150.0" minHeight="-Infinity" minWidth="100.0" mnemonicParsing="false" onAction="#goUserCollection" prefHeight="33.0" prefWidth="140.0" text="%UserCollectionButton" />
+                  <Button fx:id="Requests" layoutX="364.0" layoutY="12.0" maxWidth="150.0" minHeight="-Infinity" minWidth="86.0" mnemonicParsing="false" onAction="#ShowRequests" prefHeight="33.0" prefWidth="87.0" text="%RequestsButton" />
+                <Button fx:id="Help" layoutX="524.0" layoutY="12.0" maxWidth="150.0" minHeight="-Infinity" minWidth="70.0" mnemonicParsing="false" onAction="#GoHelpPage" text="%HelpButton">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font></Button>
