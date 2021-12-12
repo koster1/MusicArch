@@ -127,7 +127,7 @@ public class AlbumPageController {
 
 //		artistGrid.getChildren().clear();
 //		artistGrid.setMaxWidth(250.0);
-//		genreGrid.getChildren().clear();
+//		genreGrid.getChildren().clear(); 
 //		genreGrid.setMaxWidth(250.0);
 //		albumNameGrid.getChildren().clear();
 //		albumNameGrid.setMaxWidth(250.0);

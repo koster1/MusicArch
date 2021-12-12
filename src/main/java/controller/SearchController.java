@@ -53,7 +53,7 @@ public class SearchController {
 		this.search = search;
 		this.controller = controller;
 	}
-
+ 
 	/**
 	 * This initialize is for setting up the SearchPage with the search results
 	 **/
@@ -93,22 +93,18 @@ public class SearchController {
 	void openRequestForm(ActionEvent event) throws IOException {
 		requestFormButton.setVisible(false);
 		requestLabel.setVisible(false);
-	//	view.showRequestForm(search);
 		
-	//	requestFormAnchor.visibleProperty().setValue(false);
 
 		GridPane form = new GridPane();
 		TextArea text = new TextArea();
 		Label label = new Label("Otsikko");
 		TextField requestTitle = new TextField();
 		Button sendR = new Button("Send");
-		// SearchGrid.add
 		form.addColumn(1, label, requestTitle);
 		form.addColumn(2, text);
 		form.addColumn(3, sendR);
 		label.setPrefWidth(150);
 		sendR.setPrefWidth(150);
-//		sendR.setPadding(new Insets(5));
 		GridPane.setMargin(sendR, new Insets(5, 10, 10, 10));
 		GridPane.setMargin(text, new Insets(5, 10, 10, 10));
 		GridPane.setMargin(label, new Insets(5, 10, 10, 10));
@@ -117,7 +113,6 @@ public class SearchController {
 
 		
 		SearchGrid.add(form, 0 ,4);
-				// button.setOnAction((e) -> ankkuri.getChildren().remove(button.getId()));
 				sendR.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 					@Override
 					public void handle(MouseEvent e) {
