@@ -38,6 +38,7 @@ public class GUIController {
 	private Album albumResults;
 	private Song songResults;
 	List<String> everythingFound;
+	List<String> albumsFound;
 
 	@FXML
     private ContextMenu searchContext;
@@ -140,10 +141,10 @@ public class GUIController {
 	
 	@FXML
 	void getSearchable(MouseEvent event) {
-		if(everythingFound == null) {
-			 everythingFound = new ArrayList<>();
+		if(albumsFound == null) {
+			 albumsFound = new ArrayList<>();
 		 }
-		 everythingFound = controller.getSearchable();
+		 albumsFound = controller.getSearchableAlbums();
 		 System.out.println("Fetched all the searchable values");
 	}
 
@@ -174,9 +175,9 @@ public class GUIController {
 		searchContext.show(SearchBox, null, 0, 50);	
 		
 		searchContext.getItems().clear();
-		for(int i = 0; i<everythingFound.size(); i++) {		
-			if(everythingFound.get(i).toLowerCase().contains(SearchBox.getText().toLowerCase())) {
-				strippedList.add(everythingFound.get(i));
+		for(int i = 0; i<albumsFound.size(); i++) {		
+			if(albumsFound.get(i).toLowerCase().contains(SearchBox.getText().toLowerCase())) {
+				strippedList.add(albumsFound.get(i));
 				menuCounter++;
 			}
 		}
@@ -192,12 +193,18 @@ public class GUIController {
 				public void handle(ActionEvent t) {
 					SearchBox.setText(searchItem.getText());
 					try {
-						view.showSearchPage(SearchBox.getText());
-						SearchBox.clear();
+						try {
+							Album albumFound = controller.searchAlbum(SearchBox.getText());
+							view.showAlbumPage(albumFound.getAlbumID());
+						} catch (Exception e) {
+							view.showSearchPage(SearchBox.getText());
+							e.printStackTrace();
+						}
 					}catch(IOException e1) {
 						System.out.println("Failed to commit a search in GUIController's refreshSearchList method!");
 						e1.printStackTrace();
-					}	
+					}
+					SearchBox.clear();
 				}
 			});
 			System.out.println("Added a new menu item -> "+searchItem.getText());

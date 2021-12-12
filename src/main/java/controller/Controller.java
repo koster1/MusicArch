@@ -11,7 +11,7 @@ import com.jcg.hibernate.maven.Song;
 import model.*;
 
 /**
- * 
+ * @author Alex, Jani
  */
 public class Controller {
 
@@ -349,6 +349,18 @@ public class Controller {
     	return remoteDAO.getSearchable();
     }
     
+    public List<String> getSearchableAlbums(){
+    	return remoteDAO.existingAlbums();
+    }
+    public List<String> getSearchableGenres(){
+    	return remoteDAO.existingGenres();
+    }
+    public List<String> getSearchableArtists(){
+    	return remoteDAO.existingArtists();
+    }
+    public List<String> getSearchableSongs(){
+    	return remoteDAO.existingSongs();
+    }
     public List<Album> getGenreAlbums(int genreID){
     	return remoteDAO.genreAlbums(genreID);
     }
