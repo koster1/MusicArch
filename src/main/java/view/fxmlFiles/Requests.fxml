@@ -38,7 +38,7 @@
                   <Button mnemonicParsing="false" onAction="#AlbumFormButton" prefHeight="34.0" text="%AlbumFormButton" />
               </buttons>
             </ButtonBar>
-            <TitledPane id="RequestDrops" fx:id="GenreDrop" alignment="CENTER" animated="false" layoutX="5.0" layoutY="55.0" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#Genre" prefHeight="206.0" prefWidth="356.0" text="%GenreRequest" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="55.0">
+            <TitledPane id="RequestDrops" fx:id="GenreDrop" alignment="CENTER" expanded="false" layoutX="5.0" layoutY="55.0" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#Genre" prefHeight="238.0" prefWidth="356.0" text="%GenreRequest" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="55.0">
                <font>
                   <Font size="13.0" />
                </font>
