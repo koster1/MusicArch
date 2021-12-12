@@ -35,6 +35,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import model.Language;
 import model.LocalGenre;
 import view.View;
 
@@ -119,6 +121,10 @@ public class RequestFormsController {
 
     @FXML
     private Label requestText;
+    
+    @FXML
+    private Text moi;
+
 
 	public RequestFormsController() {
 	}
@@ -146,11 +152,13 @@ public class RequestFormsController {
 
 		requestList.setOnMouseClicked(me -> {
 			Button delete = new Button();
+	    	delete.setText(Language.getInstance().getBundle().getString("DeletePageButton"));
+
 			UserRequests ur = requestList.getSelectionModel().getSelectedItem();
 			System.out.println(ur.getRequestTitle()+"-------------------------------");
 
 			requestTitle.setText(ur.getRequestTitle());
-			requestText.setText(ur.getRequestContents());
+			moi.setText(ur.getRequestContents());
 			
 			System.out.println(ur+"-------------------------------");
 			requestGrid.add(delete, 0, 3);

@@ -25,8 +25,7 @@
       <Label fx:id="Year" layoutX="108.0" layoutY="88.0" prefHeight="18.0" prefWidth="122.0" text="%AlbumYearLabel" AnchorPane.leftAnchor="108.0" />
       <TextField fx:id="Released" layoutX="108.0" layoutY="106.0" prefHeight="30.0" prefWidth="222.0" AnchorPane.leftAnchor="108.0" />
       <Label layoutX="110.0" layoutY="142.0" text="%GenreListLabel" AnchorPane.leftAnchor="110.0" />
-      <Label layoutX="108.0" layoutY="260.0" prefHeight="18.0" prefWidth="90.0" text="%ArtistNameLabel" AnchorPane.leftAnchor="108.0" />
-      <Label layoutX="108.0" layoutY="260.0" prefHeight="18.0" prefWidth="90.0" text="%ArtistListLabel" AnchorPane.leftAnchor="108.0" />
+      <Label layoutX="113.0" layoutY="253.0" prefHeight="26.0" prefWidth="149.0" text="%ArtistNameLabel" AnchorPane.leftAnchor="113.0" />
       <Label layoutX="118.0" layoutY="387.0" text="%SongListLabel" AnchorPane.leftAnchor="118.0" />
       <TextField fx:id="addGenres2Album" layoutX="118.0" layoutY="162.0" onKeyTyped="#refreshGenreList" onMouseClicked="#getAlbumGenresSearchable" prefHeight="30.0" prefWidth="222.0">
          <contextMenu>

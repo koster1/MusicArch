@@ -19,6 +19,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
+import model.Language;
 import view.View;
 
 public class SearchController {
@@ -44,39 +45,39 @@ public class SearchController {
 
 	@FXML
 	private Button requestFormButton;
-    @FXML
-    private Label requestLabel;
 	@FXML
-	private AnchorPane requestFormAnchor;
+	private Label requestLabel;
+	@FXML
+	private GridPane requestFormGridpienempi;
 
-    @FXML
-    private GridPane artistSearchGrid;
+	@FXML
+	private GridPane artistSearchGrid;
 
-    @FXML
-    private GridPane genreSearchGrid;
+	@FXML
+	private GridPane genreSearchGrid;
 
-    @FXML
-    private GridPane albumSearchGrid;
-    @FXML
-    private Label foundGenre;
-    @FXML
-    private Label notFoundGenre;
-    @FXML
-    private Label foundArtist;
+	@FXML
+	private GridPane albumSearchGrid;
+	@FXML
+	private Label foundGenre;
+	@FXML
+	private Label notFoundGenre;
+	@FXML
+	private Label foundArtist;
 
-    @FXML
-    private Label notFoundArtist;
-    @FXML
-    private Label foundAlbum;
+	@FXML
+	private Label notFoundArtist;
+	@FXML
+	private Label foundAlbum;
 
-    @FXML
-    private Label notFoundAlbum;
+	@FXML
+	private Label notFoundAlbum;
 
 	public SearchController(String search, Controller controller) {
 		this.search = search;
 		this.controller = controller;
 	}
- 
+
 	/**
 	 * This initialize is for setting up the SearchPage with the search results
 	 **/
@@ -89,7 +90,7 @@ public class SearchController {
 			SearchGrid.add(new Text(genreResults.getGenreName()), 0, 0);
 
 		} catch (Exception e) {
-			foundGenre.setVisible(false); 
+			foundGenre.setVisible(false);
 			notFoundGenre.setVisible(true);
 			SearchGrid.add(new Text(this.search), 0, 0);
 			System.out.println(e.getMessage());
@@ -99,7 +100,7 @@ public class SearchController {
 			foundArtist.setVisible(true);
 			notFoundArtist.setVisible(false);
 			SearchGrid.add(new Text(artistResults.getArtistName()), 0, 1);
-			//SearchGrid.add(new Text(artistResults.getArtistName() + " löytyi"), 0, 0);
+			// SearchGrid.add(new Text(artistResults.getArtistName() + " löytyi"), 0, 0);
 
 		} catch (Exception e) {
 			foundArtist.setVisible(false);
@@ -107,14 +108,14 @@ public class SearchController {
 			SearchGrid.add(new Text(this.search), 0, 1);
 			System.out.println(e.getMessage());
 		}
-		
+
 		try {
 			foundAlbum.setVisible(true);
 			notFoundAlbum.setVisible(false);
 			Album albumResults = controller.searchAlbum(search);
 			SearchGrid.add(new Text(albumResults.getAlbumName()), 0, 2);
 			System.out.println("Search = " + search);
-			
+
 		} catch (Exception e) {
 			foundAlbum.setVisible(false);
 			notFoundAlbum.setVisible(true);
@@ -127,38 +128,44 @@ public class SearchController {
 	@FXML
 	void openRequestForm(ActionEvent event) throws IOException {
 		requestFormButton.setVisible(false);
-	//	requestLabel.setVisible(false);
-		
+		requestLabel.setVisible(false);
 
-		GridPane form = new GridPane();
+		// GridPane form = new GridPane();
 		TextArea text = new TextArea();
-		Label title = new Label("Otsikko");
-		Label textareatitle = new Label("Otsikko");
+		Label title = new Label();
+		Label textareatitle = new Label();
+		title.setText(Language.getInstance().getBundle().getString("RequestTextAreaLabel"));
+		title.setText(Language.getInstance().getBundle().getString("RequestTitleLabel"));
+
+
 
 		TextField requestTitle = new TextField();
-		Button sendR = new Button("Lähetä");
-		form.addRow(1, title, requestTitle);
-		form.addRow(2,textareatitle, text);
-		form.add(sendR, 1, 3);
-		title.setPrefWidth(200);
+		Button sendR = new Button();
+    	sendR.setText(Language.getInstance().getBundle().getString("sendRequestButton"));
+
+		requestFormGridpienempi.add(requestTitle, 1, 1);
+		requestFormGridpienempi.add(text, 1, 2);
+		requestFormGridpienempi.add(sendR, 1, 3);
+		requestFormGridpienempi.add(title, 0, 1);
+		requestFormGridpienempi.add(textareatitle, 0, 2);
+		requestTitle.setPrefWidth(200);
 		sendR.setPrefWidth(200);
-		GridPane.setMargin(sendR, new Insets(5, 10, 10, 5)); 
+		GridPane.setMargin(textareatitle, new Insets(5, 10, 10, 5));
+		GridPane.setMargin(title, new Insets(5, 10, 40, 5));
+		GridPane.setMargin(sendR, new Insets(5, 10, 10, 5));
 		GridPane.setMargin(text, new Insets(5, 10, 10, 5));
-		GridPane.setMargin(requestTitle, new Insets(5, 10, 10, 5));
+		GridPane.setMargin(requestTitle, new Insets(5, 10, 40, 5));
 
+		// SearchGrid.add(requestFormGridpienempi, 0 ,4);
+		sendR.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent e) {
+				controller.createRequest(requestTitle.getText(), text.getText());
+				text.clear();
+				requestTitle.clear();
 
-
-		
-		SearchGrid.add(form, 0 ,4);
-				sendR.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-					@Override
-					public void handle(MouseEvent e) {
-					controller.createRequest(requestTitle.getText(), text.getText());
-					text.clear();
-					requestTitle.clear();
-			
 			}
-		}); 
+		});
 	}
 
 }
