@@ -40,7 +40,8 @@ public class LocalGenre {
 	
 	//Everything from down here is highly experimental
 	@ManyToMany(fetch=FetchType.EAGER,
-			cascade = {CascadeType.ALL})
+			cascade={CascadeType.PERSIST, CascadeType.MERGE, 
+					CascadeType.DETACH, CascadeType.REFRESH})
 	@JoinTable(
 			name="AlbumGenres",
 			joinColumns={@JoinColumn(name="GenreID")},

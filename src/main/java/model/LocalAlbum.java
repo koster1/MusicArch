@@ -31,7 +31,8 @@ public class LocalAlbum {
 	private String albumDescription;
 	
 	@ManyToMany(fetch=FetchType.LAZY,
-			cascade={CascadeType.ALL})
+			cascade={CascadeType.PERSIST, CascadeType.MERGE, 
+					CascadeType.DETACH, CascadeType.REFRESH})
 	@JoinTable(
 			name="AlbumGenres",
 			joinColumns={@JoinColumn(name="AlbumID")},
@@ -40,7 +41,8 @@ public class LocalAlbum {
 	private List<LocalGenre> albumGenres;
 	
 	@ManyToMany(fetch=FetchType.LAZY,
-			cascade={CascadeType.ALL})
+			cascade={CascadeType.PERSIST, CascadeType.MERGE, 
+					CascadeType.DETACH, CascadeType.REFRESH})
 	@JoinTable(
 			name="AlbumArtists",
 			joinColumns={@JoinColumn(name="AlbumID")},
@@ -48,7 +50,8 @@ public class LocalAlbum {
 	private List<LocalArtist> albumArtists;
 	
 	@ManyToMany(fetch=FetchType.LAZY,
-			cascade= {CascadeType.ALL})
+			cascade={CascadeType.PERSIST, CascadeType.MERGE, 
+					CascadeType.DETACH, CascadeType.REFRESH})
 	@JoinTable(
 			name="AlbumSongs",
 			joinColumns= {@JoinColumn(name="AlbumID")},
