@@ -135,7 +135,7 @@ public class SearchController {
 		Label title = new Label();
 		Label textareatitle = new Label();
 		title.setText(Language.getInstance().getBundle().getString("RequestTextAreaLabel"));
-		title.setText(Language.getInstance().getBundle().getString("RequestTitleLabel"));
+		textareatitle.setText(Language.getInstance().getBundle().getString("RequestTitleLabel"));
 
 
 
