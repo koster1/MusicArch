@@ -49,6 +49,29 @@ public class SearchController {
 	@FXML
 	private AnchorPane requestFormAnchor;
 
+    @FXML
+    private GridPane artistSearchGrid;
+
+    @FXML
+    private GridPane genreSearchGrid;
+
+    @FXML
+    private GridPane albumSearchGrid;
+    @FXML
+    private Label foundGenre;
+    @FXML
+    private Label notFoundGenre;
+    @FXML
+    private Label foundArtist;
+
+    @FXML
+    private Label notFoundArtist;
+    @FXML
+    private Label foundAlbum;
+
+    @FXML
+    private Label notFoundAlbum;
+
 	public SearchController(String search, Controller controller) {
 		this.search = search;
 		this.controller = controller;
@@ -60,30 +83,42 @@ public class SearchController {
 	@FXML
 	protected void initialize() {
 		try {
-			Artist artistResults = controller.searchArtist(search);
-			SearchGrid.add(new Text(artistResults.getArtistName() + " löytyi"), 0, 0);
-
-		} catch (Exception e) {
-			SearchGrid.add(new Text("Artistia " + this.search + " ei löytynyt"), 0, 0);
-			System.out.println(e.getMessage());
-		}
-
-		try {
+			foundGenre.setVisible(true);
+			notFoundGenre.setVisible(false);
 			Genre genreResults = controller.searchGenre(search);
-			SearchGrid.add(new Text(genreResults.getGenreName() + " löytyi"), 0, 1);
+			SearchGrid.add(new Text(genreResults.getGenreName()), 0, 0);
 
 		} catch (Exception e) {
-			SearchGrid.add(new Text("Genreä " + this.search + " ei löytynyt"), 0, 1);
+			foundGenre.setVisible(false); 
+			notFoundGenre.setVisible(true);
+			SearchGrid.add(new Text(this.search), 0, 0);
 			System.out.println(e.getMessage());
 		}
 		try {
+			Artist artistResults = controller.searchArtist(search);
+			foundArtist.setVisible(true);
+			notFoundArtist.setVisible(false);
+			SearchGrid.add(new Text(artistResults.getArtistName()), 0, 1);
+			//SearchGrid.add(new Text(artistResults.getArtistName() + " löytyi"), 0, 0);
 
+		} catch (Exception e) {
+			foundArtist.setVisible(false);
+			notFoundArtist.setVisible(true);
+			SearchGrid.add(new Text(this.search), 0, 1);
+			System.out.println(e.getMessage());
+		}
+		
+		try {
+			foundAlbum.setVisible(true);
+			notFoundAlbum.setVisible(false);
 			Album albumResults = controller.searchAlbum(search);
-			SearchGrid.add(new Text(albumResults.getAlbumName() + " löytyi"), 0, 2);
+			SearchGrid.add(new Text(albumResults.getAlbumName()), 0, 2);
 			System.out.println("Search = " + search);
 			
 		} catch (Exception e) {
-			SearchGrid.add(new Text("Albumia " + this.search + " ei löytynyt"), 0, 2);
+			foundAlbum.setVisible(false);
+			notFoundAlbum.setVisible(true);
+			SearchGrid.add(new Text(this.search), 0, 2);
 			System.out.println(e.getMessage());
 		}
 
@@ -92,22 +127,24 @@ public class SearchController {
 	@FXML
 	void openRequestForm(ActionEvent event) throws IOException {
 		requestFormButton.setVisible(false);
-		requestLabel.setVisible(false);
+	//	requestLabel.setVisible(false);
 		
 
 		GridPane form = new GridPane();
 		TextArea text = new TextArea();
-		Label label = new Label("Otsikko");
+		Label title = new Label("Otsikko");
+		Label textareatitle = new Label("Otsikko");
+
 		TextField requestTitle = new TextField();
-		Button sendR = new Button("Send");
-		form.addColumn(1, label, requestTitle);
-		form.addColumn(2, text);
-		form.addColumn(3, sendR);
-		label.setPrefWidth(150);
-		sendR.setPrefWidth(150);
-		GridPane.setMargin(sendR, new Insets(5, 10, 10, 10));
-		GridPane.setMargin(text, new Insets(5, 10, 10, 10));
-		GridPane.setMargin(label, new Insets(5, 10, 10, 10));
+		Button sendR = new Button("Lähetä");
+		form.addRow(1, title, requestTitle);
+		form.addRow(2,textareatitle, text);
+		form.add(sendR, 1, 3);
+		title.setPrefWidth(200);
+		sendR.setPrefWidth(200);
+		GridPane.setMargin(sendR, new Insets(5, 10, 10, 5)); 
+		GridPane.setMargin(text, new Insets(5, 10, 10, 5));
+		GridPane.setMargin(requestTitle, new Insets(5, 10, 10, 5));
 
 
 
