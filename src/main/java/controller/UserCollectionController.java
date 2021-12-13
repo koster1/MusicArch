@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -16,6 +17,7 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -102,10 +104,26 @@ public class UserCollectionController {
     
     @FXML
     private GridPane CollectionGridPane;
+    
+    @FXML
+    private GridPane AlbumNameGrid;
+
+    @FXML
+    private GridPane ArtistGrid;
+
+    @FXML
+    private GridPane GenreGrid;
+    @FXML
+    private GridPane AlbumYearGrid;
+    
+    @FXML
+    private GridPane InfoLabelGrid;
 
     private boolean allowed;
     
     private String tempText = "";
+    
+    private List<WishList> wishList;
     
     
     private DoubleProperty fontSize = new SimpleDoubleProperty(20);
@@ -149,39 +167,88 @@ public class UserCollectionController {
     			GridListView.setItems(choices);
     			
     			GridListView.setOnMouseClicked(me -> {
+    				ArtistGrid.getChildren().clear();
+//    				ArtistGrid.setMaxWidth(250.0);
+    				GenreGrid.getChildren().clear();
+//    				GenreGrid.setMaxWidth(250.0);
+    				AlbumNameGrid.getChildren().clear();
+    				AlbumYearGrid.getChildren().clear();
+//    				AlbumNameGrid.setMaxWidth(250.0);
     				AddDescriptionButton.setDisable(true);
     				this.allowed = false;
-    				LocalAlbum listLocalAlbum = GridListView.getSelectionModel().getSelectedItem();
-    				List<LocalGenre> localGenre = controller.getLocalAlbumGenres(listLocalAlbum.getAlbumID());
-    				List<LocalArtist> localArtist = controller.getLocalAlbumArtists(listLocalAlbum.getAlbumID());
-    				if(listLocalAlbum != null) {
-    					AlbumNameLabel.setText(listLocalAlbum.getAlbumName()); 				
-    				}
-    				if(localGenre.size() > 0) {
-    					AlbumGenreLabel.setText(localGenre.get(0).getGenreName());
-    					System.out.println(listLocalAlbum.getAlbumName());
-    				} else {
-    					AlbumGenreLabel.setText(Language.getInstance().getBundle().getString("AlbumGenreLabelFail"));
-    				}
-    				if(localArtist.size() > 0) {
-    					AlbumArtistLabel.setText(localArtist.get(0).getArtistName());
-    				} else {
-    					AlbumArtistLabel.setText(Language.getInstance().getBundle().getString("AlbumArtistLabelFail"));
-    				}
-    				this.tempText = controller.getLocalAlbumDescription(listLocalAlbum.getAlbumID());
-    				AlbumTextArea.setText(this.tempText);
-    				InputText.setText("" + AlbumTextArea.getText().length() + "/" + "1000");
-    				List<LocalSong> localSongs = controller.getLocalAlbumSongs(listLocalAlbum.getAlbumID());
-    				ObservableList<LocalSong> observableSongs = FXCollections.observableArrayList(localSongs);
-    				
-    				SongListView.setCellFactory(lv -> new ListCell<LocalSong>() {
-    					@Override
-    					protected void updateItem(LocalSong localSong, boolean empty) {
-    						super.updateItem(localSong, empty);
-    						setText(empty || localSong == null || localSongs.size() == 0 ? "" : localSong.getSongName());
+    				Platform.runLater(() -> {
+    					
+    					LocalAlbum listLocalAlbum = GridListView.getSelectionModel().getSelectedItem();
+    					List<LocalGenre> localGenre = controller.getLocalAlbumGenres(listLocalAlbum.getAlbumID());
+    					List<LocalArtist> localArtist = controller.getLocalAlbumArtists(listLocalAlbum.getAlbumID());
+    					
+    					if(listLocalAlbum != null) {
+//    					AlbumNameLabel.setText(listLocalAlbum.getAlbumName());
+    						TextField albumNameField = new TextField();
+    						albumNameField.setText(listLocalAlbum.getAlbumName());
+    						AlbumNameGrid.add(albumNameField, 0, 0);
+    						albumNameField.setVisible(false);
+    						
+    						Label albumNameLabel = new Label();
+    						albumNameLabel.setText(listLocalAlbum.getAlbumName());
+    						AlbumNameGrid.add(albumNameLabel, 0, 0);
+    						albumNameLabel.setVisible(true);
+    						
+    						Text albumYearField = new Text();
+    						albumYearField.setText(String.valueOf(listLocalAlbum.getAlbumYear()));
+    						
+    						AlbumYearGrid.add(albumYearField, 0, 0);
+//    						albumYearField.setVisible(false);
     					}
-    				});		
-    				SongListView.setItems(observableSongs);
+    					
+    					if(localGenre.size() > 0) {
+//    					AlbumGenreLabel.setText(localGenre.get(0).getGenreName());
+    						for (int i = 0; i<localGenre.size(); i++) {
+    							TextField GenreField = new TextField();
+    							GenreField.setText(localGenre.get(i).getGenreName());
+    							GenreGrid.add(GenreField, i, 0);
+    							GenreField.setVisible(false);
+    							
+    							Label genreLabel = new Label();
+    							genreLabel.setText(" " + localGenre.get(i).getGenreName());
+    							GenreGrid.add(genreLabel, i, 0); 
+    							genreLabel.setVisible(true);
+    						}
+    					} else {
+    						AlbumGenreLabel.setText(Language.getInstance().getBundle().getString("AlbumGenreLabelFail"));
+    					}
+    					if(localArtist.size() > 0) {
+//    					AlbumArtistLabel.setText(localArtist.get(0).getArtistName());
+    						for (int i = 0; i<localArtist.size(); i++) {
+    							TextField artistField = new TextField();
+    							artistField.setText(localArtist.get(i).getArtistName());
+    							ArtistGrid.add(artistField, i, 0);
+    							artistField.setVisible(false);
+    							
+    							
+    							Label artistLabel = new Label();
+    							artistLabel.setText(" " + localArtist.get(i).getArtistName());
+    							ArtistGrid.add(artistLabel, i, 0); 
+    							artistLabel.setVisible(true);
+    						}
+    					} else {
+    						AlbumArtistLabel.setText(Language.getInstance().getBundle().getString("AlbumArtistLabelFail"));
+    					}
+    					this.tempText = controller.getLocalAlbumDescription(listLocalAlbum.getAlbumID());
+    					AlbumTextArea.setText(this.tempText);
+    					InputText.setText("" + AlbumTextArea.getText().length() + "/" + "1000");
+    					List<LocalSong> localSongs = controller.getLocalAlbumSongs(listLocalAlbum.getAlbumID());
+    					ObservableList<LocalSong> observableSongs = FXCollections.observableArrayList(localSongs);
+    					
+    					SongListView.setCellFactory(lv -> new ListCell<LocalSong>() {
+    						@Override
+    						protected void updateItem(LocalSong localSong, boolean empty) {
+    							super.updateItem(localSong, empty);
+    							setText(empty || localSong == null || localSongs.size() == 0 ? "" : localSong.getSongName());
+    						}
+    					});		
+    					SongListView.setItems(observableSongs);
+    				});
     			});
     		});
     		
@@ -190,7 +257,6 @@ public class UserCollectionController {
     		System.out.println(e.getMessage() + " usercollection init");
     	}
     	Platform.runLater(() -> {
-    	List<WishList> wishList;
 		try {
    		
     		wishList = controller.readWishList();
@@ -327,6 +393,14 @@ public class UserCollectionController {
     		
     	} catch (Exception ex) {
     		System.out.println(ex.getMessage() + " tried to remove null album");
+    		try {
+    			int albumChoice = GridWishListView.getSelectionModel().getSelectedItem().getAlbumID();
+    			controller.removeFromWishlist(albumChoice);
+    			wishList.remove(GridWishListView.getSelectionModel().getSelectedIndex());
+    			GridWishListView.refresh();
+    		} catch (NullPointerException ne) {
+    			System.out.println(ne.getMessage());
+    		}
     		return;
     	}
     		
