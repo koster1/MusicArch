@@ -131,7 +131,6 @@ public class RemoteDAO {
 			session.update(editGenre);
 			transAct.commit();
 			return true;
-
 		} catch (Exception e) {
 			if (transAct != null)
 				transAct.rollback();
@@ -142,19 +141,23 @@ public class RemoteDAO {
 	 * removeGenre() will remove a single Genre based on the given genreID
 	 */
 	public boolean removeGenre(int id) {
+		List<Album> albumsToRemove = genreAlbums(id);
+		
+		for(Album a : albumsToRemove) {
+			removeAlbum(a.getAlbumID());
+		}
 		Transaction transAct = null;
-		try (Session session = sessionFactory.openSession()) {
-			transAct = session.beginTransaction();
-			Genre removeGenre = (Genre) session.load(Genre.class, id);
+		try(Session session = sessionFactory.openSession()){
+			transAct = session.beginTransaction();		
+			Genre removeGenre = (Genre)session.load(Genre.class, id);		
 			session.delete(removeGenre);
 			transAct.commit();
 			return true;
-
-		} catch (Exception e) {
-			if (transAct != null)
-				transAct.rollback();
-			throw e;
-		}
+			}catch(Exception e) {
+				if(transAct != null)
+					transAct.rollback();
+				throw e;
+			}
 	}
 	/*
 	 * Method used to create a new artist in the database. Will first iterate through
@@ -270,7 +273,14 @@ public class RemoteDAO {
 	 * removeArtist() will remove a single Artist based on the given artistID
 	 */
 	public boolean removeArtist(int id) {
-		Transaction transAct = null;		
+		Transaction transAct = null;	
+		
+		List<Album> albumsToRemove = artistAlbums(id);
+		
+		for(Album a : albumsToRemove) {
+			removeAlbum(a.getAlbumID());
+		}
+		
 		try(Session session = sessionFactory.openSession()){
 		transAct = session.beginTransaction();		
 		Artist removeArtist = (Artist)session.load(Artist.class, id);		
@@ -283,15 +293,7 @@ public class RemoteDAO {
 			throw e;
 		}
 	}		
-	/* CURRENT PROBLEM -> Adding songs that already exist within the database! 
-	 * -> The error I get: "No row with the given identifier exists: [com.jcg.hibernate.maven.Song#0]
-	 * -> Would seem to imply it can't find a songID with the .getSongID()-method. Makes sense, since at this point the actual song 
-	 * -> from the songList it's been given doesn't have an ID, just the default ID of 0, as per Hibernation mapping for an auto-incrementing ID.
-	 * Method used to create a new album in the database. Will first iterate through
-	 * all found albumNames, to ensure that it will not allow the creation of a
-	 * album that already exists. 
-	 * Additionally, it will also add the genres and artists to a the album.
-	 */
+	
 	public boolean createAlbum(Album album, Set<Artist> artistList, Set<Genre> genreList, Set<Song> songList) throws Exception {
 		Album[] albumSearch = readAlbums();	
 		List<Song> newSongs = new ArrayList<Song>();
@@ -428,22 +430,8 @@ public class RemoteDAO {
 	 * Also, how about the linking? With the way we've done this, we now need to recursively check for which artists, genres and songs are linked to this, to remove those links and update the right ones :/
 	 */
 	public boolean editAlbum(int id, Album albumEdit) throws Exception {
-//		Set<Song> songList = albumEdit.getAlbumSongs();
 		Set<Genre> genreList = albumEdit.getAlbumGenres();
 		Set<Artist> artistList = albumEdit.getAlbumArtists();
-//		List<Song> newSongs = new ArrayList<Song>();
-		
-//		for(Song song : songList) {
-//			if(!existingSongs().contains(song.getSongName())) {
-//				System.out.println("This song doesn't exist! So now we're making a song with the title: "+song.getSongName());
-//				createSong(song);
-//				newSongs.add(searchSong(song.getSongName())); 
-//			}else {
-//				newSongs.add(searchSong(song.getSongName()));
-//				System.out.println("This song"+song.getSongName()+" DID exist! Adding it to the reference list! Moving on!");
-//			}
-//			
-//		}
 		
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
@@ -464,13 +452,7 @@ public class RemoteDAO {
 				Genre genre2 = (Genre)session.load(Genre.class, genre.getGenreID());
 				editable.addGenre(genre2);
 				session.update(editable);	
-			}			
-			//This'd be adding songs, but it requires the song to already exist, so...
-//			for(Song song : newSongs) {
-//				Song song2 = (Song)session.load(Song.class, song.getSongID());
-//				editable.addSong(song2);
-//				session.update(editable);
-//			}
+			}		
 			transAct.commit();
 			//session.close();
 			return true;
@@ -485,6 +467,15 @@ public class RemoteDAO {
 	 * removeAlbum() will remove a single Album based on the given albumID
 	 */
 	public boolean removeAlbum(int id) {
+//		Set<Artist> artistList = albumArtistList(id);
+		
+//		for(Artist a : artistList) {
+//			if(a.getArtistAlbums().size() == 1) {
+//				System.out.println("Sending a remove request to artist -> "+a.getArtistID());
+//				removeArtist(a.getArtistID());
+//			}
+//		}
+		
 		Transaction transAct = null;
 		try (Session session = sessionFactory.openSession()) {
 			transAct = session.beginTransaction();
