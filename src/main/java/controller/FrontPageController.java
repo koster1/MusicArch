@@ -3,6 +3,8 @@ package controller;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+
 import com.jcg.hibernate.maven.Album;
 import com.jcg.hibernate.maven.Artist;
 import com.jcg.hibernate.maven.Genre;
@@ -14,8 +16,11 @@ import javafx.event.ActionEvent;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -164,7 +169,7 @@ public class FrontPageController {
 					if(counter >= genreAlbums.size()) {
 						break;
 					}
-					Text text2 = new Text(Language.getInstance().getBundle().getString("AlbumYearHeaderLabel") + " " + String.valueOf(genreAlbums.get(counter).getAlbumYear()));
+					Text text2 = new Text("Release year: " + String.valueOf(genreAlbums.get(counter).getAlbumYear()));
 					text2.setFont(new Font(15));
 					Button button = new Button(genreAlbums.get(counter).getAlbumName());
 					button.setId(String.valueOf(genreAlbums.get(counter).getAlbumID()));
@@ -233,7 +238,7 @@ public class FrontPageController {
 						break;
 					}
 					GridPane grid = new GridPane();
-					Text text2 = new Text(Language.getInstance().getBundle().getString("EditButton") + String.valueOf(artistAlbums.get(counter).getAlbumYear()));
+					Text text2 = new Text("Release Year: " + String.valueOf(artistAlbums.get(counter).getAlbumYear()));
 					text2.setFont(new Font(15));
 					Button button = new Button(artistAlbums.get(counter).getAlbumName());
 					button.setMinWidth(150);
@@ -268,12 +273,12 @@ public class FrontPageController {
 		if(!editing) {
 			editing = true;
 			flipChildren(ArtistOrGenreGrid.getChildren());
-			EditButton.setText(Language.getInstance().getBundle().getString("SaveButton"));
+			EditButton.setText("Save");
 			System.out.println("In edit mode!");
 		}else {
 			editing = false;
 			flipChildren(ArtistOrGenreGrid.getChildren());
-			EditButton.setText(Language.getInstance().getBundle().getString("EditButton"));
+			EditButton.setText("Edit");
 			
 			String newArtistOrGenre = new String();
 			for(Node n : ArtistOrGenreGrid.getChildren()) {
@@ -281,11 +286,10 @@ public class FrontPageController {
 					String testName = ((TextField)n).getText();
 					if(testName.isBlank() || testName.isEmpty()) {
 						System.out.println("Empty string detected, using original");
-						for(Node m : ArtistOrGenreGrid.getChildren()) {
-							if(m instanceof Label) {
-								newArtistOrGenre = ((Label) m).getText();
-							}
-						}
+						Alert alert = new Alert(AlertType.ERROR);
+						alert.setTitle(Language.getInstance().getBundle().getString("ArtistOrGenreError"));
+						alert.setHeaderText(Language.getInstance().getBundle().getString("EmptyStringArtistOrGenreEdit"));
+						alert.showAndWait();
 					}else {
 						newArtistOrGenre = ((TextField)n).getText();
 					}
@@ -293,6 +297,7 @@ public class FrontPageController {
 			}
 			
 			switch(artistOrGenre) {
+			
 			case 1:
 				try {
 					String originalArtist = new String();
@@ -316,7 +321,6 @@ public class FrontPageController {
 						}
 					}
 					int genreID = controller.searchGenre(originalGenre).getGenreID();
-					System.out.println("The genre's id was -> "+genreID);
 					controller.editGenre(genreID, newArtistOrGenre);
 					}catch(Exception e) {
 						System.out.println("Something went wrong -> "+e.getMessage());
@@ -331,43 +335,53 @@ public class FrontPageController {
 				e.printStackTrace();
 			}
 		}
+	
+	
 		DeleteButton.setVisible(editing);
 		
     }
 	
 	@FXML
     void deleteButton(ActionEvent event) {
-		switch(artistOrGenre) {
-			case 1:
-				try {
-					String originalArtist = new String();
-					for(Node n : ArtistOrGenreGrid.getChildren()) {
-						if(n instanceof Label) {
-							originalArtist = ((Label) n).getText();
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle(Language.getInstance().getBundle().getString("ArtistOrGenreError"));
+		alert.setHeaderText(Language.getInstance().getBundle().getString("ArtistOrGenreDeleteHeader"));
+		alert.setContentText(Language.getInstance().getBundle().getString("ArtistOrGenreDeleteContent"));
+		
+		Optional<ButtonType> result = alert.showAndWait();
+		if(result.get() == ButtonType.OK) {
+			switch(artistOrGenre) {
+				case 1:
+					try {
+						String originalArtist = new String();
+						for(Node n : ArtistOrGenreGrid.getChildren()) {
+							if(n instanceof Label) {
+								originalArtist = ((Label) n).getText();
+							}
 						}
-					}
-					int artistID = controller.searchArtist(originalArtist).getArtistID();
-					controller.removeArtist(artistID);
-					}catch(Exception e) {
-						System.out.println("Something went wrong -> "+e.getMessage());
-					}
-				break;
-			case 2:
-				try {
-					String originalGenre = new String();
-					for(Node n : ArtistOrGenreGrid.getChildren()) {
-						if(n instanceof Label) {
-							originalGenre = ((Label)n).getText();
+						int artistID = controller.searchArtist(originalArtist).getArtistID();
+						controller.removeArtist(artistID);
+						}catch(Exception e) {
+							System.out.println("Something went wrong -> "+e.getMessage());
 						}
-					}
-					int genreID = controller.searchGenre(originalGenre).getGenreID();
-					System.out.println("The genre's id was -> "+genreID);
-					controller.removeGenre(genreID);
-					}catch(Exception e) {
-						System.out.println("Something went wrong -> "+e.getMessage());
-					}
-				break;
-			
+					break;
+				case 2:
+					try {
+						String originalGenre = new String();
+						for(Node n : ArtistOrGenreGrid.getChildren()) {
+							if(n instanceof Label) {
+								originalGenre = ((Label)n).getText();
+							}
+						}
+						int genreID = controller.searchGenre(originalGenre).getGenreID();
+						System.out.println("The genre's id was -> "+genreID);
+						controller.removeGenre(genreID);
+						}catch(Exception e) {
+							System.out.println("Something went wrong -> "+e.getMessage());
+						}
+					break;
+				
+			}
 		}
 		try {
 			view.showFrontPage();

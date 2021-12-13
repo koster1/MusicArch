@@ -79,8 +79,8 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="EditButton" mnemonicParsing="false" onAction="#editContent" text="%EditButton" GridPane.columnIndex="1" />
-            <Button fx:id="DeleteButton" mnemonicParsing="false" onAction="#deleteButton" text="%DeleteButton" GridPane.columnIndex="2" />
+            <Button fx:id="EditButton" mnemonicParsing="false" onAction="#editContent" text="Edit" GridPane.columnIndex="1" />
+            <Button fx:id="DeleteButton" mnemonicParsing="false" onAction="#deleteButton" text="Delete" GridPane.columnIndex="2" />
          </children>
       </GridPane>
    </children>
