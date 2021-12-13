@@ -559,11 +559,12 @@ public class LocalDAO {
 			List results = query.list();
 			if(results.size() == 0) {
 				System.out.println("Could not find item");
+				
 				return false;
 			}
 			System.out.println("Found item: " + results);
 			transAct.commit();
-			session.close();
+			
 			return true;
 		} catch (Exception e) {
 			if(transAct != null) {
@@ -587,6 +588,31 @@ public class LocalDAO {
 			wishList.setAlbumName(albumName);
 			wishList.setAlbumYear(albumYear);
 			session.save(wishList);
+			transAct.commit();
+			session.close();
+			return true;
+		} catch (Exception e) {
+			if(transAct != null) {
+				transAct.rollback();
+			}
+			throw e;
+		}
+	}
+	public boolean removeFromWishlist(int id) {
+		if(searchWishlist(id) == false) {
+			return false;
+		}
+		Transaction transAct = null;
+		try(Session session = sessionFactory.openSession()) {
+			transAct = session.beginTransaction();
+			Query query = session.createQuery("FROM WishList WHERE albumID = :albumID");
+			query.setParameter("albumID", id);
+			List results = query.list();
+			WishList wishList = (WishList)query.list().get(0);
+			System.out.println("name : " + wishList.getAlbumName() + " albumid = " + wishList.getAlbumID() + " wishlistID = " + wishList.getWishListID());
+//			WishList removeWish = (WishList)session.load(WishList.class, wishList.getWishListID());
+			
+			session.delete(wishList);
 			transAct.commit();
 			session.close();
 			return true;

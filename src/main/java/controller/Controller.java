@@ -395,12 +395,19 @@ public class Controller {
     
     public boolean addToWishlist(int albumID, String albumName, int albumYear) {
     	
-    	localDAO.addToWishlist(albumID, albumName, albumYear);
-    	return true;
+    	return localDAO.addToWishlist(albumID, albumName, albumYear);
     }
     
     public List<WishList> readWishList() {
     	return localDAO.readWishList();
+    }
+    
+    public void removeFromWishlist(int id) {
+    	boolean result = localDAO.removeFromWishlist(id);
+    }
+    
+    public boolean searchWishlist(int albumID) {
+    	return localDAO.searchWishlist(albumID);
     }
     
     public void createRequest(String rTitle, String rContents) {

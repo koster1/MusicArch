@@ -12,6 +12,7 @@ import com.jcg.hibernate.maven.Artist;
 import com.jcg.hibernate.maven.Genre;
 import com.jcg.hibernate.maven.Song;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,6 +23,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import model.Language;
 import view.View;
 
 /**
@@ -117,10 +119,15 @@ public class AlbumPageController {
 		
 		try {
 			controller.readLocalAlbum(id);
-			CollectionAdd.setDisable(true);
+			CollectionAdd.setText(Language.getInstance().getBundle().getString("RemoveFromCollection"));
+			WishlistAdd.setDisable(true);
 		} catch (Exception e) {
+			if(controller.searchWishlist(id)) {
+				WishlistAdd.setText(Language.getInstance().getBundle().getString("RemoveFromWishList"));
+			}
 			e.getMessage();
 		}
+		
 		
 		Artist[] artistArray = artists.toArray(new Artist[artists.size()]);
 		Genre[] genreArray = genres.toArray(new Genre[genres.size()]);
@@ -338,8 +345,19 @@ public class AlbumPageController {
 	    void addToCollection(ActionEvent event) {
 		   try {
 			   this.controller.createLocalAlbum(this.id, album.getAlbumName(), this.songs, album.getAlbumYear(), this.genres, this.artists );
+			   CollectionAdd.setText(Language.getInstance().getBundle().getString("AddToCollectionButton"));
+//			   WishlistAdd.setText(Language.getInstance().getBundle().getString("RemoveFromWishList"));
+			   if(this.controller.searchWishlist(id))  {
+				   this.controller.removeFromWishlist(id);				   				   
+			   }
+			   WishlistAdd.setDisable(true);
+			   CollectionAdd.setText(Language.getInstance().getBundle().getString("RemoveFromCollection"));
+
 		   }catch(Exception e) {
 			   System.out.println("Failed to add Album to local collection : "+e.getMessage());
+			   controller.removeLocalAlbum(this.id);
+			   CollectionAdd.setText(Language.getInstance().getBundle().getString("AddToCollectionButton"));
+			   WishlistAdd.setDisable(false);
 		   }
 		   
 	    }
@@ -350,7 +368,12 @@ public class AlbumPageController {
 	    */
 	   @FXML
        void addToWishList(ActionEvent event) {
-           controller.addToWishlist(this.id, album.getAlbumName(), album.getAlbumYear());
+           if(controller.addToWishlist(this.id, album.getAlbumName(), album.getAlbumYear())) {
+        	   WishlistAdd.setText(Language.getInstance().getBundle().getString("RemoveFromWishList"));        	   
+           } else {
+        	   controller.removeFromWishlist(id);
+        	   WishlistAdd.setText(Language.getInstance().getBundle().getString("AddToWishlistButton"));
+           }
        }
 	
 }
