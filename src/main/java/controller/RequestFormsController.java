@@ -104,12 +104,6 @@ public class RequestFormsController {
 	List<String> artistsFound;
 	List<String> albumsFound;
 
-	// Error-window labels
-	@FXML
-	private Label errorTitle;
-	@FXML
-	private Label errorText;
-
 	@FXML
 	private GridPane requestGrid;
 
@@ -125,12 +119,15 @@ public class RequestFormsController {
     @FXML
     private Text moi;
 
-
 	public RequestFormsController() {
+
+
 	}
 
 	public RequestFormsController(Controller controller) {
 		this.controller = controller;
+		
+
 	}
 	int requestId;
 	// Dropdownlists mouseevents
@@ -179,7 +176,7 @@ public class RequestFormsController {
 		view.showGenreForm();
 	}
 
-	// ----------------------Search existing genres
+	// ----------------------Search existing genres------------------------
 
 	@FXML
 	void getSearchable(MouseEvent event) {
@@ -192,13 +189,15 @@ public class RequestFormsController {
 
 	@FXML
 	void refreshSearchList(KeyEvent event) {
-
+		GenreAddTxtField.textProperty().addListener(
+		        (observable,oldValue,newValue)-> {
+		            if(newValue.length() > 50) GenreAddTxtField.setText(oldValue);
+		        }
+		);
 		int menuCounter = 0;
 		List<String> strippedList = new ArrayList<String>();
 		GenreAddTxtField.setContextMenu(searchContext);
-
 		searchContext.show(GenreAddTxtField, Side.BOTTOM, 0, 0);
-
 		searchContext.getItems().clear();
 		for (int i = 0; i < genresFound.size(); i++) {
 			if (genresFound.get(i).toLowerCase().contains(GenreAddTxtField.getText().toLowerCase())) {
@@ -209,7 +208,6 @@ public class RequestFormsController {
 		if (menuCounter > 5) {
 			menuCounter = 4;
 		}
-		System.out.println(menuCounter + " menucounter");	
 
 		for (int i = 0; i < menuCounter; i++) {
 			String testString = strippedList.get(i);
@@ -242,7 +240,11 @@ public class RequestFormsController {
 
 	@FXML
 	void refreshArtistSearchList(KeyEvent event) {
-
+		ArtistsName.textProperty().addListener(
+		        (observable,oldValue,newValue)-> {
+		            if(newValue.length() > 50) ArtistsName.setText(oldValue);
+		        }
+		);
 		int menuCounter = 0;
 		List<String> strippedList = new ArrayList<String>();
 		ArtistsName.setContextMenu(searchContextArtist);
@@ -254,6 +256,7 @@ public class RequestFormsController {
 			if (artistsFound.get(i).toLowerCase().contains(ArtistsName.getText().toLowerCase())) {
 				strippedList.add(artistsFound.get(i));
 				menuCounter++;
+				
 			}
 		}
 		if (menuCounter > 5) {
@@ -266,6 +269,7 @@ public class RequestFormsController {
 			System.out.println("Added a new menu item -> " + searchItem.getText());
 			searchContextArtist.getItems().add(searchItem);
 		}
+
 	}
 
 	@FXML
@@ -293,14 +297,16 @@ public class RequestFormsController {
 	ArrayList<Button> genreButtonList = new ArrayList<Button>();
 
 	@FXML
-	void refreshGenreList(KeyEvent event) {
-
+	void refreshGenreList(KeyEvent event) {		
+		addGenres2Album.textProperty().addListener(
+		        (observable,oldValue,newValue)-> {
+		            if(newValue.length() > 50) addGenres2Album.setText(oldValue);
+		        }
+		);
 		int menuCounter = 0;
 		List<String> strippedList = new ArrayList<String>();
 		addGenres2Album.setContextMenu(searchContext);
-
 		searchContext.show(addGenres2Album, Side.BOTTOM, 0, 0);
-
 		searchContext.getItems().clear();
 		for (int i = 0; i < genresFound.size(); i++) {
 			if (genresFound.get(i).toLowerCase().contains(addGenres2Album.getText().toLowerCase())) {
@@ -369,7 +375,11 @@ public class RequestFormsController {
 
 	@FXML
 	void refreshArtistList(KeyEvent event) {
-
+		addArtists2Album.textProperty().addListener(
+		        (observable,oldValue,newValue)-> {
+		            if(newValue.length() > 50) addArtists2Album.setText(oldValue);
+		        }
+		);
 		int menuCounter = 0;
 		List<String> strippedList = new ArrayList<String>();
 		addArtists2Album.setContextMenu(searchContextArtist);
@@ -465,9 +475,7 @@ public class RequestFormsController {
 
 	@FXML
 	void SendGenreButton(ActionEvent event) throws IOException {
-
 		String genreName = GenreAddTxtField.getText();
-
 		if (genreName.isEmpty()) {
 
 			Alert alert = new Alert(AlertType.ERROR);

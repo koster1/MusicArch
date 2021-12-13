@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -137,9 +138,20 @@ public class SearchController {
 		title.setText(Language.getInstance().getBundle().getString("RequestTextAreaLabel"));
 		textareatitle.setText(Language.getInstance().getBundle().getString("RequestTitleLabel"));
 
-
+		
+		text.textProperty().addListener(
+		        (observable,oldValue,newValue)-> {
+		            if(newValue.length() > 250) text.setText(oldValue);
+		        }
+		);
 
 		TextField requestTitle = new TextField();
+		requestTitle.textProperty().addListener(
+		        (observable,oldValue,newValue)-> {
+		            if(newValue.length() > 50) requestTitle.setText(oldValue);
+		        }
+		);
+		
 		Button sendR = new Button();
     	sendR.setText(Language.getInstance().getBundle().getString("sendRequestButton"));
 
@@ -150,6 +162,9 @@ public class SearchController {
 		requestFormGridpienempi.add(textareatitle, 0, 2);
 		requestTitle.setPrefWidth(200);
 		sendR.setPrefWidth(200);
+		text.maxHeight(100);
+		text.setWrapText(true);
+
 		GridPane.setMargin(textareatitle, new Insets(5, 10, 10, 5));
 		GridPane.setMargin(title, new Insets(5, 10, 40, 5));
 		GridPane.setMargin(sendR, new Insets(5, 10, 10, 5));
@@ -167,5 +182,6 @@ public class SearchController {
 			}
 		});
 	}
+
 
 }

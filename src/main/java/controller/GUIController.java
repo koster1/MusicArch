@@ -257,7 +257,7 @@ public class GUIController {
     	UserCollection.setText(Language.getInstance().getBundle().getString("UserCollectionButton"));
     	Help.setText(Language.getInstance().getBundle().getString("HelpButton"));
     	Requests.setText(Language.getInstance().getBundle().getString("RequestsButton"));
-    	SearchBox.setText(Language.getInstance().getBundle().getString("SearchBoxTextField"));
+    	SearchBox.setPromptText(Language.getInstance().getBundle().getString("SearchBoxTextField"));
     	SearchButton.setText(Language.getInstance().getBundle().getString("SearchButton"));
     	RootMenuButton.setText(Language.getInstance().getBundle().getString("LanguageButton"));
     }
@@ -279,7 +279,7 @@ public class GUIController {
     	UserCollection.setText(Language.getInstance().getBundle().getString("UserCollectionButton"));
     	Help.setText(Language.getInstance().getBundle().getString("HelpButton"));
     	Requests.setText(Language.getInstance().getBundle().getString("RequestsButton"));
-    	SearchBox.setText(Language.getInstance().getBundle().getString("SearchBoxTextField"));
+    	SearchBox.setPromptText(Language.getInstance().getBundle().getString("SearchBoxTextField"));
     	SearchButton.setText(Language.getInstance().getBundle().getString("SearchButton"));
     	RootMenuButton.setText(Language.getInstance().getBundle().getString("LanguageButton"));
     	
