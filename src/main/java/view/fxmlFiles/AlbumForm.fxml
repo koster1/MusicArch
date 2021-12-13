@@ -49,7 +49,7 @@
       </ScrollPane>
       <Button id="Send" layoutX="302.0" layoutY="535.0" maxWidth="80.0" mnemonicParsing="false" onAction="#SendAlbumButton" prefHeight="20.0" prefWidth="80.0" text="%AlbumFormSendButtonTitle" />
       <Button id="PlusButtons" layoutX="356.0" layoutY="411.0" mnemonicParsing="false" onAction="#NewSong" prefHeight="30.0" prefWidth="30.0" text="+" />
-      <TextField fx:id="addArtists2Album" layoutX="116.0" layoutY="292.0" onKeyTyped="#refreshArtistList" onMouseClicked="#getAlbumArtistsSearchable" prefHeight="30.0" prefWidth="222.0" styleClass="formContextMenu">
+      <TextField fx:id="addArtists2Album" layoutX="116.0" layoutY="292.0" onKeyTyped="#refreshArtistList" onMouseClicked="#getAlbumArtistsSearchable" prefHeight="30.0" prefWidth="222.0" styleClass="formContextMenu" stylesheets="@../style.css">
          <contextMenu>
             <ContextMenu fx:id="searchContextArtist" />
          </contextMenu>
