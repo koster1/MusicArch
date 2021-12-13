@@ -106,7 +106,6 @@ public class SearchController {
 			foundArtist.setVisible(true);
 			notFoundArtist.setVisible(false);
 			SearchGrid.add(new Text(artistResults.getArtistName()), 0, 1);
-			// SearchGrid.add(new Text(artistResults.getArtistName() + " löytyi"), 0, 0);
 
 		} catch (Exception e) {
 			foundArtist.setVisible(false);
