@@ -127,10 +127,13 @@ public class FrontPageController {
 			updateArtistList();
 		});
 		});
+		EditButton.setVisible(false);
+		DeleteButton.setVisible(editing);
 	}
 	
 	public void updateGenreList() {
 		artistOrGenre = 2;
+		EditButton.setVisible(true);
 		Genre listGenre = FrontGenreListView.getSelectionModel().getSelectedItem();
 		List<Album> genreAlbums = controller.getGenreAlbums(listGenre.getGenreID());
 		
@@ -200,6 +203,7 @@ public class FrontPageController {
 	
 	public void updateArtistList() {
 		artistOrGenre = 1;
+		EditButton.setVisible(true);
 		Artist listArtist = FrontArtistListView.getSelectionModel().getSelectedItem();
 		List<Album> artistAlbums = controller.getArtistAlbums(listArtist.getArtistID());
 
