@@ -15,23 +15,23 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="583.0" prefWidth="500.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RequestFormsController">
    <children>
-      <Label layoutX="112.0" prefHeight="27.0" prefWidth="171.0" text="%AddAlbumFormTitle" AnchorPane.topAnchor="0.0">
+      <Label layoutX="112.0" layoutY="10.0" prefHeight="27.0" prefWidth="171.0" text="%AddAlbumFormTitle">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
       <Label layoutX="108.0" layoutY="38.0" text="%AlbumNameLabel" />
-      <TextField fx:id="AlbumName" layoutX="110.0" layoutY="56.0" prefHeight="30.0" prefWidth="222.0" AnchorPane.leftAnchor="110.0" />
-      <Label fx:id="Year" layoutX="108.0" layoutY="88.0" prefHeight="18.0" prefWidth="122.0" text="%AlbumYearLabel" AnchorPane.leftAnchor="108.0" />
-      <TextField fx:id="Released" layoutX="108.0" layoutY="114.0" prefHeight="30.0" prefWidth="222.0" AnchorPane.leftAnchor="108.0" />
-      <Label layoutX="110.0" layoutY="142.0" text="%GenreListLabel" />
-      <Label layoutX="114.0" layoutY="265.0" prefHeight="26.0" prefWidth="159.0" text="%ArtistNameLabel" />
-      <Label layoutX="118.0" layoutY="387.0" text="%SongListLabel" AnchorPane.leftAnchor="118.0" />
-      <TextField fx:id="addGenres2Album" layoutX="121.0" layoutY="168.0" maxWidth="1.7976931348623157E308" onKeyTyped="#refreshGenreList" onMouseClicked="#getAlbumGenresSearchable" prefHeight="30.0" prefWidth="281.0" styleClass="formContextMenu">
+      <TextField fx:id="AlbumName" layoutX="113.0" layoutY="64.0" prefHeight="30.0" prefWidth="222.0" />
+      <Label fx:id="Year" layoutX="115.0" layoutY="104.0" prefHeight="18.0" prefWidth="122.0" text="%AlbumYearLabel" />
+      <TextField fx:id="Released" layoutX="115.0" layoutY="130.0" prefHeight="30.0" prefWidth="222.0" />
+      <Label layoutX="118.0" layoutY="170.0" text="%GenreListLabel" />
+      <Label layoutX="118.0" layoutY="273.0" prefHeight="26.0" prefWidth="159.0" text="%ArtistNameLabel" />
+      <Label layoutX="115.0" layoutY="385.0" prefHeight="26.0" prefWidth="122.0" text="%SongListLabel" />
+      <TextField fx:id="addGenres2Album" layoutX="116.0" layoutY="196.0" maxWidth="1.7976931348623157E308" onKeyTyped="#refreshGenreList" onMouseClicked="#getAlbumGenresSearchable" prefHeight="30.0" prefWidth="281.0" styleClass="formContextMenu">
          <contextMenu>
             <ContextMenu fx:id="searchContext" />
          </contextMenu></TextField>
-      <GridPane fx:id="ankkuri" layoutX="119.0" layoutY="206.0" prefHeight="46.0" prefWidth="220.0">
+      <GridPane fx:id="ankkuri" layoutX="115.0" layoutY="226.0" prefHeight="46.0" prefWidth="220.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="112.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="112.0" />
@@ -39,29 +39,27 @@
          </columnConstraints>
          <rowConstraints>
             <RowConstraints vgrow="SOMETIMES" />
-            <RowConstraints vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
-      <ScrollPane id="scroll" fx:id="scrollPane" layoutX="119.0" layoutY="411.0" prefHeight="90.0" prefWidth="220.0">
+      <ScrollPane id="scroll" fx:id="scrollPane" layoutX="116.0" layoutY="411.0" prefHeight="90.0" prefWidth="220.0">
          <content>
             <VBox id="scroll" fx:id="root1" prefHeight="98.0" prefWidth="194.0" />
          </content>
       </ScrollPane>
-      <Button id="Send" layoutX="302.0" layoutY="535.0" maxWidth="80.0" mnemonicParsing="false" onAction="#SendAlbumButton" prefHeight="20.0" prefWidth="80.0" text="%AlbumFormSendButtonTitle" />
-      <Button id="PlusButtons" layoutX="356.0" layoutY="411.0" mnemonicParsing="false" onAction="#NewSong" prefHeight="30.0" prefWidth="30.0" text="+" />
-      <TextField fx:id="addArtists2Album" layoutX="116.0" layoutY="292.0" onKeyTyped="#refreshArtistList" onMouseClicked="#getAlbumArtistsSearchable" prefHeight="30.0" prefWidth="222.0" styleClass="formContextMenu" stylesheets="@../style.css">
+      <Button id="Send" layoutX="256.0" layoutY="532.0" maxWidth="80.0" mnemonicParsing="false" onAction="#SendAlbumButton" prefHeight="20.0" prefWidth="80.0" text="%AlbumFormSendButtonTitle" />
+      <Button id="PlusButtons" layoutX="349.0" layoutY="411.0" mnemonicParsing="false" onAction="#NewSong" prefHeight="30.0" prefWidth="30.0" text="+" />
+      <TextField fx:id="addArtists2Album" layoutX="116.0" layoutY="300.0" onKeyTyped="#refreshArtistList" onMouseClicked="#getAlbumArtistsSearchable" prefHeight="30.0" prefWidth="222.0" styleClass="formContextMenu" stylesheets="@../style.css">
          <contextMenu>
             <ContextMenu fx:id="searchContextArtist" />
          </contextMenu>
       </TextField>
-      <GridPane fx:id="artistTags" layoutX="116.0" layoutY="329.0" prefHeight="46.0" prefWidth="220.0">
+      <GridPane fx:id="artistTags" layoutX="116.0" layoutY="330.0" prefHeight="46.0" prefWidth="220.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="112.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="112.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="91.200048828125" />
          </columnConstraints>
          <rowConstraints>
-            <RowConstraints vgrow="SOMETIMES" />
             <RowConstraints vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
