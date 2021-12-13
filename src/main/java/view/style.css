@@ -268,4 +268,7 @@ Text {
 -fx-text-fill: orange !important;
 -fx-faint-focus-color: orange;
 -fx-focus-color:orange;
- }
+}
+.formContextMenu {
+	-fx-pref-width: 220;
+}

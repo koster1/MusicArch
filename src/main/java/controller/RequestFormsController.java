@@ -209,13 +209,16 @@ public class RequestFormsController {
 		if (menuCounter > 5) {
 			menuCounter = 4;
 		}
-		System.out.println(menuCounter + " menucounter");
+		System.out.println(menuCounter + " menucounter");	
+
 		for (int i = 0; i < menuCounter; i++) {
 			String testString = strippedList.get(i);
+			
 			MenuItem searchItem = new MenuItem(testString);
-
+			
 			System.out.println("Added a new menu item -> " + searchItem.getText());
 			searchContext.getItems().add(searchItem);
+			
 		}
 	}
 
