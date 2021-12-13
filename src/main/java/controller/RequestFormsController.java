@@ -28,7 +28,9 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -109,32 +111,30 @@ public class RequestFormsController {
 
 	@FXML
 	private ListView<UserRequests> requestList;
-	
-    @FXML
-    private Label requestTitle;
 
-    @FXML
-    private Label requestText;
-    
-    @FXML
-    private Text moi;
+	@FXML
+	private Label requestTitle;
+
+	@FXML
+	private Label requestText;
+
+	@FXML
+	private Text moi;
 
 	public RequestFormsController() {
-
-
 	}
 
 	public RequestFormsController(Controller controller) {
 		this.controller = controller;
-		
-
 	}
+
 	int requestId;
+
 	// Dropdownlists mouseevents
 	@FXML
 	void Genre(MouseEvent event) {
 
-		//UserRequests[] titles = controller.getRequest(int id);
+		// UserRequests[] titles = controller.getRequest(int id);
 		UserRequests[] requests = controller.getRequests();
 		ObservableList<UserRequests> requestObs = FXCollections.observableArrayList(requests);
 		requestList.setCellFactory(lv -> new ListCell<UserRequests>() {
@@ -149,25 +149,25 @@ public class RequestFormsController {
 
 		requestList.setOnMouseClicked(me -> {
 			Button delete = new Button();
-	    	delete.setText(Language.getInstance().getBundle().getString("DeletePageButton"));
-
+			delete.setText(Language.getInstance().getBundle().getString("DeletePageButton"));
 			UserRequests ur = requestList.getSelectionModel().getSelectedItem();
-			System.out.println(ur.getRequestTitle()+"-------------------------------");
-
 			requestTitle.setText(ur.getRequestTitle());
 			moi.setText(ur.getRequestContents());
-			
-			System.out.println(ur+"-------------------------------");
 			requestGrid.add(delete, 0, 3);
 			delete.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent e) {
 					controller.removeRequest(ur.getRequestID());
+					requestGrid.getChildren().clear();
+					requestList.refresh();
 				}
 
 			});
+
 		});
+
 	}
+
 
 	// GenreFormButton, AlbumFromButton and ArtistFromButton sends request to view
 	// to change forms in requests.fxml
@@ -189,11 +189,10 @@ public class RequestFormsController {
 
 	@FXML
 	void refreshSearchList(KeyEvent event) {
-		GenreAddTxtField.textProperty().addListener(
-		        (observable,oldValue,newValue)-> {
-		            if(newValue.length() > 50) GenreAddTxtField.setText(oldValue);
-		        }
-		);
+		GenreAddTxtField.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (newValue.length() > 50)
+				GenreAddTxtField.setText(oldValue);
+		});
 		int menuCounter = 0;
 		List<String> strippedList = new ArrayList<String>();
 		GenreAddTxtField.setContextMenu(searchContext);
@@ -211,12 +210,12 @@ public class RequestFormsController {
 
 		for (int i = 0; i < menuCounter; i++) {
 			String testString = strippedList.get(i);
-			
+
 			MenuItem searchItem = new MenuItem(testString);
-			
+
 			System.out.println("Added a new menu item -> " + searchItem.getText());
 			searchContext.getItems().add(searchItem);
-			
+
 		}
 	}
 
@@ -240,11 +239,10 @@ public class RequestFormsController {
 
 	@FXML
 	void refreshArtistSearchList(KeyEvent event) {
-		ArtistsName.textProperty().addListener(
-		        (observable,oldValue,newValue)-> {
-		            if(newValue.length() > 50) ArtistsName.setText(oldValue);
-		        }
-		);
+		ArtistsName.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (newValue.length() > 50)
+				ArtistsName.setText(oldValue);
+		});
 		int menuCounter = 0;
 		List<String> strippedList = new ArrayList<String>();
 		ArtistsName.setContextMenu(searchContextArtist);
@@ -256,7 +254,7 @@ public class RequestFormsController {
 			if (artistsFound.get(i).toLowerCase().contains(ArtistsName.getText().toLowerCase())) {
 				strippedList.add(artistsFound.get(i));
 				menuCounter++;
-				
+
 			}
 		}
 		if (menuCounter > 5) {
@@ -297,12 +295,11 @@ public class RequestFormsController {
 	ArrayList<Button> genreButtonList = new ArrayList<Button>();
 
 	@FXML
-	void refreshGenreList(KeyEvent event) {		
-		addGenres2Album.textProperty().addListener(
-		        (observable,oldValue,newValue)-> {
-		            if(newValue.length() > 50) addGenres2Album.setText(oldValue);
-		        }
-		);
+	void refreshGenreList(KeyEvent event) {
+		addGenres2Album.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (newValue.length() > 50)
+				addGenres2Album.setText(oldValue);
+		});
 		int menuCounter = 0;
 		List<String> strippedList = new ArrayList<String>();
 		addGenres2Album.setContextMenu(searchContext);
@@ -375,11 +372,10 @@ public class RequestFormsController {
 
 	@FXML
 	void refreshArtistList(KeyEvent event) {
-		addArtists2Album.textProperty().addListener(
-		        (observable,oldValue,newValue)-> {
-		            if(newValue.length() > 50) addArtists2Album.setText(oldValue);
-		        }
-		);
+		addArtists2Album.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (newValue.length() > 50)
+				addArtists2Album.setText(oldValue);
+		});
 		int menuCounter = 0;
 		List<String> strippedList = new ArrayList<String>();
 		addArtists2Album.setContextMenu(searchContextArtist);
@@ -476,21 +472,20 @@ public class RequestFormsController {
 	@FXML
 	void SendGenreButton(ActionEvent event) throws IOException {
 		String genreName = GenreAddTxtField.getText();
-		if (genreName.isEmpty()) {
+		if (genreName.isEmpty() || genreName.isBlank()) {
 
 			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Virhe!");
-			alert.setHeaderText("Tarkista genren nimi. Nimi ei voi olla tyhjä.");
+			alert.setTitle(Language.getInstance().getBundle().getString("AlertTitleGenreEmpty"));
+			alert.setHeaderText(Language.getInstance().getBundle().getString("AlertHeaderTextGenreEmpty"));
 			alert.showAndWait();
-
-			// view.showError();
 
 		} else {
 			// view.showConf();
 			Alert alert = new Alert(AlertType.CONFIRMATION);
-			alert.setTitle("Vahistuspyyntö");
-			alert.setHeaderText("Vahvista genrepyyntö:");
-			alert.setContentText("Haluatko lähettää pyynnön lisätä genren " + genreName + "?");
+			alert.setTitle(Language.getInstance().getBundle().getString("ConfirmGenre"));
+			alert.setHeaderText(Language.getInstance().getBundle().getString("AlertHeaderTextGenre"));
+			alert.setContentText(Language.getInstance().getBundle().getString("AlertContentTextGenre"));
+			//alert.setContentText(genreName);
 
 			Optional<ButtonType> result = alert.showAndWait();
 
@@ -501,8 +496,8 @@ public class RequestFormsController {
 
 				} catch (Exception e) {
 					Alert alert2 = new Alert(AlertType.ERROR);
-					alert2.setTitle("Virhe!");
-					alert2.setHeaderText("Tarkista genren nimi. Genre " + genreName + " on jo olemassa");
+					alert2.setTitle(Language.getInstance().getBundle().getString("AlertTitleGenreExist"));
+					alert2.setHeaderText(Language.getInstance().getBundle().getString("AlertHeaderTextGenreExist"));
 					alert2.showAndWait();
 					e.printStackTrace();
 
@@ -515,24 +510,22 @@ public class RequestFormsController {
 	// The Error window pops up if ArtistsName textfield is empty.
 	@FXML
 	void SendArtistButton(ActionEvent event) throws IOException {
-		System.out.print(" Artistin nimi: " + ArtistsName.getText() + " Artistin bio: " + Biografia.getText() + " ");
 		String artistName = ArtistsName.getText();
 		String artistBio = Biografia.getText();
 
-		if (ArtistsName.getText().isEmpty()) {
+		if (ArtistsName.getText().isEmpty() || ArtistsName.getText().isBlank()) {
 			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Virhe!");
-			alert.setHeaderText("Tarkista artistin nimi. Nimeä ei voi jättää tyhjäksi!");
+			alert.setTitle(Language.getInstance().getBundle().getString("AlertTitleArtistEmpty"));
+			alert.setHeaderText(Language.getInstance().getBundle().getString("AlertHeaderTextArtistEmpty"));
 			alert.showAndWait();
+			
 
 		} else {
 
 			Alert alert = new Alert(AlertType.CONFIRMATION);
-
-			alert.setTitle("Vahvistuspyyntö");
-			alert.setHeaderText("Vahvista artistipyyntö:");
-			alert.setContentText("Haluatko lähettää pyynnön lisätä artistin " + artistName
-					+ " ja artistille biografian: " + artistBio + "?");
+			alert.setTitle(Language.getInstance().getBundle().getString("ConfirmArtist"));
+			alert.setHeaderText(Language.getInstance().getBundle().getString("AlertHeaderTextArtist"));
+			alert.setContentText(Language.getInstance().getBundle().getString("AlertContentTextArtist"));
 
 			Optional<ButtonType> result = alert.showAndWait();
 
@@ -544,8 +537,8 @@ public class RequestFormsController {
 
 				} catch (Exception e) {
 					Alert alert2 = new Alert(AlertType.ERROR);
-					alert2.setTitle("Virhe!");
-					alert2.setHeaderText("Tarkista artistin nimi. Artisti " + artistName + " on jo olemassa");
+					alert2.setTitle(Language.getInstance().getBundle().getString("AlertTitleArtistExist"));
+					alert2.setHeaderText(Language.getInstance().getBundle().getString("AlertHeaderTextArtistExist"));
 					alert2.showAndWait();
 					e.printStackTrace();
 
@@ -558,21 +551,20 @@ public class RequestFormsController {
 	@FXML
 	void SendAlbumButton(ActionEvent event) throws IOException {
 
-		if (AlbumName.getText().isEmpty()) {
+		if (AlbumName.getText().isEmpty() || AlbumName.getText().isBlank()) {
 
 			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Virhe!");
-			alert.setHeaderText("Tarkista artistin nimi. Nimeä ei voi jättää tyhjäksi!");
+			alert.setTitle(Language.getInstance().getBundle().getString("AlertTitleAlbumEmpty"));
+			alert.setHeaderText(Language.getInstance().getBundle().getString("AlertHeaderTextAlbumEmpty"));
 			alert.showAndWait();
 
-			// view.showError();
 
 		} else {
 			Alert alert = new Alert(AlertType.CONFIRMATION);
-
-			alert.setTitle("Vahvistuspyyntö");
-			alert.setHeaderText("Vahvista albumin lisäyspyyntö:");
-			alert.setContentText("Haluatko lähettää pyynnön lisätä albumin " + AlbumName.getText() + "?");
+			alert.setTitle(Language.getInstance().getBundle().getString("ConfirmAlbum"));
+			alert.setHeaderText(Language.getInstance().getBundle().getString("AlertHeaderTextAlbum"));
+			alert.setContentText(Language.getInstance().getBundle().getString("AlertContentTextAlbum"));
+		
 			Optional<ButtonType> result = alert.showAndWait();
 
 			if (result.get() == ButtonType.OK) {
@@ -615,8 +607,8 @@ public class RequestFormsController {
 
 				} catch (Exception e) {
 					Alert alert2 = new Alert(AlertType.ERROR);
-					alert2.setTitle("Virhe!");
-					alert2.setHeaderText("Tarkista albumin nimi. Albumi " + AlbumName.getText() + " on jo olemassa");
+					alert2.setTitle(Language.getInstance().getBundle().getString("AlertTitleAlbumExist"));
+					alert2.setHeaderText(Language.getInstance().getBundle().getString("AlertHeaderTextAlbumExist"));
 					alert2.showAndWait();
 					e.printStackTrace();
 

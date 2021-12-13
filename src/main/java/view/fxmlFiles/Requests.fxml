@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane id="root2" accessibleRole="NODE" minHeight="573.0" minWidth="812.0" prefHeight="619.0" prefWidth="854.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUIController">
+<BorderPane id="root2" accessibleRole="NODE" minHeight="573.0" minWidth="812.0" prefHeight="619.0" prefWidth="854.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUIController">
    <center>
       <AnchorPane prefHeight="428.0" prefWidth="342.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -29,16 +29,16 @@
          </font></Label>
    </top>
    <left>
-      <AnchorPane fx:id="RequestCategories" minWidth="345.0" prefHeight="561.0" prefWidth="372.0" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="RequestCategories" minWidth="345.0" prefHeight="561.0" prefWidth="416.0" BorderPane.alignment="CENTER">
          <children>
-            <ButtonBar buttonOrder="" layoutX="8.0" layoutY="7.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="361.0">
+            <ButtonBar buttonOrder="" layoutX="9.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="410.0">
               <buttons>
                   <Button mnemonicParsing="false" onAction="#ArtistFormButton" prefHeight="34.0" text="%ArtistFormButton" />
-                  <Button mnemonicParsing="false" onAction="#GenreFormButton" prefHeight="34.0" prefWidth="171.0" text="%GenreFormButton" />
+                  <Button mnemonicParsing="false" onAction="#GenreFormButton" prefHeight="34.0" prefWidth="171.0" text="%GenreFormButton" wrapText="true" />
                   <Button mnemonicParsing="false" onAction="#AlbumFormButton" prefHeight="34.0" text="%AlbumFormButton" />
               </buttons>
             </ButtonBar>
-            <TitledPane id="RequestDrops" fx:id="GenreDrop" alignment="CENTER" expanded="false" layoutX="5.0" layoutY="55.0" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#Genre" prefHeight="238.0" prefWidth="356.0" text="%GenreRequest" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="55.0">
+            <TitledPane id="RequestDrops" fx:id="GenreDrop" alignment="CENTER" expanded="false" layoutX="8.0" layoutY="47.0" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#Genre" prefHeight="238.0" prefWidth="356.0" text="%GenreRequest" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="47.0">
                <font>
                   <Font size="13.0" />
                </font>
@@ -46,9 +46,9 @@
                   <ListView fx:id="requestList" nodeOrientation="LEFT_TO_RIGHT" prefHeight="171.0" prefWidth="326.0" />
                </content>
             </TitledPane>
-            <GridPane fx:id="requestGrid" layoutX="14.0" layoutY="299.0" prefHeight="247.0" prefWidth="338.0">
+            <GridPane fx:id="requestGrid" layoutX="23.0" layoutY="324.0" prefHeight="212.0" prefWidth="306.0">
               <columnConstraints>
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints maxHeight="102.60001220703126" minHeight="10.0" prefHeight="38.99996337890625" valignment="CENTER" vgrow="SOMETIMES" />
@@ -58,7 +58,8 @@
                   <Label fx:id="requestTitle" prefHeight="26.0" prefWidth="319.0" textAlignment="CENTER">
                      <font>
                         <Font name="System Bold" size="13.0" />
-                     </font></Label>
+                     </font>
+                  </Label>
                   <Text fx:id="moi" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="315.1999981403351" GridPane.rowIndex="1">
                      <font>
                         <Font size="13.0" />

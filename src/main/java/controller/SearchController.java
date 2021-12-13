@@ -6,6 +6,9 @@ import com.jcg.hibernate.maven.Album;
 import com.jcg.hibernate.maven.Artist;
 import com.jcg.hibernate.maven.Genre;
 
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -73,6 +76,8 @@ public class SearchController {
 
 	@FXML
 	private Label notFoundAlbum;
+    private DoubleProperty fontSize = new SimpleDoubleProperty(20);
+
 
 	public SearchController(String search, Controller controller) {
 		this.search = search;
@@ -137,6 +142,8 @@ public class SearchController {
 		Label textareatitle = new Label();
 		title.setText(Language.getInstance().getBundle().getString("RequestTextAreaLabel"));
 		textareatitle.setText(Language.getInstance().getBundle().getString("RequestTitleLabel"));
+		fontSize.bind(requestFormGridpienempi.widthProperty().add(requestFormGridpienempi.heightProperty()).divide(60));
+		SearchGrid.styleProperty().bind(Bindings.concat("-fx-font-size: ", fontSize.asString(), ";"));
 
 		
 		text.textProperty().addListener(
