@@ -148,6 +148,7 @@ public class FrontPageController {
 		});
 		});
 		EditButton.setVisible(false);
+		EditButton.setText(Language.getInstance().getBundle().getString("ArtistOrGenreEdit"));
 		DeleteButton.setText(Language.getInstance().getBundle().getString("ArtistOrGenreDelete"));
 		DeleteButton.setVisible(editing);
 	}

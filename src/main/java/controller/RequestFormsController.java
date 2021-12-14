@@ -597,13 +597,19 @@ public class RequestFormsController {
 						System.out.println(songList.get(i).getText());
 						songListGiven[i] = songList.get(i).getText();
 					}
-
-					for (String s : songListGiven) {
-						System.out.println(s);
+					int releaseYear = 0;
+					try {
+						releaseYear = Integer.parseInt(Released.getText());
+					} catch(Exception e) {
+						Alert alert2 = new Alert(AlertType.ERROR);
+						alert2.setTitle(Language.getInstance().getBundle().getString("AlertTitleAlbumYear") + " ");
+						alert2.setHeaderText(Language.getInstance().getBundle().getString("AlertHeaderAlbumNotNumber"));
+						alert2.showAndWait();
+						System.out.println(e.getMessage());
 					}
-
-					controller.createAlbum(AlbumName.getText(), Integer.parseInt(Released.getText()), genreListGiven,
+					controller.createAlbum(AlbumName.getText(), releaseYear, genreListGiven,
 							artistName, songListGiven);
+					
 
 				} catch (Exception e) {
 					Alert alert2 = new Alert(AlertType.ERROR);
