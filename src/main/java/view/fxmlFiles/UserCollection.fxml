@@ -14,9 +14,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="ParentAnchor" minHeight="-Infinity" minWidth="1200.0" prefHeight="500.0" prefWidth="1200.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UserCollectionController">
+<AnchorPane fx:id="ParentAnchor" minHeight="-Infinity" minWidth="1200.0" prefHeight="650.0" prefWidth="1200.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UserCollectionController">
    <children>
-      <SplitPane fx:id="UserSplitPane" dividerPositions="0.28738512949039263" prefHeight="500.0" prefWidth="1199.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0">
+      <SplitPane fx:id="UserSplitPane" dividerPositions="0.3333333333333333" prefHeight="500.0" prefWidth="1199.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="445.0" prefWidth="386.0">
                <children>
@@ -46,7 +46,7 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="413.0" prefWidth="682.0">
                <children>
-                  <SplitPane dividerPositions="0.6454652532391049" layoutX="-1.0" layoutY="1.0" prefHeight="428.0" prefWidth="682.0" AnchorPane.bottomAnchor="-3.0" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
+                  <SplitPane dividerPositions="0.5423280423280423" layoutX="-1.0" layoutY="1.0" prefHeight="428.0" prefWidth="682.0" AnchorPane.bottomAnchor="-3.0" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
                     <items>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                            <children>

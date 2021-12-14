@@ -9,32 +9,45 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="500.0" prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUIController">
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="500.0" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUIController">
    <top>
       <ButtonBar fx:id="Buttonbar" nodeOrientation="RIGHT_TO_LEFT" prefHeight="58.0" prefWidth="9000" styleClass="Buttonbar" stylesheets="@../style.css" BorderPane.alignment="CENTER">
         <buttons>
-            <AnchorPane id="root" nodeOrientation="LEFT_TO_RIGHT" prefHeight="67.0" prefWidth="9000.0">
+            <AnchorPane id="root" fx:id="RootAnchor" nodeOrientation="LEFT_TO_RIGHT" prefHeight="67.0" prefWidth="9000.0">
                <children>
-                  <Button fx:id="FrontPage" layoutX="14.0" layoutY="12.0" maxWidth="150.0" minHeight="-Infinity" minWidth="100.0" mnemonicParsing="false" onAction="#goFrontPage" text="%FrontPageButton" />
-                  <Button fx:id="UserCollection" layoutX="164.0" layoutY="12.0" maxWidth="150.0" minHeight="-Infinity" minWidth="100.0" mnemonicParsing="false" onAction="#goUserCollection" prefHeight="33.0" prefWidth="140.0" text="%UserCollectionButton" />
-                  <Button fx:id="Requests" layoutX="364.0" layoutY="12.0" maxWidth="150.0" minHeight="-Infinity" minWidth="86.0" mnemonicParsing="false" onAction="#ShowRequests" prefHeight="33.0" prefWidth="87.0" text="%RequestsButton" />
-                <Button fx:id="Help" layoutX="524.0" layoutY="12.0" maxWidth="150.0" minHeight="-Infinity" minWidth="70.0" mnemonicParsing="false" onAction="#GoHelpPage" text="%HelpButton">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font></Button>
                   <TextField id="frontPageSearchBox" fx:id="SearchBox" accessibleText="%SearchBoxTextField" layoutX="647.0" layoutY="15.0" onKeyTyped="#refreshSearchList" onMouseClicked="#getSearchable" prefWidth="268.0" promptText="%SearchBoxTextField" AnchorPane.rightAnchor="275.4000000000001">
                      <contextMenu>
                         <ContextMenu fx:id="searchContext" />
-                     </contextMenu></TextField>
-                  <Button fx:id="SearchButton" layoutX="925.0" layoutY="11.0" mnemonicParsing="false" onAction="#goSearchPage" prefHeight="26.0" prefWidth="77.0" text="%SearchButton" AnchorPane.rightAnchor="187.80000000000007" />
+                     </contextMenu>
+                  </TextField>
+                  <Button fx:id="SearchButton" layoutX="927.0" layoutY="13.0" mnemonicParsing="false" onAction="#goSearchPage" text="%SearchButton" AnchorPane.rightAnchor="186.0" />
                   <MenuButton fx:id="RootMenuButton" layoutX="1088.0" layoutY="11.0" mnemonicParsing="false" style="-fx-background-color: #404040;" text="%LanguageButton" textFill="ORANGE" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="11.0">
                     <items>
                       <MenuItem fx:id="EnglishMenuItem" mnemonicParsing="false" onAction="#changeToEnglish" text="English" />
                       <MenuItem fx:id="FinnishMenuItem" mnemonicParsing="false" onAction="#changeToFinnish" text="Suomi" />
                     </items>
                   </MenuButton>
+                  <GridPane fx:id="ButtonGrid" layoutY="-4.0" prefHeight="63.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="125.0" />
+                      <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="149.0" />
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="142.0" />
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="123.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Button fx:id="FrontPage" minHeight="-Infinity" minWidth="100.0" mnemonicParsing="false" onAction="#goFrontPage" text="%FrontPageButton" />
+                        <Button fx:id="UserCollection" minHeight="-Infinity" minWidth="100.0" mnemonicParsing="false" onAction="#goUserCollection" text="%UserCollectionButton" GridPane.columnIndex="1" />
+                        <Button fx:id="Requests" minHeight="-Infinity" minWidth="100.0" mnemonicParsing="false" onAction="#ShowRequests" text="%RequestsButton" GridPane.columnIndex="2" />
+                      <Button fx:id="Help" minHeight="-Infinity" mnemonicParsing="false" onAction="#GoHelpPage" text="%HelpButton" GridPane.columnIndex="3" />
+                     </children>
+                  </GridPane>
                </children>
             </AnchorPane>
         </buttons>

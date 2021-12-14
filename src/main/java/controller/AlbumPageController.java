@@ -13,8 +13,12 @@ import com.jcg.hibernate.maven.Genre;
 import com.jcg.hibernate.maven.Song;
 
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -22,6 +26,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import model.Language;
 import view.View;
@@ -37,6 +42,9 @@ public class AlbumPageController {
 	private Controller controller;
 	private View view;
 	private boolean editing = false;
+	
+	@FXML
+	private AnchorPane ParentAnchor;
 	
 	   @FXML
 	    private GridPane AlbumInfo;
@@ -100,6 +108,8 @@ public class AlbumPageController {
 	    private Set<Artist> artists;
 	    private Set<Genre> genres;
 	    private Set<Song> songs;
+	    
+	    private DoubleProperty fontSize = new SimpleDoubleProperty(20);
 	
 	public AlbumPageController(Controller controller, int id) {
 		this.controller = controller;
@@ -116,17 +126,24 @@ public class AlbumPageController {
 	 */
 	@FXML
 	protected void initialize() {
-		
-		try {
-			controller.readLocalAlbum(id);
-			CollectionAdd.setText(Language.getInstance().getBundle().getString("RemoveFromCollection"));
-			WishlistAdd.setDisable(true);
-		} catch (Exception e) {
-			if(controller.searchWishlist(id)) {
-				WishlistAdd.setText(Language.getInstance().getBundle().getString("RemoveFromWishList"));
+		fontSize.bind(ParentAnchor.widthProperty().add(ParentAnchor.heightProperty()).divide(135).add(2));
+		SongListView.styleProperty().bind(Bindings.concat("-fx-font-size: ", fontSize.asString(), ";"));
+		AlbumInfo.styleProperty().bind(Bindings.concat("-fx-font-size: ", fontSize.asString(), ";"));
+		Platform.runLater(new Runnable() {
+			public void run() {
+				
+				try {
+					controller.readLocalAlbum(id);
+					CollectionAdd.setText(Language.getInstance().getBundle().getString("RemoveFromCollection"));
+					WishlistAdd.setDisable(true);
+				} catch (Exception e) {
+					if(controller.searchWishlist(id)) {
+						WishlistAdd.setText(Language.getInstance().getBundle().getString("RemoveFromWishList"));
+					}
+					e.getMessage();
+				}
 			}
-			e.getMessage();
-		}
+		});
 		
 		
 		Artist[] artistArray = artists.toArray(new Artist[artists.size()]);
@@ -343,6 +360,7 @@ public class AlbumPageController {
 	   */
 	   @FXML
 	    void addToCollection(ActionEvent event) {
+
 		   try {
 			   this.controller.createLocalAlbum(this.id, album.getAlbumName(), this.songs, album.getAlbumYear(), this.genres, this.artists );
 			   CollectionAdd.setText(Language.getInstance().getBundle().getString("AddToCollectionButton"));

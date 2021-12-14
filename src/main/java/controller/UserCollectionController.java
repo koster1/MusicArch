@@ -3,7 +3,9 @@ package controller;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -126,7 +128,7 @@ public class UserCollectionController {
     private List<WishList> wishList;
     
     
-    private DoubleProperty fontSize = new SimpleDoubleProperty(20);
+    private IntegerProperty intFontSize = new SimpleIntegerProperty(20);
     
     public UserCollectionController(Controller controller) {
 
@@ -141,10 +143,10 @@ public class UserCollectionController {
     @FXML
     protected void initialize() {
     	try {
-    		fontSize.bind(ParentAnchor.widthProperty().add(ParentAnchor.heightProperty()).divide(135).add(2));
-    		GridListView.styleProperty().bind(Bindings.concat("-fx-font-size: ", fontSize.asString(), ";"));
-    		SongListView.styleProperty().bind(Bindings.concat("-fx-font-size: ", fontSize.asString(), ";"));
-    		UserSplitPane.styleProperty().bind(Bindings.concat("-fx-font-size: ", fontSize.asString(), ";"));
+    		intFontSize.bind(ParentAnchor.widthProperty().add(ParentAnchor.heightProperty()).divide(135).add(2));
+    		GridListView.styleProperty().bind(Bindings.concat("-fx-font-size: ", intFontSize.subtract(1).asString(), ";"));
+    		SongListView.styleProperty().bind(Bindings.concat("-fx-font-size: ", intFontSize.asString(), ";"));
+    		UserSplitPane.styleProperty().bind(Bindings.concat("-fx-font-size: ", intFontSize.asString(), ";"));
     		AddDescriptionButton.prefWidthProperty().bind(CollectionGridPane.widthProperty().divide(2));
     		
     		Platform.runLater(() -> {

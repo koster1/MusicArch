@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -10,6 +11,9 @@ import com.jcg.hibernate.maven.Artist;
 import com.jcg.hibernate.maven.Genre;
 
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -27,6 +31,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -71,6 +77,23 @@ public class FrontPageController {
     @FXML
     private Label ArtistOrGenreLabel;
     
+    @FXML
+    private TextField ArtistFilterTextField;
+    
+    @FXML
+    private TextField GenreFilterTextField;
+    
+    @FXML
+    private AnchorPane ParentAnchor;
+    
+    private Genre[] genreList;
+    
+    private Artist[] artistList;
+    
+    ObservableList<Artist> choices;
+    
+    ObservableList<Genre> genreObservable;
+    
     private boolean editing = false;
     
     /**
@@ -80,6 +103,8 @@ public class FrontPageController {
      * please fix it.
      */
     private int artistOrGenre = 0; 
+    
+    private IntegerProperty intFontSize = new SimpleIntegerProperty(20);
 	
 	public FrontPageController(Controller controller) {
 		this.controller = controller;
@@ -91,11 +116,17 @@ public class FrontPageController {
 	 * **/
 	@FXML
 	protected void initialize() {
+		intFontSize.bind(ParentAnchor.widthProperty().add(ParentAnchor.heightProperty()).divide(150).add(2));
+		ParentAnchor.styleProperty().bind(Bindings.concat("-fx-font-size: ", intFontSize.asString(), ";"));
+		FrontArtistListView.styleProperty().bind(Bindings.concat("-fx-font-size: ", intFontSize.subtract(1).asString(), ";"));
+		FrontGenreListView.styleProperty().bind(Bindings.concat("-fx-font-size: ", intFontSize.asString(), ";"));
+		FrontPageGrid.prefWidthProperty().bind(ParentAnchor.widthProperty());
+		
 		Platform.runLater(() -> {
-		Genre[] genreList = controller.getGenres();
-		Artist[] artistList = controller.getArtists();
-		ObservableList<Artist> choices = FXCollections.observableArrayList(artistList);
-		ObservableList<Genre> genreObservable = FXCollections.observableArrayList(genreList);
+		genreList = controller.getGenres();
+		artistList = controller.getArtists();
+		choices = FXCollections.observableArrayList(artistList);
+		genreObservable = FXCollections.observableArrayList(genreList);
 		
 		FrontGenreListView.setCellFactory(lv -> new ListCell<Genre>() {
 			@Override
@@ -106,10 +137,12 @@ public class FrontPageController {
 		});
 		FrontGenreListView.setItems(genreObservable);
 		FrontGenreListView.setOnKeyPressed(event -> {
-			updateGenreList();
+			if(editing) editingError();
+			else if(!editing) updateGenreList();
 		});
 		FrontGenreListView.setOnMouseClicked(me -> {
-			updateGenreList();
+			if(editing) editingError();
+			else if(!editing) updateGenreList();
 		});
 		
 		FrontArtistListView.setCellFactory(lv -> new ListCell<Artist>() {
@@ -121,14 +154,25 @@ public class FrontPageController {
 		});			
 		FrontArtistListView.setItems(choices);
 		FrontArtistListView.setOnKeyPressed(event -> {
-			updateArtistList();
+			if(editing) editingError();
+			else if(!editing) updateArtistList();
 		});
 		FrontArtistListView.setOnMouseClicked(me -> {
-			updateArtistList();
+			if(editing) editingError();
+			else if(!editing) updateArtistList();
 		});
 		});
 		EditButton.setVisible(false);
+		EditButton.setText(Language.getInstance().getBundle().getString("ArtistOrGenreEdit"));
+		DeleteButton.setText(Language.getInstance().getBundle().getString("ArtistOrGenreDelete"));
 		DeleteButton.setVisible(editing);
+	}
+	
+	public void editingError() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle(Language.getInstance().getBundle().getString("EditingErrorTitle"));
+		alert.setHeaderText(Language.getInstance().getBundle().getString("EditingErrorContent"));
+		alert.showAndWait();
 	}
 	
 	public void updateGenreList() {
@@ -157,7 +201,6 @@ public class FrontPageController {
 			ArtistOrGenreGrid.add(artistOrGenreLabel, 0, 0);
 		}
 		
-//		ArtistOrGenreLabel.setText(listGenre.getGenreName()); //UPDATE THIS
 		Collections.sort(genreAlbums, (x, y) -> {
             return Integer.compare(x.getAlbumYear(), y.getAlbumYear());
         });
@@ -172,8 +215,8 @@ public class FrontPageController {
 					if(counter >= genreAlbums.size()) {
 						break;
 					}
-					Text text2 = new Text("Release year: " + String.valueOf(genreAlbums.get(counter).getAlbumYear()));
-					text2.setFont(new Font(15));
+					Text text2 = new Text(Language.getInstance().getBundle().getString("AlbumReleaseYear") + String.valueOf(genreAlbums.get(counter).getAlbumYear()));
+					
 					Button button = new Button(genreAlbums.get(counter).getAlbumName());
 					button.setId(String.valueOf(genreAlbums.get(counter).getAlbumID()));
 					button.setMinWidth(150);
@@ -242,8 +285,8 @@ public class FrontPageController {
 						break;
 					}
 					GridPane grid = new GridPane();
-					Text text2 = new Text("Release Year: " + String.valueOf(artistAlbums.get(counter).getAlbumYear()));
-					text2.setFont(new Font(15));
+					Text text2 = new Text(Language.getInstance().getBundle().getString("AlbumReleaseYear") + String.valueOf(artistAlbums.get(counter).getAlbumYear()));
+					
 					Button button = new Button(artistAlbums.get(counter).getAlbumName());
 					button.setMinWidth(150);
 					button.setId(String.valueOf(artistAlbums.get(counter).getAlbumID()));
@@ -277,12 +320,12 @@ public class FrontPageController {
 		if(!editing) {
 			editing = true;
 			flipChildren(ArtistOrGenreGrid.getChildren());
-			EditButton.setText("Save");
+			EditButton.setText(Language.getInstance().getBundle().getString("ArtistOrGenreSave"));
 			System.out.println("In edit mode!");
 		}else {
 			editing = false;
 			flipChildren(ArtistOrGenreGrid.getChildren());
-			EditButton.setText("Edit");
+			EditButton.setText(Language.getInstance().getBundle().getString("ArtistOrGenreEdit"));
 			
 			String newArtistOrGenre = new String();
 			for(Node n : ArtistOrGenreGrid.getChildren()) {
@@ -329,6 +372,13 @@ public class FrontPageController {
 					}catch(Exception e) {
 						System.out.println("Something went wrong -> "+e.getMessage());
 					}
+				break;
+			case 0: 
+				try {
+					view.showFrontPage();
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
 				break;
 				
 			}
@@ -384,6 +434,13 @@ public class FrontPageController {
 							System.out.println("Something went wrong -> "+e.getMessage());
 						}
 					break;
+				case 0: 
+					try {
+						view.showFrontPage();
+					}catch(Exception e) {
+						e.printStackTrace();
+					}
+					break;
 				
 			}
 		}
@@ -405,6 +462,30 @@ public class FrontPageController {
 			
 		}
 	}
+	
+	  @FXML
+	    void filterArtist(KeyEvent event) {
+		  	//artistList
+		  choices.clear();
+		  ArtistFilterTextField.getText();
+		  List<Artist> test = new ArrayList<>();
+		  for(Artist artist : artistList) {
+			  test.add(artist);
+		  }
+		 test.stream().filter(x -> x.getArtistName().toLowerCase().contains(ArtistFilterTextField.getText().toLowerCase())).forEach(y -> choices.add(y));
+	    }
+
+	    @FXML
+	    void filterGenre(KeyEvent event) {
+	    	//genreList
+			genreObservable.clear();
+			GenreFilterTextField.getText();
+			List<Genre> test = new ArrayList<>();
+			for(Genre genre : genreList) {
+				test.add(genre);
+			}
+			test.stream().filter(x -> x.getGenreName().toLowerCase().contains(GenreFilterTextField.getText().toLowerCase())).forEach(y -> genreObservable.add(y));
+	    }
 
     
 

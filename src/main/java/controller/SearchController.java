@@ -13,7 +13,9 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -23,7 +25,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
@@ -109,7 +113,6 @@ public class SearchController {
 			foundArtist.setVisible(true);
 			notFoundArtist.setVisible(false);
 			SearchGrid.add(new Text(artistResults.getArtistName()), 0, 1);
-			// SearchGrid.add(new Text(artistResults.getArtistName() + " löytyi"), 0, 0);
 
 		} catch (Exception e) {
 			foundArtist.setVisible(false);
@@ -145,10 +148,17 @@ public class SearchController {
 		Label textareatitle = new Label();
 		Label countChar = new Label();
 		Label countCharWord = new Label();
+		VBox charBox = new VBox();
+		charBox.setMinWidth(160);
+		//charBox.setAlignment(Pos.CENTER);
+		charBox.getChildren().addAll(countChar, countCharWord);
+		
 		countChar.setMinWidth(100);
 		title.setText(Language.getInstance().getBundle().getString("RequestTextAreaLabel"));
 		textareatitle.setText(Language.getInstance().getBundle().getString("RequestTitleLabel"));
 		countCharWord.setText(Language.getInstance().getBundle().getString("CharCountLabel"));
+		text.setWrapText(true);
+
 		// fontSize.bind(requestFormGridpienempi.widthProperty().add(requestFormGridpienempi.heightProperty()).divide(60));
 		// SearchGrid.styleProperty().bind(Bindings.concat("-fx-font-size: ",
 		// fontSize.asString(), ";"));
@@ -156,7 +166,7 @@ public class SearchController {
 		text.textProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue.length() >= 250) {
 				text.setText(oldValue);
-			//	countChar.setTextFill(Color.BLACK);
+				// countChar.setTextFill(Color.BLACK);
 
 			} else if (newValue.length() > 250) {
 				countChar.setTextFill(Color.RED);
@@ -178,24 +188,39 @@ public class SearchController {
 		Button sendR = new Button();
 		sendR.setText(Language.getInstance().getBundle().getString("sendRequestButton"));
 
+		requestFormGridpienempi.add(title, 0, 1);
+		requestFormGridpienempi.add(textareatitle, 0, 2);
 		requestFormGridpienempi.add(requestTitle, 1, 1);
 		requestFormGridpienempi.add(text, 1, 2);
 		requestFormGridpienempi.add(sendR, 1, 3);
-		requestFormGridpienempi.add(countChar, 2, 2);
-		requestFormGridpienempi.add(countCharWord, 3, 2);
-		requestFormGridpienempi.add(title, 0, 1);
-		requestFormGridpienempi.add(textareatitle, 0, 2);
+		requestFormGridpienempi.add(charBox, 2, 2);
+	//	requestFormGridpienempi.add(countChar, 2, 2);
+	//	requestFormGridpienempi.add(countCharWord, 2, 2);
+
 		requestTitle.setPrefWidth(200);
 		sendR.setPrefWidth(200);
 		text.maxHeight(100);
-		text.setWrapText(true);
 
+		for (Node n : requestFormGridpienempi.getChildren()) {
+			if (n instanceof Label) {
+				((Label) n).setPrefWidth(150);
+//				((Label) n).setMaxWidth(90);
+			}
+		}
 
-		GridPane.setMargin(textareatitle, new Insets(5, 10, 10, 5));
-		GridPane.setMargin(title, new Insets(5, 10, 40, 5));
+		GridPane.setMargin(textareatitle, new Insets(5, 0, 10, 5));
+		GridPane.setMargin(title, new Insets(5, 0, 40, 5));
 		GridPane.setMargin(sendR, new Insets(5, 10, 10, 5));
 		GridPane.setMargin(text, new Insets(5, 10, 10, 5));
 		GridPane.setMargin(requestTitle, new Insets(5, 10, 40, 5));
+		//GridPane.setMargin(countChar, new Insets(5, 10, 10, 5));
+		//GridPane.setMargin(countCharWord, new Insets(5, 10, 10, 5));
+
+//		GridPane.setMargin(textareatitle, new Insets(5, 10, 10, 5));
+//		GridPane.setMargin(title, new Insets(5, 10, 40, 5));
+//		GridPane.setMargin(sendR, new Insets(5, 10, 10, 5));
+//		GridPane.setMargin(text, new Insets(5, 10, 10, 5));
+//		GridPane.setMargin(requestTitle, new Insets(5, 10, 40, 5));
 
 		// SearchGrid.add(requestFormGridpienempi, 0 ,4);
 		sendR.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -207,8 +232,10 @@ public class SearchController {
 					requestTitle.clear();
 					Alert message = new Alert(AlertType.CONFIRMATION);
 					message.setTitle(Language.getInstance().getBundle().getString("MessageAlertTitleRequestSend"));
-					message.setHeaderText(Language.getInstance().getBundle().getString("MessageAlertHeaderRequestSend"));
+					message.setHeaderText(
+							Language.getInstance().getBundle().getString("MessageAlertHeaderRequestSend"));
 					message.showAndWait();
+
 				} catch (Exception exception) {
 					Alert requestError = new Alert(AlertType.ERROR);
 					requestError.setTitle(Language.getInstance().getBundle().getString("ErrorAlertTitleRequest"));
