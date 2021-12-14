@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane minHeight="-Infinity" minWidth="1200.0" prefHeight="481.0" prefWidth="1200.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FrontPageController">
+<AnchorPane fx:id="ParentAnchor" minHeight="-Infinity" minWidth="1200.0" prefHeight="481.0" prefWidth="1200.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FrontPageController">
    <children>
             <TabPane fx:id="FrontPageTabPane" layoutY="1.0" prefHeight="481.0" prefWidth="420.0" stylesheets="@../style.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="1.0">
               <tabs>
@@ -19,8 +19,8 @@
                   <content>
                     <AnchorPane id="tabPaneBackground" minHeight="0.0" minWidth="0.0" prefHeight="452.0" prefWidth="324.0">
                     <children>
-                       <ListView fx:id="FrontGenreListView" layoutX="7.0" layoutY="58.0" prefHeight="382.0" prefWidth="398.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="58.0" />
-                        <TextField fx:id="GenreFilterTextField" layoutX="14.0" layoutY="14.0" onKeyReleased="#filterGenre" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
+                       <ListView fx:id="FrontGenreListView" layoutX="7.0" layoutY="85.0" prefHeight="355.0" prefWidth="398.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="58.0" />
+                        <TextField fx:id="GenreFilterTextField" layoutX="85.0" layoutY="7.0" maxHeight="27.0" onKeyReleased="#filterGenre" prefHeight="27.0" prefWidth="249.0" promptText="%tabSearchPlaceholder" AnchorPane.leftAnchor="85.0" AnchorPane.topAnchor="7.0" />
                     </children>
                   </AnchorPane>
                   </content>
@@ -30,7 +30,7 @@
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
 	                    <children>
 	                    	<ListView fx:id="FrontArtistListView" layoutX="7.0" layoutY="58.0" prefHeight="382.0" prefWidth="398.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="58.0" />
-                        <TextField fx:id="ArtistFilterTextField" layoutX="14.0" layoutY="14.0" onKeyReleased="#filterArtist" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
+                        <TextField fx:id="ArtistFilterTextField" layoutX="85.0" layoutY="7.0" maxHeight="27.0" onKeyReleased="#filterArtist" prefHeight="27.0" prefWidth="249.0" promptText="%tabSearchPlaceholder" AnchorPane.leftAnchor="85.0" AnchorPane.topAnchor="7.0" />
 	                    </children>
                     </AnchorPane>
                   </content>

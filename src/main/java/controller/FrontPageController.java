@@ -11,6 +11,9 @@ import com.jcg.hibernate.maven.Artist;
 import com.jcg.hibernate.maven.Genre;
 
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -29,6 +32,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -79,6 +83,9 @@ public class FrontPageController {
     @FXML
     private TextField GenreFilterTextField;
     
+    @FXML
+    private AnchorPane ParentAnchor;
+    
     private Genre[] genreList;
     
     private Artist[] artistList;
@@ -96,6 +103,8 @@ public class FrontPageController {
      * please fix it.
      */
     private int artistOrGenre = 0; 
+    
+    private IntegerProperty intFontSize = new SimpleIntegerProperty(20);
 	
 	public FrontPageController(Controller controller) {
 		this.controller = controller;
@@ -107,6 +116,12 @@ public class FrontPageController {
 	 * **/
 	@FXML
 	protected void initialize() {
+		intFontSize.bind(ParentAnchor.widthProperty().add(ParentAnchor.heightProperty()).divide(150).add(2));
+		ParentAnchor.styleProperty().bind(Bindings.concat("-fx-font-size: ", intFontSize.asString(), ";"));
+		FrontArtistListView.styleProperty().bind(Bindings.concat("-fx-font-size: ", intFontSize.subtract(1).asString(), ";"));
+		FrontGenreListView.styleProperty().bind(Bindings.concat("-fx-font-size: ", intFontSize.asString(), ";"));
+		FrontPageGrid.prefWidthProperty().bind(ParentAnchor.widthProperty());
+		
 		Platform.runLater(() -> {
 		genreList = controller.getGenres();
 		artistList = controller.getArtists();
@@ -201,7 +216,7 @@ public class FrontPageController {
 						break;
 					}
 					Text text2 = new Text(Language.getInstance().getBundle().getString("AlbumReleaseYear") + String.valueOf(genreAlbums.get(counter).getAlbumYear()));
-					text2.setFont(new Font(15));
+					
 					Button button = new Button(genreAlbums.get(counter).getAlbumName());
 					button.setId(String.valueOf(genreAlbums.get(counter).getAlbumID()));
 					button.setMinWidth(150);
@@ -271,7 +286,7 @@ public class FrontPageController {
 					}
 					GridPane grid = new GridPane();
 					Text text2 = new Text(Language.getInstance().getBundle().getString("AlbumReleaseYear") + String.valueOf(artistAlbums.get(counter).getAlbumYear()));
-					text2.setFont(new Font(15));
+					
 					Button button = new Button(artistAlbums.get(counter).getAlbumName());
 					button.setMinWidth(150);
 					button.setId(String.valueOf(artistAlbums.get(counter).getAlbumID()));
