@@ -21,6 +21,8 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.HPos;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -103,6 +105,9 @@ public class AlbumPageController {
 	    @FXML
 	    private Label albumYearLabel;
 	    
+	    @FXML
+	    private GridPane AlbumPageButtonGrid;
+	    
 	    private int id;
 	    private Album album;
 	    private Set<Artist> artists;
@@ -129,6 +134,7 @@ public class AlbumPageController {
 		fontSize.bind(ParentAnchor.widthProperty().add(ParentAnchor.heightProperty()).divide(135).add(2));
 		SongListView.styleProperty().bind(Bindings.concat("-fx-font-size: ", fontSize.asString(), ";"));
 		AlbumInfo.styleProperty().bind(Bindings.concat("-fx-font-size: ", fontSize.asString(), ";"));
+		AlbumPageButtonGrid.styleProperty().bind(Bindings.concat("-fx-font-size: ", fontSize.asString(), ";"));
 		Platform.runLater(new Runnable() {
 			public void run() {
 				
@@ -195,6 +201,7 @@ public class AlbumPageController {
 			TextField genreField = new TextField();
 			genreField.setText(genreArray[i].getGenreName());
 			genreGrid.add(genreField, i, 0);
+			genreField.prefWidthProperty().bind(genreGrid.widthProperty().divide(2));
 			genreField.setVisible(false);
 			
 			Label genreLabel = new Label();
