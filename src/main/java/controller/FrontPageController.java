@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import com.jcg.hibernate.maven.Album;
@@ -22,6 +23,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -65,6 +67,20 @@ public class FrontPageController {
     @FXML
     private Label ArtistOrGenreLabel;
     
+    @FXML
+    private TextField ArtistFilterTextField;
+    
+    @FXML
+    private TextField GenreFilterTextField;
+    
+    private Genre[] genreList;
+    
+    private Artist[] artistList;
+    
+    ObservableList<Artist> choices;
+    
+    ObservableList<Genre> genreObservable;
+    
     private boolean editing = false;
     
     /**
@@ -86,10 +102,10 @@ public class FrontPageController {
 	@FXML
 	protected void initialize() {
 		Platform.runLater(() -> {
-		Genre[] genreList = controller.getGenres();
-		Artist[] artistList = controller.getArtists();
-		ObservableList<Artist> choices = FXCollections.observableArrayList(artistList);
-		ObservableList<Genre> genreObservable = FXCollections.observableArrayList(genreList);
+		genreList = controller.getGenres();
+		artistList = controller.getArtists();
+		choices = FXCollections.observableArrayList(artistList);
+		genreObservable = FXCollections.observableArrayList(genreList);
 		
 		FrontGenreListView.setCellFactory(lv -> new ListCell<Genre>() {
 			@Override
@@ -386,6 +402,30 @@ public class FrontPageController {
 			
 		}
 	}
+	
+	  @FXML
+	    void filterArtist(KeyEvent event) {
+		  	//artistList
+		  choices.clear();
+		  ArtistFilterTextField.getText();
+		  List<Artist> test = new ArrayList<>();
+		  for(Artist artist : artistList) {
+			  test.add(artist);
+		  }
+		 test.stream().filter(x -> x.getArtistName().toLowerCase().contains(ArtistFilterTextField.getText().toLowerCase())).forEach(y -> choices.add(y));
+	    }
+
+	    @FXML
+	    void filterGenre(KeyEvent event) {
+	    	//genreList
+			genreObservable.clear();
+			GenreFilterTextField.getText();
+			List<Genre> test = new ArrayList<>();
+			for(Genre genre : genreList) {
+				test.add(genre);
+			}
+			test.stream().filter(x -> x.getGenreName().toLowerCase().contains(GenreFilterTextField.getText().toLowerCase())).forEach(y -> genreObservable.add(y));
+	    }
 
     
 
