@@ -106,10 +106,12 @@ public class FrontPageController {
 		});
 		FrontGenreListView.setItems(genreObservable);
 		FrontGenreListView.setOnKeyPressed(event -> {
-			updateGenreList();
+			if(editing) editingError();
+			else if(!editing) updateGenreList();
 		});
 		FrontGenreListView.setOnMouseClicked(me -> {
-			updateGenreList();
+			if(editing) editingError();
+			else if(!editing) updateGenreList();
 		});
 		
 		FrontArtistListView.setCellFactory(lv -> new ListCell<Artist>() {
@@ -121,16 +123,29 @@ public class FrontPageController {
 		});			
 		FrontArtistListView.setItems(choices);
 		FrontArtistListView.setOnKeyPressed(event -> {
-			updateArtistList();
+			if(editing) editingError();
+			else if(!editing) updateArtistList();
 		});
 		FrontArtistListView.setOnMouseClicked(me -> {
-			updateArtistList();
+			if(editing) editingError();
+			else if(!editing) updateArtistList();
 		});
 		});
+		EditButton.setVisible(false);
+		DeleteButton.setText(Language.getInstance().getBundle().getString("ArtistOrGenreDelete"));
+		DeleteButton.setVisible(editing);
+	}
+	
+	public void editingError() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle(Language.getInstance().getBundle().getString("EditingErrorTitle"));
+		alert.setHeaderText(Language.getInstance().getBundle().getString("EditingErrorContent"));
+		alert.showAndWait();
 	}
 	
 	public void updateGenreList() {
 		artistOrGenre = 2;
+		EditButton.setVisible(true);
 		Genre listGenre = FrontGenreListView.getSelectionModel().getSelectedItem();
 		List<Album> genreAlbums = controller.getGenreAlbums(listGenre.getGenreID());
 		
@@ -154,7 +169,6 @@ public class FrontPageController {
 			ArtistOrGenreGrid.add(artistOrGenreLabel, 0, 0);
 		}
 		
-//		ArtistOrGenreLabel.setText(listGenre.getGenreName()); //UPDATE THIS
 		Collections.sort(genreAlbums, (x, y) -> {
             return Integer.compare(x.getAlbumYear(), y.getAlbumYear());
         });
@@ -169,7 +183,7 @@ public class FrontPageController {
 					if(counter >= genreAlbums.size()) {
 						break;
 					}
-					Text text2 = new Text("Release year: " + String.valueOf(genreAlbums.get(counter).getAlbumYear()));
+					Text text2 = new Text(Language.getInstance().getBundle().getString("AlbumReleaseYear") + String.valueOf(genreAlbums.get(counter).getAlbumYear()));
 					text2.setFont(new Font(15));
 					Button button = new Button(genreAlbums.get(counter).getAlbumName());
 					button.setId(String.valueOf(genreAlbums.get(counter).getAlbumID()));
@@ -200,6 +214,7 @@ public class FrontPageController {
 	
 	public void updateArtistList() {
 		artistOrGenre = 1;
+		EditButton.setVisible(true);
 		Artist listArtist = FrontArtistListView.getSelectionModel().getSelectedItem();
 		List<Album> artistAlbums = controller.getArtistAlbums(listArtist.getArtistID());
 
@@ -238,7 +253,7 @@ public class FrontPageController {
 						break;
 					}
 					GridPane grid = new GridPane();
-					Text text2 = new Text("Release Year: " + String.valueOf(artistAlbums.get(counter).getAlbumYear()));
+					Text text2 = new Text(Language.getInstance().getBundle().getString("AlbumReleaseYear") + String.valueOf(artistAlbums.get(counter).getAlbumYear()));
 					text2.setFont(new Font(15));
 					Button button = new Button(artistAlbums.get(counter).getAlbumName());
 					button.setMinWidth(150);
@@ -273,12 +288,12 @@ public class FrontPageController {
 		if(!editing) {
 			editing = true;
 			flipChildren(ArtistOrGenreGrid.getChildren());
-			EditButton.setText("Save");
+			EditButton.setText(Language.getInstance().getBundle().getString("ArtistOrGenreSave"));
 			System.out.println("In edit mode!");
 		}else {
 			editing = false;
 			flipChildren(ArtistOrGenreGrid.getChildren());
-			EditButton.setText("Edit");
+			EditButton.setText(Language.getInstance().getBundle().getString("ArtistOrGenreEdit"));
 			
 			String newArtistOrGenre = new String();
 			for(Node n : ArtistOrGenreGrid.getChildren()) {
@@ -325,6 +340,13 @@ public class FrontPageController {
 					}catch(Exception e) {
 						System.out.println("Something went wrong -> "+e.getMessage());
 					}
+				break;
+			case 0: 
+				try {
+					view.showFrontPage();
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
 				break;
 				
 			}
@@ -379,6 +401,13 @@ public class FrontPageController {
 						}catch(Exception e) {
 							System.out.println("Something went wrong -> "+e.getMessage());
 						}
+					break;
+				case 0: 
+					try {
+						view.showFrontPage();
+					}catch(Exception e) {
+						e.printStackTrace();
+					}
 					break;
 				
 			}

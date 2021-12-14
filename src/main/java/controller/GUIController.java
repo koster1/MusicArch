@@ -170,9 +170,9 @@ public class GUIController {
 		 
 		int menuCounter = 0;
 		List<String> strippedList = new ArrayList<String>();
-		SearchBox.setContextMenu(searchContext);	
+		SearchBox.setContextMenu(searchContext);
+		searchContext.show(SearchBox, Side.BOTTOM, 0, 0);	
 
-		searchContext.show(SearchBox, null, 0, 50);	
 		
 		searchContext.getItems().clear();
 		for(int i = 0; i<albumsFound.size(); i++) {		
@@ -257,7 +257,7 @@ public class GUIController {
     	UserCollection.setText(Language.getInstance().getBundle().getString("UserCollectionButton"));
     	Help.setText(Language.getInstance().getBundle().getString("HelpButton"));
     	Requests.setText(Language.getInstance().getBundle().getString("RequestsButton"));
-    	SearchBox.setText(Language.getInstance().getBundle().getString("SearchBoxTextField"));
+    	SearchBox.setPromptText(Language.getInstance().getBundle().getString("SearchBoxTextField"));
     	SearchButton.setText(Language.getInstance().getBundle().getString("SearchButton"));
     	RootMenuButton.setText(Language.getInstance().getBundle().getString("LanguageButton"));
     }
@@ -279,7 +279,7 @@ public class GUIController {
     	UserCollection.setText(Language.getInstance().getBundle().getString("UserCollectionButton"));
     	Help.setText(Language.getInstance().getBundle().getString("HelpButton"));
     	Requests.setText(Language.getInstance().getBundle().getString("RequestsButton"));
-    	SearchBox.setText(Language.getInstance().getBundle().getString("SearchBoxTextField"));
+    	SearchBox.setPromptText(Language.getInstance().getBundle().getString("SearchBoxTextField"));
     	SearchButton.setText(Language.getInstance().getBundle().getString("SearchButton"));
     	RootMenuButton.setText(Language.getInstance().getBundle().getString("LanguageButton"));
     	

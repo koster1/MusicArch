@@ -346,9 +346,14 @@ public class Controller {
     public LocalAlbum readLocalAlbum(int id) throws Exception {
     	return localDAO.readAlbum(id);
     }
-    
+//---------------------väliaikainen kirjanmerkki------------------------------
     public List<String> getSearchable() {
     	return remoteDAO.getSearchable();
+    }
+    //----------------jemilan väliaikainen testi--------------------------
+
+    public List<String>getSearchableArtists() {
+    	return remoteDAO.existingArtists();
     }
     
     public List<String> getSearchableAlbums(){
@@ -357,9 +362,7 @@ public class Controller {
     public List<String> getSearchableGenres(){
     	return remoteDAO.existingGenres();
     }
-    public List<String> getSearchableArtists(){
-    	return remoteDAO.existingArtists();
-    }
+
     public List<String> getSearchableSongs(){
     	return remoteDAO.existingSongs();
     }
@@ -430,5 +433,5 @@ public class Controller {
     public boolean removeRequest(int id) {
     	return remoteDAO.removeRequest(id);
     }
-    
+
 }

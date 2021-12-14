@@ -19,13 +19,16 @@ import controller.AlbumPageController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import javafx.stage.StageStyle;
 import model.Language;
+
 
 
 public class View extends Application {
@@ -36,6 +39,11 @@ public class View extends Application {
 	private static AnchorPane userRoot;
 	private static GUIController guiController;
 	private static Controller controller;
+	private static AnchorPane test;
+	private static DialogPane dialog;
+	private static AnchorPane searchPage;
+
+    private static GridPane SearchGrid;
 
 
 	public void init() {
@@ -54,6 +62,9 @@ public class View extends Application {
 
 		showFrontPage();
 
+	}
+	public void slidinurDMs() {
+		
 	}
 	
 	// Places the rootLayout.fxml file on top of the primaryStage
@@ -246,6 +257,43 @@ public class View extends Application {
 		stage2.show();
 	}
 
+	public static void showError() throws IOException {
+		FXMLLoader fxmlLoader = new FXMLLoader();
+		fxmlLoader.setLocation(View.class.getResource("/view/fxmlFiles/Error.fxml"));
+		test = (AnchorPane) fxmlLoader.load();
+		Scene error = new Scene(test);
+		error.getStylesheets().add("/view/style.css");
+		Stage stage = new Stage();
+		stage.setTitle("Error Window");
+		stage.setScene(error);
+		stage.show();
+	}
+	public static void showConf() throws IOException {
+		FXMLLoader fxmlLoader = new FXMLLoader();
+		fxmlLoader.setLocation(View.class.getResource("/view/fxmlFiles/conf.fxml"));
+		dialog = (DialogPane) fxmlLoader.load();
+		Scene error = new Scene(dialog);
+		error.getStylesheets().add("/view/style.css");
+		Stage stage = new Stage();
+		stage.setTitle("Error Window");
+		stage.setScene(error);
+		stage.show();
+	}
+	//Requestform for peruskäyttäjä
+	public void showRequestForm(String searchText) throws IOException {
+		// TODO Auto-generated method stub
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(View.class.getResource("/view/fxmlFiles/requestForm.fxml"));
+		loader.setControllerFactory(SearchController -> new SearchController(searchText, controller));
+		AnchorPane joku = (AnchorPane) loader.load();
+		searchPage.getChildren().addAll(joku);
+	/*	FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(View.class.getResource("/view/fxmlFiles/requestForm.fxml"));
+		//loader.setControllerFactory(SearchController);
+		GridPane requestFormAnchor = (GridPane) loader.load();
+		SearchGrid.add(requestFormAnchor, 3, 0);*/
+	}
+
 	public Stage getPrimaryStage() {
 		return primaryStage;
 	}
@@ -254,4 +302,6 @@ public class View extends Application {
 		launch(args);
 
 	}
+
+
 }

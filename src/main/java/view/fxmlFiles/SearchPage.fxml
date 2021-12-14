@@ -1,23 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="344.0" prefWidth="592.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SearchController">
+<AnchorPane fx:id="searchPage" prefHeight="430.0" prefWidth="595.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SearchController">
    <children>
-      <Label fx:id="SearchLabel" alignment="CENTER" layoutX="-8.0" prefHeight="50.0" prefWidth="592.0" text="%ResultsLabel" AnchorPane.leftAnchor="-8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="0.0" />
-      <GridPane fx:id="SearchGrid" alignment="CENTER" layoutX="-3.0" layoutY="92.0" prefHeight="251.0" prefWidth="581.0" AnchorPane.leftAnchor="-3.0" AnchorPane.rightAnchor="13.399999999999977" AnchorPane.topAnchor="92.0">
+      <Label fx:id="SearchLabel" alignment="CENTER" layoutX="-8.0" prefHeight="50.0" prefWidth="592.0" text="%ResultsLabel" AnchorPane.leftAnchor="-8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="0.0">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Label>
+      <GridPane fx:id="SearchGrid" alignment="CENTER" layoutX="-3.0" layoutY="57.0" prefHeight="361.0" prefWidth="585.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="-3.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="57.0">
+
         <columnConstraints>
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="543.2000122070312" minWidth="10.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="543.2000122070312" minWidth="10.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="86.20001220703125" minHeight="2.0" prefHeight="86.20001220703125" valignment="CENTER" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="172.0" minHeight="10.0" prefHeight="90.39996337890625" valignment="CENTER" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="116.0" minHeight="10.0" prefHeight="75.20003662109374" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="85.0" minHeight="10.0" prefHeight="75.19999847412109" valignment="CENTER" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="85.0" minHeight="2.0" prefHeight="90.4000015258789" valignment="CENTER" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="85.0" minHeight="10.0" prefHeight="93.40000000000003" valignment="CENTER" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="500.0" minHeight="10.0" prefHeight="96.79998779296875" valignment="CENTER" vgrow="SOMETIMES" />
         </rowConstraints>
+         <children>
+            <GridPane fx:id="artistSearchGrid" alignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="30.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label fx:id="foundArtist" alignment="CENTER" contentDisplay="RIGHT" prefHeight="26.0" prefWidth="548.0" text="%artistSearchText" />
+                  <Label fx:id="notFoundArtist" alignment="CENTER" contentDisplay="RIGHT" prefHeight="26.0" prefWidth="548.0" text="%artistSearchTextNotFound" />
+               </children>
+            </GridPane>
+            <GridPane fx:id="genreSearchGrid" alignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="30.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label fx:id="foundGenre" alignment="CENTER" contentDisplay="RIGHT" prefHeight="26.0" prefWidth="548.0" text="%genreSearchText" />
+                  <Label fx:id="notFoundGenre" alignment="CENTER" contentDisplay="RIGHT" layoutX="10.0" layoutY="14.0" prefHeight="26.0" prefWidth="548.0" text="%genreSearchTextNotFound" />
+               </children>
+            </GridPane>
+            <GridPane fx:id="albumSearchGrid" alignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="30.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label fx:id="foundAlbum" alignment="CENTER" contentDisplay="RIGHT" prefHeight="26.0" prefWidth="548.0" text="%albumSearchText" />
+                  <Label fx:id="notFoundAlbum" alignment="CENTER" contentDisplay="RIGHT" prefHeight="26.0" prefWidth="548.0" text="%albumSearchTextNotFound" />
+               </children>
+            </GridPane>
+            <GridPane fx:id="requestFormGridpienempi" GridPane.rowIndex="3">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label fx:id="requestLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="380.0" stylesheets="@../style.css" text="%createRequestTitle" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="requestFormButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#openRequestForm" text="%createRequestButton" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+               </children>
+            </GridPane>
+         </children>
       </GridPane>
    </children>
 </AnchorPane>
