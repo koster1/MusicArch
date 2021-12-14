@@ -326,10 +326,12 @@ public class RequestFormsController {
 					Button button = new Button(addGenres2Album.getText());
 					button.setId(String.valueOf(genreCounter++));
 					System.out.println(button.getId());
+					if (genreButtonList.size() < 3) {
 					genreButtonList.add(button);
 					// button.setAlignment(Pos.CENTER_RIGHT);
 					ankkuri.add(button, genreCounter, 0);
 					addGenres2Album.clear();
+					}
 					System.out.println("Poistamista ennen: " + genreButtonList);
 
 					// button.setOnAction((e) -> ankkuri.getChildren().remove(button.getId()));
@@ -404,10 +406,12 @@ public class RequestFormsController {
 					Button button = new Button(addArtists2Album.getText());
 					button.setId(String.valueOf(artistCounter++));
 					System.out.println(button.getId());
+					if (artistButtonList.size() < 3) {
 					artistButtonList.add(button);
 					// button.setAlignment(Pos.CENTER_RIGHT);
 					artistTags.add(button, artistCounter, 0);
 					addArtists2Album.clear();
+					}
 					System.out.println("Poistamista ennen: " + artistButtonList);
 
 					// button.setOnAction((e) -> ankkuri.getChildren().remove(button.getId()));
