@@ -15,7 +15,9 @@ import com.jcg.hibernate.maven.Song;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -108,13 +110,16 @@ public class AlbumPageController {
 	    @FXML
 	    private GridPane AlbumPageButtonGrid;
 	    
+	    @FXML
+	    private GridPane ParentGrid;
+	    
 	    private int id;
 	    private Album album;
 	    private Set<Artist> artists;
 	    private Set<Genre> genres;
 	    private Set<Song> songs;
 	    
-	    private DoubleProperty fontSize = new SimpleDoubleProperty(20);
+	    private IntegerProperty fontSize = new SimpleIntegerProperty(20);
 	
 	public AlbumPageController(Controller controller, int id) {
 		this.controller = controller;
@@ -131,9 +136,11 @@ public class AlbumPageController {
 	 */
 	@FXML
 	protected void initialize() {
-		fontSize.bind(ParentAnchor.widthProperty().add(ParentAnchor.heightProperty()).divide(135).add(2));
+		fontSize.bind(ParentAnchor.widthProperty().add(ParentAnchor.heightProperty()).divide(140).add(1));
 		SongListView.styleProperty().bind(Bindings.concat("-fx-font-size: ", fontSize.asString(), ";"));
+		ParentGrid.prefHeightProperty().bind(ParentAnchor.heightProperty().add(ParentAnchor.widthProperty()));
 		AlbumInfo.styleProperty().bind(Bindings.concat("-fx-font-size: ", fontSize.asString(), ";"));
+//		AlbumInfo.prefHeightProperty().bind(ParentAnchor.heightProperty());
 		AlbumPageButtonGrid.styleProperty().bind(Bindings.concat("-fx-font-size: ", fontSize.asString(), ";"));
 		Platform.runLater(new Runnable() {
 			public void run() {
@@ -201,7 +208,7 @@ public class AlbumPageController {
 			TextField genreField = new TextField();
 			genreField.setText(genreArray[i].getGenreName());
 			genreGrid.add(genreField, i, 0);
-			genreField.prefWidthProperty().bind(genreGrid.widthProperty().divide(2));
+//			genreField.prefWidthProperty().bind(genreGrid.widthProperty().divide(2));
 			genreField.setVisible(false);
 			
 			Label genreLabel = new Label();
@@ -245,7 +252,7 @@ public class AlbumPageController {
 				flipChildren(albumYearGrid.getChildren());
 				flipChildren(albumNameGrid.getChildren());
 				
-				editButton.setText("Save");
+				editButton.setText(Language.getInstance().getBundle().getString("EditButtonSave"));
 				
 				System.out.println("In edit mode!");
 			}else {

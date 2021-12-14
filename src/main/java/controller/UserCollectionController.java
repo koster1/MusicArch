@@ -147,7 +147,7 @@ public class UserCollectionController {
     		GridListView.styleProperty().bind(Bindings.concat("-fx-font-size: ", intFontSize.subtract(1).asString(), ";"));
     		SongListView.styleProperty().bind(Bindings.concat("-fx-font-size: ", intFontSize.asString(), ";"));
     		UserSplitPane.styleProperty().bind(Bindings.concat("-fx-font-size: ", intFontSize.asString(), ";"));
-    		AddDescriptionButton.prefWidthProperty().bind(CollectionGridPane.widthProperty().divide(2));
+//    		AddDescriptionButton.prefWidthProperty().bind(CollectionGridPane.widthProperty().divide(2));
     		
     		Platform.runLater(() -> {
     			LocalAlbum[] albumList;
