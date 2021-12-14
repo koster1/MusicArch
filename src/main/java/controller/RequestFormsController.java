@@ -121,6 +121,7 @@ public class RequestFormsController {
 	@FXML
 	private Text moi;
 
+	
 	public RequestFormsController() {
 	}
 
@@ -328,6 +329,9 @@ public class RequestFormsController {
 					System.out.println(button.getId());
 					if (genreButtonList.size() < 3) {
 					genreButtonList.add(button);
+					button.setStyle(String.format("-fx-font-size: 14px;"));
+					
+
 					// button.setAlignment(Pos.CENTER_RIGHT);
 					ankkuri.add(button, genreCounter, 0);
 					addGenres2Album.clear();

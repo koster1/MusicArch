@@ -23,6 +23,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
@@ -188,6 +189,7 @@ public class SearchController {
 		sendR.setPrefWidth(200);
 		text.maxHeight(100);
 		text.setWrapText(true);
+
 
 		GridPane.setMargin(textareatitle, new Insets(5, 10, 10, 5));
 		GridPane.setMargin(title, new Insets(5, 10, 40, 5));
