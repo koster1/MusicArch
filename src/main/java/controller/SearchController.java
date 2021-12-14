@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -161,21 +162,29 @@ public class SearchController {
 		Button sendR = new Button();
     	sendR.setText(Language.getInstance().getBundle().getString("sendRequestButton"));
 
+    	requestFormGridpienempi.add(title, 0, 1);
+    	requestFormGridpienempi.add(textareatitle, 0, 2);
 		requestFormGridpienempi.add(requestTitle, 1, 1);
 		requestFormGridpienempi.add(text, 1, 2);
 		requestFormGridpienempi.add(sendR, 1, 3);
-		requestFormGridpienempi.add(title, 0, 1);
-		requestFormGridpienempi.add(textareatitle, 0, 2);
 		requestTitle.setPrefWidth(200);
 		sendR.setPrefWidth(200);
 		text.maxHeight(100);
 		text.setWrapText(true);
+		
+	
+		for(Node n : requestFormGridpienempi.getChildren()) {
+			if(n instanceof Label) {
+				((Label) n).setPrefWidth(150);
+//				((Label) n).setMaxWidth(90);
+			}
+		}
 
-		GridPane.setMargin(textareatitle, new Insets(5, 10, 10, 5));
-		GridPane.setMargin(title, new Insets(5, 10, 40, 5));
-		GridPane.setMargin(sendR, new Insets(5, 10, 10, 5));
-		GridPane.setMargin(text, new Insets(5, 10, 10, 5));
-		GridPane.setMargin(requestTitle, new Insets(5, 10, 40, 5));
+//		GridPane.setMargin(textareatitle, new Insets(5, 10, 10, 5));
+//		GridPane.setMargin(title, new Insets(5, 10, 40, 5));
+//		GridPane.setMargin(sendR, new Insets(5, 10, 10, 5));
+//		GridPane.setMargin(text, new Insets(5, 10, 10, 5));
+//		GridPane.setMargin(requestTitle, new Insets(5, 10, 40, 5));
 
 		// SearchGrid.add(requestFormGridpienempi, 0 ,4);
 		sendR.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {

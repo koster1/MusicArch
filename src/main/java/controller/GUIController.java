@@ -1,6 +1,9 @@
 package controller;
 
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -74,6 +77,9 @@ public class GUIController {
 	private ButtonBar Buttonbar;
 	
     @FXML
+    private AnchorPane RootAnchor;
+	
+    @FXML
     private MenuButton RootMenuButton;
 
     @FXML
@@ -81,8 +87,11 @@ public class GUIController {
 
     @FXML
     private MenuItem FinnishMenuItem;
+    
+    @FXML
+    private GridPane ButtonGrid;
 
-	
+    private DoubleProperty fontSize = new SimpleDoubleProperty(20);
 	public GUIController() {}
 	
 	public GUIController(View view, Controller controller) {
@@ -93,16 +102,15 @@ public class GUIController {
 	
 	@FXML
 	protected void initialize() {
+		fontSize.bind(mainPane.widthProperty().add(mainPane.heightProperty()).divide(150));
+		ButtonGrid.styleProperty().bind(Bindings.concat("-fx-font-size: ", fontSize.asString(), ";"));
+		ButtonGrid.prefWidthProperty().bind(mainPane.widthProperty().add(mainPane.heightProperty()).divide(4));
 		SearchBox.focusedProperty().addListener(even -> {
 			getSearchable2();
 		});
 		
 	}
-	
-	@FXML
-	void SearchTxt(ActionEvent event) {
 
-	}
 	
 	//-----Page changes, window creation calls and page updates---
 	//RootLayout2s menubuttons	
