@@ -138,10 +138,11 @@ public class AlbumPageController {
 	protected void initialize() {
 		fontSize.bind(ParentAnchor.widthProperty().add(ParentAnchor.heightProperty()).divide(140).add(1));
 		SongListView.styleProperty().bind(Bindings.concat("-fx-font-size: ", fontSize.asString(), ";"));
-		ParentGrid.prefHeightProperty().bind(ParentAnchor.heightProperty().add(ParentAnchor.widthProperty()));
+//		ParentGrid.prefHeightProperty().bind(ParentAnchor.heightProperty().add(ParentAnchor.widthProperty()));
 		AlbumInfo.styleProperty().bind(Bindings.concat("-fx-font-size: ", fontSize.asString(), ";"));
 //		AlbumInfo.prefHeightProperty().bind(ParentAnchor.heightProperty());
-		AlbumPageButtonGrid.styleProperty().bind(Bindings.concat("-fx-font-size: ", fontSize.asString(), ";"));
+		System.out.println(fontSize.doubleValue()+ " fontSize");
+		AlbumPageButtonGrid.styleProperty().bind(Bindings.concat("-fx-font-size: ", fontSize.divide(1.2).asString(), ";"));
 		Platform.runLater(new Runnable() {
 			public void run() {
 				
