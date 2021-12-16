@@ -30,10 +30,13 @@ public class RemoteDAO {
 			System.exit(-1);
 		}
 	}
-	/*
+	/**
 	 * Method used to create a new genre in the database. Will first iterate through
 	 * all found genreNames, to ensure that it will not allow the creation of a
 	 * genre that already exists. 
+	 * @param genre 
+	 * @return true if creation went through, false if not
+	 * @throws Exception
 	 */
 	public boolean createGenre(Genre genre) throws Exception {
 		Genre[] genreSearch = readGenres();
@@ -55,8 +58,10 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
-	/*
+	/**
 	 * readGenre() will return a singular Genre-object from the remote database, based on the given genreID
+	 * @param id
+	 * @return genre
 	 */
 	public Genre readGenre(int id) {
 		Session session = sessionFactory.openSession();
@@ -91,7 +96,10 @@ public class RemoteDAO {
 		}
 	}
 	/**
-	 * searchGenre() will return a single Genre-object based on a simple String input, used to search the database for the Genre
+	 *  searchGenre() will return a single Genre-object based on a simple String input, used to search the database for the Genre
+	 * @param genreSearch
+	 * @return genre A found Genre
+	 * @throws Exception
 	 */
 	public Genre searchGenre(String genreSearch) throws Exception {
 		Transaction transAct = null;
@@ -118,9 +126,12 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
-	/*
+	/**
 	 * editGenre() will update a given Genre based on its ID. This is used to find the Genre from the database, which will then be 
 	 * updated based on a given Genre-object
+	 * @param genreEdit
+	 * @param id
+	 * @return boolean true if editing successful.
 	 */
 	public boolean editGenre(Genre genreEdit, int id) {
 		Transaction transAct = null;
@@ -137,8 +148,10 @@ public class RemoteDAO {
 			throw e; 
 		}
 	}
-	/*
+	/**
 	 * removeGenre() will remove a single Genre based on the given genreID
+	 * @param id
+	 * @return boolean true if removal successful
 	 */
 	public boolean removeGenre(int id) {
 		List<Album> albumsToRemove = genreAlbums(id);
@@ -159,10 +172,13 @@ public class RemoteDAO {
 				throw e;
 			}
 	}
-	/*
+	/**
 	 * Method used to create a new artist in the database. Will first iterate through
 	 * all found artistNames, to ensure that it will not allow the creation of a
-	 * artist that already exists. 
+	 * artist that already exists.
+	 * @param artist
+	 * @return boolean true if creation successful
+	 * @throws Exception
 	 */
 	public boolean createArtist(Artist artist) throws Exception {
 		Artist[] artistSearch = readArtists();
@@ -184,8 +200,10 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
-	/*
+	/**
 	 * readArtist() will return a singular Artist-object from the remote database, based on the given artistID
+	 * @param id
+	 * @return artist
 	 */
 	public Artist readArtist(int id) {
 		Session session = sessionFactory.openSession();
@@ -196,9 +214,9 @@ public class RemoteDAO {
 		//session.close();
 		return artist;
 	}
-
-	/*
+	/**
 	 * readArtists() will return a list of all artists found within the database
+	 * @return
 	 */
 	public Artist[] readArtists() {
 		System.out.println("Got a readartist request");
@@ -219,8 +237,11 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
-	/*
+	/**
 	 * searchArtist() will return a single Artist-object based on a simple String input, used to search the database for the Artist
+	 * @param artistSearch
+	 * @return artist
+	 * @throws Exception
 	 */
 	public Artist searchArtist(String artistSearch) throws Exception {
 		Transaction transAct = null;
@@ -248,9 +269,12 @@ public class RemoteDAO {
 		}
 		
 	}
-	/*
+	/**
 	 * editArtist() will update a given Artist based on its ID. This is used to find the Artist from the database, which will then be 
 	 * updated based on a given Artist-object
+	 * @param artistEdit
+	 * @param id
+	 * @return boolean true if editing successful
 	 */
 	public boolean editArtist(Artist artistEdit, int id) {
 		Transaction transAct = null;		
@@ -269,8 +293,10 @@ public class RemoteDAO {
 			throw e;
 		}
 	}		
-	/*
+	/**
 	 * removeArtist() will remove a single Artist based on the given artistID
+	 * @param id
+	 * @return boolean true if removal successful
 	 */
 	public boolean removeArtist(int id) {
 		Transaction transAct = null;	
@@ -293,7 +319,15 @@ public class RemoteDAO {
 			throw e;
 		}
 	}		
-	
+	/**
+	 * createAlbum creates an album inside the database using a Hibernate-session.
+	 * @param album
+	 * @param artistList
+	 * @param genreList
+	 * @param songList
+	 * @return boolean true if successful
+	 * @throws Exception
+	 */
 	public boolean createAlbum(Album album, Set<Artist> artistList, Set<Genre> genreList, Set<Song> songList) throws Exception {
 		Album[] albumSearch = readAlbums();	
 		List<Song> newSongs = new ArrayList<Song>();
@@ -344,8 +378,12 @@ public class RemoteDAO {
 		}
 	}
 	
-	/*
+	/**
 	 * Method used to add an album to a single genre.
+	 * @param album
+	 * @param artist
+	 * @param genre
+	 * @return boolean true if adding a genre successful
 	 */
 	public boolean addAlbumGenre(Album album, Artist artist, Genre genre) {
 		Transaction transAct = null;	
@@ -364,8 +402,10 @@ public class RemoteDAO {
 			throw e;			
 		}
 	}
-	/*
+	/**
 	 * readAlbum() will return a singular Album-object from the remote database, based on the given albumID
+	 * @param id
+	 * @return album
 	 */
 	public Album readAlbum(int id) {
 		Session session = sessionFactory.openSession();
@@ -376,8 +416,9 @@ public class RemoteDAO {
 		//session.close();
 		return album;	
 	}
-	/*
+	/**
 	 * readAlbums() will return a list of all albums found within the database
+	 * @return arrayAlbum
 	 */
 	public Album[] readAlbums() {
 		Transaction transAct = null;
@@ -397,8 +438,11 @@ public class RemoteDAO {
 			return new Album[0];
 		}
 	}
-	/*
+	/**
 	 * searchAlbum() will return a single Album-object based on a simple String input, used to search the database for the Album
+	 * @param albumSearch
+	 * @return
+	 * @throws Exception
 	 */
 	public Album searchAlbum(String albumSearch) throws Exception{
 		Transaction transAct = null;
@@ -423,11 +467,13 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
-	/*
+	/**
 	 * editAlbum() will update a given Album based on its ID. This is used to find the Album from the database, which will then be 
 	 * updated based on a given Album-object
-	 * Editing the song-list is trickier. Currently not implemented.
-	 * Also, how about the linking? With the way we've done this, we now need to recursively check for which artists, genres and songs are linked to this, to remove those links and update the right ones :/
+	 * @param id
+	 * @param albumEdit
+	 * @return boolean true if editing successful
+	 * @throws Exception
 	 */
 	public boolean editAlbum(int id, Album albumEdit) throws Exception {
 		Set<Genre> genreList = albumEdit.getAlbumGenres();
@@ -463,18 +509,12 @@ public class RemoteDAO {
 			throw e;			
 		}
 	}
-	/*
+	/**
 	 * removeAlbum() will remove a single Album based on the given albumID
+	 * @param id
+	 * @return
 	 */
 	public boolean removeAlbum(int id) {
-//		Set<Artist> artistList = albumArtistList(id);
-		
-//		for(Artist a : artistList) {
-//			if(a.getArtistAlbums().size() == 1) {
-//				System.out.println("Sending a remove request to artist -> "+a.getArtistID());
-//				removeArtist(a.getArtistID());
-//			}
-//		}
 		
 		Transaction transAct = null;
 		try (Session session = sessionFactory.openSession()) {
@@ -490,10 +530,13 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
-	/*
+	/**
 	 * Method used to create a new song in the database. Will first iterate through
 	 * all found songNames, to ensure that it will not allow the creation of a
 	 * song that already exists. 
+	 * @param song
+	 * @return boolean true if editing successful
+	 * @throws Exception
 	 */
 	public boolean createSong(Song song) throws Exception {
 		Song[] songSearch = readSongs();
@@ -517,8 +560,10 @@ public class RemoteDAO {
 			throw e;			
 		}
 	}
-	/*
+	/**
 	 * readSong() will return a singular Song-object from the remote database, based on the given songID
+	 * @param id
+	 * @return song
 	 */
 	public Song readSong(int id) {
 		Session session = sessionFactory.openSession();
@@ -529,9 +574,9 @@ public class RemoteDAO {
 		//session.close();
 		return song;	
 	}
-	
-	/*
+	/**
 	 * readSongs() will return a list of all albums found within the database
+	 * @return array
 	 */
 	public Song[] readSongs() {
 		Transaction transAct = null;
@@ -550,8 +595,11 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
-	/*
+	/**
 	 * searchSong() will return a single Song-object based on a simple String input, used to search the database for the Song
+	 * @param songSearch
+	 * @return songList.get(0)
+	 * @throws Exception
 	 */
 	public Song searchSong(String songSearch) throws Exception{
 		Transaction transAct = null;
@@ -574,9 +622,12 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
-	/*
+	/**
 	 * editSong() will update a given Song based on its ID. This is used to find the Song from the database, which will then be 
 	 * updated based on a given Song-object
+	 * @param songEdit
+	 * @param id
+	 * @return boolean true if editing successful
 	 */
 	public boolean editSong(Song songEdit, int id) {
 		Transaction transAct = null;
@@ -593,8 +644,10 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
-	/*
+	/**
 	 * removeSong() will remove a single Song based on the given songID
+	 * @param id
+	 * @return boolean true if removal is successful
 	 */
 	public boolean removeSong(int id) {
 		Transaction transAct = null;
@@ -611,8 +664,9 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
-	/*
+	/**
 	 * getSearchable() will return a list of every single name within the database.
+	 * @return results
 	 */
 	public List<String> getSearchable(){
 		Transaction transAct = null;
@@ -630,8 +684,9 @@ public class RemoteDAO {
 			throw e;
 		}		
 	}	
-	/*
+	/**
 	 * existingGenres() will return a list of every genreName found within the database
+	 * @return results
 	 */
 	public List<String> existingGenres(){
 		Transaction transAct = null;
@@ -648,8 +703,9 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
-	/*
+	/**
 	 * existingArtists() will return a list of every artistName found within the database
+	 * @return results
 	 */
 	public List<String> existingArtists(){
 		Transaction transAct = null;
@@ -666,8 +722,9 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
-	/*
+	/**
 	 * existingAlbums() will return a list of every albumName found within the database
+	 * @return results
 	 */
 	public List<String> existingAlbums(){
 		Transaction transAct = null;
@@ -684,8 +741,9 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
-	/*
+	/**
 	 * existingSongs() will return a list of every songName found within the database
+	 * @return result
 	 */
 	public List<String> existingSongs(){
 		Transaction transAct = null;
@@ -702,10 +760,11 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
-	
-	/*
+	/**
 	 * Method takes in a given genre's ID, and then opens a session with it. During the session, an album-list can be created based on the instance
 	 * After loading the list, the session is closed and the method returns a list of Albums based on the genre
+	 * @param genreID
+	 * @return array
 	 */
 	public List<Album> genreAlbums(int genreID){
 		Transaction transAct = null;
@@ -723,9 +782,11 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
-	/*
+	/**
 	 * Method takes in a given artist's ID, and then opens a session with it. During the session, an album-list can be created based on the instance
 	 * After loading the list, the session is closed and the method returns a list of Albums based on the artist
+	 * @param artistID
+	 * @return array
 	 */
 	public List<Album> artistAlbums(int artistID){
 		Transaction transAct = null;
@@ -743,9 +804,11 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
-	/*
+	/**
 	 * Method takes in an album's ID and then opens a session with it. During the session, a song-list can be created based on the instance
 	 * After loading the list, the session is closed and the method returns a list of Songs based on the album.
+	 * @param albumID
+	 * @return array
 	 */
 	public Set<Song> albumSongs(int albumID){
 		Transaction transAct = null;
@@ -762,9 +825,11 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
-	/*
+	/**
 	 * Method takes in an album's ID and then opens a session using it. A list of artists is created based on the Album, 
 	 * and the method thus returns a list of Artists related to the given album
+	 * @param albumID
+	 * @return array
 	 */
 	public Set<Artist> albumArtistList(int albumID){
 		Transaction transAct = null;
@@ -782,9 +847,11 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
-	/*
+	/**
 	 * Method takes in an album's ID and then opens a session using it. A list of genres is created based on the Album,
 	 * and the method thus returns a list of Genres related to the given album
+	 * @param albumID
+	 * @return array
 	 */
 	public Set<Genre> albumGenreList(int albumID){
 		Transaction transAct = null;
@@ -801,7 +868,12 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
-	
+	/**
+	 * Creates a user submitted request into the database
+	 * @param request
+	 * @return boolean true if request went through
+	 * @throws Exception
+	 */
 	public boolean createRequest(UserRequests request) throws Exception {
 		Transaction transAct = null;
 		System.out.println("Got a create request for requests");
@@ -819,6 +891,11 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
+	/**
+	 * Returns a specific UserRequest from the database using a request id
+	 * @param id
+	 * @return returnable
+	 */
 	public UserRequests readRequest(int id) {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
@@ -828,6 +905,10 @@ public class RemoteDAO {
 		//session.close();
 		return returnable;	
 	}
+	/**
+	 * Returns a table of all User Requests from the database
+	 * @return result
+	 */
 	public UserRequests[] readRequests() {
 		Transaction transAct = null;
 		try (Session session = sessionFactory.openSession()) {
@@ -845,6 +926,12 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
+	/**
+	 * Returns a User Request based on a search from the database.
+	 * @param rTitle
+	 * @return requestList.get(0)
+	 * @throws Exception
+	 */
 	public UserRequests searchRequestTitle(String rTitle) throws Exception {
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
@@ -866,6 +953,11 @@ public class RemoteDAO {
 			throw e;
 		}
 	}
+	/**
+	 * Removes a User Request frmo the database based on a id search
+	 * @param id
+	 * @return boolean true if removal was successful
+	 */
 	public boolean removeRequest(int id) {
 		Transaction transAct = null;
 		try (Session session = sessionFactory.openSession()) {
