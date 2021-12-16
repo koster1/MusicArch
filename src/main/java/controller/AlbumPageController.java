@@ -149,14 +149,6 @@ public class AlbumPageController {
 		Artist[] artistArray = artists.toArray(new Artist[artists.size()]);
 		Genre[] genreArray = genres.toArray(new Genre[genres.size()]);
 
-//		artistGrid.getChildren().clear();
-//		artistGrid.setMaxWidth(250.0);
-//		genreGrid.getChildren().clear(); 
-//		genreGrid.setMaxWidth(250.0);
-//		albumNameGrid.getChildren().clear();
-//		albumNameGrid.setMaxWidth(250.0);
-//		albumYearGrid.getChildren().clear();
-//		albumYearGrid.setMaxWidth(250.0);
 				
 		TextField albumNameField = new TextField();
 		albumNameField.setText(album.getAlbumName());
@@ -202,11 +194,6 @@ public class AlbumPageController {
 			genreGrid.add(genreLabel, i, 0);
 			genreLabel.setVisible(true);
 		}		
-		
-//		AlbumName.setText(album.getAlbumName());
-//		AlbumYear.setText(String.valueOf(album.getAlbumYear()));
-//		AlbumArtist.setText(artistString);
-//		AlbumGenre.setText(genreString); 
 		
 		List<String> songList = new ArrayList<>();
 		
