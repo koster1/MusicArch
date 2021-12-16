@@ -52,22 +52,23 @@
                            <children>
                               <GridPane fx:id="CollectionGridPane" prefHeight="498.0" prefWidth="394.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="400.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="5.0" prefWidth="5.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="600.0" minWidth="10.0" prefWidth="414.0" />
                                 </columnConstraints>
                                 <rowConstraints>
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
                                   <RowConstraints maxHeight="124.0" minHeight="10.0" prefHeight="124.0" vgrow="NEVER" />
                                     <RowConstraints maxHeight="163.0" minHeight="10.0" prefHeight="163.0" valignment="CENTER" vgrow="ALWAYS" />
-                                    <RowConstraints maxHeight="112.0" minHeight="0.0" prefHeight="38.0" vgrow="ALWAYS" />
-                                    <RowConstraints maxHeight="131.0" minHeight="0.0" prefHeight="127.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="112.0" minHeight="0.0" prefHeight="70.0" vgrow="ALWAYS" />
+                                    <RowConstraints maxHeight="268.0" minHeight="0.0" prefHeight="261.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Label id="labels" fx:id="UserCollectionTitle" text="%UserCollectionTitle" underline="true" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                                    <Label id="labels" fx:id="UserCollectionTitle" text="%UserCollectionTitle" underline="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                                        <GridPane.margin>
                                           <Insets top="2.0" />
                                        </GridPane.margin>
                                     </Label>
-                                    <GridPane prefHeight="171.0" prefWidth="394.0" GridPane.rowIndex="4" GridPane.vgrow="SOMETIMES">
+                                    <GridPane prefHeight="184.0" prefWidth="423.0" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.vgrow="SOMETIMES">
                                       <columnConstraints>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                       </columnConstraints>
@@ -75,12 +76,12 @@
                                           <Label fx:id="InfoText" text="%SaveText" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="TOP" />
                                           <Label text="%AlbumDescriptionLabel" GridPane.halignment="CENTER" />
                                           <Text fx:id="InputText" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                                          <Button fx:id="AddDescriptionButton" maxWidth="200.0" mnemonicParsing="false" onAction="#saveDescription" prefHeight="33.0" prefWidth="127.0" text="%AddDescriptionButtonTitle" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="3" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
+                                          <Button fx:id="AddDescriptionButton" mnemonicParsing="false" onAction="#saveDescription" text="%AddDescriptionButtonTitle" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="TOP">
                                              <GridPane.margin>
                                                 <Insets top="10.0" />
                                              </GridPane.margin>
                                           </Button>
-                                          <TextArea fx:id="AlbumTextArea" maxWidth="300.0" onKeyTyped="#charLimit" prefHeight="46.0" prefWidth="300.0" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+                                          <TextArea fx:id="AlbumTextArea" maxWidth="300.0" onKeyTyped="#charLimit" prefHeight="57.0" prefWidth="300.0" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
                                        </children>
                                        <rowConstraints>
                                           <RowConstraints />
@@ -90,8 +91,11 @@
                                           <RowConstraints />
                                        </rowConstraints>
                                     </GridPane>
-                                    <Button fx:id="DeleteAlbumButton" mnemonicParsing="false" onAction="#deleteAlbum" text="%DeleteFromAlbum" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                                    <GridPane fx:id="InfoLabelGrid" prefHeight="163.0" prefWidth="388.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2">
+                                    <Button fx:id="DeleteAlbumButton" mnemonicParsing="false" onAction="#deleteAlbum" text="%DeleteFromAlbum" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1">
+                                       <GridPane.margin>
+                                          <Insets />
+                                       </GridPane.margin></Button>
+                                    <GridPane fx:id="InfoLabelGrid" prefHeight="163.0" prefWidth="388.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2">
                                       <columnConstraints>
                                         <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="197.0" />
                                         <ColumnConstraints hgrow="ALWAYS" maxWidth="800.0" minWidth="10.0" prefWidth="249.0" />
