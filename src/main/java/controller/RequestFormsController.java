@@ -77,31 +77,20 @@ public class RequestFormsController {
 	@FXML
 	private TextField GenreName;
 	@FXML
-	private VBox root;
-	@FXML
 	private VBox root1;
 	@FXML
-	private VBox root2;
-
-	@FXML
 	private ScrollPane scrollPane;
-
-	// --------------testejä-----------------------------------------------
-
 	@FXML
 	private ContextMenu searchContext;
 	@FXML
 	private ContextMenu searchContextArtist;
 	@FXML
 	private Button SearchButton;
-	// @FXML
-	// private TextField SearchBox;
 
 	private Genre genreResults;
 	private Artist artistResults;
 	private Album albumResults;
 	private Song songResults;
-	// List<String> everythingFound;
 	List<String> genresFound;
 	List<String> artistsFound;
 	List<String> albumsFound;
@@ -128,21 +117,15 @@ public class RequestFormsController {
 		this.controller = controller;
 	}
 
-	protected void initialize() {
-
-	}
-
 	int requestId;
 
-	// Dropdownlists mouseevents
+	// Dropdownlists which shows all requests from database UserRequests table
 	@FXML
 	void Genre(MouseEvent event) {
 
-		// UserRequests[] titles = controller.getRequest(int id);
 		UserRequests[] requests = controller.getRequests();
 		ObservableList<UserRequests> requestObs = FXCollections.observableArrayList(requests);
 		requestList.setCellFactory(lv -> new ListCell<UserRequests>() {
-			// ListCell<UserRequests> cell = new ListCell<UserRequests>() {
 
 			@Override
 			protected void updateItem(UserRequests r, boolean empty) {
@@ -181,7 +164,7 @@ public class RequestFormsController {
 		view.showGenreForm();
 	}
 
-	// ----------------------Search existing genres------------------------
+	//Search existing genres
 
 	@FXML
 	void getSearchable(MouseEvent event) {
@@ -224,15 +207,14 @@ public class RequestFormsController {
 		}
 	}
 
-//-----------------------Search existing genres ends--------
+	//Search existing genres ends
 
 	@FXML
 	void ArtistFormButton(ActionEvent event) throws IOException {
 		view.showArtistForm();
 	}
 
-//------------------Search existing artists --------------------
-
+	//Search existing artists
 	@FXML
 	void getSearchableArtists(MouseEvent event) {
 		if (artistsFound == null) {
@@ -360,7 +342,7 @@ public class RequestFormsController {
 		System.out.println(genreButtonList);
 	}
 
-	// -------------------Search existing artists to album-------------------
+	//Search existing artists to album
 
 	@FXML
 	private TextField addArtists2Album;
@@ -423,7 +405,6 @@ public class RequestFormsController {
 					}
 					System.out.println("Poistamista ennen: " + artistButtonList);
 
-					// button.setOnAction((e) -> ankkuri.getChildren().remove(button.getId()));
 					button.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 						@Override
 						public void handle(MouseEvent e) {
@@ -605,20 +586,9 @@ public class RequestFormsController {
 					int h = 0;
 
 					for (int i = 0; i < songList.size(); i++) {
-						//if (songList.get(i).getText().length() > 50) {
-						/*	Alert alert2 = new Alert(AlertType.ERROR);
-							alert2.setTitle(
-									Language.getInstance().getBundle().getString("AlertTitleTooLongSongName") + " ");
-							alert2.setHeaderText(
-									Language.getInstance().getBundle().getString("AlertHeaderTooLongSongName"));
-							alert2.showAndWait();
-							// System.out.println(e.getMessage());
-						} else {*/
 							System.out.println("Testing list ->" + songList.get(i).getId());
 							System.out.println(songList.get(i).getText());
 							songListGiven[i] = songList.get(i).getText();
-						//}
-
 					}
 
 					int releaseYear = 0;
