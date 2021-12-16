@@ -346,7 +346,7 @@ public class Controller {
     public LocalAlbum readLocalAlbum(int id) throws Exception {
     	return localDAO.readAlbum(id);
     }
-//---------------------väliaikainen kirjanmerkki------------------------------
+    //---------------------väliaikainen kirjanmerkki------------------------------
     public List<String> getSearchable() {
     	return remoteDAO.getSearchable();
     }

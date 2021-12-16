@@ -77,17 +77,9 @@ public class RequestFormsController {
 	@FXML
 	private TextField GenreName;
 	@FXML
-	private VBox root;
-	@FXML
 	private VBox root1;
 	@FXML
-	private VBox root2;
-
-	@FXML
 	private ScrollPane scrollPane;
-
-	// --------------testejä-----------------------------------------------
-
 	@FXML
 	private ContextMenu searchContext;
 	@FXML
@@ -128,9 +120,6 @@ public class RequestFormsController {
 		this.controller = controller;
 	}
 
-	protected void initialize() {
-
-	}
 
 	int requestId;
 
@@ -138,11 +127,9 @@ public class RequestFormsController {
 	@FXML
 	void Genre(MouseEvent event) {
 
-		// UserRequests[] titles = controller.getRequest(int id);
 		UserRequests[] requests = controller.getRequests();
 		ObservableList<UserRequests> requestObs = FXCollections.observableArrayList(requests);
 		requestList.setCellFactory(lv -> new ListCell<UserRequests>() {
-			// ListCell<UserRequests> cell = new ListCell<UserRequests>() {
 
 			@Override
 			protected void updateItem(UserRequests r, boolean empty) {
@@ -181,7 +168,7 @@ public class RequestFormsController {
 		view.showGenreForm();
 	}
 
-	// ----------------------Search existing genres------------------------
+	//Search existing genres
 
 	@FXML
 	void getSearchable(MouseEvent event) {
@@ -224,14 +211,14 @@ public class RequestFormsController {
 		}
 	}
 
-//-----------------------Search existing genres ends--------
+	//Search existing genres ends
 
 	@FXML
 	void ArtistFormButton(ActionEvent event) throws IOException {
 		view.showArtistForm();
 	}
 
-//------------------Search existing artists --------------------
+	//Search existing artists
 
 	@FXML
 	void getSearchableArtists(MouseEvent event) {
@@ -280,12 +267,12 @@ public class RequestFormsController {
 		view.showAlbumForm();
 	}
 
-	// -------------------Search existing genres to album-------------------
+	//Search existing genres to album
 
 	@FXML
 	private TextField addGenres2Album;
 	@FXML
-	private GridPane ankkuri;
+	private GridPane genreTags;
 
 	@FXML
 	void getAlbumGenresSearchable(MouseEvent event) {
@@ -335,17 +322,15 @@ public class RequestFormsController {
 						genreButtonList.add(button);
 						button.setStyle(String.format("-fx-font-size: 14px;"));
 
-						// button.setAlignment(Pos.CENTER_RIGHT);
-						ankkuri.add(button, genreCounter, 0);
+						genreTags.add(button, genreCounter, 0);
 						addGenres2Album.clear();
 					}
 					System.out.println("Poistamista ennen: " + genreButtonList);
 
-					// button.setOnAction((e) -> ankkuri.getChildren().remove(button.getId()));
 					button.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 						@Override
 						public void handle(MouseEvent e) {
-							ankkuri.getChildren().remove(button);
+							genreTags.getChildren().remove(button);
 							genreButtonList.remove(button);
 							System.out.println("Poistamisen jälkeen: " + genreButtonList);
 
@@ -360,7 +345,8 @@ public class RequestFormsController {
 		System.out.println(genreButtonList);
 	}
 
-	// -------------------Search existing artists to album-------------------
+	// Search existing artists to album
+	//
 
 	@FXML
 	private TextField addArtists2Album;
@@ -405,7 +391,6 @@ public class RequestFormsController {
 		for (int i = 0; i < menuCounter; i++) {
 			String testString = strippedList.get(i);
 			MenuItem searchItem = new MenuItem(testString);
-			// Add selected genres to list
 			searchItem.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent t) {
@@ -417,13 +402,11 @@ public class RequestFormsController {
 						artistButtonList.add(button);
 						button.setStyle(String.format("-fx-font-size: 14px;"));
 
-						// button.setAlignment(Pos.CENTER_RIGHT);
 						artistTags.add(button, artistCounter, 0);
 						addArtists2Album.clear();
 					}
 					System.out.println("Poistamista ennen: " + artistButtonList);
 
-					// button.setOnAction((e) -> ankkuri.getChildren().remove(button.getId()));
 					button.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 						@Override
 						public void handle(MouseEvent e) {
@@ -455,12 +438,9 @@ public class RequestFormsController {
 		System.out.print(field.getId());
 		songList.add(field);
 		System.out.println(field.getId());
-		// ArtistList.add(field.getId());
 		Button button = new Button("-");
 		field.setAlignment(Pos.CENTER_LEFT);
 		button.setAlignment(Pos.CENTER_RIGHT);
-		// button.setOnAction((e) -> parent.getChildren().clear() &&
-		// songList.remove(field));
 		button.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent e) {
@@ -493,12 +473,10 @@ public class RequestFormsController {
 			alert.showAndWait();
 
 		} else {
-			// view.showConf();
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.setTitle(Language.getInstance().getBundle().getString("ConfirmGenre"));
 			alert.setHeaderText(Language.getInstance().getBundle().getString("AlertHeaderTextGenre"));
 			alert.setContentText(Language.getInstance().getBundle().getString("AlertContentTextGenre") + genreName);
-			// alert.setContentText(genreName);
 
 			Optional<ButtonType> result = alert.showAndWait();
 
@@ -601,23 +579,11 @@ public class RequestFormsController {
 					}
 
 					String[] songListGiven = new String[songList.size()];
-
 					int h = 0;
-
 					for (int i = 0; i < songList.size(); i++) {
-						//if (songList.get(i).getText().length() > 50) {
-						/*	Alert alert2 = new Alert(AlertType.ERROR);
-							alert2.setTitle(
-									Language.getInstance().getBundle().getString("AlertTitleTooLongSongName") + " ");
-							alert2.setHeaderText(
-									Language.getInstance().getBundle().getString("AlertHeaderTooLongSongName"));
-							alert2.showAndWait();
-							// System.out.println(e.getMessage());
-						} else {*/
 							System.out.println("Testing list ->" + songList.get(i).getId());
 							System.out.println(songList.get(i).getText());
 							songListGiven[i] = songList.get(i).getText();
-						//}
 
 					}
 

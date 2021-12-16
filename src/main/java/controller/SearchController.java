@@ -134,15 +134,14 @@ public class SearchController {
 			SearchGrid.add(new Text(this.search), 0, 2);
 			System.out.println(e.getMessage());
 		}
-
 	}
 
+	// This method creates the request form
 	@FXML
 	void openRequestForm(ActionEvent event) throws IOException {
 		requestFormButton.setVisible(false);
 		requestLabel.setVisible(false);
 
-		// GridPane form = new GridPane();
 		TextArea text = new TextArea();
 		Label title = new Label();
 		Label textareatitle = new Label();
@@ -150,33 +149,24 @@ public class SearchController {
 		Label countCharWord = new Label();
 		VBox charBox = new VBox();
 		charBox.setMinWidth(160);
-		//charBox.setAlignment(Pos.CENTER);
 		charBox.getChildren().addAll(countChar, countCharWord);
-		
+
 		countChar.setMinWidth(100);
 		title.setText(Language.getInstance().getBundle().getString("RequestTextAreaLabel"));
 		textareatitle.setText(Language.getInstance().getBundle().getString("RequestTitleLabel"));
 		countCharWord.setText(Language.getInstance().getBundle().getString("CharCountLabel"));
 		text.setWrapText(true);
 
-		// fontSize.bind(requestFormGridpienempi.widthProperty().add(requestFormGridpienempi.heightProperty()).divide(60));
-		// SearchGrid.styleProperty().bind(Bindings.concat("-fx-font-size: ",
-		// fontSize.asString(), ";"));
-
 		text.textProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue.length() >= 250) {
 				text.setText(oldValue);
-				// countChar.setTextFill(Color.BLACK);
-
 			} else if (newValue.length() > 250) {
 				countChar.setTextFill(Color.RED);
 			}
 			countChar.setTextFill(Color.BLACK);
-
 			System.out.println(newValue.length());
 			String num = String.valueOf(newValue.length());
 			countChar.setText(num + "/250");
-
 		});
 
 		TextField requestTitle = new TextField();
@@ -194,8 +184,6 @@ public class SearchController {
 		requestFormGridpienempi.add(text, 1, 2);
 		requestFormGridpienempi.add(sendR, 1, 3);
 		requestFormGridpienempi.add(charBox, 2, 2);
-	//	requestFormGridpienempi.add(countChar, 2, 2);
-	//	requestFormGridpienempi.add(countCharWord, 2, 2);
 
 		requestTitle.setPrefWidth(200);
 		sendR.setPrefWidth(200);
@@ -204,7 +192,6 @@ public class SearchController {
 		for (Node n : requestFormGridpienempi.getChildren()) {
 			if (n instanceof Label) {
 				((Label) n).setPrefWidth(150);
-//				((Label) n).setMaxWidth(90);
 			}
 		}
 
@@ -213,16 +200,7 @@ public class SearchController {
 		GridPane.setMargin(sendR, new Insets(5, 10, 10, 5));
 		GridPane.setMargin(text, new Insets(5, 10, 10, 5));
 		GridPane.setMargin(requestTitle, new Insets(5, 10, 40, 5));
-		//GridPane.setMargin(countChar, new Insets(5, 10, 10, 5));
-		//GridPane.setMargin(countCharWord, new Insets(5, 10, 10, 5));
 
-//		GridPane.setMargin(textareatitle, new Insets(5, 10, 10, 5));
-//		GridPane.setMargin(title, new Insets(5, 10, 40, 5));
-//		GridPane.setMargin(sendR, new Insets(5, 10, 10, 5));
-//		GridPane.setMargin(text, new Insets(5, 10, 10, 5));
-//		GridPane.setMargin(requestTitle, new Insets(5, 10, 40, 5));
-
-		// SearchGrid.add(requestFormGridpienempi, 0 ,4);
 		sendR.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent e) {
