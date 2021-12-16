@@ -78,6 +78,7 @@ public class View extends Application {
 		String css = this.getClass().getResource("/view/style.css").toExternalForm();
 		scene.getStylesheets().add(css);
 		primaryStage.setMinWidth(1200);
+		primaryStage.setMinHeight(750);
 		primaryStage.setOnCloseRequest(event -> {
 			System.exit(-1);
 		});
