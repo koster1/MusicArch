@@ -13,15 +13,22 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import model.Language;
@@ -77,8 +84,7 @@ public class SearchController {
 
 	@FXML
 	private Label notFoundAlbum;
-    private DoubleProperty fontSize = new SimpleDoubleProperty(20);
-
+	private DoubleProperty fontSize = new SimpleDoubleProperty(20);
 
 	public SearchController(String search, Controller controller) {
 		this.search = search;
@@ -140,45 +146,75 @@ public class SearchController {
 		TextArea text = new TextArea();
 		Label title = new Label();
 		Label textareatitle = new Label();
+		Label countChar = new Label();
+		Label countCharWord = new Label();
+		VBox charBox = new VBox();
+		charBox.setMinWidth(160);
+		//charBox.setAlignment(Pos.CENTER);
+		charBox.getChildren().addAll(countChar, countCharWord);
+		
+		countChar.setMinWidth(100);
 		title.setText(Language.getInstance().getBundle().getString("RequestTextAreaLabel"));
 		textareatitle.setText(Language.getInstance().getBundle().getString("RequestTitleLabel"));
-		fontSize.bind(requestFormGridpienempi.widthProperty().add(requestFormGridpienempi.heightProperty()).divide(60));
-		SearchGrid.styleProperty().bind(Bindings.concat("-fx-font-size: ", fontSize.asString(), ";"));
+		countCharWord.setText(Language.getInstance().getBundle().getString("CharCountLabel"));
+		text.setWrapText(true);
 
-		
-		text.textProperty().addListener(
-		        (observable,oldValue,newValue)-> {
-		            if(newValue.length() > 250) text.setText(oldValue);
-		        }
-		);
+		// fontSize.bind(requestFormGridpienempi.widthProperty().add(requestFormGridpienempi.heightProperty()).divide(60));
+		// SearchGrid.styleProperty().bind(Bindings.concat("-fx-font-size: ",
+		// fontSize.asString(), ";"));
+
+		text.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (newValue.length() >= 250) {
+				text.setText(oldValue);
+				// countChar.setTextFill(Color.BLACK);
+
+			} else if (newValue.length() > 250) {
+				countChar.setTextFill(Color.RED);
+			}
+			countChar.setTextFill(Color.BLACK);
+
+			System.out.println(newValue.length());
+			String num = String.valueOf(newValue.length());
+			countChar.setText(num + "/250");
+
+		});
 
 		TextField requestTitle = new TextField();
-		requestTitle.textProperty().addListener(
-		        (observable,oldValue,newValue)-> {
-		            if(newValue.length() > 50) requestTitle.setText(oldValue);
-		        }
-		);
-		
-		Button sendR = new Button();
-    	sendR.setText(Language.getInstance().getBundle().getString("sendRequestButton"));
+		requestTitle.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (newValue.length() > 50)
+				requestTitle.setText(oldValue);
+		});
 
-    	requestFormGridpienempi.add(title, 0, 1);
-    	requestFormGridpienempi.add(textareatitle, 0, 2);
+		Button sendR = new Button();
+		sendR.setText(Language.getInstance().getBundle().getString("sendRequestButton"));
+
+		requestFormGridpienempi.add(title, 0, 1);
+		requestFormGridpienempi.add(textareatitle, 0, 2);
 		requestFormGridpienempi.add(requestTitle, 1, 1);
 		requestFormGridpienempi.add(text, 1, 2);
 		requestFormGridpienempi.add(sendR, 1, 3);
+		requestFormGridpienempi.add(charBox, 2, 2);
+	//	requestFormGridpienempi.add(countChar, 2, 2);
+	//	requestFormGridpienempi.add(countCharWord, 2, 2);
+
 		requestTitle.setPrefWidth(200);
 		sendR.setPrefWidth(200);
 		text.maxHeight(100);
-		text.setWrapText(true);
-		
-	
-		for(Node n : requestFormGridpienempi.getChildren()) {
-			if(n instanceof Label) {
+
+		for (Node n : requestFormGridpienempi.getChildren()) {
+			if (n instanceof Label) {
 				((Label) n).setPrefWidth(150);
 //				((Label) n).setMaxWidth(90);
 			}
 		}
+
+		GridPane.setMargin(textareatitle, new Insets(5, 0, 10, 5));
+		GridPane.setMargin(title, new Insets(5, 0, 40, 5));
+		GridPane.setMargin(sendR, new Insets(5, 10, 10, 5));
+		GridPane.setMargin(text, new Insets(5, 10, 10, 5));
+		GridPane.setMargin(requestTitle, new Insets(5, 10, 40, 5));
+		//GridPane.setMargin(countChar, new Insets(5, 10, 10, 5));
+		//GridPane.setMargin(countCharWord, new Insets(5, 10, 10, 5));
 
 //		GridPane.setMargin(textareatitle, new Insets(5, 10, 10, 5));
 //		GridPane.setMargin(title, new Insets(5, 10, 40, 5));
@@ -190,13 +226,26 @@ public class SearchController {
 		sendR.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent e) {
-				controller.createRequest(requestTitle.getText(), text.getText());
-				text.clear();
-				requestTitle.clear();
+				try {
+					controller.createRequest(requestTitle.getText(), text.getText());
+					text.clear();
+					requestTitle.clear();
+					Alert message = new Alert(AlertType.CONFIRMATION);
+					message.setTitle(Language.getInstance().getBundle().getString("MessageAlertTitleRequestSend"));
+					message.setHeaderText(
+							Language.getInstance().getBundle().getString("MessageAlertHeaderRequestSend"));
+					message.showAndWait();
+
+				} catch (Exception exception) {
+					Alert requestError = new Alert(AlertType.ERROR);
+					requestError.setTitle(Language.getInstance().getBundle().getString("ErrorAlertTitleRequest"));
+					requestError.setHeaderText(Language.getInstance().getBundle().getString("ErrorAlertHeaderRequest"));
+					requestError.showAndWait();
+
+				}
 
 			}
 		});
 	}
-
 
 }

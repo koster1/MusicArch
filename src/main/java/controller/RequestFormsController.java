@@ -128,6 +128,10 @@ public class RequestFormsController {
 		this.controller = controller;
 	}
 
+	protected void initialize() {
+
+	}
+
 	int requestId;
 
 	// Dropdownlists mouseevents
@@ -138,11 +142,13 @@ public class RequestFormsController {
 		UserRequests[] requests = controller.getRequests();
 		ObservableList<UserRequests> requestObs = FXCollections.observableArrayList(requests);
 		requestList.setCellFactory(lv -> new ListCell<UserRequests>() {
+			// ListCell<UserRequests> cell = new ListCell<UserRequests>() {
+
 			@Override
 			protected void updateItem(UserRequests r, boolean empty) {
 				super.updateItem(r, empty);
 				setText(empty || r == null || requests.length == 0 ? "" : r.getRequestTitle());
-			}
+			};
 		});
 		requestList.setItems(requestObs);
 		GenreDrop.autosize();
@@ -160,14 +166,13 @@ public class RequestFormsController {
 					controller.removeRequest(ur.getRequestID());
 					requestGrid.getChildren().clear();
 					requestList.refresh();
+
 				}
 
 			});
-
 		});
 
 	}
-
 
 	// GenreFormButton, AlbumFromButton and ArtistFromButton sends request to view
 	// to change forms in requests.fxml
@@ -326,10 +331,14 @@ public class RequestFormsController {
 					Button button = new Button(addGenres2Album.getText());
 					button.setId(String.valueOf(genreCounter++));
 					System.out.println(button.getId());
-					genreButtonList.add(button);
-					// button.setAlignment(Pos.CENTER_RIGHT);
-					ankkuri.add(button, genreCounter, 0);
-					addGenres2Album.clear();
+					if (genreButtonList.size() < 3) {
+						genreButtonList.add(button);
+						button.setStyle(String.format("-fx-font-size: 14px;"));
+
+						// button.setAlignment(Pos.CENTER_RIGHT);
+						ankkuri.add(button, genreCounter, 0);
+						addGenres2Album.clear();
+					}
 					System.out.println("Poistamista ennen: " + genreButtonList);
 
 					// button.setOnAction((e) -> ankkuri.getChildren().remove(button.getId()));
@@ -404,10 +413,14 @@ public class RequestFormsController {
 					Button button = new Button(addArtists2Album.getText());
 					button.setId(String.valueOf(artistCounter++));
 					System.out.println(button.getId());
-					artistButtonList.add(button);
-					// button.setAlignment(Pos.CENTER_RIGHT);
-					artistTags.add(button, artistCounter, 0);
-					addArtists2Album.clear();
+					if (artistButtonList.size() < 3) {
+						artistButtonList.add(button);
+						button.setStyle(String.format("-fx-font-size: 14px;"));
+
+						// button.setAlignment(Pos.CENTER_RIGHT);
+						artistTags.add(button, artistCounter, 0);
+						addArtists2Album.clear();
+					}
 					System.out.println("Poistamista ennen: " + artistButtonList);
 
 					// button.setOnAction((e) -> ankkuri.getChildren().remove(button.getId()));
@@ -484,8 +497,8 @@ public class RequestFormsController {
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.setTitle(Language.getInstance().getBundle().getString("ConfirmGenre"));
 			alert.setHeaderText(Language.getInstance().getBundle().getString("AlertHeaderTextGenre"));
-			alert.setContentText(Language.getInstance().getBundle().getString("AlertContentTextGenre"));
-			//alert.setContentText(genreName);
+			alert.setContentText(Language.getInstance().getBundle().getString("AlertContentTextGenre") + genreName);
+			// alert.setContentText(genreName);
 
 			Optional<ButtonType> result = alert.showAndWait();
 
@@ -518,14 +531,13 @@ public class RequestFormsController {
 			alert.setTitle(Language.getInstance().getBundle().getString("AlertTitleArtistEmpty"));
 			alert.setHeaderText(Language.getInstance().getBundle().getString("AlertHeaderTextArtistEmpty"));
 			alert.showAndWait();
-			
 
 		} else {
 
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.setTitle(Language.getInstance().getBundle().getString("ConfirmArtist"));
 			alert.setHeaderText(Language.getInstance().getBundle().getString("AlertHeaderTextArtist"));
-			alert.setContentText(Language.getInstance().getBundle().getString("AlertContentTextArtist"));
+			alert.setContentText(Language.getInstance().getBundle().getString("AlertContentTextArtist") + artistName);
 
 			Optional<ButtonType> result = alert.showAndWait();
 
@@ -558,13 +570,13 @@ public class RequestFormsController {
 			alert.setHeaderText(Language.getInstance().getBundle().getString("AlertHeaderTextAlbumEmpty"));
 			alert.showAndWait();
 
-
 		} else {
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.setTitle(Language.getInstance().getBundle().getString("ConfirmAlbum"));
 			alert.setHeaderText(Language.getInstance().getBundle().getString("AlertHeaderTextAlbum"));
-			alert.setContentText(Language.getInstance().getBundle().getString("AlertContentTextAlbum"));
-		
+			alert.setContentText(
+					Language.getInstance().getBundle().getString("AlertContentTextAlbum") + AlbumName.getText());
+
 			Optional<ButtonType> result = alert.showAndWait();
 
 			if (result.get() == ButtonType.OK) {
@@ -593,23 +605,33 @@ public class RequestFormsController {
 					int h = 0;
 
 					for (int i = 0; i < songList.size(); i++) {
-						System.out.println("Testing list ->" + songList.get(i).getId());
-						System.out.println(songList.get(i).getText());
-						songListGiven[i] = songList.get(i).getText();
+						//if (songList.get(i).getText().length() > 50) {
+						/*	Alert alert2 = new Alert(AlertType.ERROR);
+							alert2.setTitle(
+									Language.getInstance().getBundle().getString("AlertTitleTooLongSongName") + " ");
+							alert2.setHeaderText(
+									Language.getInstance().getBundle().getString("AlertHeaderTooLongSongName"));
+							alert2.showAndWait();
+							// System.out.println(e.getMessage());
+						} else {*/
+							System.out.println("Testing list ->" + songList.get(i).getId());
+							System.out.println(songList.get(i).getText());
+							songListGiven[i] = songList.get(i).getText();
+						//}
+
 					}
+
 					int releaseYear = 0;
 					try {
 						releaseYear = Integer.parseInt(Released.getText());
-					} catch(Exception e) {
+					} catch (Exception e) {
 						Alert alert2 = new Alert(AlertType.ERROR);
 						alert2.setTitle(Language.getInstance().getBundle().getString("AlertTitleAlbumYear") + " ");
 						alert2.setHeaderText(Language.getInstance().getBundle().getString("AlertHeaderAlbumNotNumber"));
 						alert2.showAndWait();
 						System.out.println(e.getMessage());
 					}
-					controller.createAlbum(AlbumName.getText(), releaseYear, genreListGiven,
-							artistName, songListGiven);
-					
+					controller.createAlbum(AlbumName.getText(), releaseYear, genreListGiven, artistName, songListGiven);
 
 				} catch (Exception e) {
 					Alert alert2 = new Alert(AlertType.ERROR);
