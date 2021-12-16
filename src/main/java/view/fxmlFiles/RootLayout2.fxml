@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="500.0" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUIController">
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="500.0" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUIController">
    <top>
       <ButtonBar fx:id="Buttonbar" nodeOrientation="RIGHT_TO_LEFT" prefHeight="58.0" prefWidth="9000" styleClass="Buttonbar" stylesheets="@../style.css" BorderPane.alignment="CENTER">
         <buttons>
@@ -33,10 +33,10 @@
                   </MenuButton>
                   <GridPane fx:id="ButtonGrid" layoutY="-4.0" prefHeight="63.0">
                     <columnConstraints>
-                      <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="125.0" />
-                      <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="149.0" />
-                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="142.0" />
-                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="123.0" />
+                      <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
+                      <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
