@@ -76,6 +76,9 @@ public class HelpController {
 		e1.printStackTrace();
 	}
 	char[] buffer = null;
+	/**
+	 * The file is chosen from the resources and
+	 */
 	
 	File file = new File("src/main/resources/" + helpLanguage );
 	try(FileReader reader = new FileReader(file)){
