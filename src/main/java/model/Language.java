@@ -11,8 +11,12 @@ import java.util.Properties;
 import java.util.ResourceBundle;
 
 /**
- * Purpose of this class is to set the language of the application
- * @author Kalle
+ * The purpose of this class is to set the language and the country of the application for localization purposes.
+ * This class will change the locale of the application during runtime.
+ * 
+ * This is used to provide the applications elements with the equivalent language package.
+ * 
+ * @author Kalle, Jani
  *
  */
 
@@ -22,7 +26,10 @@ public class Language {
 	private Properties properties = new Properties();
 	private Locale currentLocale;
 	
-	
+	/**
+	 * Gets the Instance of the language.
+	 * @return Returns the instance of the language.
+	 */
 	public static Language getInstance() {
 		if(INSTANCE == null) {
 			INSTANCE = new Language();
@@ -31,7 +38,6 @@ public class Language {
 	}
 	
 	private Language() {
-
 		try {
 			FileInputStream configStream = new FileInputStream("src/main/resources/MusicArch.properties");
 			properties.load(configStream);
@@ -56,14 +62,10 @@ public class Language {
 		}
 	}
 	
-	
-//	public ResourceBundle getDefault() {
-//		return this.bundle;
-//	}
 	/**
 	 * Setting the country and the language of the application.
-	 * @param language Language of the application
-	 * @param country Country of the application
+	 * @param language Language of the application.
+	 * @param country Country of the application.
 	 */
 	
 	public void setLocale(String language, String country) {
@@ -75,27 +77,38 @@ public class Language {
 			}
 	}
 	/**
-	 * Returning the locale
-	 * @return Locale
+	 * Returning the locale (language & country).
+	 * @return Returns locale.
 	 */
 	public Locale getLocale() {
 		return this.currentLocale;
 	}
 	
 	/**
-	 * Setting the default language
-	 * @param language
+	 * Setting the default language to Finnish.
+	 * @param The applications default language.
 	 */
 	
 	public void setDefault(Locale language) {
 		this.bundle = ResourceBundle.getBundle("TextResources_fi_FI");
 
 	}
-	
+	/**
+	 * ResourseBundle will return the locale's resource bundle.
+	 * @return Bundle Locale's resource bundle
+	 */
 	public ResourceBundle getBundle() {
 		return this.bundle;
 	}
-	
+	/**
+	 * Saving the locale in a way that the application remembers the users decision.
+	 * 
+	 * For example, if you set the language to English and close the application, the next time you
+	 * open it, the user interface will be in English.
+	 * 
+	 * @param language Language of the application
+	 * @param country Country of the application
+	 */
 	public void saveLocale(String language, String country) {
 		FileInputStream configStream;
 		try {
@@ -114,11 +127,6 @@ public class Language {
 				ObjectOutputStream tiedosto = new ObjectOutputStream(output); )
 			{
 				properties.store(output, "Description to header");
-			
-				
-				// Kirjoita HashMap objektivirtaan
-				
-				
 				
 			} catch (Exception ex) {
 				System.out.println("saveLocale -> Fail");
