@@ -1,27 +1,54 @@
-Tervetuloa käyttämään MusicArch sovellusta!
+Sovelluksen käyttöohjeet 
 
-MusicArch on virtuaalinen musiikkikirjasto, jonka avulla voit luoda itsellesi albumikokoelman ja etsiä tietoa haluamastasi musiikista. Voit lisätä kokoelmaasi albumeita MusicArchin etusivulta tai etsiä niitä sovelluksen hakutoiminnolla. Sovelluksen ylläpito vastaa siellä olevasta tiedosta, eli jos jotain genreä, artistia tai albumia ei löydy, voit lähettää ylläpidolle lisäyspyynnön, jonka avulla se voidaan lisätä.
+Sisällys:
+Aloitus
+Etusivu
+Yläpalkki
+Kokoelma/Toivelista
+Pyynnöt
+
+Aloitus
+
+Tervetuloa käyttämään MusicArchia!
+Sovelluksella on kaksi erilaista käyttäjäryhmää, asiakas ja ylläpitäjä. Ylläpitäjällä on pääsy sovelluksen Pyynnöt-ikkunaan, sekä mahdollisuus poistaa ja muokata genrejä, artisteja ja albumeita.
+Selvennämme ohjeissa, mitkä ominaisuudet ovat vain ylläpitäjän käytössä.
+Etusivu
+Kun käynnistät sovelluksen asiakkaana päädyt etusivulle, missä voit tarkastella ja valita sovelluksessa olevia genrejä ja artisteja sekä näihin molempiin kuuluvia albumeita. 
+
+Ylläpitäjä voi myöskin muokata ja poistaa artisteja ja genrejä.
+Painamalla muokkaus-painiketta voidaan muokata artistin nimeä tai poistaa artisti. Tämä ominaisuus toimii samalla tavalla genrejen suhteen. 
+Poistamalla artistin tai genren kaikki niihin liittyvät albumit myös poistuvat.
 
 
+Yläpalkki
 
-Sovelluksen käyttöohjeet
+Yläpalkista pääset käsiksi sovelluksen muihin näkymiin (Kokoelma, Lisäyspyynnöt-ikkuna ylläpitäjälle ja ohjeet). Yläpalkki ja sen ominaisuudet ovat käytettävissä jokaisessa näkymässä, esimerkiksi hakutoiminto voidaan suorittaa albumin sivulta. Yläpalkissa voidaan myös suorittaa haku ja kielenvaihto.
+Haun avulla pääset suoraan albumin sivulle, jos hakemasi albumi on olemassa.
 
-Yleisesti:
-Kun käynnistät sovelluksen päädyt etusivulle, missä voit tarkastella genrejä ja artisteja sekä näihin molempiin kuuluvia albumeita. Yläpalkista pääset käsiksi sovelluksen kokoelma-ikkunaan, josta voit tarkastella omassa kokoelmassasi olevia albumeita. 
+Jos asiakas ei löydä sanahaun kautta etsittyä albumia, artistia tai genreä, hän voi lähettää lisäyspyynnön ylläpitäjille.
+
+Albumien lisäys albumin sivulta kokoelmaan
+Albumien sivuille pääsee käsiksi etusivulta tai suoraan hakemalla yläpalkista. 
+Albumin sivulla on kolme erilaista painiketta. Kahden ensimmäisen painikkeen avulla albumi voidaan lisätä käyttäjän kokoelmaan tai toivelistalle.
+Kolmas nappi on ylläpitäjiä varten ja sillä saadaan muokattua albumin tietoja (nimi, julkaisuvuosi, artistien nimet, genrejen nimet) tai poistettua albumi sovelluksen tietokannasta. Albumin kappaleita ei voi muokata. 
 
 
-Ylläpitäjälle:
+Jos albumi lisätään kokoelmaan, se tallennetaan käyttäjän kokoelmasivulle, sitä voidaan tarkastella siellä ja sen voi poistaa sieltä. Albumille voidaan myös valinnaisesti kirjoittaa jokin kuvaus tai siihen liittyvä muistiinpanoja.
+Jos albumi ollaan lisätty kokoelmaan, sitä ei voida enää lisätä toivelistalle ja jos albumi lisätään toivelistalle lisäyksen jälkeen kokoelmaan, se poistuu toivelistalta automaattisesti.
 
-Ylläpitäjänä voit lisätä Lisäyspyynnöt-ikkunassa genrejä, artisteja ja albumeita sovellukseen.
+Albumin voi myös lisätä toivelistalle ja se voidaan poistaa sieltä manuaalisesti. Toivelistalle ei tallenneta muuta kuin albumin nimi.
 
-Genren lisääminen sovellukseen
-Klikkaa genrepyyntö palkin plus-nappia. Kirjoita genren nimi kenttään ja paina Lähetä-nappia. Vahvista pyynnön lähetys.
+Lisäyspyynnöt.
 
-Artistin lisääminen sovellukseen
-Klikkaa artistipyyntö palkin plus-nappia. Kirjoita artistin nimi kenttään ja paina Lähetä-nappia. Vahvista pyynnön lähetys.
+Ylläpitäjällä on pääsy lisäyspyyntöihin. Lisäyspyynnöt sijaitsevat erillisessä ikkunassa, ja sieltä voidaan myöskin lisätä sovelluksen tietokantaan genrejä, artisteja ja albumeja.
+Ylläpitäjät voivat lukea asiakkaiden lähettämiä lisäyspyyntöjä, ja luoda niiden pohjalta uutta sisältöä sovelluksen tietokantaan.
 
- 
-Albumin lisääminen sovellukseen
-Klikkaa albumipyyntö-palkin plus-painiketta. Kirjoita albumin nimi ja julkaisuvuosi niille kuuluviin kenttiin. Kirjoita albumille artistin ja genren nimi (jos artisteja tai genrejä on useampia, niitä voidaan lisätä useampi).
-Paina lähetä-nappia.
-Vahvista pyynnön lähetys
+Artistien, genrejen ja albumien lisäys-sivuille pääsee pyyntöjen yläpuolella olevilla painikkeilla. Jos genre, artisti tai albumi löytyy jo tietokannasta, siitä ilmoitetaan lisäyksessä. Et voi lisätä olemassa olevia artisteja, genrejä tai albumeita sovelluksen tietokantaan.
+Artistille annetaan nimi(pakollinen), sekä biografia(valinnainen). Sen jälkeen artistin lisäys lähetään sovelluksen tietokantaan.
+
+Genrelle annetaan vain nimi(pakollinen). Sen jälkeen genren lisäys lähetetään sovelluksen tietokantaan.
+
+Albumille annetaan albumin nimi (pakollinen), julkaisuvuosi(pakollinen, vuosi neljänä numerona, ei päivämääriä), artistien ja genrejen nimet (jos artisteja tai genrejä on useampi, niitä voidaan lisätä albumille. Molempia saa lisätä maksimissaan 3 kappaletta). 
+
+Olemassa olevat genret sekä artistit tulevat esiin automaattisesti ja ne voidaan merkitä albumille klikkaamalla hausta. Toiminto on samanlainen artistien kanssa. 
+Albumiin voidaan lisätä myös kappaleita(valinnaista). Tämän jälkeen albumin lisäys saadaan lähetettyä sovellukseen ja se lisätään tietokantaan.

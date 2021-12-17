@@ -1,42 +1,55 @@
-Welcome to MusicArch!
-
-MusicArch is a collection management application
-which allows you to create your own album collection and search for the information about the music you like.
-
-You can search for albums to add in your collection on the MusicArch home page or with the applications search function.
-
-The maintenance of the application is responsible for the information there, ie
-if no genre, artist or album is found, you can send a request to add it.
-
-
 Instructions for using the application
 
-Generally:
-When you start the application, you are on the home page.
-There you can view genres, artists and albums.
-From the top bar you can access the application collection window,
-from which you can view the albums in your collection.
+Content:
+Start
+front page
+Top bar
+Collection / Wishlist
+Pleading
+
+Start
+
+Welcome to MusicArchi!
+The application has two different user groups, the client and the administrator. The administrator will have access to the Requests window in the app, as well as the ability to delete and edit genres, artists, and albums.
+We'll explain in the instructions which features are only available to the administrator.
+front page
+When you launch the app as a client, you'll be taken to a home page where you can view and select the genres and artists in the app, as well as the albums that belong to both.
+
+The administrator can also edit and delete artists and genres.
+Press the edit button to edit the artist name or delete the artist. This feature works the same way for genres.
+Deleting all related albums by artist or genre will also delete them.
 
 
-For the administrator:
+Top bar
 
-As an administrator, you can add genres, artists and albums to the application in the Requests window
+From the top bar you can access other views of the application (Collection, Add Requests window for the administrator and instructions). The top bar and its properties are available in each view, for example, the search function can be performed from the album page. You can also search and change languages ​​in the top bar.
+Search will take you directly to the album page, if the album you're looking for exists.
 
-Adding a genre to an application
-1. Click the add (+) button on the genre request bar.
-2. Enter the name of the genre in the text field and press the submit button.
-3. Confirm the request.
+If a customer can't find the album, artist, or genre they've searched for, they can send an addition request to the admin.
 
-Add an artist to the app
-1.Click the add (+) button on the artist request bar.
-2.Enter the artist's name in the text field and press the submit button.
-3.Confirm the request.
+Add albums from the album page to the collection
+Album pages can be accessed from the home page or directly from the top bar.
+The album page has three different buttons. The first two buttons allow you to add an album to a user's collection or wish list.
+The third button is for administrators and allows you to edit album information (name, release year, artist names, genre names) or delete the album from the application database. Songs in the album cannot be edited.
 
- 
-Add an album to the app
-1. Click the add (+) button on the album request bar.
-2. Enter the album name and release year in the appropriate fields.
-3. Enter the name of the artist and genre.
-(if there are multiple artists or genres, they can be added).
-4. Press the submit button.
-5. Confirm the request.
+
+If an album is added to a collection, it will be saved to the user's collection page, viewed there, and deleted from there. You can also optionally write a description or related notes for the album.
+If an album is added to the collection, it can no longer be added to the wish list, and if the album is added to the wish list after it is added to the collection, it will be automatically removed from the wish list.
+
+You can also add an album to your wish list and delete it manually. Only the album name is saved in the wish list.
+
+Addition requests.
+
+Admin has access to add requests. Add requests are located in a separate window, and you can also add genres, artists, and albums to the application database from there.
+Administrators can read add requests sent by customers and create new content in the application database based on them.
+
+The Add Artists, Genres, and Albums pages can be accessed using the buttons above the requests. If a genre, artist or album is already in the database, this will be indicated in the appendix. You cannot add existing artists, genres, or albums to the app's database.
+The artist will be given a name (required) and a biography (optional). The artist addition is then sent to the application database.
+
+Only name is given to the genre (required). The genre addition is then sent to the application database.
+
+The album will be given an album name (required), Release Year (required, year in four digits, no dates), artist and genre names (if there are multiple artists or genres, they can be added to the album. A maximum of 3 can be added to each).
+
+Existing genres as well as artists will appear automatically and can be tagged in the album by clicking on the search. The function is similar to artists.
+You can also add songs to the album (optional). The album addition is then uploaded to the application and added to the database. 
+
