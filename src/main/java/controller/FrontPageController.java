@@ -38,7 +38,10 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import model.Language;
 import view.View;
-
+/*
+ * Controller for FrontPage view
+ * @author Jani, Alex
+ * */
 public class FrontPageController {
 	
 	private Controller controller;
@@ -111,7 +114,7 @@ public class FrontPageController {
 	}
 	
 	/**
-	 * This method is for setting up the frontpage list. 
+	 * This initialize method is for setting up the frontpage list. 
 	 * It also adds eventlisteners to all list items
 	 * **/
 	@FXML
@@ -168,6 +171,9 @@ public class FrontPageController {
 		DeleteButton.setVisible(editing);
 	}
 	
+	/**
+	 * Helper method for showing editing error
+	 * **/
 	public void editingError() {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle(Language.getInstance().getBundle().getString("EditingErrorTitle"));
@@ -175,6 +181,9 @@ public class FrontPageController {
 		alert.showAndWait();
 	}
 	
+	/**
+	 * Method that updates the genre ListView
+	 * **/
 	public void updateGenreList() {
 		artistOrGenre = 2;
 		EditButton.setVisible(true);
@@ -244,6 +253,9 @@ public class FrontPageController {
 		}
 	}
 	
+	/**
+	 * Method that updates the artist ListView
+	 * **/
 	public void updateArtistList() {
 		artistOrGenre = 1;
 		EditButton.setVisible(true);
@@ -315,6 +327,9 @@ public class FrontPageController {
 		}
 	}
 	
+	/**
+	 * Action event for editing content
+	 * **/
 	@FXML
     void editContent(ActionEvent event) {
 		if(!editing) {
@@ -395,6 +410,9 @@ public class FrontPageController {
 		
     }
 	
+	/**
+	 * Action event for deleting artists or genres
+	 * **/
 	@FXML
     void deleteButton(ActionEvent event) {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -452,6 +470,9 @@ public class FrontPageController {
 		}
     }
 	
+	/**
+	 * Flips the Button visibility
+	 * **/
 	private void flipChildren(ObservableList<Node> list) {
 		for(Node n : list) {
 			if(n.isVisible() && !(n instanceof Button)) {
@@ -463,29 +484,35 @@ public class FrontPageController {
 		}
 	}
 	
-	  @FXML
-	    void filterArtist(KeyEvent event) {
-		  	//artistList
-		  choices.clear();
-		  ArtistFilterTextField.getText();
-		  List<Artist> test = new ArrayList<>();
-		  for(Artist artist : artistList) {
-			  test.add(artist);
-		  }
-		 test.stream().filter(x -> x.getArtistName().toLowerCase().contains(ArtistFilterTextField.getText().toLowerCase())).forEach(y -> choices.add(y));
-	    }
+	/**
+	 * Method to filter artist ListView
+	 * **/	
+	@FXML
+    void filterArtist(KeyEvent event) {
+	  	//artistList
+	  choices.clear();
+	  ArtistFilterTextField.getText();
+	  List<Artist> test = new ArrayList<>();
+	  for(Artist artist : artistList) {
+		  test.add(artist);
+	  }
+	 test.stream().filter(x -> x.getArtistName().toLowerCase().contains(ArtistFilterTextField.getText().toLowerCase())).forEach(y -> choices.add(y));
+	}
 
-	    @FXML
-	    void filterGenre(KeyEvent event) {
-	    	//genreList
-			genreObservable.clear();
-			GenreFilterTextField.getText();
-			List<Genre> test = new ArrayList<>();
-			for(Genre genre : genreList) {
-				test.add(genre);
-			}
-			test.stream().filter(x -> x.getGenreName().toLowerCase().contains(GenreFilterTextField.getText().toLowerCase())).forEach(y -> genreObservable.add(y));
-	    }
+	/**
+	 * Method to filter genre ListView
+	 * **/	
+	@FXML
+	void filterGenre(KeyEvent event) {
+		//genreList
+		genreObservable.clear();
+		GenreFilterTextField.getText();
+		List<Genre> test = new ArrayList<>();
+		for(Genre genre : genreList) {
+			test.add(genre);
+		}
+		test.stream().filter(x -> x.getGenreName().toLowerCase().contains(GenreFilterTextField.getText().toLowerCase())).forEach(y -> genreObservable.add(y));
+	}
 
     
 

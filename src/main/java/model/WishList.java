@@ -5,6 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/*
+ * Hibernate class for local database
+ * @author Jani
+ * */
 @Entity
 @Table(name = "WishList")
 public class WishList {
