@@ -94,10 +94,10 @@ public class RequestFormsController {
 	@FXML
 	private Button SearchButton;
 
-/*	private Genre genreResults;
-	private Artist artistResults;
-	private Album albumResults;
-	private Song songResults;*/
+	/*
+	 * private Genre genreResults; private Artist artistResults; private Album
+	 * albumResults; private Song songResults;
+	 */
 	List<String> genresFound;
 	List<String> artistsFound;
 	List<String> albumsFound;
@@ -117,12 +117,11 @@ public class RequestFormsController {
 	@FXML
 	private GridPane artistTags;
 
-	
-
 	@FXML
 	private TextField addGenres2Album;
 	@FXML
 	private GridPane genreTags;
+
 	public RequestFormsController() {
 	}
 
@@ -130,9 +129,10 @@ public class RequestFormsController {
 		this.controller = controller;
 	}
 
-
-	// Dropdownlists mouseevents
-	// Dropdownlists which shows all requests from database UserRequests table
+	
+	/*
+	 * Dropdownlists which shows all requests from database UserRequests table
+	 */
 	@FXML
 	void Genre(MouseEvent event) {
 
@@ -176,23 +176,23 @@ public class RequestFormsController {
 	void GenreFormButton(ActionEvent event) throws IOException {
 		view.showGenreForm();
 	}
+
 	@FXML
 	void AlbumFormButton(ActionEvent event) throws IOException {
 		view.showAlbumForm();
 	}
+
 	@FXML
 	void ArtistFormButton(ActionEvent event) throws IOException {
 		view.showArtistForm();
 	}
 
-	// Search existing genres
 	/**
-	 * refreshGenreList-method is triggered by keypresses in the search-bar.
-	 * Each time a new key is pressed, the method will compare the user's input
-	 * against a list of all names in the database. 
-	 * Upon finding a match, it will create a list of MenuItems inside the ContextMenu,
-	 * which will autofill the search bar upon being clicked, and automatically
-	 * trigger a search inside the program
+	 * refreshGenreList-method is triggered by keypresses in the search-bar. Each
+	 * time a new key is pressed, the method will compare the user's input against a
+	 * list of all names in the database. Upon finding a match, it will create a
+	 * list of MenuItems inside the ContextMenu, which will autofill the search bar
+	 * upon being clicked, and automatically trigger a search inside the program
 	 */
 	@FXML
 	void getSearchable(MouseEvent event) {
@@ -209,6 +209,7 @@ public class RequestFormsController {
 			if (newValue.length() > 50)
 				GenreAddTxtField.setText(oldValue);
 		});
+		// Search existing genres
 		int menuCounter = 0;
 		List<String> strippedList = new ArrayList<String>();
 		GenreAddTxtField.setContextMenu(searchContext);
@@ -233,14 +234,14 @@ public class RequestFormsController {
 		}
 	}
 
-	//Search existing artists
+	// Search existing artists
 	/**
 	 * refreshArtistSearchList-method is triggered by keypresses in the search-bar.
 	 * Each time a new key is pressed, the method will compare the user's input
-	 * against a list of all names in the database. 
-	 * Upon finding a match, it will create a list of MenuItems inside the ContextMenu,
-	 * which will autofill the search bar upon being clicked, and automatically
-	 * trigger a search inside the program
+	 * against a list of all names in the database. Upon finding a match, it will
+	 * create a list of MenuItems inside the ContextMenu, which will autofill the
+	 * search bar upon being clicked, and automatically trigger a search inside the
+	 * program
 	 */
 
 	@FXML
@@ -258,6 +259,7 @@ public class RequestFormsController {
 			if (newValue.length() > 50)
 				ArtistsName.setText(oldValue);
 		});
+		// Search existing artists
 		int menuCounter = 0;
 		List<String> strippedList = new ArrayList<String>();
 		ArtistsName.setContextMenu(searchContextArtist);
@@ -285,15 +287,13 @@ public class RequestFormsController {
 
 	}
 
-
-	//Search existing genres to album
 	/**
 	 * refreshAlbumGenreList-method is triggered by keypresses in the search-bar.
 	 * Each time a new key is pressed, the method will compare the user's input
-	 * against a list of all names in the database. 
-	 * Upon finding a match, it will create a list of MenuItems inside the ContextMenu,
-	 * which will autofill the search bar upon being clicked, and automatically
-	 * trigger a search inside the program
+	 * against a list of all names in the database. Upon finding a match, it will
+	 * create a list of MenuItems inside the ContextMenu, which will autofill the
+	 * search bar upon being clicked, and automatically trigger a search inside the
+	 * program
 	 */
 
 	@FXML
@@ -314,6 +314,7 @@ public class RequestFormsController {
 			if (newValue.length() > 50)
 				addGenres2Album.setText(oldValue);
 		});
+		// Search existing genres to album
 		int menuCounter = 0;
 		List<String> strippedList = new ArrayList<String>();
 		addGenres2Album.setContextMenu(searchContext);
@@ -332,7 +333,7 @@ public class RequestFormsController {
 		for (int i = 0; i < menuCounter; i++) {
 			String testString = strippedList.get(i);
 			MenuItem searchItem = new MenuItem(testString);
-			// Add selected genres to list
+			// Make selected item genretag
 			searchItem.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent t) {
@@ -367,14 +368,13 @@ public class RequestFormsController {
 		System.out.println(genreButtonList);
 	}
 
-	// Search existing artists to album
 	/**
 	 * refreshArtistSearchList-method is triggered by keypresses in the search-bar.
 	 * Each time a new key is pressed, the method will compare the user's input
-	 * against a list of all names in the database. 
-	 * Upon finding a match, it will create a list of MenuItems inside the ContextMenu,
-	 * which will autofill the search bar upon being clicked, and automatically
-	 * trigger a search inside the program
+	 * against a list of all names in the database. Upon finding a match, it will
+	 * create a list of MenuItems inside the ContextMenu, which will autofill the
+	 * search bar upon being clicked, and automatically trigger a search inside the
+	 * program
 	 */
 
 	@FXML
@@ -395,6 +395,8 @@ public class RequestFormsController {
 			if (newValue.length() > 50)
 				addArtists2Album.setText(oldValue);
 		});
+
+		// Search existing artists to album
 		int menuCounter = 0;
 		List<String> strippedList = new ArrayList<String>();
 		addArtists2Album.setContextMenu(searchContextArtist);
@@ -415,6 +417,7 @@ public class RequestFormsController {
 		for (int i = 0; i < menuCounter; i++) {
 			String testString = strippedList.get(i);
 			MenuItem searchItem = new MenuItem(testString);
+			// Make selected item artisttag
 			searchItem.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent t) {
@@ -454,6 +457,7 @@ public class RequestFormsController {
 	 **/
 	int counter3 = 0;
 	ArrayList<TextField> songList = new ArrayList<TextField>();
+
 	@FXML
 	void NewSong(ActionEvent event) {
 
@@ -484,13 +488,10 @@ public class RequestFormsController {
 
 	}
 
-	// SendGenreButton sends textfield data to controller
-	// The Error window pops up if GenreAddTxtField textfield is empty.
-	
-	/**
-	 * This sends to genre names to database
-	 **/
 
+	/**
+	 * SendGenreButton sends textfield data to controller
+	 **/
 	@FXML
 	void SendGenreButton(ActionEvent event) throws IOException {
 		String genreName = GenreAddTxtField.getText();
@@ -614,9 +615,9 @@ public class RequestFormsController {
 					String[] songListGiven = new String[songList.size()];
 					int h = 0;
 					for (int i = 0; i < songList.size(); i++) {
-							System.out.println("Testing list ->" + songList.get(i).getId());
-							System.out.println(songList.get(i).getText());
-							songListGiven[i] = songList.get(i).getText();
+						System.out.println("Testing list ->" + songList.get(i).getId());
+						System.out.println(songList.get(i).getText());
+						songListGiven[i] = songList.get(i).getText();
 
 						System.out.println("Testing list ->" + songList.get(i).getId());
 						System.out.println(songList.get(i).getText());
