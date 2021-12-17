@@ -15,6 +15,10 @@ import javax.persistence.Table;
 
 import com.jcg.hibernate.maven.Album;
 
+/*
+ * Hibernate class for local database
+ * @author Jani
+ * */
 @Entity
 @Table(name = "Artist")
 public class LocalArtist {

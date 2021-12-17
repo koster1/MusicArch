@@ -13,6 +13,10 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+/*
+ * Hibernate class for local database
+ * @author Jani
+ * */
 @Entity
 @Table(name = "Genre")
 public class LocalGenre {
