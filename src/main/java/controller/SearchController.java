@@ -33,7 +33,12 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import model.Language;
 import view.View;
-
+/**
+ * This controller displays search results and users requests form. From is used to create and send new requests to admin and search results are from 
+ * main windows menubar searchfield????
+ * @author Jemila, Alex
+ *
+ */
 public class SearchController {
 	private View view;
 
@@ -136,7 +141,9 @@ public class SearchController {
 		}
 	}
 
-	// This method creates the request form
+	/**
+	 * This creates request forms fields and button and contains sending feature
+	 **/
 	@FXML
 	void openRequestForm(ActionEvent event) throws IOException {
 		requestFormButton.setVisible(false);
@@ -194,13 +201,13 @@ public class SearchController {
 				((Label) n).setPrefWidth(150);
 			}
 		}
-
 		GridPane.setMargin(textareatitle, new Insets(5, 0, 10, 5));
 		GridPane.setMargin(title, new Insets(5, 0, 40, 5));
 		GridPane.setMargin(sendR, new Insets(5, 10, 10, 5));
 		GridPane.setMargin(text, new Insets(5, 10, 10, 5));
 		GridPane.setMargin(requestTitle, new Insets(5, 10, 40, 5));
 
+		// sendR-button send data to UserRequests table
 		sendR.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent e) {

@@ -32,7 +32,11 @@ import com.jcg.hibernate.maven.Song;
 import com.sun.glass.ui.Window;
 
 import view.*;
-
+/**
+ * 
+ * @author Jani, Jemila, Alex
+ *
+ */
 public class GUIController {
 	private static Controller controller;
 	private View view;

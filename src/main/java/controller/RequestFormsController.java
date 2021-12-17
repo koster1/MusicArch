@@ -42,6 +42,13 @@ import model.Language;
 import model.LocalGenre;
 import view.View;
 
+/**
+ * This controller displays request forms and user requests. Froms are used to
+ * create new genres, artists and albums and show and delete user requests.
+ * 
+ * @author Jemila
+ *
+ */
 public class RequestFormsController {
 	private Controller controller;
 	private View view;
@@ -86,33 +93,36 @@ public class RequestFormsController {
 	private ContextMenu searchContextArtist;
 	@FXML
 	private Button SearchButton;
-	// @FXML
-	// private TextField SearchBox;
 
-	private Genre genreResults;
+/*	private Genre genreResults;
 	private Artist artistResults;
 	private Album albumResults;
-	private Song songResults;
-	// List<String> everythingFound;
+	private Song songResults;*/
 	List<String> genresFound;
 	List<String> artistsFound;
 	List<String> albumsFound;
 
 	@FXML
 	private GridPane requestGrid;
-
 	@FXML
 	private ListView<UserRequests> requestList;
-
 	@FXML
 	private Label requestTitle;
-
 	@FXML
 	private Label requestText;
-
 	@FXML
 	private Text moi;
+	@FXML
+	private TextField addArtists2Album;
+	@FXML
+	private GridPane artistTags;
 
+	
+
+	@FXML
+	private TextField addGenres2Album;
+	@FXML
+	private GridPane genreTags;
 	public RequestFormsController() {
 	}
 
@@ -121,9 +131,8 @@ public class RequestFormsController {
 	}
 
 
-	int requestId;
-
 	// Dropdownlists mouseevents
+	// Dropdownlists which shows all requests from database UserRequests table
 	@FXML
 	void Genre(MouseEvent event) {
 
@@ -167,9 +176,24 @@ public class RequestFormsController {
 	void GenreFormButton(ActionEvent event) throws IOException {
 		view.showGenreForm();
 	}
+	@FXML
+	void AlbumFormButton(ActionEvent event) throws IOException {
+		view.showAlbumForm();
+	}
+	@FXML
+	void ArtistFormButton(ActionEvent event) throws IOException {
+		view.showArtistForm();
+	}
 
-	//Search existing genres
-
+	// Search existing genres
+	/**
+	 * refreshGenreList-method is triggered by keypresses in the search-bar.
+	 * Each time a new key is pressed, the method will compare the user's input
+	 * against a list of all names in the database. 
+	 * Upon finding a match, it will create a list of MenuItems inside the ContextMenu,
+	 * which will autofill the search bar upon being clicked, and automatically
+	 * trigger a search inside the program
+	 */
 	@FXML
 	void getSearchable(MouseEvent event) {
 		if (genresFound == null) {
@@ -180,7 +204,7 @@ public class RequestFormsController {
 	}
 
 	@FXML
-	void refreshSearchList(KeyEvent event) {
+	void refreshGenreList(KeyEvent event) {
 		GenreAddTxtField.textProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue.length() > 50)
 				GenreAddTxtField.setText(oldValue);
@@ -202,23 +226,22 @@ public class RequestFormsController {
 
 		for (int i = 0; i < menuCounter; i++) {
 			String testString = strippedList.get(i);
-
 			MenuItem searchItem = new MenuItem(testString);
-
 			System.out.println("Added a new menu item -> " + searchItem.getText());
 			searchContext.getItems().add(searchItem);
 
 		}
 	}
 
-	//Search existing genres ends
-
-	@FXML
-	void ArtistFormButton(ActionEvent event) throws IOException {
-		view.showArtistForm();
-	}
-
 	//Search existing artists
+	/**
+	 * refreshArtistSearchList-method is triggered by keypresses in the search-bar.
+	 * Each time a new key is pressed, the method will compare the user's input
+	 * against a list of all names in the database. 
+	 * Upon finding a match, it will create a list of MenuItems inside the ContextMenu,
+	 * which will autofill the search bar upon being clicked, and automatically
+	 * trigger a search inside the program
+	 */
 
 	@FXML
 	void getSearchableArtists(MouseEvent event) {
@@ -262,17 +285,16 @@ public class RequestFormsController {
 
 	}
 
-	@FXML
-	void AlbumFormButton(ActionEvent event) throws IOException {
-		view.showAlbumForm();
-	}
 
 	//Search existing genres to album
-
-	@FXML
-	private TextField addGenres2Album;
-	@FXML
-	private GridPane genreTags;
+	/**
+	 * refreshAlbumGenreList-method is triggered by keypresses in the search-bar.
+	 * Each time a new key is pressed, the method will compare the user's input
+	 * against a list of all names in the database. 
+	 * Upon finding a match, it will create a list of MenuItems inside the ContextMenu,
+	 * which will autofill the search bar upon being clicked, and automatically
+	 * trigger a search inside the program
+	 */
 
 	@FXML
 	void getAlbumGenresSearchable(MouseEvent event) {
@@ -287,7 +309,7 @@ public class RequestFormsController {
 	ArrayList<Button> genreButtonList = new ArrayList<Button>();
 
 	@FXML
-	void refreshGenreList(KeyEvent event) {
+	void refreshAlbumGenreList(KeyEvent event) {
 		addGenres2Album.textProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue.length() > 50)
 				addGenres2Album.setText(oldValue);
@@ -346,12 +368,14 @@ public class RequestFormsController {
 	}
 
 	// Search existing artists to album
-	//
-
-	@FXML
-	private TextField addArtists2Album;
-	@FXML
-	private GridPane artistTags;
+	/**
+	 * refreshArtistSearchList-method is triggered by keypresses in the search-bar.
+	 * Each time a new key is pressed, the method will compare the user's input
+	 * against a list of all names in the database. 
+	 * Upon finding a match, it will create a list of MenuItems inside the ContextMenu,
+	 * which will autofill the search bar upon being clicked, and automatically
+	 * trigger a search inside the program
+	 */
 
 	@FXML
 	void getAlbumArtistsSearchable(MouseEvent event) {
@@ -366,7 +390,7 @@ public class RequestFormsController {
 	ArrayList<Button> artistButtonList = new ArrayList<Button>();
 
 	@FXML
-	void refreshArtistList(KeyEvent event) {
+	void refreshAlbumArtistList(KeyEvent event) {
 		addArtists2Album.textProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue.length() > 50)
 				addArtists2Album.setText(oldValue);
@@ -425,9 +449,11 @@ public class RequestFormsController {
 		System.out.println(artistButtonList);
 	}
 
+	/**
+	 * This creates new textfield for songs
+	 **/
 	int counter3 = 0;
 	ArrayList<TextField> songList = new ArrayList<TextField>();
-
 	@FXML
 	void NewSong(ActionEvent event) {
 
@@ -460,7 +486,10 @@ public class RequestFormsController {
 
 	// SendGenreButton sends textfield data to controller
 	// The Error window pops up if GenreAddTxtField textfield is empty.
-	String olemassa;
+	
+	/**
+	 * This sends to genre names to database
+	 **/
 
 	@FXML
 	void SendGenreButton(ActionEvent event) throws IOException {
@@ -497,8 +526,9 @@ public class RequestFormsController {
 		}
 	}
 
-	// SendArtistButton sends textfield data to controller
-	// The Error window pops up if ArtistsName textfield is empty.
+	/**
+	 * SendArtistButton sends textfield data to controller
+	 **/
 	@FXML
 	void SendArtistButton(ActionEvent event) throws IOException {
 		String artistName = ArtistsName.getText();
@@ -538,6 +568,9 @@ public class RequestFormsController {
 
 	};
 
+	/**
+	 * SendAlbumButton sends textfield data and list data to controller
+	 **/
 	@FXML
 	void SendAlbumButton(ActionEvent event) throws IOException {
 
@@ -585,6 +618,9 @@ public class RequestFormsController {
 							System.out.println(songList.get(i).getText());
 							songListGiven[i] = songList.get(i).getText();
 
+						System.out.println("Testing list ->" + songList.get(i).getId());
+						System.out.println(songList.get(i).getText());
+						songListGiven[i] = songList.get(i).getText();
 					}
 
 					int releaseYear = 0;
@@ -612,36 +648,22 @@ public class RequestFormsController {
 
 	}
 	// ----Search results from controller------
-
-	public void setGenreResults(Genre genre) {
-		this.genreResults = genre;
-	}
-
-	public Genre getGenreResults() {
-		return genreResults;
-	}
-
-	public void setArtistResults(Artist artistResults) {
-		this.artistResults = artistResults;
-	}
-
-	public Artist getArtistResults() {
-		return artistResults;
-	}
-
-	public void setAlbumResults(Album album) {
-		this.albumResults = album;
-	}
-
-	public Album getAlbumResults() {
-		return albumResults;
-	}
-
-	public void setSongResults(Song song) {
-		this.songResults = song;
-	}
-
-	public Song getSongResults() {
-		return songResults;
-	}
+	/*
+	 * public void setGenreResults(Genre genre) { this.genreResults = genre; }
+	 * 
+	 * public Genre getGenreResults() { return genreResults; }
+	 * 
+	 * public void setArtistResults(Artist artistResults) { this.artistResults =
+	 * artistResults; }
+	 * 
+	 * public Artist getArtistResults() { return artistResults; }
+	 * 
+	 * public void setAlbumResults(Album album) { this.albumResults = album; }
+	 * 
+	 * public Album getAlbumResults() { return albumResults; }
+	 * 
+	 * public void setSongResults(Song song) { this.songResults = song; }
+	 * 
+	 * public Song getSongResults() { return songResults; }
+	 */
 }
