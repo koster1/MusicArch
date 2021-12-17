@@ -38,7 +38,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import model.Language;
 import view.View;
-/*
+/**
  * Controller for FrontPage view
  * @author Jani, Alex
  * */

@@ -14,7 +14,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-
+/**
+ * Song class defines the parameters used by Songs in Hibernate's ORM.
+ * @author Alex
+ *
+ */
 
 @Entity
 @Table(name = "Song")

@@ -40,7 +40,7 @@ import com.jcg.hibernate.maven.Genre;
 import java.io.IOException;
 import java.util.List;
 
-/*
+/**
  * controller for the UserCollection view
  * @author Jani
  * */

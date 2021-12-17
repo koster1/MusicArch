@@ -13,7 +13,7 @@ import model.LocalAlbum;
 import model.LocalSong;
 import model.WishList;
 
-/*
+/**
  * Data access object for the local database
  * @author Jani
  * */
