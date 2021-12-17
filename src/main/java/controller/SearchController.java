@@ -33,7 +33,12 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import model.Language;
 import view.View;
-
+/**
+ * This controller displays search results and users requests form. From is used to create and send new requests to admin and search results are from 
+ * main windows menubar searchfield????
+ * @author Jemila, Alex
+ *
+ */
 public class SearchController {
 	private View view;
 
@@ -136,7 +141,9 @@ public class SearchController {
 		}
 
 	}
-
+	/**
+	 * This creates request forms fields and button and contains sending feature
+	 **/
 	@FXML
 	void openRequestForm(ActionEvent event) throws IOException {
 		requestFormButton.setVisible(false);

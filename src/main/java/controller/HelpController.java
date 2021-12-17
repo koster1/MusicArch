@@ -27,7 +27,6 @@ public class HelpController {
 	
 	private Controller controller;
 
-	
 	@FXML
 	private AnchorPane helpPage;
 	
@@ -44,8 +43,6 @@ public class HelpController {
 	public HelpController(Controller controller) {
 		this.controller = controller;
 	}
-
-	
 	
 	@FXML
 	protected void initialize() throws FileNotFoundException {

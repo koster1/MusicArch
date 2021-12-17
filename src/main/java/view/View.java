@@ -29,7 +29,11 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.Language;
 
-
+/**
+ * 
+ * @author Jemila, Jani
+ *
+ */
 
 public class View extends Application {
 
@@ -42,7 +46,6 @@ public class View extends Application {
 	private static AnchorPane test;
 	private static DialogPane dialog;
 	private static AnchorPane searchPage;
-
     private static GridPane SearchGrid;
 
 
@@ -57,7 +60,6 @@ public class View extends Application {
 		View.primaryStage = primaryStage;
 		View.primaryStage.setTitle("M U S I C A R C H");
 		View.primaryStage.initStyle(StageStyle.DECORATED);
-	//	ToolBar toolBar = new ToolBar();
 		showHome();
 
 		showFrontPage();
@@ -160,15 +162,6 @@ public class View extends Application {
 			fxmlLoader.setControllerFactory(UserCollectionController -> new UserCollectionController(controller));
 			userRoot = (AnchorPane) fxmlLoader.load();
 			rootLayout.setCenter(userRoot);
-//			Scene scene = new Scene(userRoot);
-//			scene.getWindow();
-//			scene.getStylesheets().add("/view/style.css");
-//			Stage stage2 = new Stage();
-//			stage2.setMinWidth(1200);
-//			stage2.setMinHeight(500);
-//			stage2.setTitle("User");
-//			stage2.setScene(scene);
-//			stage2.show();
 		}
 	}
 
@@ -288,11 +281,7 @@ public class View extends Application {
 		loader.setControllerFactory(SearchController -> new SearchController(searchText, controller));
 		AnchorPane joku = (AnchorPane) loader.load();
 		searchPage.getChildren().addAll(joku);
-	/*	FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(View.class.getResource("/view/fxmlFiles/requestForm.fxml"));
-		//loader.setControllerFactory(SearchController);
-		GridPane requestFormAnchor = (GridPane) loader.load();
-		SearchGrid.add(requestFormAnchor, 3, 0);*/
+
 	}
 
 	public Stage getPrimaryStage() {
