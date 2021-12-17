@@ -9,12 +9,19 @@ import javax.persistence.criteria.CriteriaBuilder;
 import org.hibernate.*;
 import org.hibernate.cfg.Configuration;
 
-
+/**
+ * The purpose of RemoteDAO is to act as a intermediary between the application and the remote database. It sends creation-, search- and deletion requests to the MySQL database defined in Hibernate.cfg
+ * @author Alex, Jani
+ *
+ */
 public class RemoteDAO {
 	static Session session;
 	static SessionFactory sessionFactory;
 	private static RemoteDAO rDAO;
-	
+	/**
+	 * Returns the instance of RemoteDAO.
+	 * @return
+	 */
 	public static RemoteDAO getInstance() {
 		if(rDAO == null) {
 			rDAO = new RemoteDAO();
