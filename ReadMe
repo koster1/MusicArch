@@ -1,5 +1,13 @@
 Ryhmä 23
 
+Kehitysympäristönä on eclipse, jossa on käytössä Maven, javafx ja scenebuilder.
+Maven on kirjastojen hallinta lisäosa
+Javafx on kirjasto, jolla voi luoda graafisia käyttöliittymiä.
+Scenebuilder on ohjelma jolla voidaan luoda JavaFX:n kanssa graafisia käyttöliittymiä.
+Java SDK:n versio on 11
+
+Asenna MariaDB SQL tietokanta koneellesi, jos se ei ole jo asennettu.
+Maven -> Update project... -> ok
 
 Tuotteen keskeiset tavoitteet
 Projektin tavoitteena on luoda musiikkiaineistolle tietopankki, josta käyttäjän on helppo etsiä

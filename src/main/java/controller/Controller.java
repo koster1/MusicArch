@@ -25,8 +25,8 @@ public class Controller {
     public Controller() {}
     /**
      * Creates a Genre inside the database with a given String as it's name
-     * @param genreName
-     * @throws Exception
+     * @param genreName The name of a Genre to be created
+     * @throws Exception In case the operation was unsuccessful, the method will throw an exception and interrupt the operation
      */
     public void createGenre(String genreName) throws Exception {
     	Genre newGenre = new Genre();
@@ -42,9 +42,9 @@ public class Controller {
     }
     /**
      * Creates an Artist object, which it sends to the remote database.
-     * @param artistName
-     * @param artistBio
-     * @throws Exception
+     * @param artistName The name of the Artist to be created
+     * @param artistBio The biography of the Artist to be created
+     * @throws Exception In case the operation was unsuccessful, the method will throw an exception and interrupt the operation
      */
     public void createArtist(String artistName, String artistBio) throws Exception {
     	Artist newArtist = new Artist();
@@ -60,12 +60,12 @@ public class Controller {
     }
     /**
      * Creates an Album object with the given parameters, which it sends to the remote database. 
-     * @param albumName
-     * @param albumYear
-     * @param genreListGiven
-     * @param artistListGiven
-     * @param songListGiven
-     * @throws Exception
+     * @param albumName The name of the Album to be created
+     * @param albumYear The release year of the Album to be created
+     * @param genreListGiven A list of Genres related to the Album
+     * @param artistListGiven A list of Artists related to the Album
+     * @param songListGiven A list of Songs related to the Album
+     * @throws Exception In case the operation was unsuccessful, the method will throw an exception and interrupt the operation
      */
     public void createAlbum(String albumName, int albumYear, String[] genreListGiven, String[] artistListGiven, String[] songListGiven) throws Exception {
     	
@@ -127,11 +127,11 @@ public class Controller {
     }
     /**
      * Creates a Local Artist object with the given parameters, and sends it to the local database
-     * @param ArtistID
-     * @param artistName
-     * @param artistBio
-     * @throws Exception
-     */
+     * @param ArtistID The ID of an Artist used to locate it from the database
+     * @param artistName The name of an Artist
+     * @param artistBio The biography of an Artist
+     * @throws Exception In case the operation was unsuccessful, the method will throw an exception and interrupt the operation
+     */ 
     public void createLocalArtist(int ArtistID, String artistName, String artistBio) throws Exception {
     	LocalArtist localArtist = new LocalArtist();
     	Artist remoteartist = remoteDAO.searchArtist(artistName);
@@ -144,9 +144,9 @@ public class Controller {
     }
     /**
      * Creates a Local Genre object with the given parameters, and sends it to the local database
-     * @param genreID
-     * @param genreName
-     * @throws Exception
+     * @param genreID The ID of a Genre used to locate it from the database
+     * @param genreName The name of a Genre
+     * @throws Exception In case the operation was unsuccessful, the method will throw an exception and interrupt the operation
      */
     public void createLocalGenre(int genreID, String genreName) throws Exception {
     	LocalGenre localGenre = new LocalGenre();
@@ -159,13 +159,12 @@ public class Controller {
     }
     /**
      * Creates a Local Album object with the given parameters, which it sends to the local database. 
-     * @param albumID
-     * @param albumName
-     * @param songListGiven
-     * @param albumYear
-     * @param genreListGiven
-     * @param artistListGiven
-     * @throws Exception
+     * @param albumName The name of the Album to be created
+     * @param albumYear The release year of the Album to be created
+     * @param genreListGiven A list of Genres related to the Album
+     * @param artistListGiven A list of Artists related to the Album
+     * @param songListGiven A list of Songs related to the Album
+     * @throws Exception In case the operation was unsuccessful, the method will throw an exception and interrupt the operation
      */
     public void createLocalAlbum(int albumID, String albumName, Set<Song> songListGiven, int albumYear, Set<Genre> genreListGiven, Set<Artist> artistListGiven ) throws Exception {
     	LocalAlbum newAlbum = new LocalAlbum();
@@ -214,7 +213,7 @@ public class Controller {
     }
     /**
      * Returns an Album based on a given albumID search from the remote database
-     * @param albumID
+     * @param albumID an ID used to search for a specific Album
      * @return
      */
     public Album getAlbum(int albumID) {
@@ -222,7 +221,7 @@ public class Controller {
     }
     /**
      * Returns a set of Artists related to a singular Album based on the Album's ID
-     * @param albumID
+     * @param albumID an ID used to locate an Album's Artists
      * @return list
      */
     public Set<Artist> getAlbumArtistList(int albumID) {
@@ -238,7 +237,7 @@ public class Controller {
     }
     /**
      * Returns a set of Genres related to a singular Album based on the Album's ID
-     * @param albumID
+     * @param albumID ID used to locate the Album's Genres
      * @return 
      */
     public Set<Genre> getAlbumGenreList(int albumID){
@@ -246,8 +245,8 @@ public class Controller {
     }
     /**
      * Creates a Genre object based on given parameters, and sends an edit request to the remote database
-     * @param genreID
-     * @param genreName
+     * @param genreID ID used to locate the editable Genre
+     * @param genreName The new name of a Genre
      */
     public void editGenre(int genreID, String genreName) {
     	Genre editGenre = new Genre();
@@ -256,8 +255,8 @@ public class Controller {
     }
     /**
      * Creates an Artist object based on given parameters, and sends an edit request to the remote database
-     * @param artistID
-     * @param artistName
+     * @param artistID ID used to locate the editable Artist
+     * @param artistName The new name of an Artist
      */
     public void editArtist(int artistID, String artistName) {
     	Artist editArtist = new Artist();
@@ -266,11 +265,11 @@ public class Controller {
     }
     /**
      * Creates an Album object based on given parameters, and sends an edit request to the remote database
-     * @param albumID
-     * @param albumName
-     * @param albumYear
-     * @param artistListEdit
-     * @param genreListEdit
+     * @param albumID ID used to locate the editable Album
+     * @param albumName New Album's name
+     * @param albumYear New Album's release year
+     * @param artistListEdit New Album's Artists
+     * @param genreListEdit New Album's Genres
      */
     public void editAlbum(int albumID, String albumName, int albumYear, String[] artistListEdit, String[] genreListEdit) {
     	Album editAlbum = new Album();
@@ -311,8 +310,8 @@ public class Controller {
     }
     /**
      * Creates a Local Genre object based on given parameters, and sends an edit request to the local database
-     * @param genreID
-     * @param genreName
+     * @param genreID ID used to locate the Genre from the local Genre
+     * @param genreName The name of the Genre-object
      */
     public void editLocalGenre(String genreID, String genreName) {
     	LocalGenre editLocalGenre = new LocalGenre();
@@ -323,10 +322,10 @@ public class Controller {
 
     /**
      * Creates a Local Album object based on given parameters, and sends an edit request to the local database
-     * @param albumID
-     * @param albumName
-     * @param songListGiven
-     * @param albumYear
+     * @param albumID ID set for the Album within the local database
+     * @param albumName The name to be set for the Album
+     * @param songListGiven The list of Songs to be set for the Album
+     * @param albumYear The Album's year
      */
     public void editLocalAlbum(String albumID, String albumName, Song[] songListGiven, int albumYear) {
     	LocalAlbum editLocalAlbum = new LocalAlbum();
@@ -337,14 +336,14 @@ public class Controller {
     }
     /**
      * Edits a Local Album's description field using a given Local Album
-     * @param localAlbum
+     * @param localAlbum Local Album to be edited
      */
     public void editLocalAlbumDescription(LocalAlbum localAlbum) {
     	localDAO.editLocalAlbumDescription(localAlbum);
     }
     /**
      * Returns a Local Album's description based on a given Local Album's ID.
-     * @param id
+     * @param id The ID used to locate a specific Local Album's data
      * @return
      */
     public String getLocalAlbumDescription(int id) {
@@ -353,60 +352,60 @@ public class Controller {
     }
     /**
      * Sends a Genre removal request to the remote database with a given Genre's ID as its parameter
-     * @param genreID
+     * @param genreID ID used to locate the Genre to be removed
      */
     public void removeGenre(int genreID) {
     	remoteDAO.removeGenre(genreID);
     }
     /**
      * Sends a Artist removal request to the remote database with a given Artist's ID as its parameter
-     * @param artistID
+     * @param artistID ID used to locate the Artist to be removed
      */
     public void removeArtist(int artistID) {
     	remoteDAO.removeArtist(artistID);
     }
     /**
      * Sends a Album removal request to the remote database with a given Album's ID as its parameter
-     * @param albumID
+     * @param albumID ID used to locate the Album to be removed
      */
     public void removeAlbum(int albumID) {
     	remoteDAO.removeAlbum(albumID);
     }
     /**
      * Sends a Local Genre removal request to the remote database with a given Genre's ID as its parameter
-     * @param genreID
+     * @param genreID ID used to locate the Local Genre to be removed
      */
     public void removeLocalGenre(int genreID) {
     	localDAO.removeGenre(genreID);
     }
     /**
      * Sends a Local Artist removal request to the remote database with a given Artist's ID as its parameter
-     * @param artistID
+     * @param artistID ID used to locate the Local Artist to be removed
      */
     public void removeLocalArtist(int artistID) {
     	localDAO.removeArtist(artistID);
     }
     /**
      * Sends a Local Album removal request to the remote database with a given Album's ID as its parameter
-     * @param albumID
+     * @param albumID ID used to locate the Local Album to be removed
      */
     public void removeLocalAlbum(int albumID) {
     	localDAO.removeAlbum(albumID);
     }
     /**
      * Returns a remote database search on Genres based on a given parameter as the search key
-     * @param genreName
+     * @param genreName Search parameter for searching the remote database
      * @return
-     * @throws Exception
+     * @throws Exception In case the operation was unsuccessful, the method will throw an exception and interrupt the operation
      */
     public Genre searchGenre(String genreName) throws Exception {
 			 return remoteDAO.searchGenre(genreName);
     }
     /**
      * Returns a remote database search on Artists based on a given parameter as the search key
-     * @param artistName
+     * @param artistName Search parameter for searching the remote database
      * @return
-     * @throws Exception
+     * @throws Exception In case the operation was unsuccessful, the method will throw an exception and interrupt the operation
      */
     public Artist searchArtist(String artistName) throws Exception { 	
     		return remoteDAO.searchArtist(artistName);
@@ -414,9 +413,9 @@ public class Controller {
     }
     /**
      * Returns a remote database search on Albums based on a given parameter as the search key
-     * @param albumName
+     * @param albumName Search parameter for searching the remote database
      * @return
-     * @throws Exception
+     * @throws Exception In case the operation was unsuccessful, the method will throw an exception and interrupt the operation
      */
     public Album searchAlbum(String albumName) throws Exception {
 			return remoteDAO.searchAlbum(albumName);
@@ -451,9 +450,9 @@ public class Controller {
     }
     /**
      * Returns a list of Local Artists based on a given parameter as the search key
-     * @param search
+     * @param search Search parameter for searching the local database
      * @return
-     * @throws Exception
+     * @throws Exception In case the operation was unsuccessful, the method will throw an exception and interrupt the operation
      */
     public List<LocalArtist> getLocalArtist(String search) throws Exception {
     	return localDAO.searchArtist(search);
@@ -461,9 +460,9 @@ public class Controller {
     
     /**
      * Returns a list of Local Albums based on a given parameter as the search key
-     * @param albumName
+     * @param albumName Search parameter for searching the local database
      * @return
-     * @throws Exception
+     * @throws Exception In case the operation was unsuccessful, the method will throw an exception and interrupt the operation
      */
     public LocalAlbum searchLocalAlbum(String albumName) throws Exception {
 		return localDAO.searchAlbum(albumName);
@@ -491,9 +490,9 @@ public class Controller {
     }
     /**
      * Returns a Local Album from the local database based on a given Album ID
-     * @param id
+     * @param id ID used to find a Local Album from the local database
      * @return
-     * @throws Exception
+     * @throws Exception In case the operation was unsuccessful, the method will throw an exception and interrupt the operation
      */
     public LocalAlbum readLocalAlbum(int id) throws Exception {
     	return localDAO.readAlbum(id);
@@ -537,7 +536,7 @@ public class Controller {
     }
     /**
      * Returns a list of all Albums related to a given Genre's ID from the remote database
-     * @param genreID
+     * @param genreID ID used to find all Albums related to the Genre from the database
      * @return
      */
     public List<Album> getGenreAlbums(int genreID){
@@ -545,7 +544,7 @@ public class Controller {
     }
     /**
      * Returns a list of all Albums related to a given Artist's ID from the remote database
-     * @param artistID
+     * @param artistID ID used to find all Albums related to the Artist from the remote database
      * @return
      */
     public List<Album> getArtistAlbums(int artistID){
@@ -553,7 +552,7 @@ public class Controller {
     }
     /**
      * Returns a list of all Songs related to a given Album's ID from the remote database
-     * @param albumID
+     * @param albumID ID used to find all Songs related to the Album from the remote database
      * @return
      */
     public Set<Song> getAlbumSong(int albumID){
@@ -561,7 +560,7 @@ public class Controller {
     }
     /**
      * Returns a list of all Local Genres related to a given Album's ID from the local database
-     * @param albumID
+     * @param albumID ID used to find all Genres related to the Album in the local database
      * @return 
      */
     public List<LocalGenre> getLocalAlbumGenres(int albumID) {
@@ -569,7 +568,7 @@ public class Controller {
     }
     /**
      * Returns a list of Local Artists related to a given Album's ID from the local database
-     * @param albumID
+     * @param albumID ID used to find all Artists related to the Album in the local database
      * @return
      */
     public List<LocalArtist> getLocalAlbumArtists(int albumID) {
@@ -577,7 +576,7 @@ public class Controller {
     }
     /**
      * Returns a list of Local Song related to a given Album's ID from the local database
-     * @param albumID
+     * @param albumID ID used to find all Songs related to the Album in the local database
      * @return
      */
     public List<LocalSong> getLocalAlbumSongs(int albumID) {
@@ -585,9 +584,9 @@ public class Controller {
     }
     /**
      * Adds a given Album to the user's local database
-     * @param albumID
-     * @param albumName
-     * @param albumYear
+     * @param albumID ID set for the Wishlist's Album
+     * @param albumName name set for the Wishlist's Album
+     * @param albumYear release year set for the Wishlist's Album
      * @return
      */
     public boolean addToWishlist(int albumID, String albumName, int albumYear) {
@@ -603,14 +602,14 @@ public class Controller {
     }
     /**
      * Removes an Album from a user's own WishList given a specific ID
-     * @param id
+     * @param id ID used to remove a specific Wishlist from the local database
      */
     public boolean removeFromWishlist(int id) {
     	return localDAO.removeFromWishlist(id);
     }
     /**
      * Returns a WishList item from the local database with a given Album ID as the search key
-     * @param albumID
+     * @param albumID ID used to search a specific Wishlist item from the local database
      * @return
      */
     public boolean searchWishlist(int albumID) {
@@ -618,8 +617,8 @@ public class Controller {
     }
     /**
      * Creates a User Reqest into the remote database with given parameters as both the title and contents respectively 
-     * @param rTitle
-     * @param rContents
+     * @param rTitle The title for a new User Request
+     * @param rContents The contents for a new User Request
      */
     public void createRequest(String rTitle, String rContents) {
     	UserRequests newRequest = new UserRequests();
@@ -634,7 +633,7 @@ public class Controller {
     }
     /**
      * Returns a User Request from the remote database based on a request's ID
-     * @param id
+     * @param id ID used to locate a specific User Request from the database
      * @return
      */
     public UserRequests getRequest(int id) {
@@ -649,16 +648,16 @@ public class Controller {
     }
     /**
      * Searches for a specific User Request with a given parameter as the search key
-     * @param rTitle
+     * @param rTitle The search paramter for a given User Request's title
      * @return
-     * @throws Exception
+     * @throws Exception In case the operation was unsuccessful, the method will throw an exception and interrupt the operation
      */
     public UserRequests searchRequestTitle(String rTitle) throws Exception {
     	return remoteDAO.searchRequestTitle(rTitle);
     }
     /**
      * Removes a User Request from the remote database with a given request ID as the parameter
-     * @param id
+     * @param id ID of User Request to be removed
      * @return
      */
     public boolean removeRequest(int id) {
