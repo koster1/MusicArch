@@ -58,12 +58,10 @@ public class HelpController {
 	@FXML
 	/**
 	 * Initialize loads the correct text-file according to the language of the application at the moment of use.
-	 * 
 	 * @throws FileNotFoundException If the properties are not found, this exception shows up.
 	 */
 	protected void initialize() throws FileNotFoundException {
 	Properties properties = new Properties();
-	
 	String helpLanguage = new String();
 	
 	try {
@@ -72,13 +70,9 @@ public class HelpController {
 	} catch (FileNotFoundException e1) {
 		e1.printStackTrace();
 	} catch (IOException e1) {
-		// TODO Auto-generated catch block
 		e1.printStackTrace();
 	}
 	char[] buffer = null;
-	/**
-	 * The file is chosen from the resources and
-	 */
 	
 	File file = new File("src/main/resources/" + helpLanguage );
 	try(FileReader reader = new FileReader(file)){
