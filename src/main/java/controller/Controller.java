@@ -320,19 +320,7 @@ public class Controller {
     	editLocalGenre.setGenreName(genreName);
     	localDAO.editGenre(editLocalGenre, editID);
     }
-    /**
-     * Creates a Local Artist object based on given parameters, and sends an edit request to the local database
-     * @param artistID
-     * @param artistName
-     * @param artistBio
-     */
-    public void editLocalArtist(String artistID, String artistName, String artistBio) {
-    	LocalArtist editLocalArtist = new LocalArtist();
-    	int editID = Integer.parseInt(artistID);
-    	editLocalArtist.setArtistName(artistName);
-    	editLocalArtist.setArtistBio(artistBio);
-    	localDAO.editArtist(editLocalArtist, editID);
-    }
+
     /**
      * Creates a Local Album object based on given parameters, and sends an edit request to the local database
      * @param albumID
@@ -470,13 +458,7 @@ public class Controller {
     public List<LocalArtist> getLocalArtist(String search) throws Exception {
     	return localDAO.searchArtist(search);
     }
-    /**
-     * Returns a list of all Local Artists found in the local database
-     * @return
-     */
-    public List<String> existinLocalArtists() {
-    	return localDAO.existingArtists();
-    }
+    
     /**
      * Returns a list of Local Albums based on a given parameter as the search key
      * @param albumName

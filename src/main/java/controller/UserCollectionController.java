@@ -40,7 +40,10 @@ import com.jcg.hibernate.maven.Genre;
 import java.io.IOException;
 import java.util.List;
 
-
+/*
+ * controller for the UserCollection view
+ * @author Jani
+ * */
 public class UserCollectionController {
 	
 	private Controller controller;
@@ -61,8 +64,6 @@ public class UserCollectionController {
     @FXML
     private ListView<LocalAlbum> GridListView;
     
-    @FXML
-    private GridPane UserGrid;
     
     @FXML
     private ListView<LocalSong> SongListView;
@@ -323,30 +324,8 @@ public class UserCollectionController {
 		
 
     }
-    @FXML
-    void getDetails() {
-    	LocalAlbum localAlbum = GridListView.getSelectionModel().getSelectedItem();
-    	System.out.println("Album id from listItem" + localAlbum.getAlbumID());
-    }
-
-    @FXML
-    void Album(MouseEvent event) {
-    	
-    	try {
-    		UserGrid.getChildren().clear();
-    		Genre[] genreList = controller.getGenres();
-    		int counter = 0;
-    		System.out.println(UserGrid + " UserGrid????");
-    		for(Genre genre : genreList) {
-    			System.out.println(genre.getGenreName());
-    			Text text = new Text(genre.getGenreName());
-    			UserGrid.add(text, 0, counter);
-    			counter++;
-    		}
-    	}catch (Exception e) {
-    		System.out.println("Miksiiii" + e.getMessage());
-    	}
-    }
+    
+  
     /**
 	 * Action event for button that saves the changes in the description TextArea
 	 * 

@@ -13,6 +13,10 @@ import model.LocalAlbum;
 import model.LocalSong;
 import model.WishList;
 
+/*
+ * Data access object for the local database
+ * @author Jani
+ * */
 public class LocalDAO {
 	
 //	static Session session;
@@ -30,7 +34,14 @@ public class LocalDAO {
 	}
 	
 	
-	
+	/**
+	 * Method used to create a new genre in the database. Will first iterate through
+	 * all found genreNames, to ensure that it will not allow the creation of a
+	 * genre that already exists. 
+	 * @param genre 
+	 * @return true if creation went through, false if not
+	 * @throws Exception
+	 */
 	public boolean createGenre(LocalGenre genre) throws Exception {
 		LocalGenre[] genreSearch;
 		genreSearch = readGenres();
@@ -63,6 +74,11 @@ public class LocalDAO {
 		}
 	}
 	//These are missing a simple text search!
+	/**
+	 * Method used to search for a genre with a given id
+	 * @param id 
+	 * @return LocalGenre object
+	 */
 	public LocalGenre readGenre(int id) {	
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();			
@@ -73,6 +89,12 @@ public class LocalDAO {
 		return genre;		
 	}
 	
+	/**
+	 * Method used to get a list of all the genres in the database
+	 * @param  
+	 * @return Returns a list of all LocalGenre objects
+	 * @throws Exception
+	 */
 	public LocalGenre[] readGenres() {
 		Transaction transAct = null;
 		try (Session session = sessionFactory.openSession()) {
@@ -91,7 +113,12 @@ public class LocalDAO {
 		}
 	}
 	
-	//TESTED! Works
+	/**
+	 * Method used to search for a genre
+	 * @param genreSearch 
+	 * @return Returns a LocalGenre
+	 * @throws Exception
+	 */
 	public LocalGenre searchGenre(String genreSearch) {
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
@@ -105,7 +132,13 @@ public class LocalDAO {
 		}
 	}
 	
-	//To be tested
+	/**
+	 * Method used to edit a genre in the User's collection
+	 * @param genreEdit
+	 * @param id
+	 * @return true if creation went through, false if not
+	 * @throws Exception
+	 */
 	public boolean editGenre(LocalGenre genreEdit, int id) {
 		Transaction transAct = null;		
 		try(Session session = sessionFactory.openSession()){
@@ -123,6 +156,12 @@ public class LocalDAO {
 	}
 	
 	//Working! Still needs extra logic for checking if a genre can be removed
+	/**
+	 * Method used to remove a genre from the User's collection
+	 * @param id
+	 * @return true if removal succeeded, false if not
+	 * @throws Exception
+	 */
 	public boolean removeGenre(int id) {
 		Transaction transAct = null;		
 		try(Session session = sessionFactory.openSession()){
@@ -138,7 +177,13 @@ public class LocalDAO {
 			throw e;
 		}
 	}
-	
+	/**
+	 * Method used to create an artist in the User's collection.
+	 * The method first checks if an artist already exists
+	 * @param artist
+	 * @return true if creation went through, false if not
+	 * @throws Exception
+	 */
 	public boolean createArtist(LocalArtist artist) {
 		LocalArtist[] artistSearch = readArtists();
 		
@@ -164,6 +209,13 @@ public class LocalDAO {
 		}
 	}
 	
+	/**
+	 * Method used to create an artist in the User's collection.
+	 * The method first checks if an artist already exists
+	 * @param artist
+	 * @return true if creation went through, false if not
+	 * @throws Exception
+	 */
 	public LocalArtist readArtist(int id) {		
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();			
@@ -174,6 +226,12 @@ public class LocalDAO {
 		return artist;
 	}
 	
+	/**
+	 * Method used to get all the artists in the local database
+	 * @param
+	 * @return LocalArtist[] list of artists from the local database
+	 * @throws Exception
+	 */
 	public LocalArtist[] readArtists() {
 		Transaction transAct = null;
 		try (Session session = sessionFactory.openSession()) {
@@ -216,6 +274,12 @@ public class LocalDAO {
 //		}
 //	}
 //	
+	/**
+	 * Method used for searching for an artist
+	 * @param artistSearch a String given by the user
+	 * @return List<LocalArtist>
+	 * @throws Exception
+	 */
 	public List<LocalArtist> searchArtist(String artistSearch) throws Exception {
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
@@ -239,21 +303,6 @@ public class LocalDAO {
 		
 	}
 	
-	public List<String> existingArtists(){
-		Transaction transAct = null;
-		try(Session session = sessionFactory.openSession()){
-			transAct = session.beginTransaction();
-			String sql = "select ArtistName from Artist";
-			SQLQuery query = session.createSQLQuery(sql);
-			List<String> results = query.list();
-			transAct.commit();
-			return results;
-		}catch(Exception e) {
-			if(transAct != null)
-				transAct.rollback();
-			throw e;
-		}
-	}
 	
 //	public Artist searchArtist(String artistSearch) {
 //		Transaction transAct = null;
@@ -267,25 +316,14 @@ public class LocalDAO {
 //			return artistList.get(0);			
 //		}
 //	}	
-	
-	//To be tested!
-	public boolean editArtist(LocalArtist artistEdit, int id) {
-		Transaction transAct = null;		
-		try(Session session = sessionFactory.openSession()){
-		transAct = session.beginTransaction();		
-		Artist editArtist = (Artist)session.load(Artist.class, id);		
-		session.saveOrUpdate(editArtist);
-		transAct.commit();
-		return true;
 		
-		}catch(Exception e) {
-			if(transAct != null)
-				transAct.rollback();
-			throw e;
-			}
-		}		
 	
-	//To be tested!
+	/**
+	 * Method used to remove an artist
+	 * @param id 
+	 * @return true if creation went through, false if not
+	 * @throws Exception
+	 */
 	public boolean removeArtist(int id) {
 		Transaction transAct = null;		
 		try(Session session = sessionFactory.openSession()){
@@ -304,6 +342,16 @@ public class LocalDAO {
 	
 	
 	//Still not sure how to handle the song list here :/
+	/**
+	 * Method used for creating an album
+	 * Checks if the album already exists
+	 * @param LocalAlbum a LocalArtist given by the user
+	 * @param LocalSong[] table of songs
+	 * @param LocalArtist[] table of artists
+	 * @param LocalGenre[] table of genres
+	 * @return true if creation went through, false if not
+	 * @throws Exception
+	 */
 	public boolean createAlbum(LocalAlbum localAlbum, LocalSong[] songs, LocalArtist[] artists, LocalGenre[] genres) throws Exception {
 		LocalAlbum[] albumSearch = readAlbums();		
 		//First loop to check whether a given genre is already found within the database
@@ -359,7 +407,12 @@ public class LocalDAO {
 			throw e;			
 		}
 	}
-	
+	/**
+	 * Method used for searching for an album
+	 * @param id 
+	 * @return LocalAlbum returns an album from the user's collection
+	 * @throws Exception
+	 */
 	public LocalAlbum readAlbum(int id) throws Exception {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
@@ -370,6 +423,11 @@ public class LocalDAO {
 		return album;	
 	}
 	
+	/**
+	 * Method used to get a list of albums
+	 * @return LocalAlbum[] returns all the albums from an user's collection
+	 * @throws Exception
+	 */
 	public LocalAlbum[] readAlbums() {
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
@@ -388,6 +446,12 @@ public class LocalDAO {
 		}
 	}
 	
+	/**
+	 * Method used for searching for an album with a String
+	 * @param albumSearch 
+	 * @return LocalAlbum returns an album from the user's collection
+	 * @throws Exception
+	 */
 	public LocalAlbum searchAlbum(String albumSearch) throws Exception{
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
@@ -413,6 +477,14 @@ public class LocalDAO {
 	}
 	
 	//To be tested! Still not sure how to handle the song list here :/
+	/**
+	 * Method used for editing an album
+	 * @param albumEdit
+	 * @param songEdit
+	 * @param id
+	 * @return true if success else false
+	 * @throws Exception
+	 */
 	public boolean editAlbum(LocalAlbum albumEdit, LocalSong[] songEdit, int id) {
 		Transaction transAct = null;		
 		try(Session session = sessionFactory.openSession()){
@@ -430,6 +502,12 @@ public class LocalDAO {
 	}
 		
 	//To be tested!
+	/**
+	 * Method used for removing an album
+	 * @param id 
+	 * @return true if success else false
+	 * @throws Exception
+	 */
 	public boolean removeAlbum(int id) {
 		
 		Transaction transAct = null;		
@@ -447,6 +525,12 @@ public class LocalDAO {
 		}
 	}
 	
+	/**
+	 * Method used for editing a song
+	 * @param id 
+	 * @return true if success else false
+	 * @throws Exception
+	 */
 	public boolean editSong(int id) {
 		Transaction transAct = null;		
 		try(Session session = sessionFactory.openSession()){
@@ -463,6 +547,12 @@ public class LocalDAO {
 		}
 	}
 	
+	/**
+	 * Method gives name of everything in the local database
+	 * @param id 
+	 * @return List<String>
+	 * @throws Exception
+	 */
 	public List<String> getSearchable() {
 		Transaction transaction = null;
 		try(Session session = sessionFactory.openSession()) {
@@ -479,9 +569,15 @@ public class LocalDAO {
 		}
 		
 	}
-	/*
-	 * Method takes in an album's ID and then opens a session with it. During the session, a song-list can be created based on the instance
-	 * After loading the list, the session is closed and the method returns a list of Songs based on the album.
+	
+//	 Method takes in an album's ID and then opens a session with it. During the session, a song-list can be created based on the instance
+//	 After loading the list, the session is closed and the method returns a list of Songs based on the album.
+	 
+	/**
+	 * Method used to get all songs from an album
+	 * @param albumID 
+	 * @return List<LocalSong>
+	 * @throws Exception
 	 */
 	public List<LocalSong> localAlbumSongs(int albumID){
 		Transaction transAct = null;
@@ -500,6 +596,12 @@ public class LocalDAO {
 		}
 	}
 	
+	/**
+	 * Method used to get all genres from an album
+	 * @param albumID 
+	 * @return List<LocalGenre>
+	 * @throws Exception
+	 */
 	public List<LocalGenre> getLocalAlbumGenres(int albumID) {
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
@@ -522,6 +624,12 @@ public class LocalDAO {
 		}
 	}
 	
+	/**
+	 * Method used to get all artists from an album
+	 * @param albumID 
+	 * @return List<LocalArtist>
+	 * @throws Exception
+	 */
 	public List<LocalArtist> getLocalAlbumArtists(int albumID) {
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){
@@ -544,11 +652,14 @@ public class LocalDAO {
 		}
 	}
 	
+	/**
+	 * Method searches for an album in the wishlist
+	 * @param albumID
+	 * @return true if success else false
+	 */
 	@SuppressWarnings("deprecation")
 	public boolean searchWishlist(int albumID) {
 
-		
-		
 		Transaction transAct = null;
 		
 		try(Session session = sessionFactory.openSession()) {
@@ -576,6 +687,15 @@ public class LocalDAO {
 		return false;
 	}
 	
+	/**
+	 * Method adds an album to a wishlist
+	 * Checks if it already exists in the wishlist
+	 * @param albumID
+	 * @param albumName
+	 * @param albumYear
+	 * @return true if success else false
+	 * @throws Exception
+	 */
 	public boolean addToWishlist(int albumID, String albumName, int albumYear) {
 		if(searchWishlist(albumID) == true) {
 			return false;
@@ -598,6 +718,13 @@ public class LocalDAO {
 			throw e;
 		}
 	}
+	/**
+	 * Method to remove an album from a wishlist
+	 * Checks if it already exists in the wishlist
+	 * @param id
+	 * @return true if success else false
+	 * @throws Exception
+	 */
 	public boolean removeFromWishlist(int id) {
 		if(searchWishlist(id) == false) {
 			return false;
@@ -624,6 +751,12 @@ public class LocalDAO {
 		}
 	}
 	
+	/**
+	 * Method to edit user's album description
+	 * @param localAlbum
+	 * @return true if success else false
+	 * @throws Exception
+	 */
 	public boolean editLocalAlbumDescription(LocalAlbum localAlbum) {
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()) {
@@ -641,6 +774,12 @@ public class LocalDAO {
 		}
 	}
 	
+	/**
+	 * Method to get an album description of a specific album
+	 * @param id
+	 * @return String Returns the whole description of the found album
+	 * @throws Exception
+	 */
 	public String getLocalAlbumDescription(int id) {
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()) {
@@ -656,7 +795,11 @@ public class LocalDAO {
 			throw e;
 		}
 	}
-	
+	/**
+	 * Method to get all the wishlist items
+	 * @return List<WishList> Returns all the wishlist items
+	 * @throws Exception
+	 */
 	public List<WishList> readWishList() {
 		Transaction transAct = null;
 		try(Session session = sessionFactory.openSession()){

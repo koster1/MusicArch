@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.criteria.CriteriaBuilder;
 
 import org.hibernate.*;
 import org.hibernate.cfg.Configuration;

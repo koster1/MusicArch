@@ -46,7 +46,6 @@ public class HelpController {
 	}
 
 	
-	
 	@FXML
 	protected void initialize() throws FileNotFoundException {
 	Properties properties = new Properties();
